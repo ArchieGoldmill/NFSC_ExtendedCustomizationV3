@@ -1,0 +1,191 @@
+#pragma once
+#include "Feature.h"
+#include "CarRenderInfo.h"
+#include "Game.h"
+#include "eLightContext.h"
+#include "eReplacementTextures.h"
+#include "CarRenderConn.h"
+
+bool IsGlareOn(CarRenderInfo* carRenderInfo)
+{
+	auto carRenderConn = CarRenderConn::Get(carRenderInfo);
+	if (carRenderConn)
+	{
+		auto pVehicle = carRenderConn->GetPVehicle();
+		if (pVehicle)
+		{
+			return pVehicle->IsGlareOn(7);
+		}
+	}
+
+	return false;
+}
+
+void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
+{
+	if (carRenderInfo->RideInfo->CarId == 0x11)
+	{
+		auto entries = carRenderInfo->Get<eReplacementTextures::Entry>(0x588);
+		auto rideInfo = carRenderInfo->RideInfo;
+
+		auto leftHeadlightPart = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
+		if (leftHeadlightPart)
+		{
+			auto leftHeadlight = entries + 0x1B;
+			auto rightHeadlight = entries + 0x1C;
+			auto leftHeadlightGlass = entries + 0x20;
+			auto rightHeadlightGlass = entries + 0x21;
+
+			bool lightsOn = Game::InRace() && IsGlareOn(carRenderInfo);
+			auto texture = leftHeadlightPart->GetTextureName();
+
+			auto newName = bStringHash(lightsOn ? "_ON" : "_OFF", texture);
+			leftHeadlight->Update(lightsOn ? Hashes::HEADLIGHT_LEFT_ON : Hashes::HEADLIGHT_LEFT_OFF, newName);
+			rightHeadlight->Update(lightsOn ? Hashes::HEADLIGHT_RIGHT_ON : Hashes::HEADLIGHT_RIGHT_OFF, newName);
+
+			newName = bStringHash(lightsOn ? "_GLASS_ON" : "_GLASS_OFF", texture);
+			leftHeadlightGlass->Update(Hashes::HEADLIGHT_GLASS_LEFT, newName);
+			rightHeadlightGlass->Update(Hashes::HEADLIGHT_GLASS_RIGHT, newName);
+		}
+
+		auto leftBrakelightPart = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
+		if (leftBrakelightPart)
+		{
+			auto leftBrakelight = entries + 0x1D;
+			auto rightBrakelight = entries + 0x1E;
+			auto leftBrakelightGlass = entries + 0x1F;
+			auto rightBrakelightGlass = entries + 0x22;
+			auto centerBrakelight = entries + 0x23;
+
+			auto texture = leftBrakelightPart->GetTextureName();
+
+			auto newName = bStringHash(Game::InRace() ? (carRenderInfo->IsLeftBrakelightOn() ? "_ON" : "_ONF") : "_OFF", texture);
+			leftBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_LEFT_ON : Hashes::BRAKELIGHT_LEFT_OFF, newName);
+			rightBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_RIGHT_ON : Hashes::BRAKELIGHT_RIGHT_OFF, newName);
+			centerBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_CENTRE_ON : Hashes::BRAKELIGHT_CENTRE_OFF, newName);
+
+			newName = bStringHash(Game::InRace() ? "_GLASS_ON" : "_GLASS_OFF", texture);
+			leftBrakelightGlass->Update(Hashes::BRAKELIGHT_GLASS_LEFT, newName);
+			rightBrakelightGlass->Update(Hashes::BRAKELIGHT_GLASS_RIGHT, newName);
+		}
+
+		Hash carHash = StringHash(rideInfo->GetCarTypeName());
+		bool isReverseOn = carRenderInfo->IsReverseOn();
+		auto newName = isReverseOn ? bStringHash("_REVERSE_ON", carHash) : bStringHash("_REVERSE_OFF", carHash);
+		auto reverse = entries + 0x24;
+
+		reverse->Update(carRenderInfo->IsReverseOn() ? Hashes::REVERSE_ON : Hashes::REVERSE_OFF, newName);
+	}
+	else
+	{
+		carRenderInfo->UpdateLightStateTextures();
+	}
+}
+
+void SetTextureHash(Hash* texPtr, Hash hash)
+{
+	for (int i = 0; i < 100; i++)
+	{
+		// We already have this texture
+		if (texPtr[i] == hash)
+		{
+			break;
+		}
+
+		if (texPtr[i] == 0)
+		{
+			texPtr[i] = hash;
+			break;
+		}
+	}
+
+	texPtr[0xD0]++;
+}
+
+void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
+{
+	auto leftBrakelight = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
+	if (leftBrakelight)
+	{
+		auto texture = leftBrakelight->GetTextureName();
+		SetTextureHash(texPtr, bStringHash("_ONF", texture));
+	}
+
+	Hash carHash = StringHash(rideInfo->GetCarTypeName());
+	SetTextureHash(texPtr, bStringHash("_REVERSE_ON", carHash));
+	SetTextureHash(texPtr, bStringHash("_REVERSE_OFF", carHash));
+}
+
+struct ModelRenderInfo
+{
+	int unk1;
+	TextureInfo* TextureInfo;
+	void* Texture[5];
+	int unk2;
+	int unk3;
+	void* Model;
+	int Flags;
+	void* Shader;
+	eLightContext* Lighting;
+};
+
+eLightContext* PrelitLightContext;
+
+void __stdcall CarLighting(ModelRenderInfo* info)
+{
+	auto lighting = info->Lighting;
+	char* flag = (char*)info->TextureInfo + 0x3b;
+	if (*flag & 0x80)
+	{
+		if (!PrelitLightContext)
+		{
+			PrelitLightContext = new eLightContext();
+			PrelitLightContext->MakePrelit();
+		}
+
+		lighting = PrelitLightContext;
+	}
+
+	Game::sub_71DFA0(*(int*)0x00AB0BA4, lighting, 0);
+}
+
+void __declspec(naked) CarLightingCave()
+{
+	static constexpr auto cExit = 0x00727347;
+
+	_asm
+	{
+		push esi;
+		call CarLighting;
+		jmp cExit;
+	}
+}
+
+void __declspec(naked) GetUsedCarTextureInfoCave()
+{
+	__asm
+	{
+		pushad;
+		push[esp + 0x94];
+		push esi;
+		call GetUsedCarTextureInfo;
+		popad;
+
+		pop esi;
+		pop ebp;
+		pop ebx;
+		add esp, 0x60;
+		ret;
+	}
+}
+
+void InitTextures()
+{
+	injector::WriteMemory(0x007CECC7, ((int)Slot::LEFT_HEADLIGHT + 0x15) * 4, true);
+	injector::WriteMemory(0x007CECCD, ((int)Slot::LEFT_BRAKELIGHT + 0x15) * 4, true);
+	injector::MakeJMP(0x007CF764, GetUsedCarTextureInfoCave, true);
+
+	//injector::MakeJMP(0x0072733A, CarLightingCave, true);
+
+	injector::MakeCALL(0x007DE789, UpdateLightStateTextures, true);
+}

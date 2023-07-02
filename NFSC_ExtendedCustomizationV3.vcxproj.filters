@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Features">
+      <UniqueIdentifier>{99dbc145-59d8-4610-99cf-a36315162c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{0b92d4c7-02b0-4758-bcf6-14491bd860b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hooks">
+      <UniqueIdentifier>{2f1e582f-8584-4ceb-85a9-3572fef00236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Animations">
+      <UniqueIdentifier>{ec876150-a6b4-4528-a309-8688fd311e8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{f4061b2a-21b1-4b48-a238-7a4d00c3c397}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Features\Animations</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Customization.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="Feature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="RideInfo.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="FeGarageMain.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="FECustomizationRecord.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Hashes.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Slots.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="DBCarPart.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="CarPartDatabase.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="StandardSelectablePart.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="FECarRecord.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="CarRenderInfoHooks.h">
+      <Filter>Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="CarRenderInfo.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="CarRenderInfoExtras.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureInfo.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionMarker.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="eLightMaterial.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="eModel.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="eSolid.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Func.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="FrontEndRenderingCar.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="CarRenderConn.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Features\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DWrapper.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="eLightContext.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="eReplacementTextures.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="PVehicle.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

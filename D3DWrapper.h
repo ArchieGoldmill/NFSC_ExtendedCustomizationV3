@@ -1,0 +1,71 @@
+#pragma once
+#include <D3dx9math.h>
+
+namespace D3D
+{
+	class Quaternion
+	{
+		friend class Matrix;
+
+	private:
+		D3DXQUATERNION inst;
+
+	public:
+		static Quaternion Slerp(Quaternion q1, Quaternion q2, float t)
+		{
+			Quaternion result;
+			D3DXQuaternionSlerp(&result.inst, &q1.inst, &q2.inst, t);
+			return result;
+		}
+
+		Quaternion& Normalize()
+		{
+			D3DXQuaternionNormalize(&this->inst, &this->inst);
+			return *this;
+		}
+	};
+
+	class Matrix
+	{
+	private:
+		D3DXMATRIX inst;
+
+	public:
+		Quaternion ToQuaternion()
+		{
+			Quaternion quaternion;
+			D3DXQuaternionRotationMatrix(&quaternion.inst, &this->inst);
+			return quaternion;
+		}
+
+		D3DXVECTOR3 GetW()
+		{
+			D3DXVECTOR3 v;
+			v.x = this->inst.m[3][0];
+			v.y = this->inst.m[3][1];
+			v.z = this->inst.m[3][2];
+
+			return v;
+		}
+
+		void SetW(D3DXVECTOR3 t)
+		{
+			this->inst.m[3][0] = t.x;
+			this->inst.m[3][1] = t.y;
+			this->inst.m[3][2] = t.z;
+		}
+
+		static Matrix Transformation(Quaternion q, D3DXVECTOR3 origin)
+		{
+			Matrix result;
+			D3DXVECTOR3 pos{ 0,0,0 };
+			D3DXMatrixTransformation(&result.inst, NULL, NULL, NULL, &origin, &q.inst, &pos);
+			return result;
+		}
+
+		static void Multiply(Matrix* result, Matrix* m1, Matrix* m2)
+		{
+			D3DXMatrixMultiply(&result->inst, &m1->inst, &m2->inst);
+		}
+	};
+}
