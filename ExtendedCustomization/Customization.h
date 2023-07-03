@@ -32,7 +32,7 @@ void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slo
 {
 	auto carId = rideInfo->CarId;
 
-	auto installedPart = record->GetInstalledPart(carId, slot);
+	auto installedPart = rideInfo->GetPart(slot);
 	if (installedPart && installedPart->HasKitW(kit))
 	{
 		return;
@@ -44,7 +44,7 @@ void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slo
 		auto part = carPartDatabase->GetByKitW(slot, carId, kit);
 		if (part)
 		{
-			record->SetInstalledPart(slot, part, carId, false);
+			InstallPart(rideInfo, record, slot, part);
 		}
 	}
 }
