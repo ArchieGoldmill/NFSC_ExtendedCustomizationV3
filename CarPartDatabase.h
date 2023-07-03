@@ -11,13 +11,13 @@ public:
 		return (CarPartDatabase*)0x00B76690;
 	}
 
-	DBCarPart* GetCarPart(Slot slot, int carId, DBCarPart* prevPart)
+	DBCarPart* GetCarPart(Slot slot, CarType carId, DBCarPart* prevPart)
 	{
-		static auto _GetCarPart = (DBCarPart * (__thiscall*)(CarPartDatabase*, const char*, int carId, Slot, Hash, DBCarPart*, int))0x007CDDF0;
+		static auto _GetCarPart = (DBCarPart * (__thiscall*)(CarPartDatabase*, const char*, CarType, Slot, Hash, DBCarPart*, int))0x007CDDF0;
 		return _GetCarPart(this, 0, carId, slot, 0, prevPart, -1);
 	}
 
-	DBCarPart* GetByKitNumber(Slot slot, int carId, int kitNumber)
+	DBCarPart* GetByKitNumber(Slot slot, CarType carId, int kitNumber)
 	{
 		DBCarPart* part = 0;
 		while (true)
@@ -38,7 +38,7 @@ public:
 		return NULL;
 	}
 
-	DBCarPart* GetByKitW(Slot slot, int carId, int kitw)
+	DBCarPart* GetByKitW(Slot slot, CarType carId, int kitw)
 	{
 		DBCarPart* part = 0;
 		while (true)

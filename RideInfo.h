@@ -13,7 +13,7 @@ class CarRenderInfo;
 class RideInfo
 {
 public:
-	int CarId;
+	CarType CarId;
 	int unk1[285];
 	int RenderUsage;
 	int unk2;
@@ -37,7 +37,7 @@ public:
 
 	char* GetCarTypeName()
 	{
-		static auto _GetCarTypeName = (char* (__cdecl*)(int))0x007B0290;
+		static auto _GetCarTypeName = (char* (__cdecl*)(CarType))0x007B0290;
 		return _GetCarTypeName(this->CarId);
 	}
 };

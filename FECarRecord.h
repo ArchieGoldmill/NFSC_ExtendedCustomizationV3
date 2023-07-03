@@ -1,4 +1,5 @@
 #pragma once
+#include "Game.h"
 
 class FECarRecord
 {
@@ -9,9 +10,9 @@ public:
 		return *gFECarRecord;
 	}
 
-	int GetType()
+	CarType GetType()
 	{
-		static auto _GetType = (int(__thiscall*)(FECarRecord*))0x004AE150;
+		static auto _GetType = (CarType(__thiscall*)(FECarRecord*))0x004AE150;
 		return _GetType(this);
 	}
 };

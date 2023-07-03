@@ -28,11 +28,45 @@ void InstallByKitNumber(Slot slot, RideInfo* rideInfo, FECustomizationRecord* re
 	}
 }
 
+void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot, int kit)
+{
+	auto carId = rideInfo->CarId;
+
+	auto installedPart = record->GetInstalledPart(carId, slot);
+	if (installedPart && installedPart->HasKitW(kit))
+	{
+		return;
+	}
+
+	auto carPartDatabase = CarPartDatabase::Get();
+	if (carPartDatabase)
+	{
+		auto part = carPartDatabase->GetByKitW(slot, carId, kit);
+		if (part)
+		{
+			record->SetInstalledPart(slot, part, carId, false);
+		}
+	}
+}
+
 void HandleSpecialCustomization(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
 {
 	if (!rideInfo)
 	{
 		return;
+	}
+
+	auto body = rideInfo->GetPart(Slot::BODY);
+	if (body)
+	{
+		int kit = body->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		InstallBodyPart(rideInfo, record, Slot::FRONT_BUMPER, kit);
+		InstallBodyPart(rideInfo, record, Slot::REAR_BUMPER, kit);
+		InstallBodyPart(rideInfo, record, Slot::SKIRT, kit);
+		InstallBodyPart(rideInfo, record, Slot_FrontFender, kit);
+		InstallBodyPart(rideInfo, record, Slot_RearFender, kit);
+		InstallBodyPart(rideInfo, record, Slot::HOOD, kit);
+		InstallBodyPart(rideInfo, record, Slot_Trunk, kit);
 	}
 
 	auto leftMirror = rideInfo->GetPart(Slot::LEFT_SIDE_MIRROR);
@@ -63,32 +97,13 @@ void HandleSpecialCustomization(FeGarageMain* feGarageMain, RideInfo* rideInfo, 
 
 void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMain, int, RideInfo* rideInfo, FECustomizationRecord* record)
 {
-	if (rideInfo->CarId == 0x11)
+	if (rideInfo->CarId.Id == 0x11)
 	{
 		HandleSpecialCustomization(feGarageMain, rideInfo, record);
 	}
 	else
 	{
 		feGarageMain->HandleSpecialCustomization(rideInfo, record);
-	}
-}
-
-void InstallBodyPart(FECustomizationRecord* record, Slot slot, int carId, int kit)
-{
-	auto installedPart = record->GetInstalledPart(carId, slot);
-	if (installedPart && installedPart->HasKitW(kit))
-	{
-		return;
-	}
-
-	auto carPartDatabase = CarPartDatabase::Get();
-	if (carPartDatabase)
-	{
-		auto part = carPartDatabase->GetByKitW(slot, carId, kit);
-		if (part)
-		{
-			record->SetInstalledPart(slot, part, carId, false);
-		}
 	}
 }
 
@@ -99,33 +114,19 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 		record = FECustomizationRecord::Get();
 	}
 
-	int carId = -1;
-	auto slot = selectablePart->SlotId;
-	auto part = selectablePart->Part;
+	CarType carId(-1);
 	auto feCarRecord = FECarRecord::Get();
 	if (feCarRecord)
 	{
 		carId = feCarRecord->GetType();
 	}
 
-	if (slot == Slot::BODY)
-	{
-		int kit = part->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
-		InstallBodyPart(record, Slot::FRONT_BUMPER, carId, kit);
-		InstallBodyPart(record, Slot::REAR_BUMPER, carId, kit);
-		InstallBodyPart(record, Slot::SKIRT, carId, kit);
-		InstallBodyPart(record, Slot_FrontFender, carId, kit);
-		InstallBodyPart(record, Slot_RearFender, carId, kit);
-		InstallBodyPart(record, Slot::HOOD, carId, kit);
-		InstallBodyPart(record, Slot_Trunk, carId, kit);
-	}
-
-	return record->SetInstalledPart(slot, part, carId, setOnly);
+	return record->SetInstalledPart(selectablePart->SlotId, selectablePart->Part, carId, setOnly);
 }
 
 int __fastcall IsSetHeadlightOn(FECarRecord* feCarRecord)
 {
-	int carId = feCarRecord->GetType();
+	auto carId = feCarRecord->GetType();
 
 	bool popupsEnabled = false;
 	if (popupsEnabled)

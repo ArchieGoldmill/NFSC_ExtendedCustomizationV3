@@ -6,24 +6,9 @@
 #include "eReplacementTextures.h"
 #include "CarRenderConn.h"
 
-bool IsGlareOn(CarRenderInfo* carRenderInfo)
-{
-	auto carRenderConn = CarRenderConn::Get(carRenderInfo);
-	if (carRenderConn)
-	{
-		auto pVehicle = carRenderConn->GetPVehicle();
-		if (pVehicle)
-		{
-			return pVehicle->IsGlareOn(7);
-		}
-	}
-
-	return false;
-}
-
 void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 {
-	if (carRenderInfo->RideInfo->CarId == 0x11)
+	if (carRenderInfo->RideInfo->CarId.Id == 0x11)
 	{
 		auto entries = carRenderInfo->Get<eReplacementTextures::Entry>(0x588);
 		auto rideInfo = carRenderInfo->RideInfo;
@@ -36,7 +21,7 @@ void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 			auto leftHeadlightGlass = entries + 0x20;
 			auto rightHeadlightGlass = entries + 0x21;
 
-			bool lightsOn = Game::InRace() && IsGlareOn(carRenderInfo);
+			bool lightsOn = Game::InRace() && carRenderInfo->IsGlareOn();
 			auto texture = leftHeadlightPart->GetTextureName();
 
 			auto newName = bStringHash(lightsOn ? "_ON" : "_OFF", texture);
@@ -116,51 +101,6 @@ void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 	SetTextureHash(texPtr, bStringHash("_REVERSE_OFF", carHash));
 }
 
-struct ModelRenderInfo
-{
-	int unk1;
-	TextureInfo* TextureInfo;
-	void* Texture[5];
-	int unk2;
-	int unk3;
-	void* Model;
-	int Flags;
-	void* Shader;
-	eLightContext* Lighting;
-};
-
-eLightContext* PrelitLightContext;
-
-void __stdcall CarLighting(ModelRenderInfo* info)
-{
-	auto lighting = info->Lighting;
-	char* flag = (char*)info->TextureInfo + 0x3b;
-	if (*flag & 0x80)
-	{
-		if (!PrelitLightContext)
-		{
-			PrelitLightContext = new eLightContext();
-			PrelitLightContext->MakePrelit();
-		}
-
-		lighting = PrelitLightContext;
-	}
-
-	Game::sub_71DFA0(*(int*)0x00AB0BA4, lighting, 0);
-}
-
-void __declspec(naked) CarLightingCave()
-{
-	static constexpr auto cExit = 0x00727347;
-
-	_asm
-	{
-		push esi;
-		call CarLighting;
-		jmp cExit;
-	}
-}
-
 void __declspec(naked) GetUsedCarTextureInfoCave()
 {
 	__asm
@@ -184,8 +124,6 @@ void InitTextures()
 	injector::WriteMemory(0x007CECC7, ((int)Slot::LEFT_HEADLIGHT + 0x15) * 4, true);
 	injector::WriteMemory(0x007CECCD, ((int)Slot::LEFT_BRAKELIGHT + 0x15) * 4, true);
 	injector::MakeJMP(0x007CF764, GetUsedCarTextureInfoCave, true);
-
-	//injector::MakeJMP(0x0072733A, CarLightingCave, true);
 
 	injector::MakeCALL(0x007DE789, UpdateLightStateTextures, true);
 }

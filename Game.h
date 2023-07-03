@@ -25,6 +25,11 @@ INLINE_FUNC(0x0055CFD0, TextureInfo*, __cdecl, GetTextureInfo, Hash, bool, bool)
 	__asm pop eax\
 }\
 
+struct CarType
+{
+	int Id;
+};
+
 namespace Game
 {
 	static float* CarBrightness = (float*)0x009EA968;

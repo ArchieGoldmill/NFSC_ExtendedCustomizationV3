@@ -5,6 +5,7 @@
 #include "PositionMarker.h"
 #include "eLightMaterial.h"
 #include "eModel.h"
+#include "CarRenderConn.h"
 
 struct PositionMarkers
 {
@@ -94,6 +95,21 @@ public:
 	bool IsReverseOn()
 	{
 		return this->IsBrakelightOn(0xC0);
+	}
+
+	bool IsGlareOn()
+	{
+		auto carRenderConn = CarRenderConn::Get(this);
+		if (carRenderConn)
+		{
+			auto pVehicle = carRenderConn->GetPVehicle();
+			if (pVehicle)
+			{
+				return pVehicle->IsGlareOn(7);
+			}
+		}
+
+		return false;
 	}
 
 private:

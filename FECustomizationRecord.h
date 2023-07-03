@@ -1,4 +1,5 @@
 #pragma once
+#include "Game.h"
 
 class FECustomizationRecord
 {
@@ -8,15 +9,15 @@ public:
 		return (FECustomizationRecord*)0x00BBABC0;
 	}
 
-	bool SetInstalledPart(Slot slot, DBCarPart* part, int carId, bool setOnly)
+	bool SetInstalledPart(Slot slot, DBCarPart* part, CarType carId, bool setOnly)
 	{
-		static auto _SetInstalledPart = (bool(__thiscall*)(FECustomizationRecord*, Slot, DBCarPart*, int, bool))0x004BAC50;
+		static auto _SetInstalledPart = (bool(__thiscall*)(FECustomizationRecord*, Slot, DBCarPart*, CarType, bool))0x004BAC50;
 		return _SetInstalledPart(this, slot, part, carId, setOnly);
 	}
 
-	DBCarPart* GetInstalledPart(int carId, Slot slot)
+	DBCarPart* GetInstalledPart(CarType carId, Slot slot)
 	{
-		static auto _GetInstalledPart = (DBCarPart * (__thiscall*)(FECustomizationRecord*, int, Slot))0x004AE350;
+		static auto _GetInstalledPart = (DBCarPart * (__thiscall*)(FECustomizationRecord*, CarType, Slot))0x004AE350;
 		return _GetInstalledPart(this, carId, slot);
 	}
 };

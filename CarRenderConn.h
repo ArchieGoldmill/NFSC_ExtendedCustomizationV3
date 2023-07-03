@@ -1,7 +1,7 @@
 #pragma once
-#include "CarRenderInfo.h"
 #include "PVehicle.h"
 
+class CarRenderInfo;
 class CarRenderConn
 {
 public:
