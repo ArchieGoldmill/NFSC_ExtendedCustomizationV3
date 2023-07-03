@@ -157,41 +157,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animations.cpp" />
-    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="ExtendedCustomization\Animations.cpp" />
+    <ClCompile Include="ExtendedCustomization\dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animations.h" />
-    <ClInclude Include="CarPartDatabase.h" />
-    <ClInclude Include="CarRenderConn.h" />
-    <ClInclude Include="CarRenderInfo.h" />
-    <ClInclude Include="CarRenderInfoExtras.h" />
-    <ClInclude Include="CarRenderInfoHooks.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Customization.h" />
-    <ClInclude Include="D3DWrapper.h" />
-    <ClInclude Include="DBCarPart.h" />
-    <ClInclude Include="eLightContext.h" />
-    <ClInclude Include="eLightMaterial.h" />
-    <ClInclude Include="eModel.h" />
-    <ClInclude Include="eReplacementTextures.h" />
-    <ClInclude Include="eSolid.h" />
-    <ClInclude Include="FECarRecord.h" />
-    <ClInclude Include="FECustomizationRecord.h" />
-    <ClInclude Include="FeGarageMain.h" />
-    <ClInclude Include="Feature.h" />
-    <ClInclude Include="FrontEndRenderingCar.h" />
-    <ClInclude Include="Func.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Hashes.h" />
-    <ClInclude Include="PositionMarker.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="PVehicle.h" />
-    <ClInclude Include="RideInfo.h" />
-    <ClInclude Include="Slots.h" />
-    <ClInclude Include="StandardSelectablePart.h" />
-    <ClInclude Include="TextureInfo.h" />
-    <ClInclude Include="Textures.h" />
+    <ClInclude Include="ExtendedCustomization\Animations.h" />
+    <ClInclude Include="ExtendedCustomization\CarPartDatabase.h" />
+    <ClInclude Include="ExtendedCustomization\CarRenderConn.h" />
+    <ClInclude Include="ExtendedCustomization\CarRenderInfo.h" />
+    <ClInclude Include="ExtendedCustomization\CarRenderInfoExtras.h" />
+    <ClInclude Include="ExtendedCustomization\CarRenderInfoHooks.h" />
+    <ClInclude Include="ExtendedCustomization\Constants.h" />
+    <ClInclude Include="ExtendedCustomization\Customization.h" />
+    <ClInclude Include="ExtendedCustomization\D3DWrapper.h" />
+    <ClInclude Include="ExtendedCustomization\DBCarPart.h" />
+    <ClInclude Include="ExtendedCustomization\eLightContext.h" />
+    <ClInclude Include="ExtendedCustomization\eLightMaterial.h" />
+    <ClInclude Include="ExtendedCustomization\eModel.h" />
+    <ClInclude Include="ExtendedCustomization\eReplacementTextures.h" />
+    <ClInclude Include="ExtendedCustomization\eSolid.h" />
+    <ClInclude Include="ExtendedCustomization\FECarRecord.h" />
+    <ClInclude Include="ExtendedCustomization\FECustomizationRecord.h" />
+    <ClInclude Include="ExtendedCustomization\FeGarageMain.h" />
+    <ClInclude Include="ExtendedCustomization\Feature.h" />
+    <ClInclude Include="ExtendedCustomization\FrontEndRenderingCar.h" />
+    <ClInclude Include="ExtendedCustomization\Func.h" />
+    <ClInclude Include="ExtendedCustomization\Game.h" />
+    <ClInclude Include="ExtendedCustomization\Hashes.h" />
+    <ClInclude Include="ExtendedCustomization\PositionMarker.h" />
+    <ClInclude Include="ExtendedCustomization\Node.h" />
+    <ClInclude Include="ExtendedCustomization\PVehicle.h" />
+    <ClInclude Include="ExtendedCustomization\RideInfo.h" />
+    <ClInclude Include="ExtendedCustomization\Slots.h" />
+    <ClInclude Include="ExtendedCustomization\StandardSelectablePart.h" />
+    <ClInclude Include="ExtendedCustomization\TextureInfo.h" />
+    <ClInclude Include="ExtendedCustomization\Textures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
