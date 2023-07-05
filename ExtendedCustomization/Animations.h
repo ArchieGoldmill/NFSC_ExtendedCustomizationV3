@@ -16,6 +16,7 @@ private:
 	D3D::Matrix state;
 	float amount;
 	float target;
+	bool freeMatrices;
 
 	Slot slot;
 	std::vector<Slot> subSlots;
@@ -30,6 +31,30 @@ public:
 
 		this->amount = 0;
 		this->target = 0;
+
+		this->freeMatrices = false;
+	}
+
+	PartAnimation(Slot slot, D3D::Matrix& start, D3D::Matrix& end)
+	{
+		this->slot = slot;
+
+		this->start = new D3D::Matrix(start);
+		this->end = new D3D::Matrix(end);
+
+		this->amount = 0;
+		this->target = 0;
+
+		this->freeMatrices = true;
+	}
+
+	~PartAnimation()
+	{
+		if (this->freeMatrices)
+		{
+			delete this->start;
+			delete this->end;
+		}
 	}
 
 	void Start()
@@ -147,16 +172,35 @@ public:
 			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
 		}
 
-		this->FindMarkers(Slot::HOOD);
+		auto hoodAnim = this->FindMarkers(Slot::HOOD);
 
 		auto leftDoorAnim = this->FindMarkers(Slot::DOOR_LEFT);
+		auto rightDoorAnim = this->FindMarkers(Slot::DOOR_RIGHT);
+
+		if (true) // Check config
+		{
+			if (!leftDoorAnim)
+			{
+				leftDoorAnim = this->CreateMarker(Slot::DOOR_LEFT, InitLeftDoorMarker);
+			}
+
+			if (!rightDoorAnim)
+			{
+				rightDoorAnim = this->CreateMarker(Slot::DOOR_RIGHT, InitRightDoorMarker);
+			}
+
+			if (!hoodAnim)
+			{
+				hoodAnim = this->CreateMarker(Slot::HOOD, InitHoodMarker);
+			}
+		}
+
 		if (leftDoorAnim)
 		{
 			leftDoorAnim->AddSubSlot(Slot::FRONT_LEFT_WINDOW);
 			leftDoorAnim->AddSubSlot(Slot::LEFT_SIDE_MIRROR);
 		}
 
-		auto rightDoorAnim = this->FindMarkers(Slot::DOOR_RIGHT);
 		if (rightDoorAnim)
 		{
 			rightDoorAnim->AddSubSlot(Slot::FRONT_RIGHT_WINDOW);
@@ -203,6 +247,65 @@ private:
 					this->partAnimations.push_back(anim);
 					return anim;
 				}
+			}
+		}
+
+		return NULL;
+	}
+
+	static D3D::Matrix InitLeftDoorMarker(D3DXVECTOR3& a, D3DXVECTOR3& b)
+	{
+		D3DXVECTOR3 pos;
+		pos.x = b.x - 0.05;
+		pos.y = b.y;
+		pos.z = b.z - (b.z - a.z) / 2;
+		auto m = D3D::Matrix::FromRotationZ(-45);
+		m.SetW(pos);
+		return m;
+	}
+
+	static D3D::Matrix InitRightDoorMarker(D3DXVECTOR3& a, D3DXVECTOR3& b)
+	{
+		D3DXVECTOR3 pos;
+		pos.x = b.x - 0.05;
+		pos.y = b.y;
+		pos.z = b.z - (b.z - a.z) / 2;
+		auto m = D3D::Matrix::FromRotationZ(45);
+		m.SetW(pos);
+		return m;
+	}
+
+	static D3D::Matrix InitHoodMarker(D3DXVECTOR3& a, D3DXVECTOR3& b)
+	{
+		D3DXVECTOR3 pos;
+		pos.x = a.x + 0.05;
+		pos.y = b.y;
+		pos.z = b.z - (b.z - a.z) / 2;
+		auto m = D3D::Matrix::FromRotationY(-60);
+		m.SetW(pos);
+		return m;
+	}
+
+	PartAnimation* CreateMarker(Slot slot, D3D::Matrix(*func)(D3DXVECTOR3&, D3DXVECTOR3&))
+	{
+		auto rideInfo = this->carRenderInfo->RideInfo;
+
+		auto part = rideInfo->GetPart(slot);
+		if (part)
+		{
+			auto solid = part->GetSolid();
+			if (solid)
+			{
+				D3DXVECTOR3 a, b;
+				solid->GetBoundingBox(&a, &b);
+
+				D3D::Matrix end = func(a, b);
+				D3D::Matrix start = D3D::Matrix::FromRotationZ(0);
+				start.SetW(end.GetW());
+
+				auto anim = new PartAnimation(slot, start, end);
+				this->partAnimations.push_back(anim);
+				return anim;
 			}
 		}
 

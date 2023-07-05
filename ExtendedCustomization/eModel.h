@@ -16,4 +16,10 @@ public:
 		FUNC(0x00729320, void, __thiscall, _Render, int, eModel*, D3D::Matrix*, void*, int, int, int);
 		_Render(view, this, matrix, light, flags, 0, 0);
 	}
+
+	void GetBoundingBox(D3DXVECTOR3* a, D3DXVECTOR3* b)
+	{
+		FUNC(0x005589C0, void, __thiscall, _GetBoundingBox, eModel*, D3DXVECTOR3*, D3DXVECTOR3*);
+		_GetBoundingBox(this, a, b);
+	}
 };

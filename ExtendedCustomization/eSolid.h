@@ -20,4 +20,6 @@ public:
 		FUNC(0x00558D90, PositionMarker*, __thiscall, _GetPostionMarker, eSolid*, Hash);
 		return _GetPostionMarker(this, name);
 	}
+
+	void GetBoundingBox(D3DXVECTOR3* a, D3DXVECTOR3* b);
 };

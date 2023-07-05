@@ -73,10 +73,15 @@ public:
 		return false;
 	}
 
-	D3D::Matrix* GetMarker(Hash markerHash)
+	eSolid* GetSolid()
 	{
 		auto nameHash = this->GetModelNameHash(0, 1, 0);
-		auto solid = eSolid::Find(nameHash);
+		return eSolid::Find(nameHash);
+	}
+
+	D3D::Matrix* GetMarker(Hash markerHash)
+	{
+		auto solid = this->GetSolid();
 		if (solid)
 		{
 			auto marker = solid->GetPostionMarker(markerHash);

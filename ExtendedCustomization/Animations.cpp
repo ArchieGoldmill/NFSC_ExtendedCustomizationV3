@@ -31,4 +31,8 @@ void __declspec(naked) RenderPartsHook()
 void InitAnimations()
 {
 	injector::MakeJMP(0x007DF272, RenderPartsHook, true);
+
+	// Fix side mirrors
+	injector::WriteMemory<char>(0x007E0DD2, 2, true);
+	injector::WriteMemory<char>(0x007E0DDC, 2, true);
 }

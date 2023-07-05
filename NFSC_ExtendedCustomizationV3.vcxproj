@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="ExtendedCustomization\Animations.cpp" />
     <ClCompile Include="ExtendedCustomization\dllmain.cpp" />
+    <ClCompile Include="ExtendedCustomization\eSolid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExtendedCustomization\Animations.h" />

@@ -20,6 +20,9 @@
     <Filter Include="Utilities">
       <UniqueIdentifier>{f4061b2a-21b1-4b48-a238-7a4d00c3c397}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SDK\eSolid">
+      <UniqueIdentifier>{73b19318-3aa5-42a1-8f0d-4fd727d952e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExtendedCustomization\dllmain.cpp">
@@ -27,6 +30,9 @@
     </ClCompile>
     <ClCompile Include="ExtendedCustomization\Animations.cpp">
       <Filter>Features\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendedCustomization\eSolid.cpp">
+      <Filter>SDK\eSolid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +99,6 @@
     <ClInclude Include="ExtendedCustomization\eModel.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\eSolid.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="ExtendedCustomization\Func.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="ExtendedCustomization\UserInput.h">
       <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\eSolid.h">
+      <Filter>SDK\eSolid</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

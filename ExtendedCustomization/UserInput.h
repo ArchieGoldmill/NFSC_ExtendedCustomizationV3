@@ -20,6 +20,15 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 					anim->Toggle();
 				}
 			}
+
+			if (slot == Slot::DOOR_LEFT)
+			{
+				anim = carRenderInfo->Extras->Animations.GetAnimation(Slot::DOOR_RIGHT);
+				if (anim)
+				{
+					anim->Toggle();
+				}
+			}
 		}
 
 		while ((GetAsyncKeyState(hk) & 0x8000) > 0) { Sleep(0); }
@@ -30,6 +39,7 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 {
 	ToggleAnimation(carRenderInfo, Slot::HOOD, 49);
 	ToggleAnimation(carRenderInfo, Slot::LEFT_HEADLIGHT, 50);
+	ToggleAnimation(carRenderInfo, Slot::DOOR_LEFT, 51);
 }
 
 DWORD WINAPI HandleUserInput(LPVOID arg)
