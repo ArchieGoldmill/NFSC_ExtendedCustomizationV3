@@ -112,6 +112,11 @@ public:
 		return false;
 	}
 
+	bool IsPlayer()
+	{
+		return this->RideInfo->RenderUsage == 0;
+	}
+
 private:
 	bool IsBrakelightOn(int b)
 	{

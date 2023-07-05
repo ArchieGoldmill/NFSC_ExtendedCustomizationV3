@@ -10,12 +10,14 @@
 
 // Hooks
 #include "CarRenderInfoHooks.h"
+#include "UserInput.h"
 
 void Init()
 {
 	InitAnimations();
 	InitCustomization();
 	InitTextures();
+	InitUserInput();
 
 	InitCarRenderInfoHooks();
 }

@@ -33,7 +33,7 @@ struct CarType
 namespace Game
 {
 	static float* CarBrightness = (float*)0x009EA968;
-	static auto sub_71DFA0 = (void(__thiscall*)(int, void*, int))0x0071DFA0;
+	static float* DeltaTime = (float*)0x00A99A5C;
 
 	enum class State
 	{

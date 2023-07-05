@@ -192,6 +192,7 @@
     <ClInclude Include="ExtendedCustomization\StandardSelectablePart.h" />
     <ClInclude Include="ExtendedCustomization\TextureInfo.h" />
     <ClInclude Include="ExtendedCustomization\Textures.h" />
+    <ClInclude Include="ExtendedCustomization\UserInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,7 @@
 #include "CarRenderInfo.h"
 #include "Game.h"
 #include "D3DWrapper.h"
+#include "Constants.h"
 
 void InitAnimations();
 
@@ -14,14 +15,21 @@ private:
 	D3D::Matrix* end;
 	D3D::Matrix state;
 	float amount;
+	float target;
+
+	Slot slot;
+	std::vector<Slot> subSlots;
 
 public:
-	PartAnimation(D3D::Matrix* start, D3D::Matrix* end)
+	PartAnimation(Slot slot, D3D::Matrix* start, D3D::Matrix* end)
 	{
+		this->slot = slot;
+
 		this->start = start;
 		this->end = end;
 
-		this->Start();
+		this->amount = 0;
+		this->target = 0;
 	}
 
 	void Start()
@@ -32,6 +40,51 @@ public:
 	void End()
 	{
 		this->amount = 1;
+	}
+
+	void SetTarget(float target)
+	{
+		this->target = target;
+	}
+
+	void Toggle()
+	{
+		if (this->target == 1)
+		{
+			this->target = 0;
+		}
+		else
+		{
+			this->target = 1;
+		}
+	}
+
+	void Update()
+	{
+		MoveTowards(this->amount, this->target, *Game::DeltaTime * 2);
+	}
+
+	bool IsSlot(Slot slot)
+	{
+		if (this->slot == slot)
+		{
+			return true;
+		}
+
+		for (auto s : this->subSlots)
+		{
+			if (s == slot)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	void AddSubSlot(Slot slot)
+	{
+		this->subSlots.push_back(slot);
 	}
 
 	D3D::Matrix* Get(D3D::Matrix* matrix)
@@ -56,7 +109,7 @@ class CarAnimations
 {
 private:
 	CarRenderInfo* carRenderInfo;
-	std::vector<std::pair<Slot, PartAnimation*>> partAnimations;
+	std::vector<PartAnimation*> partAnimations;
 
 public:
 	CarAnimations(CarRenderInfo* carRenderInfo)
@@ -74,49 +127,48 @@ public:
 		this->Clear();
 
 		auto leftHeadlightAnim = this->FindMarkers(Slot::LEFT_HEADLIGHT);
-		auto rightHeadlightAnim = this->FindMarkers(Slot::RIGHT_HEADLIGHT);
-
 		if (leftHeadlightAnim)
 		{
-			this->partAnimations.push_back({ Slot::LEFT_HEADLIGHT_GLASS, leftHeadlightAnim });
+			leftHeadlightAnim->AddSubSlot(Slot::LEFT_HEADLIGHT_GLASS);
 		}
 
+		auto rightHeadlightAnim = this->FindMarkers(Slot::RIGHT_HEADLIGHT);
 		if (rightHeadlightAnim)
 		{
-			this->partAnimations.push_back({ Slot::RIGHT_HEADLIGHT_GLASS, rightHeadlightAnim });
+			rightHeadlightAnim->AddSubSlot(Slot::RIGHT_HEADLIGHT_GLASS);
+		}
+
+		auto trunkAnim = this->FindMarkers(Slot_Trunk);
+		if (trunkAnim)
+		{
+			trunkAnim->AddSubSlot(Slot::SPOILER);
+			trunkAnim->AddSubSlot(Slot::REAR_WINDOW);
+			trunkAnim->AddSubSlot(Slot::DECAL_REAR_WINDOW);
+			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
+		}
+
+		this->FindMarkers(Slot::HOOD);
+
+		auto leftDoorAnim = this->FindMarkers(Slot::DOOR_LEFT);
+		if (leftDoorAnim)
+		{
+			leftDoorAnim->AddSubSlot(Slot::FRONT_LEFT_WINDOW);
+			leftDoorAnim->AddSubSlot(Slot::LEFT_SIDE_MIRROR);
+		}
+
+		auto rightDoorAnim = this->FindMarkers(Slot::DOOR_RIGHT);
+		if (rightDoorAnim)
+		{
+			rightDoorAnim->AddSubSlot(Slot::FRONT_RIGHT_WINDOW);
+			rightDoorAnim->AddSubSlot(Slot::RIGHT_SIDE_MIRROR);
 		}
 	}
 
 	void Update()
 	{
-		if (Game::InFrontEnd())
+		for (auto anim : this->partAnimations)
 		{
-			auto leftHeadlight = this->GetAnimation(Slot::LEFT_HEADLIGHT);
-			if (leftHeadlight)
-			{
-				leftHeadlight->End();
-			}
-
-			auto rightHeadlight = this->GetAnimation(Slot::RIGHT_HEADLIGHT);
-			if (rightHeadlight)
-			{
-				rightHeadlight->End();
-			}
-		}
-
-		if (Game::InRace())
-		{
-			auto leftHeadlight = this->GetAnimation(Slot::LEFT_HEADLIGHT);
-			if (leftHeadlight)
-			{
-				leftHeadlight->End();
-			}
-
-			auto rightHeadlight = this->GetAnimation(Slot::RIGHT_HEADLIGHT);
-			if (rightHeadlight)
-			{
-				rightHeadlight->End();
-			}
+			anim->Update();
 		}
 	}
 
@@ -124,9 +176,9 @@ public:
 	{
 		for (auto anim : this->partAnimations)
 		{
-			if (anim.first == slot)
+			if (anim->IsSlot(slot))
 			{
-				return anim.second;
+				return anim;
 			}
 		}
 
@@ -147,8 +199,8 @@ private:
 				auto end = part->GetMarker(Hashes::ANIM_END);
 				if (end)
 				{
-					auto anim = new PartAnimation(start, end);
-					this->partAnimations.push_back({ slot, anim });
+					auto anim = new PartAnimation(slot, start, end);
+					this->partAnimations.push_back(anim);
 					return anim;
 				}
 			}
@@ -159,21 +211,9 @@ private:
 
 	void Clear()
 	{
-		for (auto& anim : this->partAnimations)
+		for (auto anim : this->partAnimations)
 		{
-			PartAnimation* ptr = anim.second;
-			if (ptr)
-			{
-				for (auto& a : this->partAnimations)
-				{
-					if (a.second == ptr)
-					{
-						a.second = NULL;
-					}
-				}
-
-				delete ptr;
-			}
+			delete anim;
 		}
 
 		this->partAnimations.clear();
