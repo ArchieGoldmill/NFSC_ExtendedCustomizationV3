@@ -3,10 +3,13 @@
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
+#include "Config.h"
+
 // Features
 #include "Animations.h"
 #include "Customization.h"
 #include "Textures.h"
+#include "Menu.h"
 
 // Hooks
 #include "CarRenderInfoHooks.h"
@@ -14,10 +17,13 @@
 
 void Init()
 {
+	InitConfig();
+
 	InitAnimations();
 	InitCustomization();
 	InitTextures();
 	InitUserInput();
+	InitMenu();
 
 	InitCarRenderInfoHooks();
 }

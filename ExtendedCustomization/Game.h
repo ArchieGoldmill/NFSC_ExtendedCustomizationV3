@@ -3,36 +3,19 @@
 #include "Func.h"
 #include "TextureInfo.h"
 
-INLINE_FUNC(0x00471080, Hash, __cdecl, bStringHash, const char*, Hash);
-INLINE_FUNC(0x00471050, Hash, __cdecl, StringHash, const char*);
-INLINE_FUNC(0x0055CFD0, TextureInfo*, __cdecl, GetTextureInfo, Hash, bool, bool);
-
-#define SAVE_REGS_ESI __asm\
-{\
-	__asm push eax\
-	__asm push ebx\
-	__asm push ecx\
-	__asm push edx\
-	__asm push edi\
-}\
-
-#define RESTORE_REGS_ESI __asm\
-{\
-	__asm pop edi\
-	__asm pop edx\
-	__asm pop ecx\
-	__asm pop ebx\
-	__asm pop eax\
-}\
-
 struct CarType
 {
 	int Id;
 };
 
+INLINE_FUNC(0x00471080, Hash, __cdecl, bStringHash, const char*, Hash);
+INLINE_FUNC(0x00471050, Hash, __cdecl, StringHash, const char*);
+INLINE_FUNC(0x0055CFD0, TextureInfo*, __cdecl, GetTextureInfo, Hash, bool, bool);
+INLINE_FUNC(0x006A1560, void*, __cdecl, j_malloc_0, int);
+INLINE_FUNC(0x007B0290, char*, __cdecl, GetCarTypeName, CarType);
+
 namespace Game
 {
-	static float* CarBrightness = (float*)0x009EA968;
 	static float* DeltaTime = (float*)0x00A99A5C;
 
 	enum class State

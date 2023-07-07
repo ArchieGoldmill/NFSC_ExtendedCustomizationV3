@@ -23,6 +23,15 @@
     <Filter Include="SDK\eSolid">
       <UniqueIdentifier>{73b19318-3aa5-42a1-8f0d-4fd727d952e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Menu">
+      <UniqueIdentifier>{04abf21e-f7d6-498f-9010-824c4f2443d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\FrontEnd">
+      <UniqueIdentifier>{062c29b1-06c6-4595-aa23-2ffdd800f4f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{a0a654d8-1298-4245-aa0a-f3d7a132bedf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExtendedCustomization\dllmain.cpp">
@@ -33,6 +42,12 @@
     </ClCompile>
     <ClCompile Include="ExtendedCustomization\eSolid.cpp">
       <Filter>SDK\eSolid</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendedCustomization\ConfigInit.cpp">
+      <Filter>Config</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtendedCustomization\Config.cpp">
+      <Filter>Config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +146,45 @@
     </ClInclude>
     <ClInclude Include="ExtendedCustomization\eSolid.h">
       <Filter>SDK\eSolid</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FeCustomizePartsMenu.h">
+      <Filter>Features\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FeCustomizeParts.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FEString.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FEObject.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FeCustomizeMainMenu.h">
+      <Filter>Features\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\VectorScrollerMenu.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\ScrollOption.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FEPackage.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FeCustomizeMain.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FEButton.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Menu.h">
+      <Filter>Features\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Config.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\ConfigParts.h">
+      <Filter>Config</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

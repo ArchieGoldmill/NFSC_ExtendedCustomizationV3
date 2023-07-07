@@ -100,6 +100,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -158,6 +162,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ExtendedCustomization\Animations.cpp" />
+    <ClCompile Include="ExtendedCustomization\Config.cpp" />
+    <ClCompile Include="ExtendedCustomization\ConfigInit.cpp" />
     <ClCompile Include="ExtendedCustomization\dllmain.cpp" />
     <ClCompile Include="ExtendedCustomization\eSolid.cpp" />
   </ItemGroup>
@@ -168,6 +174,8 @@
     <ClInclude Include="ExtendedCustomization\CarRenderInfo.h" />
     <ClInclude Include="ExtendedCustomization\CarRenderInfoExtras.h" />
     <ClInclude Include="ExtendedCustomization\CarRenderInfoHooks.h" />
+    <ClInclude Include="ExtendedCustomization\Config.h" />
+    <ClInclude Include="ExtendedCustomization\ConfigParts.h" />
     <ClInclude Include="ExtendedCustomization\Constants.h" />
     <ClInclude Include="ExtendedCustomization\Customization.h" />
     <ClInclude Include="ExtendedCustomization\D3DWrapper.h" />
@@ -177,23 +185,34 @@
     <ClInclude Include="ExtendedCustomization\eModel.h" />
     <ClInclude Include="ExtendedCustomization\eReplacementTextures.h" />
     <ClInclude Include="ExtendedCustomization\eSolid.h" />
+    <ClInclude Include="ExtendedCustomization\FEButton.h" />
     <ClInclude Include="ExtendedCustomization\FECarRecord.h" />
     <ClInclude Include="ExtendedCustomization\FECustomizationRecord.h" />
+    <ClInclude Include="ExtendedCustomization\FeCustomizeMain.h" />
+    <ClInclude Include="ExtendedCustomization\FeCustomizeMainMenu.h" />
     <ClInclude Include="ExtendedCustomization\FeGarageMain.h" />
     <ClInclude Include="ExtendedCustomization\Feature.h" />
+    <ClInclude Include="ExtendedCustomization\FEObject.h" />
+    <ClInclude Include="ExtendedCustomization\FEPackage.h" />
     <ClInclude Include="ExtendedCustomization\FrontEndRenderingCar.h" />
     <ClInclude Include="ExtendedCustomization\Func.h" />
     <ClInclude Include="ExtendedCustomization\Game.h" />
     <ClInclude Include="ExtendedCustomization\Hashes.h" />
+    <ClInclude Include="ExtendedCustomization\Menu.h" />
     <ClInclude Include="ExtendedCustomization\PositionMarker.h" />
     <ClInclude Include="ExtendedCustomization\Node.h" />
     <ClInclude Include="ExtendedCustomization\PVehicle.h" />
     <ClInclude Include="ExtendedCustomization\RideInfo.h" />
+    <ClInclude Include="ExtendedCustomization\ScrollOption.h" />
     <ClInclude Include="ExtendedCustomization\Slots.h" />
     <ClInclude Include="ExtendedCustomization\StandardSelectablePart.h" />
     <ClInclude Include="ExtendedCustomization\TextureInfo.h" />
     <ClInclude Include="ExtendedCustomization\Textures.h" />
     <ClInclude Include="ExtendedCustomization\UserInput.h" />
+    <ClInclude Include="ExtendedCustomization\FeCustomizeParts.h" />
+    <ClInclude Include="ExtendedCustomization\FeCustomizePartsMenu.h" />
+    <ClInclude Include="ExtendedCustomization\FEString.h" />
+    <ClInclude Include="ExtendedCustomization\VectorScrollerMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
