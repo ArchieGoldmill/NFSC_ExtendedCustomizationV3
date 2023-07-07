@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExtendedCustomization\Animations.h" />
+    <ClInclude Include="ExtendedCustomization\AutosculptSelectablePart.h" />
     <ClInclude Include="ExtendedCustomization\CarPartDatabase.h" />
     <ClInclude Include="ExtendedCustomization\CarRenderConn.h" />
     <ClInclude Include="ExtendedCustomization\CarRenderInfo.h" />
@@ -190,6 +191,8 @@
     <ClInclude Include="ExtendedCustomization\FECustomizationRecord.h" />
     <ClInclude Include="ExtendedCustomization\FeCustomizeMain.h" />
     <ClInclude Include="ExtendedCustomization\FeCustomizeMainMenu.h" />
+    <ClInclude Include="ExtendedCustomization\FeCustomizeVisuals.h" />
+    <ClInclude Include="ExtendedCustomization\FeCustomizeVisualsMenu.h" />
     <ClInclude Include="ExtendedCustomization\FeGarageMain.h" />
     <ClInclude Include="ExtendedCustomization\Feature.h" />
     <ClInclude Include="ExtendedCustomization\FEObject.h" />
@@ -198,7 +201,9 @@
     <ClInclude Include="ExtendedCustomization\Func.h" />
     <ClInclude Include="ExtendedCustomization\Game.h" />
     <ClInclude Include="ExtendedCustomization\Hashes.h" />
+    <ClInclude Include="ExtendedCustomization\LegacyCustomization.h" />
     <ClInclude Include="ExtendedCustomization\Menu.h" />
+    <ClInclude Include="ExtendedCustomization\PartList.h" />
     <ClInclude Include="ExtendedCustomization\PositionMarker.h" />
     <ClInclude Include="ExtendedCustomization\Node.h" />
     <ClInclude Include="ExtendedCustomization\PVehicle.h" />

@@ -6,13 +6,13 @@
 
 class StandardSelectablePart
 {
+protected:
+	int vTable;
+
 public:
 	Node<StandardSelectablePart*> Node;
 	Hash HashName;
 	DBCarPart* Part;
 	char* Name;
 	Slot SlotId;
-
-	virtual ~StandardSelectablePart();
-	virtual int CartComparisonValue();
 };

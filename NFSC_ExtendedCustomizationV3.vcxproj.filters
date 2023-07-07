@@ -32,6 +32,9 @@
     <Filter Include="Config">
       <UniqueIdentifier>{a0a654d8-1298-4245-aa0a-f3d7a132bedf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Customization">
+      <UniqueIdentifier>{6caa5eb4-48e9-4127-ae9b-91dd2e320090}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExtendedCustomization\dllmain.cpp">
@@ -51,9 +54,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExtendedCustomization\Customization.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="ExtendedCustomization\Feature.h">
       <Filter>Features</Filter>
     </ClInclude>
@@ -185,6 +185,24 @@
     </ClInclude>
     <ClInclude Include="ExtendedCustomization\ConfigParts.h">
       <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FeCustomizeVisualsMenu.h">
+      <Filter>Features\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\FeCustomizeVisuals.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\PartList.h">
+      <Filter>Features\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\AutosculptSelectablePart.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Customization.h">
+      <Filter>Features\Customization</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\LegacyCustomization.h">
+      <Filter>Features\Customization</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
