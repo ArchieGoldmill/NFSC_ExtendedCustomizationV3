@@ -6,8 +6,9 @@
 
 namespace fs = std::filesystem;
 
-State InitState(int value)
+State InitState(CIniReader& iniReader, const char* section, const char* key)
 {
+	int value = iniReader.ReadInteger(section, key, -1);
 	if (value < -1 || value > 1)
 	{
 		return State::Default;
@@ -21,7 +22,7 @@ void InitPart(CIniReader& iniReader, SharedConfig* shared, Slot slot, const char
 	PartConfig partConfig;
 
 	partConfig.Slot = slot;
-	partConfig.State = InitState(iniReader.ReadInteger(iniSection, "Enabled", -1));
+	partConfig.State = InitState(iniReader, iniSection, "Enabled");
 	partConfig.Camera = iniReader.ReadString(iniSection, "Camera", "");
 
 	auto header = iniReader.ReadString(iniSection, "Header", "");
@@ -39,11 +40,20 @@ void InitParts(CIniReader& iniReader, SharedConfig* shared)
 	{
 		InitPart(iniReader, shared, part.first, part.second);
 	}
+
+	for (int i = 0; i < 16; i++)
+	{
+		char buffer[32];
+		sprintf(buffer, "PART_ATTACHMENT%02d", i);
+		InitPart(iniReader, shared, (Slot)((int)Slot::ATTACHMENT0 + i), buffer);
+	}
 }
 
 void InitShared(CIniReader& iniReader, SharedConfig* shared)
 {
 	InitParts(iniReader, shared);
+
+	shared->PopUpHeadLights = InitState(iniReader, "GENERAL", "PopUpHeadLights");
 }
 
 void InitCars()
@@ -67,10 +77,47 @@ void InitCars()
 		auto carConfig = new CarConfig();
 		carConfig->Name = path.filename().string();
 		carConfig->NameHash = StringHash(carConfig->Name.c_str());
+		carConfig->Version = iniReader.ReadInteger("GENERAL", "Version", 2);
 		InitShared(iniReader, carConfig);
 
 		g_Config.Cars.push_back(carConfig);
 	}
+}
+
+CarConfig* GetCarByName(const char* name)
+{
+	for (auto car : g_Config.Cars)
+	{
+		if (car->Name == name)
+		{
+			return car;
+		}
+	}
+
+	return NULL;
+}
+
+void InitPopupCar(const char* name)
+{
+	if (!GetCarByName(name))
+	{
+		auto carConfig = new CarConfig();
+		carConfig->Name = name;
+		carConfig->NameHash = StringHash(name);
+		carConfig->PopUpHeadLights = State::Enabled;
+
+		g_Config.Cars.push_back(carConfig);
+	}
+}
+
+void InitDefaultCars()
+{
+	InitPopupCar("RX7");
+	InitPopupCar("CAMARO");
+	InitPopupCar("240SX");
+	InitPopupCar("MR2");
+	InitPopupCar("COROLLA");
+	InitPopupCar("CHARGER69");
 }
 
 void InitConfig()
@@ -80,4 +127,6 @@ void InitConfig()
 	InitShared(iniReader, &g_Config);
 
 	InitCars();
+
+	InitDefaultCars();
 }

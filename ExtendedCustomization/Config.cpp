@@ -31,6 +31,31 @@ CarConfig* GlobalConfig::GetCarConfig(CarType carId)
 	return NULL;
 }
 
+State GlobalConfig::GetPopUpHeadLights(CarType carId)
+{
+	auto carConfig = this->GetCarConfig(carId);
+	if (carConfig)
+	{
+		if (carConfig->PopUpHeadLights != State::Default)
+		{
+			return carConfig->PopUpHeadLights;
+		}
+	}
+
+	return g_Config.PopUpHeadLights;
+}
+
+int GlobalConfig::GetVersion(CarType carId)
+{
+	auto carConfig = this->GetCarConfig(carId);
+	if (carConfig)
+	{
+		return carConfig->Version;
+	}
+
+	return 0;
+}
+
 PartConfig GlobalConfig::GetPart(Slot slot, CarType carId)
 {
 	PartConfig result;

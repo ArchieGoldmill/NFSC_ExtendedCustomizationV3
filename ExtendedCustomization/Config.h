@@ -24,6 +24,7 @@ class SharedConfig
 {
 public:
 	std::vector<PartConfig> Parts;
+	State PopUpHeadLights = State::Default;
 
 	PartConfig* GetPart(Slot slot);
 };
@@ -33,6 +34,7 @@ class CarConfig : public SharedConfig
 public:
 	std::string Name;
 	Hash NameHash;
+	int Version = 0;
 };
 
 class GlobalConfig : public SharedConfig
@@ -41,9 +43,9 @@ public:
 	std::vector<CarConfig*> Cars;
 
 	PartConfig GetPart(Slot slot, CarType carId);
-
-private:
 	CarConfig* GetCarConfig(CarType carId);
+	State GetPopUpHeadLights(CarType carId);
+	int GetVersion(CarType carId);
 };
 
 inline GlobalConfig g_Config;

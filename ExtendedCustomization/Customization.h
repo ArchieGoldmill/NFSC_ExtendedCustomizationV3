@@ -5,6 +5,8 @@
 #include "StandardSelectablePart.h"
 #include "FECarRecord.h"
 #include "Constants.h"
+#include "Config.h"
+#include "LegacyCustomization.h"
 
 void InstallPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot, DBCarPart* part)
 {
@@ -54,7 +56,7 @@ void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slo
 	}
 }
 
-void HandleSpecialCustomization(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
+void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
 {
 	if (!rideInfo)
 	{
@@ -104,9 +106,14 @@ void HandleSpecialCustomization(FeGarageMain* feGarageMain, RideInfo* rideInfo, 
 
 void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMain, int, RideInfo* rideInfo, FECustomizationRecord* record)
 {
-	if (rideInfo->CarId.Id == 0x11)
+	int version = g_Config.GetVersion(rideInfo->CarId);
+	if (version == 3)
 	{
-		HandleSpecialCustomization(feGarageMain, rideInfo, record);
+		HandleSpecialCustomizationV3(feGarageMain, rideInfo, record);
+	}
+	else if (version == 2)
+	{
+		HandleSpecialCustomizationV2(feGarageMain, rideInfo, record);
 	}
 	else
 	{
@@ -131,26 +138,12 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 	return record->SetInstalledPart(selectablePart->SlotId, selectablePart->Part, carId, setOnly);
 }
 
-int __fastcall IsSetHeadlightOn(FECarRecord* feCarRecord)
-{
-	auto carId = feCarRecord->GetType();
-
-	bool popupsEnabled = false;
-	if (popupsEnabled)
-	{
-		return 5;
-	}
-
-	return 0;
-}
-
 void InitCustomization()
 {
+	InitLegacyCustomization();
+
 	injector::MakeCALL(0x0085EAEC, FeGarageMain_HandleSpecialCustomization, true);
 
 	injector::WriteMemory(0x009F9CFC, StandardSelectablePart_Install, true);
 	injector::MakeCALL(0x0084324A, StandardSelectablePart_Install, true);
-
-	injector::MakeCALL(0x00865278, IsSetHeadlightOn, true);
-	injector::MakeNOP(0x00865280, 60, true);
 }
