@@ -40,6 +40,7 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 	ToggleAnimation(carRenderInfo, Slot::HOOD, 49);
 	ToggleAnimation(carRenderInfo, Slot::LEFT_HEADLIGHT, 50);
 	ToggleAnimation(carRenderInfo, Slot::DOOR_LEFT, 51);
+	ToggleAnimation(carRenderInfo, Slot_Trunk, 52);
 }
 
 DWORD WINAPI HandleUserInput(LPVOID arg)

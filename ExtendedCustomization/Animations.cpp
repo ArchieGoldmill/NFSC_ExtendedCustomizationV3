@@ -15,6 +15,24 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 	}
 }
 
+void __fastcall RenderSpoiler(int view, int param, CarRenderInfo* carRenderInfo, eModel* model, D3D::Matrix* marker, void* light, int data, int a1, int a2)
+{
+	eModel** modelPtr = &model;
+	RenderParts(carRenderInfo, Slot::SPOILER, view, modelPtr, marker, light, data);
+}
+
+void __declspec(naked) RenderSpoilerHook()
+{
+	static constexpr auto cExit = 0x007DF5CE;
+	__asm
+	{
+		push esi;
+		call RenderSpoiler;
+
+		jmp cExit;
+	}
+}
+
 void __declspec(naked) RenderPartsHook()
 {
 	static constexpr auto cExit = 0x007DF277;
@@ -31,6 +49,7 @@ void __declspec(naked) RenderPartsHook()
 void InitAnimations()
 {
 	injector::MakeJMP(0x007DF272, RenderPartsHook, true);
+	injector::MakeJMP(0x007DF5C9, RenderSpoilerHook, true);
 
 	// Fix side mirrors
 	injector::WriteMemory<char>(0x007E0DD2, 2, true);

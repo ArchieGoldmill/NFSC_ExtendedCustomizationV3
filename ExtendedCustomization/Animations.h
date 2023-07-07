@@ -152,28 +152,9 @@ public:
 		this->Clear();
 
 		auto leftHeadlightAnim = this->FindMarkers(Slot::LEFT_HEADLIGHT);
-		if (leftHeadlightAnim)
-		{
-			leftHeadlightAnim->AddSubSlot(Slot::LEFT_HEADLIGHT_GLASS);
-		}
-
 		auto rightHeadlightAnim = this->FindMarkers(Slot::RIGHT_HEADLIGHT);
-		if (rightHeadlightAnim)
-		{
-			rightHeadlightAnim->AddSubSlot(Slot::RIGHT_HEADLIGHT_GLASS);
-		}
-
 		auto trunkAnim = this->FindMarkers(Slot_Trunk);
-		if (trunkAnim)
-		{
-			trunkAnim->AddSubSlot(Slot::SPOILER);
-			trunkAnim->AddSubSlot(Slot::REAR_WINDOW);
-			trunkAnim->AddSubSlot(Slot::DECAL_REAR_WINDOW);
-			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
-		}
-
 		auto hoodAnim = this->FindMarkers(Slot::HOOD);
-
 		auto leftDoorAnim = this->FindMarkers(Slot::DOOR_LEFT);
 		auto rightDoorAnim = this->FindMarkers(Slot::DOOR_RIGHT);
 
@@ -195,6 +176,16 @@ public:
 			}
 		}
 
+		if (leftHeadlightAnim)
+		{
+			leftHeadlightAnim->AddSubSlot(Slot::LEFT_HEADLIGHT_GLASS);
+		}
+
+		if (rightHeadlightAnim)
+		{
+			rightHeadlightAnim->AddSubSlot(Slot::RIGHT_HEADLIGHT_GLASS);
+		}
+
 		if (leftDoorAnim)
 		{
 			leftDoorAnim->AddSubSlot(Slot::FRONT_LEFT_WINDOW);
@@ -205,6 +196,14 @@ public:
 		{
 			rightDoorAnim->AddSubSlot(Slot::FRONT_RIGHT_WINDOW);
 			rightDoorAnim->AddSubSlot(Slot::RIGHT_SIDE_MIRROR);
+		}
+
+		if (trunkAnim)
+		{
+			trunkAnim->AddSubSlot(Slot::SPOILER);
+			trunkAnim->AddSubSlot(Slot::REAR_WINDOW);
+			trunkAnim->AddSubSlot(Slot::DECAL_REAR_WINDOW);
+			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
 		}
 	}
 
