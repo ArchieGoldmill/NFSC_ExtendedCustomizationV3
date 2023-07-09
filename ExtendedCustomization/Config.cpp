@@ -31,6 +31,19 @@ CarConfig* GlobalConfig::GetCarConfig(CarType carId)
 	return NULL;
 }
 
+CarConfig* GlobalConfig::GetCarConfig(Hash carName)
+{
+	for (auto carConfig : this->Cars)
+	{
+		if (carConfig->NameHash == carName)
+		{
+			return carConfig;
+		}
+	}
+
+	return NULL;
+}
+
 State GlobalConfig::GetPopUpHeadLights(CarType carId)
 {
 	auto carConfig = this->GetCarConfig(carId);
@@ -43,6 +56,20 @@ State GlobalConfig::GetPopUpHeadLights(CarType carId)
 	}
 
 	return g_Config.PopUpHeadLights;
+}
+
+State GlobalConfig::GetForceLodA(Hash carName)
+{
+	auto carConfig = this->GetCarConfig(carName);
+	if (carConfig)
+	{
+		if (carConfig->ForceLodA != State::Default)
+		{
+			return carConfig->ForceLodA;
+		}
+	}
+
+	return g_Config.ForceLodA;
 }
 
 int GlobalConfig::GetVersion(CarType carId)

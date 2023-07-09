@@ -25,6 +25,7 @@ class SharedConfig
 public:
 	std::vector<PartConfig> Parts;
 	State PopUpHeadLights = State::Default;
+	State ForceLodA = State::Default;
 
 	PartConfig* GetPart(Slot slot);
 };
@@ -44,7 +45,9 @@ public:
 
 	PartConfig GetPart(Slot slot, CarType carId);
 	CarConfig* GetCarConfig(CarType carId);
+	CarConfig* GetCarConfig(Hash carName);
 	State GetPopUpHeadLights(CarType carId);
+	State GetForceLodA(Hash carName);
 	int GetVersion(CarType carId);
 };
 

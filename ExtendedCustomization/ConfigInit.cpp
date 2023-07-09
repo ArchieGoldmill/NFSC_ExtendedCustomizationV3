@@ -54,6 +54,7 @@ void InitShared(CIniReader& iniReader, SharedConfig* shared)
 	InitParts(iniReader, shared);
 
 	shared->PopUpHeadLights = InitState(iniReader, "GENERAL", "PopUpHeadLights");
+	shared->ForceLodA = InitState(iniReader, "GENERAL", "ForceLodA");
 }
 
 void InitCars()
