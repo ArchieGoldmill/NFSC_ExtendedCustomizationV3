@@ -51,6 +51,22 @@ bool CheckKitwPart(Slot slot, DBCarPart* part)
 	return true;
 }
 
+bool CheckMarker(Slot slot, DBCarPart* part)
+{
+	for(auto attachSlot : AttachSlots)
+	{
+		if (attachSlot == slot)
+		{
+			auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
+			auto marker = part->GetAttachMarker(rideInfo);
+
+			return marker == NULL;
+		}
+	}
+
+	return false;
+}
+
 void __cdecl StandardSelectablePart_GetPartsList(Slot slot, Node<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 {
 	auto carId = FECarRecord::GetCarType();
@@ -68,6 +84,11 @@ void __cdecl StandardSelectablePart_GetPartsList(Slot slot, Node<StandardSelecta
 			}
 
 			if (Contains(KitwParts, slot, sizeof(KitwParts)) && !CheckKitwPart(slot, part))
+			{
+				continue;
+			}
+
+			if (CheckMarker(slot, part))
 			{
 				continue;
 			}

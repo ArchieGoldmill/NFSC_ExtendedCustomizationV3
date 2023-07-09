@@ -8,13 +8,13 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 {
 	if (GetAsyncKeyState(hk))
 	{
-		auto anim = carRenderInfo->Extras->Animations.GetAnimation(slot);
+		auto anim = (PartAnimation*)carRenderInfo->Extras->Animations.GetAnimation(slot);
 		if (anim)
 		{
 			anim->Toggle();
 			if (slot == Slot::LEFT_HEADLIGHT)
 			{
-				anim = carRenderInfo->Extras->Animations.GetAnimation(Slot::RIGHT_HEADLIGHT);
+				anim = (PartAnimation*)carRenderInfo->Extras->Animations.GetAnimation(Slot::RIGHT_HEADLIGHT);
 				if (anim)
 				{
 					anim->Toggle();
@@ -23,7 +23,7 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 
 			if (slot == Slot::DOOR_LEFT)
 			{
-				anim = carRenderInfo->Extras->Animations.GetAnimation(Slot::DOOR_RIGHT);
+				anim = (PartAnimation*)carRenderInfo->Extras->Animations.GetAnimation(Slot::DOOR_RIGHT);
 				if (anim)
 				{
 					anim->Toggle();

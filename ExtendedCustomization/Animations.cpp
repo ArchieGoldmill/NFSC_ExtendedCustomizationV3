@@ -10,6 +10,10 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 		{
 			marker = animation->Get(marker);
 		}
+		else if (carRenderInfo->Extras->Animations.SlotNeedsMarker(slot))
+		{
+			return;
+		}
 
 		(*model)->Render(view, marker, light, flags);
 	}

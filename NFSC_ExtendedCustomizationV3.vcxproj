@@ -202,9 +202,11 @@
     <ClInclude Include="ExtendedCustomization\Func.h" />
     <ClInclude Include="ExtendedCustomization\Game.h" />
     <ClInclude Include="ExtendedCustomization\Hashes.h" />
+    <ClInclude Include="ExtendedCustomization\IPartMarker.h" />
     <ClInclude Include="ExtendedCustomization\LegacyCustomization.h" />
     <ClInclude Include="ExtendedCustomization\Menu.h" />
     <ClInclude Include="ExtendedCustomization\PartList.h" />
+    <ClInclude Include="ExtendedCustomization\PartMarker.h" />
     <ClInclude Include="ExtendedCustomization\PositionMarker.h" />
     <ClInclude Include="ExtendedCustomization\Node.h" />
     <ClInclude Include="ExtendedCustomization\PVehicle.h" />
@@ -220,6 +222,7 @@
     <ClInclude Include="ExtendedCustomization\FEString.h" />
     <ClInclude Include="ExtendedCustomization\VectorScrollerMenu.h" />
     <ClInclude Include="ExtendedCustomization\ForceLodA.h" />
+    <ClInclude Include="ExtendedCustomization\PartAnimation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

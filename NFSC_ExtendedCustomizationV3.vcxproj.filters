@@ -72,9 +72,6 @@
     <ClInclude Include="ExtendedCustomization\Slots.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\DBCarPart.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="ExtendedCustomization\CarPartDatabase.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -209,6 +206,18 @@
     </ClInclude>
     <ClInclude Include="ExtendedCustomization\Decals.h">
       <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\PartAnimation.h">
+      <Filter>Features\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\PartMarker.h">
+      <Filter>Features\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\IPartMarker.h">
+      <Filter>Features\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\DBCarPart.h">
+      <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

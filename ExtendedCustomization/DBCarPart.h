@@ -2,6 +2,7 @@
 #include "Hashes.h"
 #include "Game.h"
 #include "eSolid.h"
+#include "RideInfo.h"
 
 class DBCarPart
 {
@@ -93,6 +94,26 @@ public:
 			if (marker)
 			{
 				return &marker->Matrix;
+			}
+		}
+
+		return NULL;
+	}
+
+	D3D::Matrix* GetAttachMarker(RideInfo* rideInfo)
+	{
+		Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR };
+
+		auto markerName = this->GetAppliedAttributeIParam(Hashes::MARKER, 0);
+		if (markerName)
+		{
+			for (auto markerSlot : MarkerSlots)
+			{
+				auto markerPart = rideInfo->GetPart(markerSlot);
+				if (markerPart)
+				{
+					return markerPart->GetMarker(markerName);
+				}
 			}
 		}
 

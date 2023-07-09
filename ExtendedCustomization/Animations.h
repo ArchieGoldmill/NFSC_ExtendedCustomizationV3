@@ -1,140 +1,21 @@
 #pragma once
-#include <vector>
 #include "Feature.h"
 #include "CarRenderInfo.h"
 #include "Game.h"
 #include "D3DWrapper.h"
 #include "Constants.h"
+#include "PartAnimation.h"
+#include "PartMarker.h"
+#include "DBCarPart.h"
 
 void InitAnimations();
-
-class PartAnimation
-{
-private:
-	D3D::Matrix* start;
-	D3D::Matrix* end;
-	D3D::Matrix state;
-	float amount;
-	float target;
-	bool freeMatrices;
-
-	Slot slot;
-	std::vector<Slot> subSlots;
-
-public:
-	PartAnimation(Slot slot, D3D::Matrix* start, D3D::Matrix* end)
-	{
-		this->slot = slot;
-
-		this->start = start;
-		this->end = end;
-
-		this->amount = 0;
-		this->target = 0;
-
-		this->freeMatrices = false;
-	}
-
-	PartAnimation(Slot slot, D3D::Matrix& start, D3D::Matrix& end)
-	{
-		this->slot = slot;
-
-		this->start = new D3D::Matrix(start);
-		this->end = new D3D::Matrix(end);
-
-		this->amount = 0;
-		this->target = 0;
-
-		this->freeMatrices = true;
-	}
-
-	~PartAnimation()
-	{
-		if (this->freeMatrices)
-		{
-			delete this->start;
-			delete this->end;
-		}
-	}
-
-	void Start()
-	{
-		this->amount = 0;
-	}
-
-	void End()
-	{
-		this->amount = 1;
-	}
-
-	void SetTarget(float target)
-	{
-		this->target = target;
-	}
-
-	void Toggle()
-	{
-		if (this->target == 1)
-		{
-			this->target = 0;
-		}
-		else
-		{
-			this->target = 1;
-		}
-	}
-
-	void Update()
-	{
-		MoveTowards(this->amount, this->target, *Game::DeltaTime * 2);
-	}
-
-	bool IsSlot(Slot slot)
-	{
-		if (this->slot == slot)
-		{
-			return true;
-		}
-
-		for (auto s : this->subSlots)
-		{
-			if (s == slot)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	void AddSubSlot(Slot slot)
-	{
-		this->subSlots.push_back(slot);
-	}
-
-	D3D::Matrix* Get(D3D::Matrix* matrix)
-	{
-		auto qStart = this->start->ToQuaternion().Normalize();
-		auto qEnd = this->end->ToQuaternion().Normalize();
-
-		auto qRotation = D3D::Quaternion::Slerp(qStart, qEnd, this->amount).Normalize();
-
-		auto result = D3D::Matrix::Transformation(qRotation, this->start->GetW());
-
-		auto pos = (this->end->GetW() - this->start->GetW()) * this->amount;
-		result.SetW(result.GetW() + pos);
-
-		D3D::Matrix::Multiply(&this->state, &result, matrix);
-
-		return &this->state;
-	}
-};
 
 class CarAnimations
 {
 private:
 	CarRenderInfo* carRenderInfo;
 	std::vector<PartAnimation*> partAnimations;
+	std::vector<PartMarker*> partMarkers;
 
 public:
 	CarAnimations(CarRenderInfo* carRenderInfo)
@@ -149,61 +30,20 @@ public:
 
 	void FindMarkers()
 	{
-		this->Clear();
+		this->FindAnimationMarkers();
+		auto rideInfo = this->carRenderInfo->RideInfo;
 
-		auto leftHeadlightAnim = this->FindMarkers(Slot::LEFT_HEADLIGHT);
-		auto rightHeadlightAnim = this->FindMarkers(Slot::RIGHT_HEADLIGHT);
-		auto trunkAnim = this->FindMarkers(Slot_Trunk);
-		auto hoodAnim = this->FindMarkers(Slot::HOOD);
-		auto leftDoorAnim = this->FindMarkers(Slot::DOOR_LEFT);
-		auto rightDoorAnim = this->FindMarkers(Slot::DOOR_RIGHT);
-
-		if (true) // Check config
+		for (auto slot : AttachSlots)
 		{
-			if (!leftDoorAnim)
+			auto part = rideInfo->GetPart(slot);
+			if (part)
 			{
-				leftDoorAnim = this->CreateMarker(Slot::DOOR_LEFT, InitLeftDoorMarker);
+				auto marker = part->GetAttachMarker(rideInfo);
+				if (marker)
+				{
+					this->partMarkers.push_back(new PartMarker(slot, marker));
+				}
 			}
-
-			if (!rightDoorAnim)
-			{
-				rightDoorAnim = this->CreateMarker(Slot::DOOR_RIGHT, InitRightDoorMarker);
-			}
-
-			if (!hoodAnim)
-			{
-				hoodAnim = this->CreateMarker(Slot::HOOD, InitHoodMarker);
-			}
-		}
-
-		if (leftHeadlightAnim)
-		{
-			leftHeadlightAnim->AddSubSlot(Slot::LEFT_HEADLIGHT_GLASS);
-		}
-
-		if (rightHeadlightAnim)
-		{
-			rightHeadlightAnim->AddSubSlot(Slot::RIGHT_HEADLIGHT_GLASS);
-		}
-
-		if (leftDoorAnim)
-		{
-			leftDoorAnim->AddSubSlot(Slot::FRONT_LEFT_WINDOW);
-			leftDoorAnim->AddSubSlot(Slot::LEFT_SIDE_MIRROR);
-		}
-
-		if (rightDoorAnim)
-		{
-			rightDoorAnim->AddSubSlot(Slot::FRONT_RIGHT_WINDOW);
-			rightDoorAnim->AddSubSlot(Slot::RIGHT_SIDE_MIRROR);
-		}
-
-		if (trunkAnim)
-		{
-			trunkAnim->AddSubSlot(Slot::SPOILER);
-			trunkAnim->AddSubSlot(Slot::REAR_WINDOW);
-			trunkAnim->AddSubSlot(Slot::DECAL_REAR_WINDOW);
-			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
 		}
 	}
 
@@ -215,7 +55,7 @@ public:
 		}
 	}
 
-	PartAnimation* GetAnimation(Slot slot)
+	IPartMarker* GetAnimation(Slot slot)
 	{
 		for (auto anim : this->partAnimations)
 		{
@@ -225,11 +65,30 @@ public:
 			}
 		}
 
+		for (auto m : this->partMarkers)
+		{
+			if (m->IsSlot(slot))
+			{
+				return m;
+			}
+		}
+
 		return NULL;
 	}
 
+	bool SlotNeedsMarker(Slot slot)
+	{
+		auto part = this->carRenderInfo->RideInfo->GetPart(slot);
+		if (part)
+		{
+			return part->GetAppliedAttributeIParam(Hashes::MARKER, 0) != 0;
+		}
+
+		return false;
+	}
+
 private:
-	PartAnimation* FindMarkers(Slot slot)
+	PartAnimation* FindAnimMarkers(Slot slot)
 	{
 		auto rideInfo = this->carRenderInfo->RideInfo;
 
@@ -285,6 +144,66 @@ private:
 		return m;
 	}
 
+	void FindAnimationMarkers()
+	{
+		this->Clear();
+
+		auto leftHeadlightAnim = this->FindAnimMarkers(Slot::LEFT_HEADLIGHT);
+		auto rightHeadlightAnim = this->FindAnimMarkers(Slot::RIGHT_HEADLIGHT);
+		auto trunkAnim = this->FindAnimMarkers(Slot_Trunk);
+		auto hoodAnim = this->FindAnimMarkers(Slot::HOOD);
+		auto leftDoorAnim = this->FindAnimMarkers(Slot::DOOR_LEFT);
+		auto rightDoorAnim = this->FindAnimMarkers(Slot::DOOR_RIGHT);
+
+		if (true) // Check config
+		{
+			if (!leftDoorAnim)
+			{
+				leftDoorAnim = this->CreateMarker(Slot::DOOR_LEFT, InitLeftDoorMarker);
+			}
+
+			if (!rightDoorAnim)
+			{
+				rightDoorAnim = this->CreateMarker(Slot::DOOR_RIGHT, InitRightDoorMarker);
+			}
+
+			if (!hoodAnim)
+			{
+				hoodAnim = this->CreateMarker(Slot::HOOD, InitHoodMarker);
+			}
+		}
+
+		if (leftHeadlightAnim)
+		{
+			leftHeadlightAnim->AddSubSlot(Slot::LEFT_HEADLIGHT_GLASS);
+		}
+
+		if (rightHeadlightAnim)
+		{
+			rightHeadlightAnim->AddSubSlot(Slot::RIGHT_HEADLIGHT_GLASS);
+		}
+
+		if (leftDoorAnim)
+		{
+			leftDoorAnim->AddSubSlot(Slot::FRONT_LEFT_WINDOW);
+			leftDoorAnim->AddSubSlot(Slot::LEFT_SIDE_MIRROR);
+		}
+
+		if (rightDoorAnim)
+		{
+			rightDoorAnim->AddSubSlot(Slot::FRONT_RIGHT_WINDOW);
+			rightDoorAnim->AddSubSlot(Slot::RIGHT_SIDE_MIRROR);
+		}
+
+		if (trunkAnim)
+		{
+			trunkAnim->AddSubSlot(Slot::SPOILER);
+			trunkAnim->AddSubSlot(Slot::REAR_WINDOW);
+			trunkAnim->AddSubSlot(Slot::DECAL_REAR_WINDOW);
+			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
+		}
+	}
+
 	PartAnimation* CreateMarker(Slot slot, D3D::Matrix(*func)(D3DXVECTOR3&, D3DXVECTOR3&))
 	{
 		auto rideInfo = this->carRenderInfo->RideInfo;
@@ -318,6 +237,12 @@ private:
 			delete anim;
 		}
 
+		for (auto m : this->partMarkers)
+		{
+			delete m;
+		}
+
 		this->partAnimations.clear();
+		this->partMarkers.clear();
 	}
 };

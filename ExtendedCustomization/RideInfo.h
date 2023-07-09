@@ -1,7 +1,9 @@
 #pragma once
-#include "DBCarPart.h"
 #include "Slots.h"
 #include "Func.h"
+#include "Game.h"
+
+class DBCarPart;
 
 struct AutosculptData
 {
@@ -31,7 +33,7 @@ public:
 
 	void SetPart(Slot slot, DBCarPart* part, bool updatePartsEnabled = true)
 	{
-		static auto _SetPart = (void(__thiscall*)(RideInfo*, Slot, DBCarPart * part, bool updatePartsEnabled))0x007D67A0;
+		static auto _SetPart = (void(__thiscall*)(RideInfo*, Slot, DBCarPart* part, bool updatePartsEnabled))0x007D67A0;
 		_SetPart(this, slot, part, updatePartsEnabled);
 	}
 
