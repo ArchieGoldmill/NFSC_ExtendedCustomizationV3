@@ -10,6 +10,12 @@ public:
 		return *gFECarRecord;
 	}
 
+	static CarType GetCarType()
+	{
+		auto record = Get();
+		return record ? record->GetType() : CarType(-1);
+	}
+
 	CarType GetType()
 	{
 		static auto _GetType = (CarType(__thiscall*)(FECarRecord*))0x004AE150;

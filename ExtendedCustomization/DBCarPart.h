@@ -46,6 +46,11 @@ public:
 		return this->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0);
 	}
 
+	bool IsStock()
+	{
+		return this->GetAppliedAttributeIParam(Hashes::STOCK, 0);
+	}
+
 	bool HasKitW(int kitw)
 	{
 		for (int i = 0; i < 99; i++)

@@ -5,6 +5,7 @@ namespace Hashes
 {
 	const Hash KITNUMBER = 0x796C0CB0;
 	const Hash MORPHTARGET_NUM = 0x2850A03B;
+	const Hash STOCK = 0x03B83203;
 
 	const Hash ANIM_START = 0x68EDC171;
 	const Hash ANIM_END = 0xAC685B7A;

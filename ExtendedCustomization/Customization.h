@@ -128,12 +128,7 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 		record = FECustomizationRecord::Get();
 	}
 
-	CarType carId(-1);
-	auto feCarRecord = FECarRecord::Get();
-	if (feCarRecord)
-	{
-		carId = feCarRecord->GetType();
-	}
+	auto carId = FECarRecord::GetCarType();
 
 	return record->SetInstalledPart(selectablePart->SlotId, selectablePart->Part, carId, setOnly);
 }

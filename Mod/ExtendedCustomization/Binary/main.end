@@ -1,0 +1,7 @@
+[VERSN2]
+version 2.8.3
+
+stop_errors false
+
+// Localization
+append Localization\English.end

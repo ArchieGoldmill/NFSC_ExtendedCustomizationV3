@@ -1,0 +1,33 @@
+[VERSN1]
+
+{
+  "Usage": "User",
+  "Game": "Carbon",
+  "Endscript": "Binary/main.end",
+  "Files": [
+    "GLOBAL\GLOBALA.BUN",
+    "GLOBAL\GLOBALB.LZC"
+  ],
+  "Links": [
+    {
+      "LoadType": "Attributes",
+      "PathType": "Absolute",
+      "File": "GLOBAL\attributes.bin"
+    },
+    {
+      "LoadType": "FeAttrib",
+      "PathType": "Absolute",
+      "File": "GLOBAL\fe_attrib.bin"
+    },
+    {
+      "LoadType": "Labels",
+      "PathType": "Absolute",
+      "File": "LANGUAGES\Labels_Global.bin"
+    },
+    {
+      "LoadType": "Labels",
+      "PathType": "Absolute",
+      "File": "LANGUAGES\Labels.bin"
+    }
+  ]
+}
