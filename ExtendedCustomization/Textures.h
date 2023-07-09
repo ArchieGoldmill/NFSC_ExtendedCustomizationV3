@@ -24,11 +24,11 @@ void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 			bool lightsOn = Game::InRace() && carRenderInfo->IsGlareOn();
 			auto texture = leftHeadlightPart->GetTextureName();
 
-			auto newName = bStringHash(lightsOn ? "_ON" : "_OFF", texture);
+			auto newName = StringHash1(lightsOn ? "_ON" : "_OFF", texture);
 			leftHeadlight->Update(lightsOn ? Hashes::HEADLIGHT_LEFT_ON : Hashes::HEADLIGHT_LEFT_OFF, newName);
 			rightHeadlight->Update(lightsOn ? Hashes::HEADLIGHT_RIGHT_ON : Hashes::HEADLIGHT_RIGHT_OFF, newName);
 
-			newName = bStringHash(lightsOn ? "_GLASS_ON" : "_GLASS_OFF", texture);
+			newName = StringHash1(lightsOn ? "_GLASS_ON" : "_GLASS_OFF", texture);
 			leftHeadlightGlass->Update(Hashes::HEADLIGHT_GLASS_LEFT, newName);
 			rightHeadlightGlass->Update(Hashes::HEADLIGHT_GLASS_RIGHT, newName);
 		}
@@ -44,19 +44,19 @@ void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 
 			auto texture = leftBrakelightPart->GetTextureName();
 
-			auto newName = bStringHash(Game::InRace() ? (carRenderInfo->IsLeftBrakelightOn() ? "_ON" : "_ONF") : "_OFF", texture);
+			auto newName = StringHash1(Game::InRace() ? (carRenderInfo->IsLeftBrakelightOn() ? "_ON" : "_ONF") : "_OFF", texture);
 			leftBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_LEFT_ON : Hashes::BRAKELIGHT_LEFT_OFF, newName);
 			rightBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_RIGHT_ON : Hashes::BRAKELIGHT_RIGHT_OFF, newName);
 			centerBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_CENTRE_ON : Hashes::BRAKELIGHT_CENTRE_OFF, newName);
 
-			newName = bStringHash(Game::InRace() ? "_GLASS_ON" : "_GLASS_OFF", texture);
+			newName = StringHash1(Game::InRace() ? "_GLASS_ON" : "_GLASS_OFF", texture);
 			leftBrakelightGlass->Update(Hashes::BRAKELIGHT_GLASS_LEFT, newName);
 			rightBrakelightGlass->Update(Hashes::BRAKELIGHT_GLASS_RIGHT, newName);
 		}
 
 		Hash carHash = StringHash(rideInfo->GetCarTypeName());
 		bool isReverseOn = carRenderInfo->IsReverseOn();
-		auto newName = isReverseOn ? bStringHash("_REVERSE_ON", carHash) : bStringHash("_REVERSE_OFF", carHash);
+		auto newName = isReverseOn ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash);
 		auto reverse = entries + 0x24;
 
 		reverse->Update(carRenderInfo->IsReverseOn() ? Hashes::REVERSE_ON : Hashes::REVERSE_OFF, newName);
@@ -93,12 +93,12 @@ void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 	if (leftBrakelight)
 	{
 		auto texture = leftBrakelight->GetTextureName();
-		SetTextureHash(texPtr, bStringHash("_ONF", texture));
+		SetTextureHash(texPtr, StringHash1("_ONF", texture));
 	}
 
 	Hash carHash = StringHash(rideInfo->GetCarTypeName());
-	SetTextureHash(texPtr, bStringHash("_REVERSE_ON", carHash));
-	SetTextureHash(texPtr, bStringHash("_REVERSE_OFF", carHash));
+	SetTextureHash(texPtr, StringHash1("_REVERSE_ON", carHash));
+	SetTextureHash(texPtr, StringHash1("_REVERSE_OFF", carHash));
 }
 
 void __declspec(naked) GetUsedCarTextureInfoCave()

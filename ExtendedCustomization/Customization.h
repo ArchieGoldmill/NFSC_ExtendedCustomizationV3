@@ -22,14 +22,10 @@ void InstallPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot, D
 
 void InstallByKitNumber(Slot slot, RideInfo* rideInfo, FECustomizationRecord* record, int kit)
 {
-	auto carPartDatabase = CarPartDatabase::Get();
-	if (carPartDatabase)
+	auto part = CarPartDatabase::Instance->GetByKitNumber(slot, rideInfo->CarId, kit);
+	if (part)
 	{
-		auto part = carPartDatabase->GetByKitNumber(slot, rideInfo->CarId, kit);
-		if (part)
-		{
-			InstallPart(rideInfo, record, slot, part);
-		}
+		InstallPart(rideInfo, record, slot, part);
 	}
 }
 
@@ -43,17 +39,13 @@ void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slo
 		return;
 	}
 
-	auto carPartDatabase = CarPartDatabase::Get();
-	if (carPartDatabase)
+	auto part = CarPartDatabase::Instance->GetByKitW(slot, carId, kit);
+	if (!part)
 	{
-		auto part = carPartDatabase->GetByKitW(slot, carId, kit);
-		if (!part)
-		{
-			part = carPartDatabase->GetByKitW(slot, carId, 0);
-		}
-
-		InstallPart(rideInfo, record, slot, part); 
+		part = CarPartDatabase::Instance->GetByKitW(slot, carId, 0);
 	}
+
+	InstallPart(rideInfo, record, slot, part);
 }
 
 void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)

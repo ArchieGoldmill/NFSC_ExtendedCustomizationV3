@@ -168,6 +168,7 @@
     <ClCompile Include="ExtendedCustomization\eSolid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExtendedCustomization\Decals.h" />
     <ClInclude Include="ExtendedCustomization\Animations.h" />
     <ClInclude Include="ExtendedCustomization\AutosculptSelectablePart.h" />
     <ClInclude Include="ExtendedCustomization\CarPartDatabase.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="ExtendedCustomization\FeCustomizePartsMenu.h" />
     <ClInclude Include="ExtendedCustomization\FEString.h" />
     <ClInclude Include="ExtendedCustomization\VectorScrollerMenu.h" />
+    <ClInclude Include="ExtendedCustomization\ForceLodA.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

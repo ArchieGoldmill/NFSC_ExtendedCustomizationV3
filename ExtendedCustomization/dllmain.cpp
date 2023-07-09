@@ -10,6 +10,8 @@
 #include "Customization.h"
 #include "Textures.h"
 #include "Menu.h"
+#include "ForceLodA.h"
+#include "Decals.h"
 
 // Hooks
 #include "CarRenderInfoHooks.h"
@@ -24,6 +26,8 @@ void Init()
 	InitTextures();
 	InitUserInput();
 	InitMenu();
+	InitForceLodA();
+	InitDecals();
 
 	InitCarRenderInfoHooks();
 }

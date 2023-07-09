@@ -1,5 +1,8 @@
 #pragma once
 #include "Feature.h"
+#include "FeGarageMain.h"
+#include "FECarRecord.h"
+#include "Config.h"
 
 void HandleSpecialCustomizationV2(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
 {

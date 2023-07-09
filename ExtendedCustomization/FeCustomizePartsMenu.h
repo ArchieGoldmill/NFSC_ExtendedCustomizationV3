@@ -51,13 +51,19 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		break;
 	case CustomizeMainMenu::FRONT_RIMS:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
-
 		_this->AddMenuOption(0xB47AB2E, Slot::FRONT_WHEEL, _this->IsAutosculpt, 0);
 		break;
 	case CustomizeMainMenu::REAR_RIMS:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
-
 		_this->AddMenuOption(0xB47AB2E, Slot::REAR_WHEEL, _this->IsAutosculpt, 0);
+		break;
+	case CustomizeMainMenu::ATTACHMENTS:
+		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
+		for (int i = 0; i < 13; i++)
+		{
+			AddMenuOption(_this, (Slot)((int)Slot::ATTACHMENT0 + i), carId);
+		}
+
 		break;
 	case CustomizeMainMenu::SPECIALTIES:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
@@ -65,6 +71,10 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::LICENSE_PLATE, carId);
 		AddMenuOption(_this, Slot::FRONT_BRAKE, carId);
 		AddMenuOption(_this, Slot::FRONT_ROTOR, carId);
+		AddMenuOption(_this, Slot::INTERIOR, carId);
+		AddMenuOption(_this, Slot::STEERINGWHEEL, carId);
+		AddMenuOption(_this, Slot::ATTACHMENT14, carId); // Left seat
+		AddMenuOption(_this, Slot::ATTACHMENT15, carId); // Right seat
 		AddMenuOption(_this, Slot::DECAL_FRONT_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::DECAL_REAR_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::VINYL_GENERIC, carId);

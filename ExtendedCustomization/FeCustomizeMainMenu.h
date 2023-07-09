@@ -3,6 +3,21 @@
 #include "FeCustomizeMain.h"
 #include "FEButton.h"
 
+bool AnyAttachmentsEnabled()
+{
+	auto carId = FECarRecord::GetCarType();
+	for (int i = 0; i < 13; i++)
+	{
+		auto part = g_Config.GetPart((Slot)((int)Slot::ATTACHMENT0 + i), carId);
+		if (part.State == State::Enabled)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 {
 	_this->SetTitleName(Hashes::CUST_MAINMENU_TITLE);
@@ -12,6 +27,11 @@ void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_AUTOSCULPT, (int)CustomizeMainMenu::AUTOSCULPT));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_RIMS, (int)CustomizeMainMenu::FRONT_RIMS));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_RIMS, (int)CustomizeMainMenu::REAR_RIMS));
+	if (AnyAttachmentsEnabled())
+	{
+		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_ATTACHMENTS, (int)CustomizeMainMenu::ATTACHMENTS));
+	}
+
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_SPECIALTIES, (int)CustomizeMainMenu::SPECIALTIES));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PAINTS, (int)CustomizeMainMenu::PAINTS));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_VISUALS, (int)CustomizeMainMenu::VISUALS));
@@ -30,7 +50,7 @@ CustomizeMainMenu __stdcall ShowMenu(CustomizeMainMenu menu)
 		return CustomizeMainMenu::AUTOSCULPT;
 	}
 
-	if (menu == CustomizeMainMenu::SPECIALTIES)
+	if (menu == CustomizeMainMenu::SPECIALTIES || menu == CustomizeMainMenu::ATTACHMENTS)
 	{
 		return CustomizeMainMenu::AFTERMARKET;
 	}

@@ -6,10 +6,7 @@
 class CarPartDatabase
 {
 public:
-	static CarPartDatabase* Get()
-	{
-		return (CarPartDatabase*)0x00B76690;
-	}
+	static inline CarPartDatabase* Instance = (CarPartDatabase*)0x00B76690;
 
 	DBCarPart* GetCarPart(Slot slot, CarType carId, DBCarPart* prevPart)
 	{

@@ -8,7 +8,7 @@ struct CarType
 	int Id;
 };
 
-INLINE_FUNC(0x00471080, Hash, __cdecl, bStringHash, const char*, Hash);
+INLINE_FUNC(0x00471080, Hash, __cdecl, StringHash1, const char*, Hash);
 INLINE_FUNC(0x00471050, Hash, __cdecl, StringHash, const char*);
 INLINE_FUNC(0x0055CFD0, TextureInfo*, __cdecl, GetTextureInfo, Hash, bool, bool);
 INLINE_FUNC(0x006A1560, void*, __cdecl, j_malloc_0, int);
@@ -17,6 +17,7 @@ INLINE_FUNC(0x007B0290, char*, __cdecl, GetCarTypeName, CarType);
 namespace Game
 {
 	static float* DeltaTime = (float*)0x00A99A5C;
+	static int* CarPartSlotMap = (int*)0x00A73398;
 
 	enum class State
 	{

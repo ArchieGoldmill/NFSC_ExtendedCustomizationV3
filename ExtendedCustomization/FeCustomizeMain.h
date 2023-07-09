@@ -12,6 +12,7 @@ enum class CustomizeMainMenu :int
 	REAR_RIMS = 6,
 	PAINTS = 7,
 	SPECIALTIES = 8,
+	ATTACHMENTS = 9
 };
 
 class FeCustomizeMain : public VectorScrollerMenu

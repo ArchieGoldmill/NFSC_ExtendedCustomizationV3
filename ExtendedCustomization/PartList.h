@@ -58,11 +58,10 @@ void __cdecl StandardSelectablePart_GetPartsList(Slot slot, Node<StandardSelecta
 	int version = g_Config.GetVersion(carId);
 	if (version == 3)
 	{
-		auto carPartDatabase = CarPartDatabase::Get();
 		DBCarPart* part = NULL;
 		while (true)
 		{
-			part = carPartDatabase->GetCarPart(slot, carId, part);
+			part = CarPartDatabase::Instance->GetCarPart(slot, carId, part);
 			if (!part)
 			{
 				break;

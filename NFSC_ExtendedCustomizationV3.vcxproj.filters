@@ -204,5 +204,11 @@
     <ClInclude Include="ExtendedCustomization\LegacyCustomization.h">
       <Filter>Features\Customization</Filter>
     </ClInclude>
+    <ClInclude Include="ExtendedCustomization\ForceLodA.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Decals.h">
+      <Filter>Features</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,5 +3,8 @@ version 2.8.3
 
 stop_errors false
 
+// DBModelParts
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\DECAL.bin
+
 // Localization
 append Localization\English.end
