@@ -8,6 +8,7 @@
 #include "CarPartDatabase.h"
 #include "Game.h"
 #include "FrontEndRenderingCar.h"
+#include "AutosculptSelectablePart.h"
 
 Slot KitwParts[] = {
 	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT
@@ -70,36 +71,55 @@ bool CheckMarker(Slot slot, DBCarPart* part)
 	return false;
 }
 
+template<typename SelectablePart>
+void GetPartsListV3(Slot slot, Node<SelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius, CarType carId, bool isAutosculpt)
+{
+	DBCarPart* part = NULL;
+	while (true)
+	{
+		part = CarPartDatabase::Instance->GetCarPart(slot, carId, part);
+		if (!part)
+		{
+			break;
+		}
+
+		if (!part->IsStock())
+		{
+			bool as = part->IsAutosculpt();
+			if ((isAutosculpt && !as) || (!isAutosculpt && as))
+			{
+				continue;
+			}
+
+			if (isCarbon != part->IsCarbon())
+			{
+				continue;
+			}
+		}
+
+		if (Contains(KitwParts, slot, sizeof(KitwParts)) && !CheckKitwPart(slot, part))
+		{
+			continue;
+		}
+
+		if (CheckMarker(slot, part))
+		{
+			continue;
+		}
+
+		auto selectablePart = (SelectablePart*)j_malloc_0(sizeof(SelectablePart));
+		*selectablePart = SelectablePart(slot, part);
+		AddNodeToList((Node<StandardSelectablePart*>*)listHead, (Node<StandardSelectablePart*>*)&selectablePart->NodeItem);
+	}
+}
+
 void __cdecl StandardSelectablePart_GetPartsList(Slot slot, Node<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 {
 	auto carId = FECarRecord::GetCarType();
-
 	int version = g_Config.GetVersion(carId);
 	if (version == 3)
 	{
-		DBCarPart* part = NULL;
-		while (true)
-		{
-			part = CarPartDatabase::Instance->GetCarPart(slot, carId, part);
-			if (!part)
-			{
-				break;
-			}
-
-			if (Contains(KitwParts, slot, sizeof(KitwParts)) && !CheckKitwPart(slot, part))
-			{
-				continue;
-			}
-
-			if (CheckMarker(slot, part))
-			{
-				continue;
-			}
-
-			auto selectablePart = (StandardSelectablePart*)j_malloc_0(sizeof(StandardSelectablePart));
-			*selectablePart = StandardSelectablePart(slot, part);
-			AddNodeToList(listHead, &selectablePart->NodeItem);
-		}
+		GetPartsListV3<StandardSelectablePart>(slot, listHead, isCarbon, brandName, innerRadius, carId, false);
 	}
 	else
 	{
@@ -107,13 +127,22 @@ void __cdecl StandardSelectablePart_GetPartsList(Slot slot, Node<StandardSelecta
 	}
 }
 
-void __cdecl AutosculptSelectablePart_GetPartsList(Slot slot, Node<StandardSelectablePart*>* listHead, bool isCarbon, int brandName, int innerRadius)
+void __cdecl AutosculptSelectablePart_GetPartsList(Slot slot, Node<AutosculptSelectablePart*>* listHead, bool isCarbon, int brandName, int innerRadius)
 {
-
+	auto carId = FECarRecord::GetCarType();
+	int version = g_Config.GetVersion(carId);
+	if (version == 3)
+	{
+		GetPartsListV3<AutosculptSelectablePart>(slot, listHead, isCarbon, brandName, innerRadius, carId, true);
+	}
+	else
+	{
+		AutosculptSelectablePart::GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
+	}
 }
 
 void InitPartList()
 {
 	injector::MakeCALL(0x0085FA37, StandardSelectablePart_GetPartsList, true);
-	//injector::MakeCALL(0x0085FA30, AutosculptSelectablePart_GetPartsList, true);
+	injector::MakeCALL(0x0085FA30, AutosculptSelectablePart_GetPartsList, true);
 }

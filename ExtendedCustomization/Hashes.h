@@ -8,6 +8,7 @@ namespace Hashes
 	const Hash STOCK = 0x03B83203;
 	const Hash PARTID_UPGRADE_GROUP = 0x9239CF16;
 	const Hash MARKER = 0x6B6973C1;
+	const Hash CARBONFIBRE = 0x721AFF7C;
 
 	const Hash ANIM_START = 0x68EDC171;
 	const Hash ANIM_END = 0xAC685B7A;

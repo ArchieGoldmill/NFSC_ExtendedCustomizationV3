@@ -44,7 +44,12 @@ public:
 
 	bool IsAutosculpt()
 	{
-		return this->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0);
+		return this->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) != 0;
+	}
+
+	bool IsCarbon()
+	{
+		return this->GetAppliedAttributeIParam(Hashes::CARBONFIBRE, 0) != 0;
 	}
 
 	bool IsStock()
@@ -112,12 +117,16 @@ public:
 				auto markerPart = rideInfo->GetPart(markerSlot);
 				if (markerPart)
 				{
-					if (scale)
+					auto marker = markerPart->GetMarker(markerName);
+					if (marker)
 					{
-						*scale = markerPart->GetMarkerScale(markerName);
-					}
+						if (scale)
+						{
+							*scale = markerPart->GetMarkerScale(markerName);
+						}
 
-					return markerPart->GetMarker(markerName);
+						return marker;
+					}
 				}
 			}
 		}
