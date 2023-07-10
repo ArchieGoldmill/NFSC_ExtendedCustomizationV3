@@ -53,14 +53,17 @@ bool CheckKitwPart(Slot slot, DBCarPart* part)
 
 bool CheckMarker(Slot slot, DBCarPart* part)
 {
-	for(auto attachSlot : AttachSlots)
+	if (part->HasMarkerName())
 	{
-		if (attachSlot == slot)
+		for (auto attachSlot : AttachSlots)
 		{
-			auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-			auto marker = part->GetAttachMarker(rideInfo);
+			if (attachSlot == slot)
+			{
+				auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
+				auto marker = part->GetAttachMarker(rideInfo);
 
-			return marker == NULL;
+				return marker == NULL;
+			}
 		}
 	}
 
@@ -112,5 +115,5 @@ void __cdecl AutosculptSelectablePart_GetPartsList(Slot slot, Node<StandardSelec
 void InitPartList()
 {
 	injector::MakeCALL(0x0085FA37, StandardSelectablePart_GetPartsList, true);
-	injector::MakeCALL(0x0085FA30, AutosculptSelectablePart_GetPartsList, true);
+	//injector::MakeCALL(0x0085FA30, AutosculptSelectablePart_GetPartsList, true);
 }

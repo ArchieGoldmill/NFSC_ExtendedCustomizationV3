@@ -100,7 +100,7 @@ public:
 		return NULL;
 	}
 
-	D3D::Matrix* GetAttachMarker(RideInfo* rideInfo)
+	D3D::Matrix* GetAttachMarker(RideInfo* rideInfo, D3DXVECTOR3* scale = NULL)
 	{
 		Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR };
 
@@ -112,11 +112,32 @@ public:
 				auto markerPart = rideInfo->GetPart(markerSlot);
 				if (markerPart)
 				{
+					if (scale)
+					{
+						*scale = markerPart->GetMarkerScale(markerName);
+					}
+
 					return markerPart->GetMarker(markerName);
 				}
 			}
 		}
 
 		return NULL;
+	}
+
+	D3DXVECTOR3 GetMarkerScale(Hash marker)
+	{
+		D3DXVECTOR3 scale;
+
+		scale.x = this->GetAppliedAttributeFParam(StringHash1("_SX", marker), 1.0f);
+		scale.y = this->GetAppliedAttributeFParam(StringHash1("_SY", marker), 1.0f);
+		scale.z = this->GetAppliedAttributeFParam(StringHash1("_SZ", marker), 1.0f);
+
+		return scale;
+	}
+
+	bool HasMarkerName()
+	{
+		return this->GetAppliedAttributeIParam(Hashes::MARKER, 0) != 0;
 	}
 };

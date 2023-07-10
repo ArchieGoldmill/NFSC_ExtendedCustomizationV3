@@ -92,5 +92,12 @@ namespace D3D
 			D3DXMatrixRotationZ(&m.inst, DTR(angle));
 			return m;
 		}
+
+		static Matrix FromScale(D3DXVECTOR3 scale)
+		{
+			Matrix m;
+			D3DXMatrixScaling(&m.inst, scale.x, scale.y, scale.z);
+			return m;
+		}
 	};
 }

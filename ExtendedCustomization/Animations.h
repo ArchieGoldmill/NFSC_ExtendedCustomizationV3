@@ -36,12 +36,13 @@ public:
 		for (auto slot : AttachSlots)
 		{
 			auto part = rideInfo->GetPart(slot);
-			if (part)
+			if (part && part->HasMarkerName())
 			{
-				auto marker = part->GetAttachMarker(rideInfo);
+				D3DXVECTOR3 scale;
+				auto marker = part->GetAttachMarker(rideInfo, &scale);
 				if (marker)
 				{
-					this->partMarkers.push_back(new PartMarker(slot, marker));
+					this->partMarkers.push_back(new PartMarker(slot, marker, scale));
 				}
 			}
 		}
