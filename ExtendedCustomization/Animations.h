@@ -142,7 +142,7 @@ private:
 	{
 		D3DXVECTOR3 pos;
 		pos.x = b.x - 0.05;
-		pos.y = b.y;
+		pos.y = a.y;
 		pos.z = b.z - (b.z - a.z) / 2;
 		auto m = D3D::Matrix::FromRotationZ(45);
 		m.SetW(pos);

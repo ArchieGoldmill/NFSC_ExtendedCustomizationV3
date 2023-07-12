@@ -1,10 +1,6 @@
 #pragma once
 #include <D3dx9math.h>
 
-const float M_PI = 3.14159265358979323846f;
-#define DTR(a) a * (M_PI / 180) // Degrees to radians
-#define RTD(a) a * (180 / M_PI) // Radians to degrees
-
 namespace D3D
 {
 	class Quaternion
@@ -15,17 +11,18 @@ namespace D3D
 		D3DXQUATERNION inst;
 
 	public:
-		static Quaternion Slerp(Quaternion q1, Quaternion q2, float t)
-		{
-			Quaternion result;
-			D3DXQuaternionSlerp(&result.inst, &q1.inst, &q2.inst, t);
-			return result;
-		}
 
 		Quaternion& Normalize()
 		{
 			D3DXQuaternionNormalize(&this->inst, &this->inst);
 			return *this;
+		}
+
+		static Quaternion Slerp(Quaternion q1, Quaternion q2, float t)
+		{
+			Quaternion result;
+			D3DXQuaternionSlerp(&result.inst, &q1.inst, &q2.inst, t);
+			return result;
 		}
 	};
 
@@ -59,6 +56,16 @@ namespace D3D
 			this->inst.m[3][2] = t.z;
 		}
 
+		void Transform(D3DXVECTOR4& v)
+		{
+			if (v.w == 0)
+			{
+				v.w = 1;
+			}
+
+			D3DXVec3TransformCoord((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v, &this->inst);
+		}
+
 		static Matrix Transformation(Quaternion q, D3DXVECTOR3 origin)
 		{
 			Matrix result;
@@ -75,21 +82,21 @@ namespace D3D
 		static Matrix FromRotationX(float angle)
 		{
 			Matrix m;
-			D3DXMatrixRotationX(&m.inst, DTR(angle));
+			D3DXMatrixRotationX(&m.inst, D3DXToRadian(angle));
 			return m;
 		}
 
 		static Matrix FromRotationY(float angle)
 		{
 			Matrix m;
-			D3DXMatrixRotationY(&m.inst, DTR(angle));
+			D3DXMatrixRotationY(&m.inst, D3DXToRadian(angle));
 			return m;
 		}
 
 		static Matrix FromRotationZ(float angle)
 		{
 			Matrix m;
-			D3DXMatrixRotationZ(&m.inst, DTR(angle));
+			D3DXMatrixRotationZ(&m.inst, D3DXToRadian(angle));
 			return m;
 		}
 
@@ -97,6 +104,29 @@ namespace D3D
 		{
 			Matrix m;
 			D3DXMatrixScaling(&m.inst, scale.x, scale.y, scale.z);
+			return m;
+		}
+
+		static Matrix Identity()
+		{
+			Matrix m;
+			D3DXMatrixScaling(&m.inst, 1, 1, 1);
+			return m;
+		}
+
+		static Matrix FromLookAt(D3DXVECTOR3 a, D3DXVECTOR3 b)
+		{
+			Matrix m;
+			D3DXVECTOR3 up{ 0, 0, 1 };
+			D3DXMatrixLookAtLH(&m.inst, &a, &b, &up);
+			D3DXMatrixInverse(&m.inst, NULL, &m.inst);
+			return m;
+		}
+
+		static Matrix FromRotationAxis(D3DXVECTOR3 axis, float angle)
+		{
+			Matrix m;
+			D3DXMatrixRotationAxis(&m.inst, &axis, angle);
 			return m;
 		}
 	};

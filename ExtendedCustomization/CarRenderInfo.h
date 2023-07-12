@@ -77,11 +77,16 @@ public:
 		return (T*)(ptr + offset);
 	}
 
+	D3D::Matrix* GetMatrix()
+	{
+		return *this->Get<D3D::Matrix*>(0x2CB4);
+	}
+
 	bool IsLeftBrakelightOn()
 	{
 		return this->IsBrakelightOn(8);
 	}
-	
+
 	bool IsRightBrakelightOn()
 	{
 		return this->IsBrakelightOn(0x10);
@@ -115,6 +120,12 @@ public:
 	bool IsPlayer()
 	{
 		return this->RideInfo->RenderUsage == 0;
+	}
+
+	double DrawAmbientShadow(int a1, float* a2, float a3, int a4, int a5, int a6)
+	{
+		FUNC(0x007BE4C0, double, __thiscall, _DrawAmbientShadow, CarRenderInfo*, int, float*, float, int, int, int);
+		return _DrawAmbientShadow(this, a1, a2, a3, a4, a5, a6);
 	}
 
 private:

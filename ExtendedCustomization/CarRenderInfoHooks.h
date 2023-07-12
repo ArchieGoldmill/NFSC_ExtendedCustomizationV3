@@ -24,16 +24,28 @@ void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
 	}
 }
 
+double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2, float* a3, float a4, int a5, int a6, int a7)
+{
+	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
+
+	
+
+	return result;
+}
+
 void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 {
 	carRenderInfo->Extras->Animations.FindMarkers();
+	carRenderInfo->Extras->Neon.FindMarkers();
 }
 
 void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 {
 	if (carRenderInfo)
 	{
-		carRenderInfo->Extras->Update();
+		carRenderInfo->Extras->Animations.Update();
+		carRenderInfo->Extras->Neon.Update();
+		carRenderInfo->Extras->Neon.RenderMarkers();
 		carRenderInfo->Extras->IsVisible = false;
 	}
 }
@@ -127,12 +139,14 @@ void __declspec(naked) CarRenderInfoDtCave()
 
 void InitCarRenderInfoHooks()
 {
-	
+
 
 	injector::MakeJMP(0x007E55ED, CarRenderInfoCtStartCave, true);
 	injector::MakeJMP(0x007E640A, CarRenderInfoCtEndCave, true);
 
 	injector::MakeJMP(0x007D5282, CarRenderInfoDtCave, true);
+
+	injector::MakeCALL(0x007DECCD, OnShadowRender, true);
 
 	injector::MakeJMP(0x007DA2E5, UpdateCarPartsCave, true);
 

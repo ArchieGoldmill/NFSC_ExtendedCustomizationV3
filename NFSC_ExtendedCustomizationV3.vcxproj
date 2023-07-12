@@ -168,6 +168,10 @@
     <ClCompile Include="ExtendedCustomization\eSolid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExtendedCustomization\Camera.h" />
+    <ClInclude Include="ExtendedCustomization\eView.h" />
+    <ClInclude Include="ExtendedCustomization\Neon.h" />
+    <ClInclude Include="ExtendedCustomization\ePoly.h" />
     <ClInclude Include="ExtendedCustomization\Decals.h" />
     <ClInclude Include="ExtendedCustomization\Animations.h" />
     <ClInclude Include="ExtendedCustomization\AutosculptSelectablePart.h" />

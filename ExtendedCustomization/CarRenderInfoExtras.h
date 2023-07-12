@@ -1,6 +1,7 @@
 #pragma once
 #include "CarRenderInfo.h"
 #include "Animations.h"
+#include "Neon.h"
 
 class CarRenderInfoExtras
 {
@@ -10,15 +11,11 @@ private:
 public:
 	bool IsVisible;
 	CarAnimations Animations;
+	CarNeon Neon;
 
-	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo)
+	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
-	}
-
-	void Update()
-	{
-		this->Animations.Update();
 	}
 };

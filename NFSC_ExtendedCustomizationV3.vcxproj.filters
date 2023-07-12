@@ -219,5 +219,17 @@
     <ClInclude Include="ExtendedCustomization\DBCarPart.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="ExtendedCustomization\ePoly.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Neon.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\eView.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Camera.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
