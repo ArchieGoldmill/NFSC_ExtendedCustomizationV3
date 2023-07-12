@@ -26,9 +26,9 @@ void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
 
 double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2, float* a3, float a4, int a5, int a6, int a7)
 {
-	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
+	carRenderInfo->Extras->CarMatrix = *carRenderInfo->GetMatrix();
 
-	
+	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
 
 	return result;
 }

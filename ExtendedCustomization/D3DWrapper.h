@@ -66,6 +66,11 @@ namespace D3D
 			D3DXVec3TransformCoord((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v, &this->inst);
 		}
 
+		void Inverse()
+		{
+			D3DXMatrixInverse(&this->inst, NULL, &this->inst);
+		}
+
 		static Matrix Transformation(Quaternion q, D3DXVECTOR3 origin)
 		{
 			Matrix result;

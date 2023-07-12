@@ -10,10 +10,11 @@ private:
 
 public:
 	bool IsVisible;
+	D3D::Matrix CarMatrix;
 	CarAnimations Animations;
 	CarNeon Neon;
 
-	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo)
+	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;

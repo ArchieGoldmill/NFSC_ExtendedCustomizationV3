@@ -54,8 +54,10 @@ public:
 
 	D3DXVECTOR3 GetCenter()
 	{
-		D3DXVECTOR4 result = (this->Vertices[0] + this->Vertices[1] + this->Vertices[2] + this->Vertices[3]) / 4;
-
-		return D3DXVECTOR3(result);
+		D3DXVECTOR3 centerPoint;
+		centerPoint.x = (this->Vertices[0].x + this->Vertices[2].x) / 2.0f;
+		centerPoint.y = (this->Vertices[0].y + this->Vertices[2].y) / 2.0f;
+		centerPoint.z = (this->Vertices[0].z + this->Vertices[2].z) / 2.0f;
+		return centerPoint;
 	}
 };
