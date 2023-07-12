@@ -68,6 +68,9 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 		InstallBodyPart(rideInfo, record, Slot::LEFT_HEADLIGHT, kit);
 		InstallBodyPart(rideInfo, record, Slot::LEFT_SIDE_MIRROR, kit);
 		InstallBodyPart(rideInfo, record, Slot_Trunk, kit);
+		InstallBodyPart(rideInfo, record, Slot::FRONT_WINDOW, kit);
+		InstallBodyPart(rideInfo, record, Slot::REAR_WINDOW, kit);
+		InstallBodyPart(rideInfo, record, Slot::DOOR_LEFT, kit);
 	}
 
 	auto leftMirror = rideInfo->GetPart(Slot::LEFT_SIDE_MIRROR);
@@ -93,6 +96,27 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 		InstallByKitNumber(Slot::RIGHT_BRAKELIGHT, rideInfo, record, kit);
 		InstallByKitNumber(Slot::LEFT_BRAKELIGHT_GLASS, rideInfo, record, kit);
 		InstallByKitNumber(Slot::RIGHT_BRAKELIGHT_GLASS, rideInfo, record, kit);
+	}
+
+	auto frontWindow = rideInfo->GetPart(Slot::REAR_WINDOW);
+	if (frontWindow)
+	{
+		int kit = frontWindow->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		InstallByKitNumber(Slot::DECAL_FRONT_WINDOW, rideInfo, record, kit);
+	}
+
+	auto rearWindow = rideInfo->GetPart(Slot::REAR_WINDOW);
+	if (rearWindow)
+	{
+		int kit = rearWindow->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		InstallByKitNumber(Slot::DECAL_REAR_WINDOW, rideInfo, record, kit);
+	}
+
+	auto leftDoor = rideInfo->GetPart(Slot::DOOR_LEFT);
+	if (rearWindow)
+	{
+		int kit = leftDoor->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		InstallByKitNumber(Slot::DOOR_RIGHT, rideInfo, record, kit);
 	}
 }
 
