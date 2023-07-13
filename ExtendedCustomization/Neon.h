@@ -162,12 +162,8 @@ public:
 		v35.y = v239.y - a2.y;
 		bNormalize(&v35, &v35);
 
-		poly.Vertices[0].y = a3.y;
-		poly.Vertices[0].x = a3.x;
-		poly.Vertices[0].z = a3.z;
-		poly.Vertices[1].y = v43.y;
-		poly.Vertices[1].x = v43.x;
-		poly.Vertices[1].z = v43.z;
+		poly.Vertices[0] = a3;
+		poly.Vertices[1] = v43;
 		float v282 = v37 * v35.y;
 		float v207 = v40 * v35.y;
 		poly.Vertices[2].x = v43.x - v207;
@@ -178,10 +174,9 @@ public:
 		poly.Vertices[2].x = poly.Vertices[2].x - v173;
 		poly.Vertices[2].y = v43.y - v41 * v35.y - v66;
 		poly.Vertices[2].z = v43.z - v282 - v310;
-		poly.Vertices[3].x = a3.x - v207;
-		poly.Vertices[3].y = a3.y - v41 * v35.y;
-		poly.Vertices[3].x = poly.Vertices[3].x - v173;
-		poly.Vertices[3].y = poly.Vertices[3].y - v66;
+
+		poly.Vertices[3].x = a3.x - v207 - v173;
+		poly.Vertices[3].y = a3.y - v41 * v35.y - v66;
 		poly.Vertices[3].z = a3.z - v282 - v310;
 
 		poly.UVs[0].x = 0.5;
@@ -197,29 +192,16 @@ public:
 		float v254 = v37 * v35.y;
 		float v77 = v40 * v35.y;
 		float v78 = v41 * v35.y;
-		float v318 = v254 + v254;
-		float v256 = v77 + v77;
-		poly.Vertices[2].x = v256 + poly.Vertices[2].x;
-		poly.Vertices[2].y = v78 * 2 + poly.Vertices[2].y;
 		float v258 = v42.z * size * v35.x;
 		float v56 = v42.x * size * v35.x;
 		float v57 = v42.y * size * v35.x;
-		poly.Vertices[2].x = v56 * 2 + poly.Vertices[2].x;
-		poly.Vertices[2].y = v57 * 2 + poly.Vertices[2].y;
-		poly.Vertices[2].z = v258 * 2 + v318 + poly.Vertices[2].z;
-		float v290 = v254;
-		float v87 = v77;
-		float v262 = v290 * 2;
-		float v240 = v87 + v87;
-		poly.Vertices[3].x = v240 + poly.Vertices[3].x;
-		poly.Vertices[3].y = v78 * 2 + poly.Vertices[3].y;
-		float v292 = v258;
-		float v93 = v56;
-		float v266 = v292 * 2;
-		float v225 = v93 + v93;
-		poly.Vertices[3].x = v225 + poly.Vertices[3].x;
-		poly.Vertices[3].y = v57 * 2 + poly.Vertices[3].y;
-		poly.Vertices[3].z = v266 + v262 + poly.Vertices[3].z;
+		poly.Vertices[2].x += v56 * 2 + v77 * 2;
+		poly.Vertices[2].y += v57 * 2 + v78 * 2;
+		poly.Vertices[2].z += v258 * 2 + v254 * 2;
+
+		poly.Vertices[3].x += v77 * 2 + v56 * 2;
+		poly.Vertices[3].y += v78 * 2 + v57 * 2;
+		poly.Vertices[3].z += v258 * 2 + v254 * 2;
 		poly.Render(this->neonBlur, &this->mIdentity);
 
 		float v268 = v37 * v35.y;
