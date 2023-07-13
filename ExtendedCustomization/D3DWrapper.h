@@ -149,6 +149,26 @@ struct bVector3
 	float y;
 	float z;
 	float pad;
+
+	bVector3()
+	{
+		this->x = 0;
+		this->y = 0;
+		this->z = 0;
+		this->pad = 0;
+	}
+
+	bVector3(float x, float y, float z)
+	{
+		this->x = x;
+		this->y = y;
+		this->z = z;
+		this->pad = 0;
+	}
+
+	bVector3 operator-() {
+		return { -x, -y, -z };
+	}
 };
 
 struct bVector4

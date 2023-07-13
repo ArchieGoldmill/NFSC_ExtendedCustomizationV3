@@ -111,7 +111,6 @@ public:
 		auto camera = view->pCamera;
 
 		bVector2 v35;
-		bVector2 v83;
 		bVector3 a2;
 		bVector3 a3;
 		bVector3 v43;
@@ -140,60 +139,49 @@ public:
 		float v40 = size * a3.x;
 		float v41 = size * a3.y;
 		float v37 = size * a3.z;
-		float v42 = -v43.x;
-		float v38 = -v43.y;
-		float v39 = -v43.z;
+		bVector3 v42 = -v43;
 
-		a3.x = 0.0;
-		a3.y = 0.0;
-		a3.z = 0.0;
+		a3 = { 0, 0, 0 };
 		eMulVector(&a3, startMatrix, &a3);
 		eMulVector(&a3, &carMatrix, &a3);
+
 		a3.x = a3.x + carPos.x;
 		a3.y = a3.y + carPos.y;
-		v43.x = 0.0;
-		v43.y = 0.0;
-		float v28 = a3.z + carPos.z;
-		v43.z = 0.0;
-		a3.z = v28;
+		a3.z = a3.z + carPos.z;
+
+		v43 = { 0, 0, 0 };
 		eMulVector(&v43, endMatrix, &v43);
 		eMulVector(&v43, &carMatrix, &v43);
 		v43.x = v43.x + carPos.x;
 		v43.y = v43.y + carPos.y;
 		v43.z = v43.z + carPos.z;
-		float v162 = v43.x - a3.x;
-		float v163 = v43.y - a3.y;
-		float v164 = v43.z - a3.z;
+
 		sub_5BC4A0(view, &a2, &a3);
 		sub_5BC4A0(view, &v239, &v43);
 		v35.x = v239.x - a2.x;
 		v35.y = v239.y - a2.y;
-		bNormalize(&v83, &v35);
-		v35 = v83;
-		float v141 = v40;
+		bNormalize(&v35, &v35);
+
 		poly.Vertices[0].y = a3.y;
-		float v142 = v41;
 		poly.Vertices[0].x = a3.x;
 		poly.Vertices[0].z = a3.z;
 		poly.Vertices[1].y = v43.y;
 		poly.Vertices[1].x = v43.x;
 		poly.Vertices[1].z = v43.z;
 		float v282 = v37 * v35.y;
-		float v244 = v37;
 		float v207 = v40 * v35.y;
 		poly.Vertices[2].x = v43.x - v207;
-		float v246 = v39 * size;
-		float v65 = v42 * size;
-		float v66 = v38 * size;
-		float v310 = v246 * v35.x;
-		float v173 = v65 * v35.x;
+
+		float v66 = v42.y * size * v35.x;
+		float v310 = v42.z * size * v35.x;
+		float v173 = v42.x * size * v35.x;
 		poly.Vertices[2].x = poly.Vertices[2].x - v173;
-		poly.Vertices[2].y = v43.y - v41 * v35.y - v66 * v35.x;
+		poly.Vertices[2].y = v43.y - v41 * v35.y - v66;
 		poly.Vertices[2].z = v43.z - v282 - v310;
 		poly.Vertices[3].x = a3.x - v207;
 		poly.Vertices[3].y = a3.y - v41 * v35.y;
 		poly.Vertices[3].x = poly.Vertices[3].x - v173;
-		poly.Vertices[3].y = poly.Vertices[3].y - v66 * v35.x;
+		poly.Vertices[3].y = poly.Vertices[3].y - v66;
 		poly.Vertices[3].z = a3.z - v282 - v310;
 
 		poly.UVs[0].x = 0.5;
@@ -212,43 +200,34 @@ public:
 		float v318 = v254 + v254;
 		float v256 = v77 + v77;
 		poly.Vertices[2].x = v256 + poly.Vertices[2].x;
-		poly.Vertices[2].y = v78 + v78 + poly.Vertices[2].y;
-		float v288 = v39 * size;
-		float v123 = v42 * size;
-		float v124 = v38 * size;
-		float v258 = v288 * v35.x;
-		float v56 = v123 * v35.x;
-		float v57 = v124 * v35.x;
-		float v304 = v258 + v258;
-		float v209 = v56 + v56;
-		poly.Vertices[2].x = v209 + poly.Vertices[2].x;
-		poly.Vertices[2].y = v57 + v57 + poly.Vertices[2].y;
-		poly.Vertices[2].z = v304 + v318 + poly.Vertices[2].z;
+		poly.Vertices[2].y = v78 * 2 + poly.Vertices[2].y;
+		float v258 = v42.z * size * v35.x;
+		float v56 = v42.x * size * v35.x;
+		float v57 = v42.y * size * v35.x;
+		poly.Vertices[2].x = v56 * 2 + poly.Vertices[2].x;
+		poly.Vertices[2].y = v57 * 2 + poly.Vertices[2].y;
+		poly.Vertices[2].z = v258 * 2 + v318 + poly.Vertices[2].z;
 		float v290 = v254;
 		float v87 = v77;
-		float v88 = v78;
-		float v262 = v290 + v290;
+		float v262 = v290 * 2;
 		float v240 = v87 + v87;
 		poly.Vertices[3].x = v240 + poly.Vertices[3].x;
-		poly.Vertices[3].y = v88 + v88 + poly.Vertices[3].y;
+		poly.Vertices[3].y = v78 * 2 + poly.Vertices[3].y;
 		float v292 = v258;
 		float v93 = v56;
-		float v94 = v57;
-		float v266 = v292 + v292;
-		float v226 = v266;
+		float v266 = v292 * 2;
 		float v225 = v93 + v93;
 		poly.Vertices[3].x = v225 + poly.Vertices[3].x;
-		poly.Vertices[3].y = v94 + v94 + poly.Vertices[3].y;
+		poly.Vertices[3].y = v57 * 2 + poly.Vertices[3].y;
 		poly.Vertices[3].z = v266 + v262 + poly.Vertices[3].z;
 		poly.Render(this->neonBlur, &this->mIdentity);
 
 		float v268 = v37 * v35.y;
 		float v185 = v40 * v35.y;
 		poly.Vertices[0].x = a3.x - v185;
-		float v294 = v39 * size;
-		float v99 = v42 * size;
-		float v100 = v38 * size;
-		float v270 = v294 * v35.x;
+		float v99 = v42.x * size;
+		float v100 = v42.y * size;
+		float v270 = v42.z * size * v35.x;
 		float v189 = v99 * v35.x;
 		poly.Vertices[0].x = poly.Vertices[0].x - v189;
 		poly.Vertices[0].y = a3.y - v41 * v35.y - v100 * v35.x;
@@ -258,30 +237,23 @@ public:
 		poly.Vertices[1].x = poly.Vertices[1].x - v189;
 		poly.Vertices[1].y = poly.Vertices[1].y - v100 * v35.x;
 		float v298 = v37 * v35.x;
-		float v217 = v40 * v35.x;
-		poly.Vertices[1].x = poly.Vertices[1].x - v217;
+		poly.Vertices[1].x = poly.Vertices[1].x - v40 * v35.x;
 		poly.Vertices[1].y = poly.Vertices[1].y - v41 * v35.x;
-		float v314 = v46 * v35.y;
-		float v197 = v50 * v35.y;
-		poly.Vertices[1].x = poly.Vertices[1].x - v197;
+		poly.Vertices[1].x = poly.Vertices[1].x - v50 * v35.y;
 		poly.Vertices[1].y = poly.Vertices[1].y - v45 * v35.y;
-		poly.Vertices[1].z = a3.z - v268 - v270 - v298 - v314;
+		poly.Vertices[1].z = a3.z - v268 - v270 - v298 - v46 * v35.y;
 		poly.Vertices[2].x = v185 + a3.x;
 		poly.Vertices[2].y = v41 * v35.y + a3.y;
-		float v201 = v35.x * v99;
-		poly.Vertices[2].x = poly.Vertices[2].x + v201;
+		poly.Vertices[2].x = poly.Vertices[2].x + v35.x * v99;
 		poly.Vertices[2].y = v100 * v35.x + poly.Vertices[2].y;
-		float v221 = v35.x * v40;
-		poly.Vertices[2].x = poly.Vertices[2].x - v221;
+		poly.Vertices[2].x = poly.Vertices[2].x - v35.x * v40;
 		poly.Vertices[2].y = poly.Vertices[2].y - v41 * v35.x;
-		float v205 = v35.y * v50;
-		poly.Vertices[2].x = poly.Vertices[2].x - v205;
+		poly.Vertices[2].x = poly.Vertices[2].x - v35.y * v50;
 		poly.Vertices[2].y = poly.Vertices[2].y - v45 * v35.y;
-		poly.Vertices[2].z = v268 + a3.z + v270 - v298 - v314;
-		float v261 = v35.y * v40;
-		poly.Vertices[3].x = a3.x + v261;
+		poly.Vertices[2].z = v268 + a3.z + v270 - v298 - v46 * v35.y;
+		poly.Vertices[3].x = a3.x + v35.y * v40;
 		poly.Vertices[3].y = v41 * v35.y + a3.y;
-		poly.Vertices[3].x = poly.Vertices[3].x + v201;
+		poly.Vertices[3].x = poly.Vertices[3].x + v35.x * v99;
 		poly.Vertices[3].y = v100 * v35.x + poly.Vertices[3].y;
 		poly.Vertices[3].z = v270 + v268 + a3.z;
 
@@ -300,12 +272,9 @@ public:
 
 		poly.Vertices[0].x = v43.x - v179;
 
-		float v271 = v39 * size;
-
-		float v96 = v42 * size;
-		float v97 = v38 * size;
-		float v273 = v271 * v35.x;
-		float v187 = v96 * v35.x;
+		float v97 = v42.y * size;
+		float v273 = v42.z * size * v35.x;
+		float v187 = v42.x * size * v35.x;
 
 		poly.Vertices[0].x = poly.Vertices[0].x - v187;
 		poly.Vertices[0].y = v43.y - v41 * v35.y - v97 * v35.x;
