@@ -28,7 +28,7 @@ namespace D3D
 
 	class Matrix
 	{
-	private:
+	public:
 		D3DXMATRIX inst;
 
 	public:
@@ -136,3 +136,33 @@ namespace D3D
 		}
 	};
 }
+
+struct bVector2
+{
+	float x;
+	float y;
+};
+
+struct bVector3
+{
+	float x;
+	float y;
+	float z;
+	float pad;
+};
+
+struct bVector4
+{
+	float x;
+	float y;
+	float z;
+	float w;
+};
+
+struct bMatrix4
+{
+	bVector4 v0;
+	bVector4 v1;
+	bVector4 v2;
+	bVector4 v3;
+};

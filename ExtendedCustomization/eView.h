@@ -2,9 +2,19 @@
 #include "D3DWrapper.h"
 #include "Camera.h"
 
+struct eViewPlatInfo
+{
+	bMatrix4 ViewMatrix;
+	bMatrix4 ProjectionMatrix;
+	bMatrix4 ProjectionZBiasMatrix;
+	bMatrix4 ViewProjectionMatrix;
+	bMatrix4 ViewProjectionZBiasMatrix;
+};
+
 class eViewPlatInterface
 {
-	void* PlatInfo;
+public:
+	eViewPlatInfo* PlatInfo;
 };
 
 class __declspec(align(4)) eView : public eViewPlatInterface

@@ -3,7 +3,7 @@
 
 struct CameraParams
 {
-	D3D::Matrix Matrix;
+	bMatrix4 Matrix;
 	D3DXVECTOR4 Position;
 	D3DXVECTOR4 Direction;
 	D3DXVECTOR4 Target;
