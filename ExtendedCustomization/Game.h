@@ -2,6 +2,7 @@
 #include "Hashes.h"
 #include "Func.h"
 #include "TextureInfo.h"
+#include "D3DWrapper.h"
 
 struct CarType
 {
@@ -18,6 +19,8 @@ namespace Game
 {
 	static float* DeltaTime = (float*)0x00A99A5C;
 	static int* CarPartSlotMap = (int*)0x00A73398;
+	static auto ScreenSizeX = (int*)0x00A63F80;
+	static auto ScreenSizeY = (int*)0x00A63F84;
 
 	enum class State
 	{

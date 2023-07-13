@@ -165,4 +165,19 @@ struct bMatrix4
 	bVector4 v1;
 	bVector4 v2;
 	bVector4 v3;
+
+	void Identity()
+	{
+		D3DXMatrixScaling((D3DXMATRIX*)this, 1, 1, 1);
+	}
 };
+
+inline void eMulVector(bVector3* out, bMatrix4* m, bVector3* v)
+{
+	D3DXVec3Transform((D3DXVECTOR4*)out, (D3DXVECTOR3*)v, (D3DXMATRIX*)m);
+}
+
+inline void bNormalize(bVector2* out, bVector2* v)
+{
+	D3DXVec2Normalize((D3DXVECTOR2*)out, (D3DXVECTOR2*)v);
+}

@@ -4,78 +4,34 @@
 #include "ePoly.h"
 #include "eView.h"
 
-inline void __cdecl bNormalize2(bVector2* a1, bVector2* a2)
-{
-	long double v3; // st7
-	double v5; // st7
-	double v6; // st6
-	float v7; // [esp+8h] [ebp+8h]
-
-	v3 = sqrt(a2->y * a2->y + a2->x * a2->x);
-	v7 = v3;
-	if (v3 == 0)
-	{
-		a1->x = 1.0;
-		a1->y = 0.0;
-	}
-	else
-	{
-		v5 = a2->y;
-		v6 = 1.0 / v7;
-		a1->x = v6 * a2->x;
-		a1->y = v6 * v5;
-	}
-}
-
-inline void __cdecl eMulVector(bVector3* a1, bMatrix4* a2, bVector3* a3)
-{
-	double v3; // st6
-	double v4; // st7
-
-	v3 = a2->v2.y * a3->z + a2->v0.y * a3->x + a2->v1.y * a3->y + a2->v3.y;
-	v4 = a2->v2.z * a3->z + a2->v0.z * a3->x + a2->v1.z * a3->y + a2->v3.z;
-	a1->x = a2->v2.x * a3->z + a2->v1.x * a3->y + a2->v0.x * a3->x + a2->v3.x;
-	a1->y = v3;
-	a1->z = v4;
-}
-
 inline float screenWidth = 1920;
 inline float screenHeight = 1080;
 
-inline void sub_5BC4A0(eView* view, bVector3* a2, bVector3* a3)
+inline void sub_5BC4A0(eView* view, bVector3* out, bVector3* v)
 {
-	double v3; // st6
-	float v4; // [esp+Ch] [ebp-24h]
-	float v5; // [esp+10h] [ebp-20h]
-	float v6; // [esp+10h] [ebp-20h]
-	float v7; // [esp+14h] [ebp-1Ch]
-	float v8; // [esp+18h] [ebp-18h]
-	float v9; // [esp+28h] [ebp-8h]
-	float v10; // [esp+2Ch] [ebp-4h]
-
-	v7 = a3->y;
-	v8 = a3->z;
-	v3 = v8 * view->PlatInfo->ProjectionZBiasMatrix.v2.y
-		+ a3->x * view->PlatInfo->ProjectionZBiasMatrix.v0.y
-		+ v7 * view->PlatInfo->ProjectionZBiasMatrix.v1.y
+	double v3 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.y
+		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.y
+		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.y
 		+ view->PlatInfo->ProjectionZBiasMatrix.v3.y;
-	v9 = v8 * view->PlatInfo->ProjectionZBiasMatrix.v2.z
-		+ a3->x * view->PlatInfo->ProjectionZBiasMatrix.v0.z
-		+ v7 * view->PlatInfo->ProjectionZBiasMatrix.v1.z
+	float v9 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.z
+		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.z
+		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.z
 		+ view->PlatInfo->ProjectionZBiasMatrix.v3.z;
-	v10 = v8 * view->PlatInfo->ProjectionZBiasMatrix.v2.w
-		+ a3->x * view->PlatInfo->ProjectionZBiasMatrix.v0.w
-		+ v7 * view->PlatInfo->ProjectionZBiasMatrix.v1.w
+	float v10 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.w
+		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.w
+		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.w
 		+ view->PlatInfo->ProjectionZBiasMatrix.v3.w;
-	v5 = v8 * view->PlatInfo->ProjectionZBiasMatrix.v2.x
-		+ v7 * view->PlatInfo->ProjectionZBiasMatrix.v1.x
-		+ a3->x * view->PlatInfo->ProjectionZBiasMatrix.v0.x
+	float v5 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.x
+		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.x
+		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.x
 		+ view->PlatInfo->ProjectionZBiasMatrix.v3.x;
-	v4 = 1.0 / v10;
-	v6 = v4 * v5;
-	a2->x = (v6 + 1.0) * (double)1920 * 0.5;
-	a2->y = (v3 * v4 - 1.0) * (double)1080 * (-0.5);
-	a2->z = v4 * v9;
+
+	float v4 = 1.0 / v10;
+	float v6 = v4 * v5;
+
+	out->x = (v6 + 1.0) * (float)*Game::ScreenSizeX * 0.5;
+	out->y = (v3 * v4 - 1.0) * (float)*Game::ScreenSizeY * (-0.5);
+	out->z = v4 * v9;
 }
 
 struct Neon
@@ -88,18 +44,16 @@ class CarNeon
 {
 private:
 	CarRenderInfo* carRenderInfo;
-	D3D::Matrix* carMatrix;
-	float width;
+	bMatrix4* carMatrix;
 	std::vector<Neon> neons;
-	D3D::Matrix Identity;
+	bMatrix4 mIdentity;
 
 public:
-	CarNeon(CarRenderInfo* carRenderInfo, D3D::Matrix* carMatrix)
+	CarNeon(CarRenderInfo* carRenderInfo, bMatrix4* carMatrix)
 	{
 		this->carRenderInfo = carRenderInfo;
-		this->width = 0.05f;
 		this->carMatrix = carMatrix;
-		Identity = D3D::Matrix::Identity();
+		this->mIdentity.Identity();
 	}
 
 	void Update()
@@ -148,28 +102,13 @@ public:
 	{
 		ePoly poly;
 		auto textureInfo = GetTextureInfo(StringHash("NEONBLUR"), 0, 0);
-		auto carPos1 = this->carMatrix->GetW();
-		auto carPos = &carPos1;
-		auto carMatrix1 = (bMatrix4*)this->carMatrix;
-		auto carMatrix = *carMatrix1;
-		carMatrix.v3.x = 0;
-		carMatrix.v3.y = 0;
-		carMatrix.v3.z = 0;
-		carMatrix.v3.x = 0;
-
-		poly.UVs[0].x = 0.5;
-		poly.UVs[0].y = 0.5;
-		poly.UVs[1].x = 0.5;
-		poly.UVs[1].y = 0.5;
-		poly.UVs[2].x = 0.5;
-		poly.UVs[2].y = 0.0;
-		poly.UVs[3].x = 0.5;
-		poly.UVs[3].y = 0.0;
+		auto carPos = this->carMatrix->v3;
+		auto carMatrix = *this->carMatrix;
+		carMatrix.v3 = { 0,0,0,0 };
 
 		auto view = eView::GetPlayer1();
 		auto camera = view->pCamera;
 
-		//
 		bVector2 v35;
 		bVector2 v83;
 		bVector3 a2;
@@ -178,13 +117,13 @@ public:
 		bVector3 v239;
 		float a8 = 0.03;
 
-		float v12 = carPos->x;
+		float v12 = carPos.x;
 		float v14 = v12 - camera->CurrentKey.Position.x;
 		float v15 = camera->CurrentKey.Matrix.v1.x;
-		float v16 = carPos->y - camera->CurrentKey.Position.y;
+		float v16 = carPos.y - camera->CurrentKey.Position.y;
 		float v17 = camera->CurrentKey.Position.z;
 		a3.x = camera->CurrentKey.Matrix.v0.x;
-		float v18 = carPos->z - v17;
+		float v18 = carPos.z - v17;
 		float v19 = camera->CurrentKey.Matrix.v2.x;
 		a3.y = v15;
 		float v20 = camera->CurrentKey.Matrix.v0.y;
@@ -218,18 +157,18 @@ public:
 		a3.z = 0.0;
 		eMulVector(&a3, startMatrix, &a3);
 		eMulVector(&a3, &carMatrix, &a3);
-		a3.x = a3.x + carPos->x;
-		a3.y = a3.y + carPos->y;
+		a3.x = a3.x + carPos.x;
+		a3.y = a3.y + carPos.y;
 		v43.x = 0.0;
 		v43.y = 0.0;
-		float v28 = a3.z + carPos->z;
+		float v28 = a3.z + carPos.z;
 		v43.z = 0.0;
 		a3.z = v28;
 		eMulVector(&v43, endMatrix, &v43);
 		eMulVector(&v43, &carMatrix, &v43);
-		v43.x = v43.x + carPos->x;
-		v43.y = v43.y + carPos->y;
-		v43.z = v43.z + carPos->z;
+		v43.x = v43.x + carPos.x;
+		v43.y = v43.y + carPos.y;
+		v43.z = v43.z + carPos.z;
 		float v162 = v43.x - a3.x;
 		float v163 = v43.y - a3.y;
 		float v164 = v43.z - a3.z;
@@ -237,7 +176,7 @@ public:
 		sub_5BC4A0(view, &v239, &v43);
 		v35.x = v239.x - a2.x;
 		v35.y = v239.y - a2.y;
-		bNormalize2(&v83, &v35);
+		bNormalize(&v83, &v35);
 		v35 = v83;
 		float v141 = v40;
 		poly.Vertices[0].y = a3.y;
@@ -287,7 +226,15 @@ public:
 		poly.Vertices[3].y = poly.Vertices[3].y - v66 * v35.x;
 		poly.Vertices[3].z = a3.z - v282 - v310;
 
-		poly.Render(textureInfo, &this->Identity);
+		poly.UVs[0].x = 0.5;
+		poly.UVs[0].y = 0.5;
+		poly.UVs[1].x = 0.5;
+		poly.UVs[1].y = 0.5;
+		poly.UVs[2].x = 0.5;
+		poly.UVs[2].y = 0.0;
+		poly.UVs[3].x = 0.5;
+		poly.UVs[3].y = 0.0;
+		poly.Render(textureInfo, &this->mIdentity);
 
 		float v165 = v40;
 		float v167 = v37;
@@ -345,7 +292,7 @@ public:
 		poly.Vertices[3].x = v225 + poly.Vertices[3].x;
 		poly.Vertices[3].y = v94 + v94 + poly.Vertices[3].y;
 		poly.Vertices[3].z = v266 + v262 + poly.Vertices[3].z;
-		poly.Render(textureInfo, &this->Identity);
+		poly.Render(textureInfo, &this->mIdentity);
 
 		float v159 = v40;
 		float v160 = v41;
@@ -471,7 +418,7 @@ public:
 		poly.UVs[2].y = 1.0;
 		poly.UVs[3].x = 0.5;
 		poly.UVs[3].y = 1.0;
-		poly.Render(textureInfo, &this->Identity);
+		poly.Render(textureInfo, &this->mIdentity);
 
 		float v90 = v40;
 		float v91 = v41;
@@ -593,6 +540,6 @@ public:
 		poly.Vertices[3].x = poly.Vertices[3].x + v187;
 		poly.Vertices[3].y = v97 * v35.x + poly.Vertices[3].y;
 		poly.Vertices[3].z = v273 + v269 + v43.z;
-		poly.Render(textureInfo, &this->Identity);
+		poly.Render(textureInfo, &this->mIdentity);
 	}
 };
