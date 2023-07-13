@@ -47,6 +47,7 @@ private:
 	bMatrix4* carMatrix;
 	std::vector<Neon> neons;
 	bMatrix4 mIdentity;
+	TextureInfo* neonBlur;
 
 public:
 	CarNeon(CarRenderInfo* carRenderInfo, bMatrix4* carMatrix)
@@ -54,6 +55,7 @@ public:
 		this->carRenderInfo = carRenderInfo;
 		this->carMatrix = carMatrix;
 		this->mIdentity.Identity();
+		this->neonBlur = GetTextureInfo(Hashes::NEONBLUR, 0, 0);
 	}
 
 	void Update()
@@ -64,7 +66,7 @@ public:
 	void FindMarkers()
 	{
 		auto rideInfo = this->carRenderInfo->RideInfo;
-		Slot slots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER };
+		Slot slots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR };
 		for (Slot slot : slots)
 		{
 			auto part = rideInfo->GetPart(slot);
@@ -101,7 +103,6 @@ public:
 	void RenderMarker(bMatrix4* startMatrix, bMatrix4* endMatrix)
 	{
 		ePoly poly;
-		auto textureInfo = GetTextureInfo(StringHash("NEONBLUR"), 0, 0);
 		auto carPos = this->carMatrix->v3;
 		auto carMatrix = *this->carMatrix;
 		carMatrix.v3 = { 0,0,0,0 };
@@ -115,42 +116,33 @@ public:
 		bVector3 a3;
 		bVector3 v43;
 		bVector3 v239;
-		float a8 = 0.03;
+		const float size = 0.03;
 
-		float v12 = carPos.x;
-		float v14 = v12 - camera->CurrentKey.Position.x;
-		float v15 = camera->CurrentKey.Matrix.v1.x;
+		float v14 = carPos.x - camera->CurrentKey.Position.x;
 		float v16 = carPos.y - camera->CurrentKey.Position.y;
-		float v17 = camera->CurrentKey.Position.z;
+		float v18 = carPos.z - camera->CurrentKey.Position.z;
+
 		a3.x = camera->CurrentKey.Matrix.v0.x;
-		float v18 = carPos.z - v17;
-		float v19 = camera->CurrentKey.Matrix.v2.x;
-		a3.y = v15;
-		float v20 = camera->CurrentKey.Matrix.v0.y;
-		a3.z = v19;
-		float v21 = camera->CurrentKey.Matrix.v1.y;
-		v43.x = v20;
-		float v22 = camera->CurrentKey.Matrix.v2.y;
-		v43.y = v21;
-		v43.z = v22;
-		float v45 = 1.0;
-		float v39 = sqrt(v18 * v18 + v14 * v14 + v16 * v16);
+		a3.y = camera->CurrentKey.Matrix.v1.x;
+		a3.z = camera->CurrentKey.Matrix.v2.x;
 
-		float v36 = v45 * a8;
+		v43.x = camera->CurrentKey.Matrix.v0.y;
+		v43.y = camera->CurrentKey.Matrix.v1.y;
+		v43.z = camera->CurrentKey.Matrix.v2.y;
 
-		float v50 = v36 * v43.x;
-		v45 = v36 * v43.y;
-		float v46 = v36 * v43.z;
+		float v50 = size * v43.x;
+		float v45 = size * v43.y;
+		float v46 = size * v43.z;
 		a2.z = v46;
 		float v146 = v46;
 		float v144 = v50;
 		float v145 = v45;
-		float v40 = v36 * a3.x;
-		float v41 = v36 * a3.y;
-		float v37 = v36 * a3.z;
+		float v40 = size * a3.x;
+		float v41 = size * a3.y;
+		float v37 = size * a3.z;
 		float v42 = -v43.x;
 		float v38 = -v43.y;
-		v39 = -v43.z;
+		float v39 = -v43.z;
 
 		a3.x = 0.0;
 		a3.y = 0.0;
@@ -195,11 +187,11 @@ public:
 		poly.Vertices[2].x = v43.x - v207;
 		float v238 = v39;
 		float v248 = v37;
-		float v246 = v39 * v36;
+		float v246 = v39 * size;
 		float v67 = v246;
-		float v65 = v42 * v36;
+		float v65 = v42 * size;
 		float v119 = v37;
-		float v66 = v38 * v36;
+		float v66 = v38 * size;
 		float v236 = v39;
 		float v310 = v246 * v35.x;
 		float v174 = v310;
@@ -234,7 +226,7 @@ public:
 		poly.UVs[2].y = 0.0;
 		poly.UVs[3].x = 0.5;
 		poly.UVs[3].y = 0.0;
-		poly.Render(textureInfo, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->mIdentity);
 
 		float v165 = v40;
 		float v167 = v37;
@@ -250,10 +242,10 @@ public:
 		float v256 = v77 + v77;
 		poly.Vertices[2].x = v256 + poly.Vertices[2].x;
 		poly.Vertices[2].y = v78 + v78 + poly.Vertices[2].y;
-		float v288 = v39 * v36;
+		float v288 = v39 * size;
 		float v125 = v288;
-		float v123 = v42 * v36;
-		float v124 = v38 * v36;
+		float v123 = v42 * size;
+		float v124 = v38 * size;
 		float v258 = v288 * v35.x;
 		float v58 = v258;
 		float v56 = v123 * v35.x;
@@ -292,7 +284,7 @@ public:
 		poly.Vertices[3].x = v225 + poly.Vertices[3].x;
 		poly.Vertices[3].y = v94 + v94 + poly.Vertices[3].y;
 		poly.Vertices[3].z = v266 + v262 + poly.Vertices[3].z;
-		poly.Render(textureInfo, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->mIdentity);
 
 		float v159 = v40;
 		float v160 = v41;
@@ -304,10 +296,10 @@ public:
 		float v213 = v38;
 		poly.Vertices[0].x = a3.x - v185;
 		float v214 = v39;
-		float v294 = v39 * v36;
-		float v99 = v42 * v36;
+		float v294 = v39 * size;
+		float v99 = v42 * size;
 		float v101 = v294;
-		float v100 = v38 * v36;
+		float v100 = v38 * size;
 		float v137 = v37;
 		float v316 = v37;
 		float v234 = v39;
@@ -418,7 +410,7 @@ public:
 		poly.UVs[2].y = 1.0;
 		poly.UVs[3].x = 0.5;
 		poly.UVs[3].y = 1.0;
-		poly.Render(textureInfo, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->mIdentity);
 
 		float v90 = v40;
 		float v91 = v41;
@@ -430,10 +422,10 @@ public:
 		float v183 = v38;
 		poly.Vertices[0].x = v43.x - v179;
 		float v184 = v39;
-		float v271 = v39 * v36;
+		float v271 = v39 * size;
 		float v98 = v271;
-		float v96 = v42 * v36;
-		float v97 = v38 * v36;
+		float v96 = v42 * size;
+		float v97 = v38 * size;
 		float v273 = v271 * v35.x;
 		float v187 = v96 * v35.x;
 		float v188 = v273;
@@ -540,6 +532,6 @@ public:
 		poly.Vertices[3].x = poly.Vertices[3].x + v187;
 		poly.Vertices[3].y = v97 * v35.x + poly.Vertices[3].y;
 		poly.Vertices[3].z = v273 + v269 + v43.z;
-		poly.Render(textureInfo, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->mIdentity);
 	}
 };
