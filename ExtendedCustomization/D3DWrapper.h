@@ -206,3 +206,21 @@ union bColor {
 	D3DCOLOR Color;
 	BYTE Bytes[4];
 };
+
+struct bMatrix2
+{
+public:
+	float m[2][2];
+
+	bMatrix2 operator*(bMatrix2 b)
+	{
+		bMatrix2 c;
+
+		c.m[0][0] = m[0][0] * b.m[0][0] + m[0][1] * b.m[1][0];
+		c.m[0][1] = m[0][0] * b.m[0][1] + m[0][1] * b.m[1][1];
+		c.m[1][0] = m[1][0] * b.m[0][0] + m[1][1] * b.m[1][0];
+		c.m[1][1] = m[1][0] * b.m[0][1] + m[1][1] * b.m[1][1];
+
+		return c;
+	}
+};

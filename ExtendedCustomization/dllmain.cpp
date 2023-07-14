@@ -13,6 +13,7 @@
 #include "AutosculptOverrides.h"
 #include "CarRenderInfoHooks.h"
 #include "UserInput.h"
+#include "Vinyls.h"
 
 void Init()
 {
@@ -27,6 +28,7 @@ void Init()
 	InitDecals();
 	InitAutosculpt();
 	InitNeon();
+	InitVinyls();
 
 	InitCarRenderInfoHooks();
 }

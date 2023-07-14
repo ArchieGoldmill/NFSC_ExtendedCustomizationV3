@@ -232,6 +232,7 @@
     <ClInclude Include="ExtendedCustomization\VectorScrollerMenu.h" />
     <ClInclude Include="ExtendedCustomization\ForceLodA.h" />
     <ClInclude Include="ExtendedCustomization\PartAnimation.h" />
+    <ClInclude Include="ExtendedCustomization\Vinyls.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

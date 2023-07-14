@@ -246,5 +246,8 @@
     <ClInclude Include="ExtendedCustomization\Neon.h">
       <Filter>Features</Filter>
     </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Vinyls.h">
+      <Filter>Features</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
