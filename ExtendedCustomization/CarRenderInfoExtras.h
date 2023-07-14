@@ -2,6 +2,7 @@
 #include "CarRenderInfo.h"
 #include "Animations.h"
 #include "Neon.h"
+#include "BrakelightGlow.h"
 
 class CarRenderInfoExtras
 {
@@ -11,10 +12,12 @@ private:
 public:
 	bool IsVisible;
 	bMatrix4 CarMatrix;
+
 	CarAnimations Animations;
 	CarNeon Neon;
+	CarBrakelightGlow BrakelightGlow;
 
-	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix)
+	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix), BrakelightGlow(carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;

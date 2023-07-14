@@ -31,6 +31,7 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2
 
 	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
 	carRenderInfo->Extras->Neon.RenderShadow(a2, a3, a4, a5, a6, a7);
+	carRenderInfo->Extras->BrakelightGlow.RenderShadow(a2, a3, a4, a5, a6, a7);
 
 	return result;
 }

@@ -35,9 +35,6 @@
     <Filter Include="Features\Customization">
       <UniqueIdentifier>{6caa5eb4-48e9-4127-ae9b-91dd2e320090}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Features\Neon">
-      <UniqueIdentifier>{20a32cb9-f19f-4201-b235-c6245968bd0b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExtendedCustomization\dllmain.cpp">
@@ -55,8 +52,8 @@
     <ClCompile Include="ExtendedCustomization\Config.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedCustomization\Neon.cpp">
-      <Filter>Features\Neon</Filter>
+    <ClCompile Include="ExtendedCustomization\AmbientShadow.cpp">
+      <Filter>Features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -240,11 +237,14 @@
     <ClInclude Include="ExtendedCustomization\AutoSculpt.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Neon.h">
-      <Filter>Features\Neon</Filter>
-    </ClInclude>
     <ClInclude Include="ExtendedCustomization\CarCustomizeManager.h">
       <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\BrakelightGlow.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Neon.h">
+      <Filter>Features</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

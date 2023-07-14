@@ -3,19 +3,6 @@
 #include "Func.h"
 #include "TextureInfo.h"
 
-struct bColor
-{
-	unsigned char R;
-	unsigned char G;
-	unsigned char B;
-	unsigned char A;
-
-	D3DCOLOR ToD3D()
-	{
-		return *(D3DCOLOR*)this;
-	}
-};
-
 class ePoly
 {
 public:

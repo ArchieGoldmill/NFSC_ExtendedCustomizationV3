@@ -11,6 +11,7 @@ namespace Hashes
 	const Hash CARBONFIBRE = 0x721AFF7C;
 	const Hash NEONBLUR = 0x04F54C24;
 	const Hash TEXTURE_NAME = 0x10C98090;
+	const Hash BRAKELIGHT_GLOW = 0xD9455454;
 
 	const Hash ANIM_START = 0x68EDC171;
 	const Hash ANIM_END = 0xAC685B7A;

@@ -166,11 +166,12 @@
     <ClCompile Include="ExtendedCustomization\ConfigInit.cpp" />
     <ClCompile Include="ExtendedCustomization\dllmain.cpp" />
     <ClCompile Include="ExtendedCustomization\eSolid.cpp" />
-    <ClCompile Include="ExtendedCustomization\Neon.cpp" />
+    <ClCompile Include="ExtendedCustomization\AmbientShadow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExtendedCustomization\AutoSculpt.h" />
     <ClInclude Include="ExtendedCustomization\AutosculptOverrides.h" />
+    <ClInclude Include="ExtendedCustomization\BrakelightGlow.h" />
     <ClInclude Include="ExtendedCustomization\Camera.h" />
     <ClInclude Include="ExtendedCustomization\CarCustomizeManager.h" />
     <ClInclude Include="ExtendedCustomization\eView.h" />

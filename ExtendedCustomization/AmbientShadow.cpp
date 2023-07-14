@@ -3,7 +3,7 @@
 #include "CarRenderInfoExtras.h"
 #include "Constants.h"
 
-bColor __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness)
+D3DXCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness)
 {
 	bColor color;
 	color.R = 0x80;
@@ -16,19 +16,26 @@ bColor __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness)
 		color = carRenderInfo->Extras->Neon.GetColor();
 	}
 
+	if (carRenderInfo->CarShadowTexture == carRenderInfo->Extras->BrakelightGlow.Texture)
+	{
+		color = carRenderInfo->Extras->BrakelightGlow.GetColor();
+	}
+
 	color.A *= brightness;
-	return color;
+	return color.ToD3D();
 }
 
 void __declspec(naked) ShadowColorCave()
 {
 	static constexpr auto hExit = 0x007BEA6D;
+
 	__asm
 	{
 		push eax;
 		fstp[esp];
 		push ebx;
 		call GetShadowColor;
+
 		mov ecx, 1;
 		mov ebx, [ebx + 0x3F8];
 		jmp hExit;
