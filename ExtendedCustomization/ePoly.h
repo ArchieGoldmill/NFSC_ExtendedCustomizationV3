@@ -29,10 +29,9 @@ public:
 
 	void SetColor(bColor color)
 	{
-		auto c = color.ToD3D();
-		this->Colours[0] = c;
-		this->Colours[1] = c;
-		this->Colours[2] = c;
-		this->Colours[3] = c;
+		for (int i = 0; i < 4; i++)
+		{
+			this->Colours[i] = color.Color;
+		}
 	}
 };

@@ -122,10 +122,10 @@ public:
 		float r, g, b;
 		HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
 
-		this->color.R = r * 128.0f;
-		this->color.G = g * 128.0f;
-		this->color.B = b * 128.0f;
-		this->color.A = 0xFF * this->pulse.Val;
+		this->color.Bytes[0] = r * 128.0f * this->pulse.Val;
+		this->color.Bytes[1] = g * 128.0f * this->pulse.Val;
+		this->color.Bytes[2] = b * 128.0f * this->pulse.Val;
+		this->color.Bytes[3] = 0xFF * this->pulse.Val;
 
 		pulseBackup = this->pulse;
 	}

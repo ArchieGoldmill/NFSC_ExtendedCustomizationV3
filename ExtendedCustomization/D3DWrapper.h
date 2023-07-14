@@ -202,31 +202,7 @@ inline void bNormalize(bVector2* out, bVector2* v)
 	D3DXVec2Normalize((D3DXVECTOR2*)out, (D3DXVECTOR2*)v);
 }
 
-struct bColor
-{
-	unsigned char R;
-	unsigned char G;
-	unsigned char B;
-	unsigned char A;
-
-	bColor()
-	{
-		this->R = 0;
-		this->G = 0;
-		this->B = 0;
-		this->A = 0;
-	}
-
-	bColor(unsigned char v)
-	{
-		this->R = v;
-		this->G = v;
-		this->B = v;
-		this->A = v;
-	}
-
-	D3DXCOLOR ToD3D()
-	{
-		return *(D3DXCOLOR*)this;
-	}
+union bColor {
+	D3DCOLOR Color;
+	BYTE Bytes[4];
 };

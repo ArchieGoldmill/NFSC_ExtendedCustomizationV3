@@ -3,13 +3,10 @@
 #include "CarRenderInfoExtras.h"
 #include "Constants.h"
 
-D3DXCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness)
+D3DCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness)
 {
 	bColor color;
-	color.R = 0x80;
-	color.G = 0x80;
-	color.B = 0x80;
-	color.A = 0x80;
+	color.Color = 0x80808080;
 
 	if (carRenderInfo->CarShadowTexture == carRenderInfo->Extras->Neon.NeonTexture)
 	{
@@ -21,8 +18,8 @@ D3DXCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightnes
 		color = carRenderInfo->Extras->BrakelightGlow.GetColor();
 	}
 
-	color.A *= brightness;
-	return color.ToD3D();
+	color.Bytes[3] *= brightness;
+	return color.Color;
 }
 
 void __declspec(naked) ShadowColorCave()
