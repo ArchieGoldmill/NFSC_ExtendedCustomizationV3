@@ -4,16 +4,13 @@
 #pragma comment(lib, "d3dx9.lib")
 
 #include "Config.h"
-
-// Features
 #include "Animations.h"
 #include "Customization.h"
 #include "Textures.h"
 #include "Menu.h"
 #include "ForceLodA.h"
 #include "Decals.h"
-
-// Hooks
+#include "AutosculptOverrides.h"
 #include "CarRenderInfoHooks.h"
 #include "UserInput.h"
 
@@ -28,6 +25,8 @@ void Init()
 	InitMenu();
 	InitForceLodA();
 	InitDecals();
+	InitAutosculpt();
+	InitNeon();
 
 	InitCarRenderInfoHooks();
 }

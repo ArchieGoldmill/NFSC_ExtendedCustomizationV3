@@ -3,9 +3,10 @@
 #include "CarRenderInfo.h"
 #include "ePoly.h"
 #include "eView.h"
+#include "Constants.h"
+#include "Neon.h"
 
-inline float screenWidth = 1920;
-inline float screenHeight = 1080;
+void InitNeon();
 
 inline void sub_5BC4A0(eView* view, bVector3* out, bVector3* v)
 {
@@ -40,6 +41,12 @@ struct Neon
 	bMatrix4* End;
 };
 
+struct NeonPulse
+{
+	float Val = 1.0f;
+	float Dir = -1.0f;
+};
+
 class CarNeon
 {
 private:
@@ -47,20 +54,85 @@ private:
 	bMatrix4* carMatrix;
 	std::vector<Neon> neons;
 	bMatrix4 mIdentity;
-	TextureInfo* neonBlur;
+	TextureInfo* neonBlur = NULL;
+	NeonPulse pulse;
+	inline static NeonPulse pulseBackup;
+	bColor color;
 
 public:
+	TextureInfo* NeonTexture = NULL;
+
 	CarNeon(CarRenderInfo* carRenderInfo, bMatrix4* carMatrix)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->carMatrix = carMatrix;
 		this->mIdentity.Identity();
 		this->neonBlur = GetTextureInfo(Hashes::NEONBLUR, 0, 0);
+
+		if (Game::InFrontEnd())
+		{
+			this->pulse = pulseBackup;
+		}
+		else
+		{
+			this->pulse.Dir = 1.0f;
+			this->pulse.Val = (bRandom(101) % 100 + 30) / 100.0f;
+		}
+	}
+
+	void Init()
+	{
+		auto neonPart = this->carRenderInfo->RideInfo->GetPart(Slot_Neon);
+		if (neonPart)
+		{
+			auto textureHash = neonPart->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
+			if (textureHash)
+			{
+				this->NeonTexture = GetTextureInfo(textureHash, 0, 0);
+			}
+		}
 	}
 
 	void Update()
 	{
+		float pulse = this->carRenderInfo->RideInfo->AutosculptData[ZoneNeon].Zones[2];
+		if (pulse)
+		{
+			this->pulse.Val += *Game::DeltaTime * this->pulse.Dir * pulse * 2.0f;
+			if (this->pulse.Val > 1.0f)
+			{
+				this->pulse.Val = 1.0f;
+				this->pulse.Dir *= -1.0f;
+			}
 
+			if (this->pulse.Val < 0.3f)
+			{
+				this->pulse.Val = 0.3f;
+				this->pulse.Dir *= -1.0f;
+			}
+		}
+		else
+		{
+			this->pulse.Val = 1;
+		}
+
+		float h = carRenderInfo->RideInfo->AutosculptData[ZoneNeon].Zones[0] * 0.9999f;
+		float s = carRenderInfo->RideInfo->AutosculptData[ZoneNeon].Zones[1];
+
+		float r, g, b;
+		HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
+
+		this->color.R = r * 128.0f;
+		this->color.G = g * 128.0f;
+		this->color.B = b * 128.0f;
+		this->color.A = 0xFF * this->pulse.Val;
+
+		pulseBackup = this->pulse;
+	}
+
+	bColor GetColor()
+	{
+		return this->color;
 	}
 
 	void FindMarkers()
@@ -75,11 +147,11 @@ public:
 				for (int i = 0; i < 99; i++)
 				{
 					char buff[64];
-					sprintf_s(buff, "NEON_START%d", i);
+					sprintf_s(buff, "NEON_START%02d", i);
 					auto start = part->GetMarker(StringHash(buff));
 					if (start)
 					{
-						sprintf_s(buff, "NEON_END%d", i);
+						sprintf_s(buff, "NEON_END%02d", i);
 						auto end = part->GetMarker(StringHash(buff));
 						neons.push_back({ (bMatrix4*)start, (bMatrix4*)end });
 					}
@@ -92,17 +164,34 @@ public:
 		}
 	}
 
+	void RenderShadow(int a1, float* a2, float a3, int a4, int a5, int a6)
+	{
+		if (this->NeonTexture)
+		{
+			auto backup = this->carRenderInfo->CarShadowTexture;
+
+			this->carRenderInfo->CarShadowTexture = this->NeonTexture;
+			this->carRenderInfo->DrawAmbientShadow(a1, a2, a3, a4, a5, a6);
+
+			this->carRenderInfo->CarShadowTexture = backup;
+		}
+	}
+
 	void RenderMarkers()
 	{
-		for (auto neon : neons)
+		if (this->NeonTexture)
 		{
-			RenderMarker(neon.Start, neon.End);
+			for (auto neon : neons)
+			{
+				RenderMarker(neon.Start, neon.End);
+			}
 		}
 	}
 
 	void RenderMarker(bMatrix4* startMatrix, bMatrix4* endMatrix)
 	{
 		ePoly poly;
+		poly.SetColor(this->color);
 		auto carPos = this->carMatrix->v3;
 		auto carMatrix = *this->carMatrix;
 		carMatrix.v3 = { 0,0,0,0 };

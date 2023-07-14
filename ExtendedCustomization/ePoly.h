@@ -3,10 +3,17 @@
 #include "Func.h"
 #include "TextureInfo.h"
 
-struct Vector3
+struct bColor
 {
-	D3DXVECTOR3 V;
-	float Padding;
+	unsigned char R;
+	unsigned char G;
+	unsigned char B;
+	unsigned char A;
+
+	D3DCOLOR ToD3D()
+	{
+		return *(D3DCOLOR*)this;
+	}
 };
 
 class ePoly
@@ -31,5 +38,14 @@ public:
 	{
 		FUNC(0x0070F000, void, __thiscall, _Render, int, ePoly*, TextureInfo*, bMatrix4*, int, int);
 		_Render(0, this, textureInfo, matrix, 0, 0);
+	}
+
+	void SetColor(bColor color)
+	{
+		auto c = color.ToD3D();
+		this->Colours[0] = c;
+		this->Colours[1] = c;
+		this->Colours[2] = c;
+		this->Colours[3] = c;
 	}
 };

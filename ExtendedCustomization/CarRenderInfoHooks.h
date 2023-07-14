@@ -12,7 +12,7 @@ void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo)
 
 void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 {
-
+	carRenderInfo->Extras->Neon.Init();
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
@@ -26,9 +26,11 @@ void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
 
 double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2, float* a3, float a4, int a5, int a6, int a7)
 {
+	carRenderInfo->Extras->IsVisible = true;
 	carRenderInfo->Extras->CarMatrix = *carRenderInfo->GetMatrix();
 
 	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
+	carRenderInfo->Extras->Neon.RenderShadow(a2, a3, a4, a5, a6, a7);
 
 	return result;
 }
@@ -45,7 +47,12 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 	{
 		carRenderInfo->Extras->Animations.Update();
 		carRenderInfo->Extras->Neon.Update();
-		carRenderInfo->Extras->Neon.RenderMarkers();
+
+		if (carRenderInfo->Extras->IsVisible)
+		{
+			carRenderInfo->Extras->Neon.RenderMarkers();
+		}
+
 		carRenderInfo->Extras->IsVisible = false;
 	}
 }
@@ -139,8 +146,6 @@ void __declspec(naked) CarRenderInfoDtCave()
 
 void InitCarRenderInfoHooks()
 {
-
-
 	injector::MakeJMP(0x007E55ED, CarRenderInfoCtStartCave, true);
 	injector::MakeJMP(0x007E640A, CarRenderInfoCtEndCave, true);
 

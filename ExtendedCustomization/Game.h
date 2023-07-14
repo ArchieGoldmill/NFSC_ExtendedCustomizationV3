@@ -14,6 +14,8 @@ INLINE_FUNC(0x00471050, Hash, __cdecl, StringHash, const char*);
 INLINE_FUNC(0x0055CFD0, TextureInfo*, __cdecl, GetTextureInfo, Hash, bool, bool);
 INLINE_FUNC(0x006A1560, void*, __cdecl, j_malloc_0, int);
 INLINE_FUNC(0x007B0290, char*, __cdecl, GetCarTypeName, CarType);
+INLINE_FUNC(0x0046E580, void, __cdecl, HSV2RGB, float, float, float, float*, float*, float*);
+INLINE_FUNC(0x0046DB30, int, __cdecl, bRandom, int);
 
 namespace Game
 {
@@ -21,6 +23,7 @@ namespace Game
 	static int* CarPartSlotMap = (int*)0x00A73398;
 	static auto ScreenSizeX = (int*)0x00A63F80;
 	static auto ScreenSizeY = (int*)0x00A63F84;
+	static int* CopyPoseValueToFamilyMap = (int*)0x00A79FC8;
 
 	enum class State
 	{

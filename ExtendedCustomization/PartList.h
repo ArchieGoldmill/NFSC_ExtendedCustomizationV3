@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "FrontEndRenderingCar.h"
 #include "AutosculptSelectablePart.h"
+#include "CarCustomizeManager.h"
 
 Slot KitwParts[] = {
 	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT
@@ -71,6 +72,45 @@ bool CheckMarker(Slot slot, DBCarPart* part)
 	return false;
 }
 
+void HandleCart(AutosculptSelectablePart* selectPart, Slot slot)
+{
+	float* zones = 0;
+
+	auto cart = CarCustomizeManager::Get()->IsPartTypeInCart(slot);
+	if (cart)
+	{
+		auto cartSelectPart = (AutosculptSelectablePart*)cart[3];
+		if (cartSelectPart)
+		{
+			auto cartPart = cartSelectPart->Part;
+			if (cartPart && cartPart->IsAutosculpt())
+			{
+				if (selectPart->Part == cartPart)
+				{
+					cartSelectPart->SetToCurrentPart();
+					int* param = (int*)0x00BBB050;
+					if (*param)
+					{
+						static auto sub_8433D0 = (float* (__thiscall*)(int))0x008433D0;
+						zones = sub_8433D0(*param);
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		auto part = CarCustomizeManager::Get()->GetInstalledPart(slot);
+		if (part && !part->IsStock() && part == selectPart->Part)
+		{
+			static auto sub_49C860 = (float* (__thiscall*)(FECustomizationRecord*, int))0x0049C860;
+			zones = sub_49C860(FECustomizationRecord::Get(), selectPart->Region);
+		}
+	}
+
+	selectPart->Zones = zones;
+}
+
 template<typename SelectablePart>
 void GetPartsListV3(Slot slot, Node<SelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius, CarType carId, bool isAutosculpt)
 {
@@ -109,6 +149,11 @@ void GetPartsListV3(Slot slot, Node<SelectablePart*>* listHead, bool isCarbon, H
 
 		auto selectablePart = (SelectablePart*)j_malloc_0(sizeof(SelectablePart));
 		*selectablePart = SelectablePart(slot, part);
+		if (isAutosculpt)
+		{
+			HandleCart((AutosculptSelectablePart*)selectablePart, slot);
+		}
+
 		AddNodeToList((Node<StandardSelectablePart*>*)listHead, (Node<StandardSelectablePart*>*)&selectablePart->NodeItem);
 	}
 }

@@ -20,9 +20,21 @@ public:
 		return _ConvertSlotToRegion(slot);
 	}
 
+	void SetToCurrentPart()
+	{
+		FUNC(0x008434A0, void, __thiscall, _SetToCurrentPart, AutosculptSelectablePart*);
+		_SetToCurrentPart(this);
+	}
+
 	static void GetPartsList(Slot slot, Node<AutosculptSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 	{
 		FUNC(0x008534A0, void, __cdecl, _GetPartsList, Slot, Node<AutosculptSelectablePart*>*, bool, Hash, int);
 		_GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
+	}
+
+	static AutosculptSelectablePart* GetCurrent()
+	{
+		auto current = (AutosculptSelectablePart**)0x00BBB050;
+		return *current;
 	}
 };
