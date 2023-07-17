@@ -35,7 +35,7 @@ void __fastcall GetVinylTransformUnpacked(VinylPacked* packed, int, VinylUnpcack
 		mirrored = *packed;
 
 		mirrored.Rotation = 127 - mirrored.Rotation;
-		unpacked->TranslationX = Center.y - 1.0f - unpacked->TranslationX;
+		unpacked->TranslationX = (1.0f - Center.x) * 2 - 1.0f - unpacked->TranslationX;
 
 		packed = &mirrored;
 	}
@@ -56,10 +56,10 @@ void __fastcall GetVinylTransformUnpacked(VinylPacked* packed, int, VinylUnpcack
 
 	float scaleFactor = 0.0625;
 	bMatrix2 scale;
-	scale.m[0][0] = packed->ScaleX * scaleFactor;
+	scale.m[0][0] = (packed->ScaleX + 16) * scaleFactor;
 	scale.m[0][1] = 0;
 	scale.m[1][0] = 0;
-	scale.m[1][1] = packed->ScaleY * scaleFactor;
+	scale.m[1][1] = (packed->ScaleY + 16) * scaleFactor;
 
 	unpacked->Matrix = scale * shear * rotation;
 }
