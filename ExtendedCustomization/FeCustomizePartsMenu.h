@@ -98,8 +98,8 @@ void __declspec(naked) PopulateAllOptionsCave()
 
 void InitFeCustomizePartsMenu()
 {
-	injector::MakeJMP(0x00866074, PopulateAllOptionsCave, true);
+	injector::MakeJMP(0x00866074, PopulateAllOptionsCave);
 
 	// Start part menu from first part in list
-	injector::WriteMemory<BYTE>(0x0086623F, 0, true);
+	injector::WriteMemory<BYTE>(0x0086623F, 0);
 }

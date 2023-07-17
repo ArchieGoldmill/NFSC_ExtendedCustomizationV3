@@ -72,14 +72,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.asi</TargetExt>
-    <OutDir>..\..\..\Games\Need for Speed Carbon\_ecv3\scripts\</OutDir>
+    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv3\scripts</OutDir>
     <TargetName>ExtendedCustomization</TargetName>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetExt>.asi</TargetExt>
-    <OutDir>..\..\..\Games\Need for Speed Carbon\_ecv3\scripts\</OutDir>
+    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv3\scripts</OutDir>
     <TargetName>ExtendedCustomization</TargetName>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
@@ -161,82 +161,86 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ExtendedCustomization\Animations.cpp" />
-    <ClCompile Include="ExtendedCustomization\Config.cpp" />
-    <ClCompile Include="ExtendedCustomization\ConfigInit.cpp" />
-    <ClCompile Include="ExtendedCustomization\dllmain.cpp" />
-    <ClCompile Include="ExtendedCustomization\eSolid.cpp" />
-    <ClCompile Include="ExtendedCustomization\AmbientShadow.cpp" />
+    <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="ConfigInit.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="eSolid.cpp" />
+    <ClCompile Include="AmbientShadow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExtendedCustomization\AutoSculpt.h" />
-    <ClInclude Include="ExtendedCustomization\AutosculptOverrides.h" />
-    <ClInclude Include="ExtendedCustomization\BrakelightGlow.h" />
-    <ClInclude Include="ExtendedCustomization\Camera.h" />
-    <ClInclude Include="ExtendedCustomization\CarCustomizeManager.h" />
-    <ClInclude Include="ExtendedCustomization\CarSkinManager.h" />
-    <ClInclude Include="ExtendedCustomization\eView.h" />
-    <ClInclude Include="ExtendedCustomization\Neon.h" />
-    <ClInclude Include="ExtendedCustomization\ePoly.h" />
-    <ClInclude Include="ExtendedCustomization\Decals.h" />
-    <ClInclude Include="ExtendedCustomization\Animations.h" />
-    <ClInclude Include="ExtendedCustomization\AutosculptSelectablePart.h" />
-    <ClInclude Include="ExtendedCustomization\CarPartDatabase.h" />
-    <ClInclude Include="ExtendedCustomization\CarRenderConn.h" />
-    <ClInclude Include="ExtendedCustomization\CarRenderInfo.h" />
-    <ClInclude Include="ExtendedCustomization\CarRenderInfoExtras.h" />
-    <ClInclude Include="ExtendedCustomization\CarRenderInfoHooks.h" />
-    <ClInclude Include="ExtendedCustomization\Config.h" />
-    <ClInclude Include="ExtendedCustomization\ConfigParts.h" />
-    <ClInclude Include="ExtendedCustomization\Constants.h" />
-    <ClInclude Include="ExtendedCustomization\Customization.h" />
-    <ClInclude Include="ExtendedCustomization\D3DWrapper.h" />
-    <ClInclude Include="ExtendedCustomization\DBCarPart.h" />
-    <ClInclude Include="ExtendedCustomization\eLightContext.h" />
-    <ClInclude Include="ExtendedCustomization\eLightMaterial.h" />
-    <ClInclude Include="ExtendedCustomization\eModel.h" />
-    <ClInclude Include="ExtendedCustomization\eReplacementTextures.h" />
-    <ClInclude Include="ExtendedCustomization\eSolid.h" />
-    <ClInclude Include="ExtendedCustomization\FEButton.h" />
-    <ClInclude Include="ExtendedCustomization\FECarRecord.h" />
-    <ClInclude Include="ExtendedCustomization\FECustomizationRecord.h" />
-    <ClInclude Include="ExtendedCustomization\FeCustomizeMain.h" />
-    <ClInclude Include="ExtendedCustomization\FeCustomizeMainMenu.h" />
-    <ClInclude Include="ExtendedCustomization\FeCustomizeVisuals.h" />
-    <ClInclude Include="ExtendedCustomization\FeCustomizeVisualsMenu.h" />
-    <ClInclude Include="ExtendedCustomization\FeGarageMain.h" />
-    <ClInclude Include="ExtendedCustomization\Feature.h" />
-    <ClInclude Include="ExtendedCustomization\FEObject.h" />
-    <ClInclude Include="ExtendedCustomization\FEPackage.h" />
-    <ClInclude Include="ExtendedCustomization\FrontEndRenderingCar.h" />
-    <ClInclude Include="ExtendedCustomization\Func.h" />
-    <ClInclude Include="ExtendedCustomization\Game.h" />
-    <ClInclude Include="ExtendedCustomization\Hashes.h" />
-    <ClInclude Include="ExtendedCustomization\IPartMarker.h" />
-    <ClInclude Include="ExtendedCustomization\LegacyCustomization.h" />
-    <ClInclude Include="ExtendedCustomization\Menu.h" />
-    <ClInclude Include="ExtendedCustomization\PartList.h" />
-    <ClInclude Include="ExtendedCustomization\PartMarker.h" />
-    <ClInclude Include="ExtendedCustomization\PositionMarker.h" />
-    <ClInclude Include="ExtendedCustomization\Node.h" />
-    <ClInclude Include="ExtendedCustomization\PVehicle.h" />
-    <ClInclude Include="ExtendedCustomization\RasterizationManager.h" />
-    <ClInclude Include="ExtendedCustomization\RideInfo.h" />
-    <ClInclude Include="ExtendedCustomization\ScrollOption.h" />
-    <ClInclude Include="ExtendedCustomization\Slots.h" />
-    <ClInclude Include="ExtendedCustomization\SmoothVinyls.h" />
-    <ClInclude Include="ExtendedCustomization\StandardSelectablePart.h" />
-    <ClInclude Include="ExtendedCustomization\TextureInfo.h" />
-    <ClInclude Include="ExtendedCustomization\Textures.h" />
-    <ClInclude Include="ExtendedCustomization\UserInput.h" />
-    <ClInclude Include="ExtendedCustomization\FeCustomizeParts.h" />
-    <ClInclude Include="ExtendedCustomization\FeCustomizePartsMenu.h" />
-    <ClInclude Include="ExtendedCustomization\FEString.h" />
-    <ClInclude Include="ExtendedCustomization\VectorScrollerMenu.h" />
-    <ClInclude Include="ExtendedCustomization\ForceLodA.h" />
-    <ClInclude Include="ExtendedCustomization\PartAnimation.h" />
-    <ClInclude Include="ExtendedCustomization\Vinyls.h" />
-    <ClInclude Include="ExtendedCustomization\VinylManager.h" />
+    <ClInclude Include="AutoSculpt.h" />
+    <ClInclude Include="AutosculptOverrides.h" />
+    <ClInclude Include="AutosculptSlider.h" />
+    <ClInclude Include="BrakelightGlow.h" />
+    <ClInclude Include="Camber.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CarCustomizeManager.h" />
+    <ClInclude Include="CarSkinManager.h" />
+    <ClInclude Include="eView.h" />
+    <ClInclude Include="Neon.h" />
+    <ClInclude Include="ePoly.h" />
+    <ClInclude Include="Decals.h" />
+    <ClInclude Include="Animations.h" />
+    <ClInclude Include="AutosculptSelectablePart.h" />
+    <ClInclude Include="CarPartDatabase.h" />
+    <ClInclude Include="CarRenderConn.h" />
+    <ClInclude Include="CarRenderInfo.h" />
+    <ClInclude Include="CarRenderInfoExtras.h" />
+    <ClInclude Include="CarRenderInfoHooks.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="ConfigParts.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Customization.h" />
+    <ClInclude Include="D3DWrapper.h" />
+    <ClInclude Include="DBCarPart.h" />
+    <ClInclude Include="eLightContext.h" />
+    <ClInclude Include="eLightMaterial.h" />
+    <ClInclude Include="eModel.h" />
+    <ClInclude Include="eReplacementTextures.h" />
+    <ClInclude Include="eSolid.h" />
+    <ClInclude Include="FEButton.h" />
+    <ClInclude Include="FECarRecord.h" />
+    <ClInclude Include="FECustomizationRecord.h" />
+    <ClInclude Include="FeCustomizeMain.h" />
+    <ClInclude Include="FeCustomizeMainMenu.h" />
+    <ClInclude Include="FeCustomizeVisuals.h" />
+    <ClInclude Include="FeCustomizeVisualsMenu.h" />
+    <ClInclude Include="FeGarageMain.h" />
+    <ClInclude Include="Feature.h" />
+    <ClInclude Include="FEObject.h" />
+    <ClInclude Include="FEPackage.h" />
+    <ClInclude Include="FrontEndRenderingCar.h" />
+    <ClInclude Include="Func.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Hashes.h" />
+    <ClInclude Include="IPartMarker.h" />
+    <ClInclude Include="LegacyCustomization.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="PartList.h" />
+    <ClInclude Include="PartMarker.h" />
+    <ClInclude Include="PositionMarker.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="PVehicle.h" />
+    <ClInclude Include="RasterizationManager.h" />
+    <ClInclude Include="RideInfo.h" />
+    <ClInclude Include="ScrollOption.h" />
+    <ClInclude Include="Slots.h" />
+    <ClInclude Include="SmoothVinyls.h" />
+    <ClInclude Include="Stance.h" />
+    <ClInclude Include="StandardSelectablePart.h" />
+    <ClInclude Include="TextureInfo.h" />
+    <ClInclude Include="Textures.h" />
+    <ClInclude Include="TrackWidth.h" />
+    <ClInclude Include="UserInput.h" />
+    <ClInclude Include="FeCustomizeParts.h" />
+    <ClInclude Include="FeCustomizePartsMenu.h" />
+    <ClInclude Include="FEString.h" />
+    <ClInclude Include="VectorScrollerMenu.h" />
+    <ClInclude Include="ForceLodA.h" />
+    <ClInclude Include="PartAnimation.h" />
+    <ClInclude Include="Vinyls.h" />
+    <ClInclude Include="VinylManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

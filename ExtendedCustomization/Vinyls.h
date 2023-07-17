@@ -185,17 +185,17 @@ void InitVinyls()
 {
 	InitSmoothVinyls();
 
-	injector::MakeCALL(0x007C2EAB, GetVinylTransformUnpacked, true);
+	injector::MakeCALL(0x007C2EAB, GetVinylTransformUnpacked);
 
-	injector::MakeCALL(0x007DBAAA, RasterizationManager_Initialize, true);
-	injector::MakeCALL(0x007DBAE9, RasterizationManager_Initialize, true);
+	injector::MakeCALL(0x007DBAAA, RasterizationManager_Initialize);
+	injector::MakeCALL(0x007DBAE9, RasterizationManager_Initialize);
 
-	injector::MakeJMP(0x007B2BC6, CarSkinManagerFinalizeCave, true);
+	injector::MakeJMP(0x007B2BC6, CarSkinManagerFinalizeCave);
 
-	injector::MakeCALL(0x00577A5F, MoveVinylUpDown, true);
-	injector::MakeCALL(0x00577A72, MoveVinylLeftRight, true);
+	injector::MakeCALL(0x00577A5F, MoveVinylUpDown);
+	injector::MakeCALL(0x00577A72, MoveVinylLeftRight);
 
 	// All vinyls mirrorable
-	injector::MakeNOP(0x00841481, 2, true);
-	injector::MakeNOP(0x00851E4F, 2, true);
+	injector::MakeNOP(0x00841481, 2);
+	injector::MakeNOP(0x00851E4F, 2);
 }

@@ -121,9 +121,9 @@ void __declspec(naked) GetUsedCarTextureInfoCave()
 
 void InitTextures()
 {
-	injector::WriteMemory(0x007CECC7, ((int)Slot::LEFT_HEADLIGHT + 0x15) * 4, true);
-	injector::WriteMemory(0x007CECCD, ((int)Slot::LEFT_BRAKELIGHT + 0x15) * 4, true);
-	injector::MakeJMP(0x007CF764, GetUsedCarTextureInfoCave, true);
+	injector::WriteMemory(0x007CECC7, ((int)Slot::LEFT_HEADLIGHT + 0x15) * 4);
+	injector::WriteMemory(0x007CECCD, ((int)Slot::LEFT_BRAKELIGHT + 0x15) * 4);
+	injector::MakeJMP(0x007CF764, GetUsedCarTextureInfoCave);
 
-	injector::MakeCALL(0x007DE789, UpdateLightStateTextures, true);
+	injector::MakeCALL(0x007DE789, UpdateLightStateTextures);
 }

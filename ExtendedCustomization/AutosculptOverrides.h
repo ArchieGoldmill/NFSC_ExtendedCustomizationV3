@@ -1,8 +1,12 @@
 #pragma once
+#include "Feature.h"
 #include "Slots.h"
 #include "Constants.h"
 #include "AutosculptSelectablePart.h"
 #include "AutoSculpt.h"
+#include "AutosculptSlider.h"
+#include "FrontEndRenderingCar.h"
+#include "CarRenderInfo.h"
 
 const char* __stdcall ConvertSlotToFng(Slot slot)
 {
@@ -166,6 +170,23 @@ int __stdcall GetActiveZoneNum(int param)
 	return AutoSculpt::GetActiveZoneNum(param);
 }
 
+int __fastcall AutosculptSlider_Act(AutosculptSlider* slider, int, int a2, Hash action)
+{
+	int result = slider->Act(a2, action);
+
+	auto currentSelectablePart = AutosculptSelectablePart::GetCurrent();
+	if (currentSelectablePart)
+	{
+		auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.CarRenderInfo;
+		if (currentSelectablePart->SlotId == Slot_Stance)
+		{
+			carRenderInfo->UpdateWheelYRenderOffset();
+		}
+	}
+
+	return result;
+}
+
 void __declspec(naked) ConvertSlotToStateCave()
 {
 	__asm
@@ -206,18 +227,20 @@ void __declspec(naked) FixZoneLoadCave()
 
 void InitAutosculpt()
 {
-	injector::WriteMemory(0x009F867C, ConvertSlotToFng, true);
-	injector::MakeJMP(0x00843180, ConvertSlotToRegionCave, true);
-	injector::MakeJMP(0x00846FE0, ConvertSlotToStateCave, true);
+	injector::WriteMemory(0x009F867C, ConvertSlotToFng);
+	injector::MakeJMP(0x00843180, ConvertSlotToRegionCave);
+	injector::MakeJMP(0x00846FE0, ConvertSlotToStateCave);
 
 	// Disable chop top values copy
 	for (int i = 0; i < 21; i++) Game::CopyPoseValueToFamilyMap[i] = 0x15;
 
 	// Fix loading float zone value that is transformed to int
-	injector::MakeJMP(0x007C4473, FixZoneLoadCave, true);
+	injector::MakeJMP(0x007C4473, FixZoneLoadCave);
 
-	injector::MakeCALL(0x0085B3A0, GetActiveZoneNum, true);
+	injector::MakeCALL(0x0085B3A0, GetActiveZoneNum);
 
 	// Disable region set
-	injector::MakeNOP(0x00854725, 3, true);
+	injector::MakeNOP(0x00854725, 3);
+
+	injector::WriteMemory(0x009FAA48, AutosculptSlider_Act);
 }

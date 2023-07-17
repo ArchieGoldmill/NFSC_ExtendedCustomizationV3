@@ -67,9 +67,9 @@ void __declspec(naked) OpenCustomVisualsMenuCave()
 
 void InitFeCustomizeVisualsMenu()
 {
-	injector::MakeJMP(0x008684DC, OpenCustomVisualsMenuCave, true);
-	injector::MakeCALL(0x0085A565, FeCustomizeVisuals_Setup, true);
+	injector::MakeJMP(0x008684DC, OpenCustomVisualsMenuCave);
+	injector::MakeCALL(0x0085A565, FeCustomizeVisuals_Setup);
 
 	// Disable stock rims check for paint
-	injector::MakeNOP(0x0086850C, 2, true);
+	injector::MakeNOP(0x0086850C, 2);
 }

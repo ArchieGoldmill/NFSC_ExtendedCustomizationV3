@@ -14,6 +14,7 @@
 #include "CarRenderInfoHooks.h"
 #include "UserInput.h"
 #include "Vinyls.h"
+#include "Stance.h"
 
 void ToBeRemoved()
 {
@@ -43,6 +44,7 @@ void Init()
 	InitAutosculpt();
 	InitNeon();
 	InitVinyls();
+	InitStance();
 
 	InitCarRenderInfoHooks();
 }

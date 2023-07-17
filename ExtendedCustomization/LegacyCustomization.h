@@ -44,9 +44,9 @@ void __declspec(naked) CarHasPopupsCave()
 
 void InitLegacyCustomization()
 {
-	injector::MakeCALL(0x00865278, IsSetHeadlightOn, true);
-	injector::MakeNOP(0x00865280, 60, true);
+	injector::MakeCALL(0x00865278, IsSetHeadlightOn);
+	injector::MakeNOP(0x00865280, 60);
 
-	injector::MakeJMP(0x00859809, CarHasPopupsCave, true);
-	injector::MakeNOP(0x00859819, 23, true);
+	injector::MakeJMP(0x00859809, CarHasPopupsCave);
+	injector::MakeNOP(0x00859819, 23);
 }

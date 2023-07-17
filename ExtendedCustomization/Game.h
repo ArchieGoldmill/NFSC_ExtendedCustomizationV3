@@ -24,10 +24,11 @@ namespace Game
 		return *(float*)0x00A99A5C;
 	}
 
-	static int* CarPartSlotMap = (int*)0x00A73398;
+	static auto CarPartSlotMap = (int*)0x00A73398;
 	static auto ScreenSizeX = (int*)0x00A63F80;
 	static auto ScreenSizeY = (int*)0x00A63F84;
-	static int* CopyPoseValueToFamilyMap = (int*)0x00A79FC8;
+	static auto CopyPoseValueToFamilyMap = (int*)0x00A79FC8;
+	static auto FrontSteerAngle = (float*)0x00A7B668;
 
 	enum class State
 	{

@@ -147,14 +147,14 @@ void __declspec(naked) CarRenderInfoDtCave()
 
 void InitCarRenderInfoHooks()
 {
-	injector::MakeJMP(0x007E55ED, CarRenderInfoCtStartCave, true);
-	injector::MakeJMP(0x007E640A, CarRenderInfoCtEndCave, true);
+	injector::MakeJMP(0x007E55ED, CarRenderInfoCtStartCave);
+	injector::MakeJMP(0x007E640A, CarRenderInfoCtEndCave);
 
-	injector::MakeJMP(0x007D5282, CarRenderInfoDtCave, true);
+	injector::MakeJMP(0x007D5282, CarRenderInfoDtCave);
 
-	injector::MakeCALL(0x007DECCD, OnShadowRender, true);
+	injector::MakeCALL(0x007DECCD, OnShadowRender);
 
-	injector::MakeJMP(0x007DA2E5, UpdateCarPartsCave, true);
+	injector::MakeJMP(0x007DA2E5, UpdateCarPartsCave);
 
-	injector::MakeCALL(0x0072E97E, PostCarRender, true);
+	injector::MakeCALL(0x0072E97E, PostCarRender);
 }

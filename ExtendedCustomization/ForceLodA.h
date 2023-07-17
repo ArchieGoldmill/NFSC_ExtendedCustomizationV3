@@ -34,5 +34,5 @@ void __declspec(naked) HookPartLoadCave()
 
 void InitForceLodA()
 {
-	injector::MakeJMP(0x007CDC85, HookPartLoadCave, true);
+	injector::MakeJMP(0x007CDC85, HookPartLoadCave);
 }

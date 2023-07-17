@@ -14,6 +14,10 @@ namespace Hashes
 	const Hash BRAKELIGHT_GLOW = 0xD9455454;
 	const Hash MIRROR = 0x6BFA56DA;
 
+	const Hash FRONT_TIRE_OFFSET = 0xFDE70341;
+	const Hash REAR_TIRE_OFFSET = 0x2FC42D62;
+	const Hash TIRE_OFFSET = 0x0454A6B9;
+
 	const Hash ANIM_START = 0x68EDC171;
 	const Hash ANIM_END = 0xAC685B7A;
 

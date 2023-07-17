@@ -128,6 +128,12 @@ public:
 		return _DrawAmbientShadow(this, a1, a2, a3, a4, a5, a6);
 	}
 
+	void UpdateWheelYRenderOffset()
+	{
+		FUNC(0x007CB6F0, void, __thiscall, _UpdateWheelYRenderOffset, CarRenderInfo*);
+		_UpdateWheelYRenderOffset(this);
+	}
+
 private:
 	bool IsBrakelightOn(int b)
 	{

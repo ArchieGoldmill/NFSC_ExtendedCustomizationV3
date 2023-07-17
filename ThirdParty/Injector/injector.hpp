@@ -377,7 +377,7 @@ inline T& ReadObject(memory_pointer_tr addr, T& value, bool vp = false)
  *      Does memory unprotection if @vp is true
  */
 template<class T>
-inline void WriteMemory(memory_pointer_tr addr, T value, bool vp = false)
+inline void WriteMemory(memory_pointer_tr addr, T value, bool vp = true)
 {
     WriteObject(addr, value, vp);
 }

@@ -46,8 +46,8 @@ void __declspec(naked) AfterInitializeEverythingCave()
 
 void InitDecals()
 {
-	injector::MakeJMP(0x006B7887, AfterInitializeEverythingCave, true);
+	injector::MakeJMP(0x006B7887, AfterInitializeEverythingCave);
 
 	// Get decal texture from texture name rather then part name
-	injector::WriteMemory<unsigned short>(0x007D5C35, 0x4277, true);
+	injector::WriteMemory<unsigned short>(0x007D5C35, 0x4277);
 }

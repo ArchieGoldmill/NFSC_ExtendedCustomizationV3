@@ -46,13 +46,13 @@ float RearShadowSize = 1.2f;
 float SideShadowSize = 1.05f;
 void InitNeon()
 {
-	injector::WriteMemory<float*>(0x007BE4F4, &CarDistMax, true);
-	injector::WriteMemory<float*>(0x007BE50D, &CarDistMax, true);
-	injector::WriteMemory<float*>(0x007BE501, &CarDistMult, true);
-	injector::WriteMemory<float*>(0x007BE5B9, &FrontShadowSize, true);
-	injector::WriteMemory<float*>(0x007BE5AB, &RearShadowSize, true);
-	injector::WriteMemory<float*>(0x007BE59B, &SideShadowSize, true);
-	injector::WriteMemory<float*>(0x007BE58B, &SideShadowSize, true);
+	injector::WriteMemory<float*>(0x007BE4F4, &CarDistMax);
+	injector::WriteMemory<float*>(0x007BE50D, &CarDistMax);
+	injector::WriteMemory<float*>(0x007BE501, &CarDistMult);
+	injector::WriteMemory<float*>(0x007BE5B9, &FrontShadowSize);
+	injector::WriteMemory<float*>(0x007BE5AB, &RearShadowSize);
+	injector::WriteMemory<float*>(0x007BE59B, &SideShadowSize);
+	injector::WriteMemory<float*>(0x007BE58B, &SideShadowSize);
 
-	injector::MakeJMP(0x007BEA34, ShadowColorCave, true);
+	injector::MakeJMP(0x007BEA34, ShadowColorCave);
 }

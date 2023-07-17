@@ -80,6 +80,6 @@ void __declspec(naked) OpenCustomMenuCave()
 
 void InitFeCustomizeMainMenu()
 {
-	injector::MakeCALL(0x0085A48F, FeCustomizeMain_Setup, true);
-	injector::MakeJMP(0x008683C9, OpenCustomMenuCave, true);
+	injector::MakeCALL(0x0085A48F, FeCustomizeMain_Setup);
+	injector::MakeJMP(0x008683C9, OpenCustomMenuCave);
 }
