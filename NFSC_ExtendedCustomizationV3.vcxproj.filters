@@ -35,6 +35,9 @@
     <Filter Include="Features\Customization">
       <UniqueIdentifier>{6caa5eb4-48e9-4127-ae9b-91dd2e320090}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Vinyls">
+      <UniqueIdentifier>{a89337fd-9f91-4a15-8086-1d7cc4037057}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExtendedCustomization\dllmain.cpp">
@@ -246,10 +249,19 @@
     <ClInclude Include="ExtendedCustomization\Neon.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Vinyls.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="ExtendedCustomization\VinylManager.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\SmoothVinyls.h">
+      <Filter>Features\Vinyls</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\RasterizationManager.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\Vinyls.h">
+      <Filter>Features\Vinyls</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtendedCustomization\CarSkinManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>

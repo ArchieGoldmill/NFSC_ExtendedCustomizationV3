@@ -2,7 +2,9 @@
 #include "Feature.h"
 #include "D3DWrapper.h"
 #include "VinylManager.h"
-#include <chrono>
+#include "SmoothVinyls.h"
+#include "RasterizationManager.h"
+#include "CarSkinManager.h"
 
 struct VinylPacked
 {
@@ -64,45 +66,34 @@ void __fastcall GetVinylTransformUnpacked(VinylPacked* packed, int, VinylUnpcack
 	unpacked->Matrix = scale * shear * rotation;
 }
 
-char __fastcall RasterizationManager_Initialize(char* _this, int, int a2, signed int canvasWidth, signed int canvasHeight, RideInfo* rideInfo, char vinylNum, char a7, int a8)
+char __fastcall RasterizationManager_Initialize(RasterizationManager* rasterizationManager, int, TextureInfo* texture, signed int canvasWidth, signed int canvasHeight, RideInfo* rideInfo, char vinylNum, char a7, int a8)
 {
-	static auto _Initialize = (char(__thiscall*)(void*, int, signed int, signed int, RideInfo*, char, char, int))0x007D09D0;
-	auto res = _Initialize(_this, a2, canvasWidth, canvasHeight, rideInfo, vinylNum, a7, a8);
+	auto result = rasterizationManager->Initialize(texture, canvasWidth, canvasHeight, rideInfo, vinylNum, a7, a8);
 
 	if (!DecalMirror)
 	{
-		if (res && _this[0x5C] == 1)
+		if (result && rasterizationManager->Mirror)
 		{
 			auto vinylPart = rideInfo->GetVinylPart(vinylNum);
-			if (vinylPart && vinylPart->GetAppliedAttributeIParam(Hashes::MIRROR, 0) == 0)
+			if (vinylPart && !vinylPart->GetAppliedAttributeIParam(Hashes::MIRROR, 0))
 			{
-				auto vinylManager = VinylManager::Get();
-				auto node = vinylManager->LoadedVinyls.HeadNode.Next;
-				auto nameHash = vinylPart->GetPartNameHash();
-				while ((LPVOID)node != (LPVOID)vinylManager)
+				auto vinyl = VinylManager::GetByHash(vinylPart->GetPartNameHash());
+				if (vinyl)
 				{
-					auto vinyl = (Vinyl*)node;
-					if (vinyl->NameHash == nameHash)
-					{
-						Center = vinyl->Center;
-						break;
-					}
-
-					node = node->Next;
+					Center = vinyl->Center;
+					rasterizationManager->Mirror = false;
+					DecalMirror = true;
 				}
-
-				_this[0x5C] = 0;
-				DecalMirror = true;
 			}
 		}
 	}
 	else
 	{
-		_this[0x5C] = 0;
+		rasterizationManager->Mirror = false;
 		DecalMirror = false;
 	}
 
-	return res;
+	return result;
 }
 
 void MoveVinyl(short& val, int dir)
@@ -140,67 +131,66 @@ void __fastcall MoveVinylLeftRight(VinylPacked* vinyl, int, int dir)
 	MoveVinyl(vinyl->TranslationY, dir);
 }
 
-void __declspec(naked) VinylLayerIncCave()
+void __fastcall CarSkinManagerFinalize(CarSkinManager* skinManager)
 {
-	static constexpr auto cExit = 0x007B2BCD;
-
-	__asm
+	if (DecalMirror)
 	{
-		mov eax, [ecx + 0x38];
-		mov dl, [ecx + 0x20];
+		if (skinManager->RasterizeLowerLayers)
+		{
+			skinManager->CurrentTask = skinManager->CurrentLayer < skinManager->NumLowerLayers ? eCST_LowerLayersInitialize : eCST_CanvasInitialize;
+		}
+		else
+		{
+			skinManager->CurrentTask = eCST_CanvasInitialize;
+		}
+	}
+	else
+	{
+		skinManager->CurrentLayer++;
+		if (skinManager->RasterizeLowerLayers)
+		{
+			if (skinManager->CurrentLayer == skinManager->NumLowerLayers)
+			{
+				skinManager->CurrentTask = skinManager->unk_2[5] ? eCST_CompressLowerLayers : eCST_CopyLowerLayersToCanvas;
+				return;
+			}
+			else if (skinManager->CurrentLayer < skinManager->NumLowerLayers)
+			{
+				skinManager->CurrentTask = eCST_LowerLayersInitialize;
+				return;
+			}
+		}
 
-		cmp DecalMirror, 1;
-		je skipInc;
-		inc eax;
-
-	skipInc:
-		jmp cExit;
+		if (skinManager->CurrentLayer == skinManager->NumLayers)
+		{
+			skinManager->CurrentTask = skinManager->unk_3[1] ? eCST_CopyToDestinationNoCompression : eCST_CopyToDestination;
+		}
+		else
+		{
+			skinManager->CurrentTask = eCST_CanvasInitialize;
+		}
 	}
 }
 
-int* FeFastRep = (int*)0x005FDF66;
-void __declspec(naked) FeColourChooserCtCave()
+void __declspec(naked) CarSkinManagerFinalizeCave()
 {
 	__asm
 	{
-		mov ebx, [FeFastRep];
-		mov dword ptr[ebx], -280;
-		ret 0x10;
-	}
-}
-
-void __declspec(naked) FeColourChooserDtCave()
-{
-	__asm
-	{
-		mov ebx, [FeFastRep];
-		mov dword ptr[ebx], -200;
+		call CarSkinManagerFinalize;
 		ret;
 	}
 }
 
-void* __fastcall FeVinylTransformCt(void* _this, int, void* menuScreen)
-{
-	*FeFastRep = -319;
-	FUNC(0x0085C100, void*, __thiscall, _FeVinylTransformCt, void*, void*);
-	return _FeVinylTransformCt(_this, menuScreen);
-}
-
-void __fastcall FeVinylTransformDt(void* _this)
-{
-	*FeFastRep = -200;
-	FUNC(0x00841330, void*, __thiscall, _FeVinylTransformDt, void*);
-	_FeVinylTransformDt(_this);
-}
-
 void InitVinyls()
 {
+	InitSmoothVinyls();
+
 	injector::MakeCALL(0x007C2EAB, GetVinylTransformUnpacked, true);
 
 	injector::MakeCALL(0x007DBAAA, RasterizationManager_Initialize, true);
 	injector::MakeCALL(0x007DBAE9, RasterizationManager_Initialize, true);
 
-	injector::MakeJMP(0x007B2BC6, VinylLayerIncCave, true);
+	injector::MakeJMP(0x007B2BC6, CarSkinManagerFinalizeCave, true);
 
 	injector::MakeCALL(0x00577A5F, MoveVinylUpDown, true);
 	injector::MakeCALL(0x00577A72, MoveVinylLeftRight, true);
@@ -208,11 +198,4 @@ void InitVinyls()
 	// All vinyls mirrorable
 	injector::MakeNOP(0x00841481, 2, true);
 	injector::MakeNOP(0x00851E4F, 2, true);
-
-	// Vinyl move speed
-	injector::WriteMemory(FeFastRep, -200, true);
-	injector::MakeJMP(0x008616D7, FeColourChooserCtCave, true);
-	injector::MakeJMP(0x0085C343, FeColourChooserDtCave, true);
-	injector::MakeCALL(0x00574F96, FeVinylTransformCt, true);
-	injector::MakeCALL(0x00851BF3, FeVinylTransformDt, true);
 }

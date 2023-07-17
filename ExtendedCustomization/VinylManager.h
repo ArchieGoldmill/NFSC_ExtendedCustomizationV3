@@ -21,4 +21,22 @@ public:
 	{
 		return (VinylManager*)0x00B77010;
 	}
+
+	static Vinyl* GetByHash(Hash nameHash)
+	{
+		auto vinylManager = VinylManager::Get();
+		auto node = vinylManager->LoadedVinyls.HeadNode.Next;
+		while ((LPVOID)node != (LPVOID)vinylManager)
+		{
+			auto vinyl = (Vinyl*)node;
+			if (vinyl->NameHash == nameHash)
+			{
+				return vinyl;
+			}
+
+			node = node->Next;
+		}
+
+		return NULL;
+	}
 };
