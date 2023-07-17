@@ -233,6 +233,7 @@
     <ClInclude Include="ExtendedCustomization\ForceLodA.h" />
     <ClInclude Include="ExtendedCustomization\PartAnimation.h" />
     <ClInclude Include="ExtendedCustomization\Vinyls.h" />
+    <ClInclude Include="ExtendedCustomization\VinylManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

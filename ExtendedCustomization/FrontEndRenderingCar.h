@@ -2,7 +2,7 @@
 #include "RideInfo.h"
 #include "Node.h"
 
-class FrontEndRenderingCar : Node<FrontEndRenderingCar>
+class FrontEndRenderingCar : bNode<FrontEndRenderingCar>
 {
 public:
 	RideInfo RideInfo;

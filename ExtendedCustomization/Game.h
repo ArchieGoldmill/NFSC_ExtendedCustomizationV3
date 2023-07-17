@@ -19,7 +19,11 @@ INLINE_FUNC(0x0046DB30, int, __cdecl, bRandom, int);
 
 namespace Game
 {
-	static float* DeltaTime = (float*)0x00A99A5C;
+	inline float DeltaTime()
+	{
+		return *(float*)0x00A99A5C;
+	}
+
 	static int* CarPartSlotMap = (int*)0x00A73398;
 	static auto ScreenSizeX = (int*)0x00A63F80;
 	static auto ScreenSizeY = (int*)0x00A63F84;

@@ -249,5 +249,8 @@
     <ClInclude Include="ExtendedCustomization\Vinyls.h">
       <Filter>Features</Filter>
     </ClInclude>
+    <ClInclude Include="ExtendedCustomization\VinylManager.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

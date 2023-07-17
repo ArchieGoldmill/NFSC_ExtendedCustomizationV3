@@ -10,7 +10,7 @@ protected:
 	int vTable;
 
 public:
-	Node<StandardSelectablePart*> NodeItem;
+	bNode<StandardSelectablePart*> NodeItem;
 	Hash HashName;
 	DBCarPart* Part;
 	char* Name;
@@ -25,9 +25,9 @@ public:
 		this->Name = (char*)0x009F9CD8;
 	}
 
-	static void GetPartsList(Slot slot, Node<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
+	static void GetPartsList(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 	{
-		FUNC(0x00852940, void, __cdecl, _GetPartsList, Slot, Node<StandardSelectablePart*>*, bool, Hash, int);
+		FUNC(0x00852940, void, __cdecl, _GetPartsList, Slot, bNode<StandardSelectablePart*>*, bool, Hash, int);
 		_GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
 	}
 };

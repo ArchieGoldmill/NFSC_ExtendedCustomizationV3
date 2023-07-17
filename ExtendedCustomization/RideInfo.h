@@ -42,4 +42,10 @@ public:
 		static auto _GetCarTypeName = (char* (__cdecl*)(CarType))0x007B0290;
 		return _GetCarTypeName(this->CarId);
 	}
+
+	DBCarPart* GetVinylPart(int num)
+	{
+		static auto _GetVinylPart = (DBCarPart * (__thiscall*)(RideInfo*, int))0x007B0870;
+		return _GetVinylPart(this, num);
+	}
 };

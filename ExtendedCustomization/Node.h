@@ -1,9 +1,14 @@
 #pragma once
 
 template <typename T>
-class Node
+struct bNode
 {
-public:
-	Node<T>* Prev;
-	Node<T>* Next;
+	bNode<T>* Next;
+	bNode<T>* Prev;
+};
+
+template <typename T>
+struct bList
+{
+	bNode<T> HeadNode;
 };

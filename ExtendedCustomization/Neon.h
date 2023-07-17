@@ -98,7 +98,7 @@ public:
 		float pulse = this->carRenderInfo->RideInfo->AutosculptData[ZoneNeon].Zones[2];
 		if (pulse)
 		{
-			this->pulse.Val += *Game::DeltaTime * this->pulse.Dir * pulse * 2.0f;
+			this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 2.0f;
 			if (this->pulse.Val > 1.0f)
 			{
 				this->pulse.Val = 1.0f;

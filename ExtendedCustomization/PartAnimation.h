@@ -81,7 +81,7 @@ public:
 
 	void Update()
 	{
-		MoveTowards(this->amount, this->target, *Game::DeltaTime * 2);
+		MoveTowards(this->amount, this->target, Game::DeltaTime() * 2);
 	}
 
 	bool IsSlot(Slot slot)

@@ -36,6 +36,12 @@ public:
 		return _GetModelNameHash(this, a1, a2, a3);
 	}
 
+	Hash GetPartNameHash()
+	{
+		FUNC(0x007CD930, Hash, __thiscall, _GetPartNameHash, DBCarPart*);
+		return _GetPartNameHash(this);
+	}
+
 	Hash GetTextureName()
 	{
 		FUNC(0x007C9EB0, Hash, __thiscall, _GetTextureName, DBCarPart*);

@@ -30,13 +30,13 @@ bool Contains(T* ar, T s, int size)
 	return false;
 }
 
-void AddNodeToList(Node<StandardSelectablePart*>* listHead, Node<StandardSelectablePart*>* slot)
+void AddNodeToList(bNode<StandardSelectablePart*>* listHead, bNode<StandardSelectablePart*>* slot)
 {
-	auto listEnd = listHead->Next;
-	listEnd->Prev = slot;
-	listHead->Next = slot;
+	auto listEnd = listHead->Prev;
+	listEnd->Next = slot;
+	listHead->Prev = slot;
 	slot->Next = listEnd;
-	slot->Prev = listHead;
+	slot->Next = listHead;
 }
 
 bool CheckKitwPart(Slot slot, DBCarPart* part)
@@ -112,7 +112,7 @@ void HandleCart(AutosculptSelectablePart* selectPart, Slot slot)
 }
 
 template<typename SelectablePart>
-void GetPartsListV3(Slot slot, Node<SelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius, CarType carId, bool isAutosculpt)
+void GetPartsListV3(Slot slot, bNode<SelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius, CarType carId, bool isAutosculpt)
 {
 	DBCarPart* part = NULL;
 	while (true)
@@ -154,11 +154,11 @@ void GetPartsListV3(Slot slot, Node<SelectablePart*>* listHead, bool isCarbon, H
 			HandleCart((AutosculptSelectablePart*)selectablePart, slot);
 		}
 
-		AddNodeToList((Node<StandardSelectablePart*>*)listHead, (Node<StandardSelectablePart*>*)&selectablePart->NodeItem);
+		AddNodeToList((bNode<StandardSelectablePart*>*)listHead, (bNode<StandardSelectablePart*>*)&selectablePart->NodeItem);
 	}
 }
 
-void __cdecl StandardSelectablePart_GetPartsList(Slot slot, Node<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
+void __cdecl StandardSelectablePart_GetPartsList(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 {
 	auto carId = FECarRecord::GetCarType();
 	int version = g_Config.GetVersion(carId);
@@ -172,7 +172,7 @@ void __cdecl StandardSelectablePart_GetPartsList(Slot slot, Node<StandardSelecta
 	}
 }
 
-void __cdecl AutosculptSelectablePart_GetPartsList(Slot slot, Node<AutosculptSelectablePart*>* listHead, bool isCarbon, int brandName, int innerRadius)
+void __cdecl AutosculptSelectablePart_GetPartsList(Slot slot, bNode<AutosculptSelectablePart*>* listHead, bool isCarbon, int brandName, int innerRadius)
 {
 	auto carId = FECarRecord::GetCarType();
 	int version = g_Config.GetVersion(carId);

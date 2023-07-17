@@ -1,7 +1,7 @@
 #pragma once
 #include "Node.h"
 
-class TextureInfoPlatInfo : public Node<TextureInfoPlatInfo>
+class TextureInfoPlatInfo : public bNode<TextureInfoPlatInfo>
 {
 public:
 	int type;

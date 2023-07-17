@@ -26,9 +26,9 @@ public:
 		_SetToCurrentPart(this);
 	}
 
-	static void GetPartsList(Slot slot, Node<AutosculptSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
+	static void GetPartsList(Slot slot, bNode<AutosculptSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 	{
-		FUNC(0x008534A0, void, __cdecl, _GetPartsList, Slot, Node<AutosculptSelectablePart*>*, bool, Hash, int);
+		FUNC(0x008534A0, void, __cdecl, _GetPartsList, Slot, bNode<AutosculptSelectablePart*>*, bool, Hash, int);
 		_GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
 	}
 
