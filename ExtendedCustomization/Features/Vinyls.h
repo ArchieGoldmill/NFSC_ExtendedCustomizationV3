@@ -135,9 +135,9 @@ void __fastcall CarSkinManagerFinalize(CarSkinManager* skinManager)
 {
 	if (DecalMirror)
 	{
-		if (skinManager->RasterizeLowerLayers)
+		if (skinManager->RasterizeLowerLayers && skinManager->CurrentLayer < skinManager->NumLowerLayers)
 		{
-			skinManager->CurrentTask = skinManager->CurrentLayer < skinManager->NumLowerLayers ? eCST_LowerLayersInitialize : eCST_CanvasInitialize;
+			skinManager->CurrentTask = eCST_LowerLayersInitialize;
 		}
 		else
 		{
@@ -147,6 +147,7 @@ void __fastcall CarSkinManagerFinalize(CarSkinManager* skinManager)
 	else
 	{
 		skinManager->CurrentLayer++;
+
 		if (skinManager->RasterizeLowerLayers)
 		{
 			if (skinManager->CurrentLayer == skinManager->NumLowerLayers)

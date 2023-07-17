@@ -43,225 +43,225 @@
     <ClCompile Include="ExtendedCustomization\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedCustomization\Animations.cpp">
+    <ClCompile Include="ExtendedCustomization\Features\Animations.cpp">
       <Filter>Features\Animations</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedCustomization\eSolid.cpp">
+    <ClCompile Include="ExtendedCustomization\SDK\eSolid.cpp">
       <Filter>SDK\eSolid</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedCustomization\ConfigInit.cpp">
+    <ClCompile Include="ExtendedCustomization\Config\ConfigInit.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedCustomization\Config.cpp">
+    <ClCompile Include="ExtendedCustomization\Config\Config.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="ExtendedCustomization\AmbientShadow.cpp">
+    <ClCompile Include="ExtendedCustomization\Features\AmbientShadow.cpp">
       <Filter>Features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExtendedCustomization\Feature.h">
+    <ClInclude Include="ExtendedCustomization\Features\Feature.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\RideInfo.h">
+    <ClInclude Include="ExtendedCustomization\SDK\RideInfo.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FeGarageMain.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FeGarageMain.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FECustomizationRecord.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FECustomizationRecord.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Hashes.h">
+    <ClInclude Include="ExtendedCustomization\SDK\Hashes.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Slots.h">
+    <ClInclude Include="ExtendedCustomization\SDK\Slots.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\CarPartDatabase.h">
+    <ClInclude Include="ExtendedCustomization\SDK\CarPartDatabase.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\StandardSelectablePart.h">
+    <ClInclude Include="ExtendedCustomization\SDK\StandardSelectablePart.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FECarRecord.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FECarRecord.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Game.h">
+    <ClInclude Include="ExtendedCustomization\SDK\Game.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Constants.h">
+    <ClInclude Include="ExtendedCustomization\SDK\Constants.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\CarRenderInfoHooks.h">
+    <ClInclude Include="ExtendedCustomization\Hooks\CarRenderInfoHooks.h">
       <Filter>Hooks</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\CarRenderInfo.h">
+    <ClInclude Include="ExtendedCustomization\SDK\CarRenderInfo.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\CarRenderInfoExtras.h">
+    <ClInclude Include="ExtendedCustomization\Features\CarRenderInfoExtras.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\TextureInfo.h">
+    <ClInclude Include="ExtendedCustomization\SDK\TextureInfo.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Node.h">
+    <ClInclude Include="ExtendedCustomization\SDK\Node.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\PositionMarker.h">
+    <ClInclude Include="ExtendedCustomization\SDK\PositionMarker.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\eLightMaterial.h">
+    <ClInclude Include="ExtendedCustomization\SDK\eLightMaterial.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\eModel.h">
+    <ClInclude Include="ExtendedCustomization\SDK\eModel.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Func.h">
+    <ClInclude Include="ExtendedCustomization\SDK\Func.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FrontEndRenderingCar.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FrontEndRenderingCar.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\CarRenderConn.h">
+    <ClInclude Include="ExtendedCustomization\SDK\CarRenderConn.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Animations.h">
+    <ClInclude Include="ExtendedCustomization\Features\Animations.h">
       <Filter>Features\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\D3DWrapper.h">
+    <ClInclude Include="ExtendedCustomization\SDK\D3DWrapper.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Textures.h">
+    <ClInclude Include="ExtendedCustomization\Features\Textures.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\eLightContext.h">
+    <ClInclude Include="ExtendedCustomization\SDK\eLightContext.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\eReplacementTextures.h">
+    <ClInclude Include="ExtendedCustomization\SDK\eReplacementTextures.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\PVehicle.h">
+    <ClInclude Include="ExtendedCustomization\SDK\PVehicle.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\UserInput.h">
+    <ClInclude Include="ExtendedCustomization\Features\UserInput.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\eSolid.h">
+    <ClInclude Include="ExtendedCustomization\SDK\eSolid.h">
       <Filter>SDK\eSolid</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FeCustomizePartsMenu.h">
+    <ClInclude Include="ExtendedCustomization\Features\FeCustomizePartsMenu.h">
       <Filter>Features\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FeCustomizeParts.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FeCustomizeParts.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FEString.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FEString.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FEObject.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FEObject.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FeCustomizeMainMenu.h">
+    <ClInclude Include="ExtendedCustomization\Features\FeCustomizeMainMenu.h">
       <Filter>Features\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\VectorScrollerMenu.h">
+    <ClInclude Include="ExtendedCustomization\SDK\VectorScrollerMenu.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\ScrollOption.h">
+    <ClInclude Include="ExtendedCustomization\SDK\ScrollOption.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FEPackage.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FEPackage.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FeCustomizeMain.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FeCustomizeMain.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FEButton.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FEButton.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Menu.h">
+    <ClInclude Include="ExtendedCustomization\Features\Menu.h">
       <Filter>Features\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Config.h">
+    <ClInclude Include="ExtendedCustomization\Config\Config.h">
       <Filter>Config</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\ConfigParts.h">
+    <ClInclude Include="ExtendedCustomization\Config\ConfigParts.h">
       <Filter>Config</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FeCustomizeVisualsMenu.h">
+    <ClInclude Include="ExtendedCustomization\Features\FeCustomizeVisualsMenu.h">
       <Filter>Features\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\FeCustomizeVisuals.h">
+    <ClInclude Include="ExtendedCustomization\SDK\FeCustomizeVisuals.h">
       <Filter>SDK\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\PartList.h">
+    <ClInclude Include="ExtendedCustomization\Features\PartList.h">
       <Filter>Features\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\AutosculptSelectablePart.h">
+    <ClInclude Include="ExtendedCustomization\SDK\AutosculptSelectablePart.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Customization.h">
+    <ClInclude Include="ExtendedCustomization\Features\Customization.h">
       <Filter>Features\Customization</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\LegacyCustomization.h">
+    <ClInclude Include="ExtendedCustomization\Features\LegacyCustomization.h">
       <Filter>Features\Customization</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\ForceLodA.h">
+    <ClInclude Include="ExtendedCustomization\Features\ForceLodA.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Decals.h">
+    <ClInclude Include="ExtendedCustomization\Features\Decals.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\PartAnimation.h">
+    <ClInclude Include="ExtendedCustomization\Features\PartAnimation.h">
       <Filter>Features\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\PartMarker.h">
+    <ClInclude Include="ExtendedCustomization\Features\PartMarker.h">
       <Filter>Features\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\IPartMarker.h">
+    <ClInclude Include="ExtendedCustomization\Features\IPartMarker.h">
       <Filter>Features\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\DBCarPart.h">
+    <ClInclude Include="ExtendedCustomization\SDK\DBCarPart.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\ePoly.h">
+    <ClInclude Include="ExtendedCustomization\SDK\ePoly.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\eView.h">
+    <ClInclude Include="ExtendedCustomization\SDK\eView.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Camera.h">
+    <ClInclude Include="ExtendedCustomization\SDK\Camera.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\AutosculptOverrides.h">
+    <ClInclude Include="ExtendedCustomization\Features\AutosculptOverrides.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\AutoSculpt.h">
+    <ClInclude Include="ExtendedCustomization\SDK\AutoSculpt.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\CarCustomizeManager.h">
+    <ClInclude Include="ExtendedCustomization\SDK\CarCustomizeManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\BrakelightGlow.h">
+    <ClInclude Include="ExtendedCustomization\Features\BrakelightGlow.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Neon.h">
+    <ClInclude Include="ExtendedCustomization\Features\Neon.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\VinylManager.h">
+    <ClInclude Include="ExtendedCustomization\SDK\VinylManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\SmoothVinyls.h">
+    <ClInclude Include="ExtendedCustomization\Features\SmoothVinyls.h">
       <Filter>Features\Vinyls</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\RasterizationManager.h">
+    <ClInclude Include="ExtendedCustomization\SDK\RasterizationManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\Vinyls.h">
+    <ClInclude Include="ExtendedCustomization\Features\Vinyls.h">
       <Filter>Features\Vinyls</Filter>
     </ClInclude>
-    <ClInclude Include="ExtendedCustomization\CarSkinManager.h">
+    <ClInclude Include="ExtendedCustomization\SDK\CarSkinManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>
