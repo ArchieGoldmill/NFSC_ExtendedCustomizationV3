@@ -15,6 +15,7 @@
 #include "UserInput.h"
 #include "Vinyls.h"
 #include "Stance.h"
+#include "Exhaust.h"
 
 void ToBeRemoved()
 {
@@ -45,6 +46,7 @@ void Init()
 	InitNeon();
 	InitVinyls();
 	InitStance();
+	InitExhaust();
 
 	InitCarRenderInfoHooks();
 }
