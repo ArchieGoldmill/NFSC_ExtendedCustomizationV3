@@ -6,7 +6,7 @@ int* FeFastRep = (int*)0x005FDF66;
 
 void* __fastcall FeVinylTransformCt(void* _this, int, void* menuScreen)
 {
-	*FeFastRep = -319;
+	*FeFastRep = -295;
 	FUNC(0x0085C100, void*, __thiscall, _FeVinylTransformCt, void*, void*);
 	return _FeVinylTransformCt(_this, menuScreen);
 }
