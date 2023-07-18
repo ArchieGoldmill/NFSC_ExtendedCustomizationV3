@@ -2,8 +2,10 @@
 #include "Slots.h"
 #include "Func.h"
 #include "Game.h"
+#include "ColorData.h"
+#include "Constants.h"
 
-class DBCarPart;
+struct DBCarPart;
 
 struct AutosculptData
 {
@@ -47,5 +49,26 @@ public:
 	{
 		static auto _GetVinylPart = (DBCarPart * (__thiscall*)(RideInfo*, int))0x007B0870;
 		return _GetVinylPart(this, num);
+	}
+
+	ASColorData* GetCustomPaintData(int num)
+	{
+		if (num == 0 || num == 1)
+		{
+			auto as = (ASColorData*)&this->AutosculptData[ZoneColor1];
+			return as + num;
+		}
+		if (num == 2 || num == 3)
+		{
+			auto as = (ASColorData*)&this->AutosculptData[ZoneColor2];
+			return as + (num - 2);
+		}
+		if (num == 4 || num == 5)
+		{
+			auto as = (ASColorData*)&this->AutosculptData[ZoneColor3];
+			return as + (num - 4);
+		}
+
+		return NULL;
 	}
 };

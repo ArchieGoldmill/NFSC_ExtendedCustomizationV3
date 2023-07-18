@@ -4,12 +4,9 @@
 #include "Hashes.h"
 #include "Node.h"
 
-class StandardSelectablePart
+struct StandardSelectablePart
 {
-protected:
 	int vTable;
-
-public:
 	bNode<StandardSelectablePart*> NodeItem;
 	Hash HashName;
 	DBCarPart* Part;

@@ -36,15 +36,18 @@ void __fastcall FeCustomizeVisuals_Setup(FeCustomizeVisuals* _this)
 VisualsMenu __stdcall ShowVisualsMenu(VisualsMenu menu)
 {
 	FeCustomizeVisuals::SelectedItem = menu;
-	if (menu == VisualsMenu::CALIPER_PAINT || menu == VisualsMenu::FRONT_LIP_PAINT
-		|| menu == VisualsMenu::REAR_LIP_PAINT || menu == VisualsMenu::REAR_RIM_PAINT)
+	switch (menu)
 	{
+	case VisualsMenu::CALIPER_PAINT:
+	case VisualsMenu::FRONT_LIP_PAINT:
+	case VisualsMenu::REAR_LIP_PAINT:
+	case VisualsMenu::REAR_RIM_PAINT:
 		return VisualsMenu::FRONT_RIM_PAINT;
-	}
-
-	if (menu == VisualsMenu::HOOD_PAINT || menu == VisualsMenu::SPOILER_PAINT)
-	{
+	case VisualsMenu::HOOD_PAINT:
+	case VisualsMenu::SPOILER_PAINT:
 		return VisualsMenu::BODY_PAINT;
+	default:
+		break;
 	}
 
 	return menu;

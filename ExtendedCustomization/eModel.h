@@ -2,6 +2,7 @@
 #include "eSolid.h"
 #include "Hashes.h"
 #include "Func.h"
+#include "eLightMaterial.h"
 
 class eModel
 {
@@ -21,5 +22,11 @@ public:
 	{
 		FUNC(0x005589C0, void, __thiscall, _GetBoundingBox, eModel*, D3DXVECTOR3*, D3DXVECTOR3*);
 		_GetBoundingBox(this, a, b);
+	}
+
+	void ReplaceLightMaterial(Hash materialName, eLightMaterial* newMaterial)
+	{
+		FUNC(0x0055C0B0, void, __thiscall, _ReplaceLightMaterial, eModel*, Hash, eLightMaterial*);
+		_ReplaceLightMaterial(this, materialName, newMaterial);
 	}
 };

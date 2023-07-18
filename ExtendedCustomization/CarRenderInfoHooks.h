@@ -13,6 +13,7 @@ void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo)
 void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 {
 	carRenderInfo->Extras->Neon.Init();
+	carRenderInfo->Extras->Paint.Init();
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)

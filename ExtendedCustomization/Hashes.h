@@ -19,6 +19,11 @@ namespace Hashes
 	const Hash REAR_TIRE_OFFSET = 0x2FC42D62;
 	const Hash TIRE_OFFSET = 0x0454A6B9;
 
+	const Hash MAGSILVER = 0x22719FA9;
+	const Hash MAGCHROME = 0xFD102A92;
+	const Hash MAGLIP = 0x6B637059;
+	const Hash CALIPER = 0xD6640DFF;
+
 	const Hash ANIM_START = 0x68EDC171;
 	const Hash ANIM_END = 0xAC685B7A;
 

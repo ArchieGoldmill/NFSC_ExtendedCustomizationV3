@@ -1,8 +1,10 @@
 #pragma once
+#include <cstdio>
 #include "Hashes.h"
 #include "Func.h"
 #include "TextureInfo.h"
 #include "D3DWrapper.h"
+#include "Slots.h"
 
 struct CarType
 {
@@ -16,6 +18,14 @@ INLINE_FUNC(0x006A1560, void*, __cdecl, j_malloc_0, int);
 INLINE_FUNC(0x007B0290, char*, __cdecl, GetCarTypeName, CarType);
 INLINE_FUNC(0x0046E580, void, __cdecl, HSV2RGB, float, float, float, float*, float*, float*);
 INLINE_FUNC(0x0046DB30, int, __cdecl, bRandom, int);
+INLINE_FUNC(0x007B1410, char*, __cdecl, GetSlotName, Slot);
+
+inline Hash FromIndex(const char* str, int index)
+{
+	char buff[64];
+	sprintf(buff, str, index);
+	return StringHash(buff);
+}
 
 namespace Game
 {

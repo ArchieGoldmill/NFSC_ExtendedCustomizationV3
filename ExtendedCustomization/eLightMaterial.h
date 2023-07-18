@@ -1,5 +1,6 @@
 #pragma once
 #include "Hashes.h"
+#include "Func.h"
 
 struct eLightMaterial
 {
@@ -49,4 +50,10 @@ struct eLightMaterial
 	float VinylLuminanceMaxLevel;
 	int data1;
 	int data2;
+
+	static eLightMaterial* Get(Hash hash, int a)
+	{
+		FUNC(0x007473A0, eLightMaterial*, __cdecl, _get, Hash, int);
+		return _get(hash, a);
+	}
 };

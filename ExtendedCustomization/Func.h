@@ -58,3 +58,8 @@ inline void MoveTowards(float& a, float b, float step)
 		}
 	}
 }
+
+inline int ToInt(float a)
+{
+	return (int)(a + 0.5f);
+}
