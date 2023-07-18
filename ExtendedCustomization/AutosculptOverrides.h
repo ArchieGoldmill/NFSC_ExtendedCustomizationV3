@@ -187,6 +187,25 @@ int __fastcall AutosculptSlider_Act(AutosculptSlider* slider, int, int a2, Hash 
 	return result;
 }
 
+Hash __cdecl ZoneName(char* str, int num)
+{
+	auto current = AutosculptSelectablePart::GetCurrent();
+	if (current)
+	{
+		Hash zoneHash = current->Part->GetAppliedAttributeIParam(Hashes::ZONE_HASH, 0);
+		if (zoneHash)
+		{
+			char buff[4];
+			sprintf(buff, "%d", num);
+			return StringHash1(buff, zoneHash);
+		}
+	}
+
+	char buffer[256];
+	sprintf(buffer, str, num);
+	return StringHash(buffer);
+}
+
 void __declspec(naked) ConvertSlotToStateCave()
 {
 	__asm
@@ -243,4 +262,6 @@ void InitAutosculpt()
 	injector::MakeNOP(0x00854725, 3);
 
 	injector::WriteMemory(0x009FAA48, AutosculptSlider_Act);
+
+	injector::MakeCALL(0x0085B3D6, ZoneName, true);
 }

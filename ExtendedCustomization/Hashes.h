@@ -13,6 +13,7 @@ namespace Hashes
 	const Hash TEXTURE_NAME = 0x10C98090;
 	const Hash BRAKELIGHT_GLOW = 0xD9455454;
 	const Hash MIRROR = 0x6BFA56DA;
+	const Hash ZONE_HASH = 0xF418037E;
 
 	const Hash FRONT_TIRE_OFFSET = 0xFDE70341;
 	const Hash REAR_TIRE_OFFSET = 0x2FC42D62;
