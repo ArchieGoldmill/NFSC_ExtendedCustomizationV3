@@ -45,6 +45,7 @@ struct NeonPulse
 {
 	float Val = 1.0f;
 	float Dir = -1.0f;
+	bColor color;
 };
 
 class CarNeon
@@ -55,9 +56,9 @@ private:
 	std::vector<Neon> neons;
 	bMatrix4 mIdentity;
 	TextureInfo* neonBlur = NULL;
+
 	NeonPulse pulse;
 	inline static NeonPulse pulseBackup;
-	bColor color;
 
 public:
 	TextureInfo* NeonTexture = NULL;
@@ -122,17 +123,17 @@ public:
 		float r, g, b;
 		HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
 
-		this->color.Bytes[0] = r * 128.0f * this->pulse.Val;
-		this->color.Bytes[1] = g * 128.0f * this->pulse.Val;
-		this->color.Bytes[2] = b * 128.0f * this->pulse.Val;
-		this->color.Bytes[3] = 0xFF * this->pulse.Val;
+		this->pulse.color.Bytes[0] = r * 128.0f * this->pulse.Val;
+		this->pulse.color.Bytes[1] = g * 128.0f * this->pulse.Val;
+		this->pulse.color.Bytes[2] = b * 128.0f * this->pulse.Val;
+		this->pulse.color.Bytes[3] = 0xFF * this->pulse.Val;
 
 		pulseBackup = this->pulse;
 	}
 
 	bColor GetColor()
 	{
-		return this->color;
+		return this->pulse.color;
 	}
 
 	void FindMarkers()
@@ -191,7 +192,7 @@ public:
 	void RenderMarker(bMatrix4* startMatrix, bMatrix4* endMatrix)
 	{
 		ePoly poly;
-		poly.SetColor(this->color);
+		poly.SetColor(this->pulse.color);
 		auto carPos = this->carMatrix->v3;
 		auto carMatrix = *this->carMatrix;
 		carMatrix.v3 = { 0,0,0,0 };
