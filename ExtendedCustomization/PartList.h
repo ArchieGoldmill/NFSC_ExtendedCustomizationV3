@@ -10,6 +10,7 @@
 #include "FrontEndRenderingCar.h"
 #include "AutosculptSelectablePart.h"
 #include "CarCustomizeManager.h"
+#include "FECustomizationRecord.h"
 
 Slot KitwParts[] = {
 	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT
@@ -35,7 +36,7 @@ void AddNodeToList(bNode<StandardSelectablePart*>* listHead, bNode<StandardSelec
 	auto listEnd = listHead->Prev;
 	listEnd->Next = slot;
 	listHead->Prev = slot;
-	slot->Next = listEnd;
+	slot->Prev = listEnd;
 	slot->Next = listHead;
 }
 
