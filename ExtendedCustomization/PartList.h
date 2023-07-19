@@ -163,7 +163,7 @@ void __cdecl StandardSelectablePart_GetPartsList(Slot slot, bNode<StandardSelect
 {
 	auto carId = FECarRecord::GetCarType();
 	int version = g_Config.GetVersion(carId);
-	if (version == 3)
+	if (version == 3 && slot != Slot::FRONT_WHEEL)
 	{
 		GetPartsListV3<StandardSelectablePart>(slot, listHead, isCarbon, brandName, innerRadius, carId, false);
 	}
