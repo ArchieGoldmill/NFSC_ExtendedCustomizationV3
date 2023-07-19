@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "Feature.h"
 #include "Slots.h"
 #include "Constants.h"
@@ -195,15 +196,11 @@ Hash __cdecl ZoneName(char* str, int num)
 		Hash zoneHash = current->Part->GetAppliedAttributeIParam(Hashes::ZONE_HASH, 0);
 		if (zoneHash)
 		{
-			char buff[4];
-			sprintf(buff, "%d", num);
-			return StringHash1(buff, zoneHash);
+			return StringHash1(std::to_string(num).c_str(), zoneHash);
 		}
 	}
 
-	char buffer[256];
-	sprintf(buffer, str, num);
-	return StringHash(buffer);
+	return FromIndex(str, num);
 }
 
 void __declspec(naked) ConvertSlotToStateCave()

@@ -17,9 +17,6 @@
     <Filter Include="Features\Animations">
       <UniqueIdentifier>{ec876150-a6b4-4528-a309-8688fd311e8b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utilities">
-      <UniqueIdentifier>{f4061b2a-21b1-4b48-a238-7a4d00c3c397}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SDK\eSolid">
       <UniqueIdentifier>{73b19318-3aa5-42a1-8f0d-4fd727d952e5}</UniqueIdentifier>
     </Filter>
@@ -41,6 +38,12 @@
     <Filter Include="Features\Stance">
       <UniqueIdentifier>{f25a46e5-3c21-49d6-9048-c620eca488cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Paints">
+      <UniqueIdentifier>{372cea4a-f7ae-4230-b50d-af2d74768859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK\ColorData">
+      <UniqueIdentifier>{2d69987a-af53-4cf1-933f-940eb44d105f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="AmbientShadow.cpp">
       <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorData.cpp">
+      <Filter>SDK\ColorData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +137,6 @@
     </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Features\Animations</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DWrapper.h">
-      <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Features</Filter>
@@ -277,6 +280,27 @@
       <Filter>Features\Stance</Filter>
     </ClInclude>
     <ClInclude Include="AutosculptSlider.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Paints.h">
+      <Filter>Features\Paints</Filter>
+    </ClInclude>
+    <ClInclude Include="Exhaust.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintSelectablePart.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="RimPaint.h">
+      <Filter>Features\Paints</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintExtras.h">
+      <Filter>Features\Paints</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorData.h">
+      <Filter>SDK\ColorData</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
       <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>

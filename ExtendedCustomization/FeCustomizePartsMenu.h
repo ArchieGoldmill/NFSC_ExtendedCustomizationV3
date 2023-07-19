@@ -34,6 +34,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::LEFT_BRAKELIGHT, carId);
 		AddMenuOption(_this, Slot::LEFT_SIDE_MIRROR, carId);
 		AddMenuOption(_this, Slot::DOOR_LEFT, carId);
+		_this->AddMenuOption(0xB47AB2E, Slot::FRONT_WHEEL, _this->IsAutosculpt, 0);
 		break;
 	case CustomizeMainMenu::AUTOSCULPT:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);

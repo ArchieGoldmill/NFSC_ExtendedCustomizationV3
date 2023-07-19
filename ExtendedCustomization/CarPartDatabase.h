@@ -3,9 +3,8 @@
 #include "Slots.h"
 #include "Game.h"
 
-class CarPartDatabase
+struct CarPartDatabase
 {
-public:
 	static inline CarPartDatabase* Instance = (CarPartDatabase*)0x00B76690;
 
 	DBCarPart* GetCarPart(Slot slot, CarType carId, DBCarPart* prevPart)
@@ -53,5 +52,39 @@ public:
 		}
 
 		return NULL;
+	}
+
+	int GetPartNum(DBCarPart* partToSearch, Slot slot)
+	{
+		int num = 0;
+		DBCarPart* part = 0;
+		while (true)
+		{
+			num++;
+			part = this->GetCarPart(slot, CarType(-1), part);
+			if (!part || part == partToSearch)
+			{
+				break;
+			}
+		}
+
+		return num;
+	}
+
+	DBCarPart* GetPartByNum(Slot slot, int num)
+	{
+		int c = 0;
+		DBCarPart* part = 0;
+		while (true)
+		{
+			c++;
+			part = CarPartDatabase::Instance->GetCarPart(slot, CarType(-1), part);
+			if (!part || c == num)
+			{
+				break;
+			}
+		}
+
+		return part;
 	}
 };

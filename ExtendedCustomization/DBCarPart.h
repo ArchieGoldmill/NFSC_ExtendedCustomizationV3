@@ -3,10 +3,10 @@
 #include "Game.h"
 #include "eSolid.h"
 #include "RideInfo.h"
+#include <stdio.h>
 
-class DBCarPart
+struct DBCarPart
 {
-public:
 	void* GetAppliedAttributeParam(Hash hash)
 	{
 		static auto _GetAppliedAttributeParam = (void* (__thiscall*)(DBCarPart*, Hash, int))0x007B00E0;

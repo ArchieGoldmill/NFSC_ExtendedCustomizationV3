@@ -72,14 +72,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.asi</TargetExt>
-    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv3\scripts</OutDir>
+    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv3\scripts\</OutDir>
     <TargetName>ExtendedCustomization</TargetName>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetExt>.asi</TargetExt>
-    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv3\scripts</OutDir>
+    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv3\scripts\</OutDir>
     <TargetName>ExtendedCustomization</TargetName>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
@@ -94,6 +94,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <StructMemberAlignment>Default</StructMemberAlignment>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="ColorData.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigInit.cpp" />
     <ClCompile Include="dllmain.cpp" />
@@ -177,7 +179,10 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CarCustomizeManager.h" />
     <ClInclude Include="CarSkinManager.h" />
+    <ClInclude Include="ColorData.h" />
     <ClInclude Include="eView.h" />
+    <ClInclude Include="Exhaust.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="Neon.h" />
     <ClInclude Include="ePoly.h" />
     <ClInclude Include="Decals.h" />
@@ -192,7 +197,6 @@
     <ClInclude Include="ConfigParts.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Customization.h" />
-    <ClInclude Include="D3DWrapper.h" />
     <ClInclude Include="DBCarPart.h" />
     <ClInclude Include="eLightContext.h" />
     <ClInclude Include="eLightMaterial.h" />
@@ -217,6 +221,9 @@
     <ClInclude Include="IPartMarker.h" />
     <ClInclude Include="LegacyCustomization.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="PaintExtras.h" />
+    <ClInclude Include="Paints.h" />
+    <ClInclude Include="PaintSelectablePart.h" />
     <ClInclude Include="PartList.h" />
     <ClInclude Include="PartMarker.h" />
     <ClInclude Include="PositionMarker.h" />
@@ -224,6 +231,7 @@
     <ClInclude Include="PVehicle.h" />
     <ClInclude Include="RasterizationManager.h" />
     <ClInclude Include="RideInfo.h" />
+    <ClInclude Include="RimPaint.h" />
     <ClInclude Include="ScrollOption.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="SmoothVinyls.h" />

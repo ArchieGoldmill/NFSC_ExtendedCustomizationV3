@@ -134,6 +134,11 @@ public:
 		_UpdateWheelYRenderOffset(this);
 	}
 
+	bool HasExhaustMerker()
+	{
+		return this->Markers.LeftExhaust || this->Markers.RightExhaust || this->Markers.CenterExhaust;
+	}
+
 private:
 	bool IsBrakelightOn(int b)
 	{

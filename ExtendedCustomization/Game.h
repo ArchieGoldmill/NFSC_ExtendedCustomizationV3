@@ -3,7 +3,6 @@
 #include "Hashes.h"
 #include "Func.h"
 #include "TextureInfo.h"
-#include "D3DWrapper.h"
 #include "Slots.h"
 
 struct CarType
@@ -19,6 +18,7 @@ INLINE_FUNC(0x007B0290, char*, __cdecl, GetCarTypeName, CarType);
 INLINE_FUNC(0x0046E580, void, __cdecl, HSV2RGB, float, float, float, float*, float*, float*);
 INLINE_FUNC(0x0046DB30, int, __cdecl, bRandom, int);
 INLINE_FUNC(0x007B1410, char*, __cdecl, GetSlotName, Slot);
+INLINE_FUNC(0x00477BE0, void*, __cdecl, bOMalloc, int);
 
 inline Hash FromIndex(const char* str, int index)
 {
@@ -39,6 +39,7 @@ namespace Game
 	static auto ScreenSizeY = (int*)0x00A63F84;
 	static auto CopyPoseValueToFamilyMap = (int*)0x00A79FC8;
 	static auto FrontSteerAngle = (float*)0x00A7B668;
+	static int* CarEmitterPositionSlotPool = (int*)0x00B74C34;
 
 	enum class State
 	{
