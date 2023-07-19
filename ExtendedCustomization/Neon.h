@@ -8,19 +8,6 @@
 
 void InitNeon();
 
-inline void sub_5BC4A0(eView* view, D3DXVECTOR3* out, D3DXVECTOR3* v)
-{
-	D3DXVECTOR4 t;
-	D3DXVec3Transform(&t, v, &view->PlatInfo->ProjectionZBiasMatrix);
-
-	float v4 = 1.0 / t.w;
-	float v6 = v4 * t.x;
-
-	out->x = (v6 + 1.0) * (float)*Game::ScreenSizeX * 0.5;
-	out->y = (t.y * v4 - 1.0) * (float)*Game::ScreenSizeY * (-0.5);
-	out->z = v4 * t.z;
-}
-
 struct Neon
 {
 	D3DXMATRIX* Start;
@@ -232,8 +219,8 @@ public:
 		v43.y = v43.y + carPos.y;
 		v43.z = v43.z + carPos.z;
 
-		sub_5BC4A0(view, &a2, (D3DXVECTOR3*)&a3);
-		sub_5BC4A0(view, &v239, (D3DXVECTOR3*)&v43);
+		view->TransformByZBias(&a2, (D3DXVECTOR3*)&a3);
+		view->TransformByZBias(&v239, (D3DXVECTOR3*)&v43);
 		v35.x = v239.x - a2.x;
 		v35.y = v239.y - a2.y;
 		D3DXVec2Normalize(&v35, &v35);

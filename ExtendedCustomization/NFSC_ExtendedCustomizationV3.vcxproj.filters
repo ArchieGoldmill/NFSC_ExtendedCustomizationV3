@@ -47,6 +47,9 @@
     <Filter Include="Utilities">
       <UniqueIdentifier>{9cdc812d-84c7-4938-a0e2-b3620a3bde4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Shadow">
+      <UniqueIdentifier>{5acc01d6-a900-4cfe-80c2-c7f6b09d46e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -64,11 +67,11 @@
     <ClCompile Include="Config.cpp">
       <Filter>Config</Filter>
     </ClCompile>
-    <ClCompile Include="AmbientShadow.cpp">
-      <Filter>Features</Filter>
-    </ClCompile>
     <ClCompile Include="ColorData.cpp">
       <Filter>SDK\ColorData</Filter>
+    </ClCompile>
+    <ClCompile Include="AmbientShadow.cpp">
+      <Filter>Features\Shadow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +255,6 @@
     <ClInclude Include="BrakelightGlow.h">
       <Filter>Features</Filter>
     </ClInclude>
-    <ClInclude Include="Neon.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="VinylManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -308,6 +308,9 @@
     </ClInclude>
     <ClInclude Include="Func.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Neon.h">
+      <Filter>Features\Shadow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
