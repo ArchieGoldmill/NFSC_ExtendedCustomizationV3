@@ -110,7 +110,7 @@ void __declspec(naked) CarRenderInfoCtStartCave()
 		call CarRenderInfoCtStart;
 		popad;
 
-		mov eax, fs: [00000000] ;
+		mov eax, fs: [00000000];
 		jmp ctExit;
 	}
 }
@@ -143,8 +143,6 @@ void __declspec(naked) CarRenderInfoDtCave()
 		jmp dtExit;
 	}
 }
-
-
 
 void InitCarRenderInfoHooks()
 {

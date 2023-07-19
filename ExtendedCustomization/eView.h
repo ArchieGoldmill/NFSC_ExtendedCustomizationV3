@@ -1,14 +1,14 @@
 #pragma once
-#include "D3DWrapper.h"
+#include "Math.h"
 #include "Camera.h"
 
 struct eViewPlatInfo
 {
-	bMatrix4 ViewMatrix;
-	bMatrix4 ProjectionMatrix;
-	bMatrix4 ProjectionZBiasMatrix;
-	bMatrix4 ViewProjectionMatrix;
-	bMatrix4 ViewProjectionZBiasMatrix;
+	D3DXMATRIX ViewMatrix;
+	D3DXMATRIX ProjectionMatrix;
+	D3DXMATRIX ProjectionZBiasMatrix;
+	D3DXMATRIX ViewProjectionMatrix;
+	D3DXMATRIX ViewProjectionZBiasMatrix;
 };
 
 class eViewPlatInterface

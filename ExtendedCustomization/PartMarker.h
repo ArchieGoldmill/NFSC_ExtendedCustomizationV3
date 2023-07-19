@@ -1,27 +1,28 @@
 #pragma once
 #include "Slots.h"
-#include "D3DWrapper.h"
+#include "Math.h"
 #include "IPartMarker.h"
 
 class PartMarker : public IPartMarker
 {
 private:
-	D3D::Matrix* marker;
+	D3DXMATRIX* marker;
 	D3DXVECTOR3 scale;
-	
+
 public:
-	PartMarker(Slot slot, D3D::Matrix* marker, D3DXVECTOR3 scale)
+	PartMarker(Slot slot, D3DXMATRIX* marker, D3DXVECTOR3 scale)
 	{
 		this->slot = slot;
 		this->marker = marker;
 		this->scale = scale;
 	}
 
-	D3D::Matrix* Get(D3D::Matrix* matrix)
+	D3DXMATRIX* Get(D3DXMATRIX* matrix)
 	{
-		auto scale = D3D::Matrix::FromScale(this->scale);
-		D3D::Matrix::Multiply(&this->state, &scale, this->marker);
-		D3D::Matrix::Multiply(&this->state, &this->state, matrix);
+		D3DXMATRIX scale;
+		D3DXMatrixScaling(&scale, this->scale.x, this->scale.y, this->scale.z);
+		D3DXMatrixMultiply(&this->state, &scale, this->marker);
+		D3DXMatrixMultiply(&this->state, &this->state, matrix);
 
 		return &this->state;
 	}

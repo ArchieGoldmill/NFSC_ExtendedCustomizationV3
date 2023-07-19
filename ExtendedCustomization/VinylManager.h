@@ -1,14 +1,14 @@
 #pragma once
 #include "Node.h"
 #include "Hashes.h"
-#include "D3DWrapper.h"
+#include "Math.h"
 
 struct Vinyl : bNode<Vinyl>
 {
 	int NumPathSets;
 	void* PathSets;
 	Hash NameHash;
-	bVector2 Center;
+	D3DXVECTOR2 Center;
 	float AspectRatio;
 };
 

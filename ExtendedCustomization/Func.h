@@ -38,28 +38,4 @@
 	__asm pop eax\
 }\
 
-inline void MoveTowards(float& a, float b, float step)
-{
-	if (a < b)
-	{
-		a += step;
-		if (a > b)
-		{
-			a = b;
-		}
-	}
-
-	if (a > b)
-	{
-		a -= step;
-		if (a < b)
-		{
-			a = b;
-		}
-	}
-}
-
-inline int ToInt(float a)
-{
-	return (int)(a + 0.5f);
-}
+;

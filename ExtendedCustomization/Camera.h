@@ -1,9 +1,9 @@
 #pragma once
-#include "D3DWrapper.h"
+#include "Math.h"
 
 struct CameraParams
 {
-	bMatrix4 Matrix;
+	D3DXMATRIX Matrix;
 	D3DXVECTOR4 Position;
 	D3DXVECTOR4 Direction;
 	D3DXVECTOR4 Target;
@@ -12,5 +12,4 @@ struct CameraParams
 struct Camera
 {
 	CameraParams CurrentKey;
-	//CameraParams PreviousKey;
 };

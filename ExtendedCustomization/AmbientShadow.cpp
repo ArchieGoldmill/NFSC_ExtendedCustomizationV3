@@ -5,8 +5,7 @@
 
 D3DCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness)
 {
-	bColor color;
-	color.Color = 0x80808080;
+	Color color(0x80808080);
 
 	if (carRenderInfo->CarShadowTexture == carRenderInfo->Extras->Neon.NeonTexture)
 	{

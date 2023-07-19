@@ -44,6 +44,9 @@
     <Filter Include="SDK\ColorData">
       <UniqueIdentifier>{2d69987a-af53-4cf1-933f-940eb44d105f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{9cdc812d-84c7-4938-a0e2-b3620a3bde4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -124,9 +127,6 @@
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="eModel.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="Func.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="FrontEndRenderingCar.h">
@@ -302,6 +302,12 @@
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Func.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

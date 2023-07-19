@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "D3DWrapper.h"
+#include "Math.h"
 #include "Slots.h"
 #include "Func.h"
 #include "IPartMarker.h"
@@ -8,16 +8,15 @@
 class PartAnimation : public IPartMarker
 {
 private:
-	D3D::Matrix* start;
-	D3D::Matrix* end;
+	D3DXMATRIX* start;
+	D3DXMATRIX* end;
 	float amount;
 	float target;
-	bool freeMatrices;
 
 	std::vector<Slot> subSlots;
 
 public:
-	PartAnimation(Slot slot, D3D::Matrix* start, D3D::Matrix* end)
+	PartAnimation(Slot slot, D3DXMATRIX* start, D3DXMATRIX* end)
 	{
 		this->slot = slot;
 
@@ -26,30 +25,6 @@ public:
 
 		this->amount = 0;
 		this->target = 0;
-
-		this->freeMatrices = false;
-	}
-
-	PartAnimation(Slot slot, D3D::Matrix& start, D3D::Matrix& end)
-	{
-		this->slot = slot;
-
-		this->start = new D3D::Matrix(start);
-		this->end = new D3D::Matrix(end);
-
-		this->amount = 0;
-		this->target = 0;
-
-		this->freeMatrices = true;
-	}
-
-	~PartAnimation()
-	{
-		if (this->freeMatrices)
-		{
-			delete this->start;
-			delete this->end;
-		}
 	}
 
 	void Start()
@@ -107,19 +82,28 @@ public:
 		this->subSlots.push_back(slot);
 	}
 
-	D3D::Matrix* Get(D3D::Matrix* matrix)
+	D3DXMATRIX* Get(D3DXMATRIX* matrix)
 	{
-		auto qStart = this->start->ToQuaternion().Normalize();
-		auto qEnd = this->end->ToQuaternion().Normalize();
+		D3DXQUATERNION qStart;
+		D3DXQuaternionRotationMatrix(&qStart, this->start);
+		D3DXQuaternionNormalize(&qStart, &qStart);
 
-		auto qRotation = D3D::Quaternion::Slerp(qStart, qEnd, this->amount).Normalize();
+		D3DXQUATERNION qEnd;
+		D3DXQuaternionRotationMatrix(&qEnd, this->end);
+		D3DXQuaternionNormalize(&qEnd, &qEnd);
 
-		auto result = D3D::Matrix::Transformation(qRotation, this->start->GetW());
+		D3DXQUATERNION qRotation;
+		D3DXQuaternionSlerp(&qRotation, &qStart, &qEnd, this->amount);
+		D3DXQuaternionNormalize(&qRotation, &qRotation);
 
-		auto pos = (this->end->GetW() - this->start->GetW()) * this->amount;
-		result.SetW(result.GetW() + pos);
+		D3DXVECTOR3 origin = GetVector3(this->start, 3);
+		D3DXMATRIX result;
+		D3DXMatrixTransformation(&result, NULL, NULL, NULL, &origin, &qRotation, NULL);
 
-		D3D::Matrix::Multiply(&this->state, &result, matrix);
+		auto pos = (GetVector3(this->end, 3) - GetVector3(this->start, 3)) * this->amount;
+		SetVector3(&result, 3, GetVector3(&result, 3) + pos);
+
+		D3DXMatrixMultiply(&this->state, &result, matrix);
 
 		return &this->state;
 	}

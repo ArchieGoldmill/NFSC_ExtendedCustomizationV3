@@ -77,9 +77,9 @@ public:
 		return (T*)(ptr + offset);
 	}
 
-	bMatrix4* GetMatrix()
+	D3DXMATRIX* GetMatrix()
 	{
-		return *this->Get<bMatrix4*>(0x2CB4);
+		return *this->Get<D3DXMATRIX*>(0x2CB4);
 	}
 
 	bool IsLeftBrakelightOn()

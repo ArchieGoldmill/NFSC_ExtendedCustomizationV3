@@ -43,8 +43,8 @@ public:
 		}
 	}
 
-	bColor GetColor()
+	Color GetColor()
 	{
-		return bColor(carRenderInfo->IsLeftBrakelightOn() ? 0x80 : 0x49);
+		return Color(carRenderInfo->IsLeftBrakelightOn() ? 0x80808080 : 0x69696969);
 	}
 };

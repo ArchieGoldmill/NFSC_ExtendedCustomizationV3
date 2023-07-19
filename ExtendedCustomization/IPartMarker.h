@@ -1,13 +1,13 @@
 #pragma once
-#include "D3DWrapper.h"
+#include "Math.h"
 #include "Slots.h"
 
 class IPartMarker
 {
 protected:
-	D3D::Matrix state;
+	D3DXMATRIX state;
 	Slot slot;
 
 public:
-	virtual D3D::Matrix* Get(D3D::Matrix* matrix) = 0;
+	virtual D3DXMATRIX* Get(D3DXMATRIX* matrix) = 0;
 };

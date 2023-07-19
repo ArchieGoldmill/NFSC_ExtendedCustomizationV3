@@ -8,53 +8,39 @@
 
 void InitNeon();
 
-inline void sub_5BC4A0(eView* view, bVector3* out, bVector3* v)
+inline void sub_5BC4A0(eView* view, D3DXVECTOR3* out, D3DXVECTOR3* v)
 {
-	double v3 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.y
-		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.y
-		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.y
-		+ view->PlatInfo->ProjectionZBiasMatrix.v3.y;
-	float v9 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.z
-		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.z
-		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.z
-		+ view->PlatInfo->ProjectionZBiasMatrix.v3.z;
-	float v10 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.w
-		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.w
-		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.w
-		+ view->PlatInfo->ProjectionZBiasMatrix.v3.w;
-	float v5 = v->z * view->PlatInfo->ProjectionZBiasMatrix.v2.x
-		+ v->y * view->PlatInfo->ProjectionZBiasMatrix.v1.x
-		+ v->x * view->PlatInfo->ProjectionZBiasMatrix.v0.x
-		+ view->PlatInfo->ProjectionZBiasMatrix.v3.x;
+	D3DXVECTOR4 t;
+	D3DXVec3Transform(&t, v, &view->PlatInfo->ProjectionZBiasMatrix);
 
-	float v4 = 1.0 / v10;
-	float v6 = v4 * v5;
+	float v4 = 1.0 / t.w;
+	float v6 = v4 * t.x;
 
 	out->x = (v6 + 1.0) * (float)*Game::ScreenSizeX * 0.5;
-	out->y = (v3 * v4 - 1.0) * (float)*Game::ScreenSizeY * (-0.5);
-	out->z = v4 * v9;
+	out->y = (t.y * v4 - 1.0) * (float)*Game::ScreenSizeY * (-0.5);
+	out->z = v4 * t.z;
 }
 
 struct Neon
 {
-	bMatrix4* Start;
-	bMatrix4* End;
+	D3DXMATRIX* Start;
+	D3DXMATRIX* End;
 };
 
 struct NeonPulse
 {
 	float Val = 1.0f;
 	float Dir = -1.0f;
-	bColor color;
+	Color color;
 };
 
 class CarNeon
 {
 private:
 	CarRenderInfo* carRenderInfo;
-	bMatrix4* carMatrix;
+	D3DXMATRIX* carMatrix;
 	std::vector<Neon> neons;
-	bMatrix4 mIdentity;
+	D3DXMATRIX identity;
 	TextureInfo* neonBlur = NULL;
 
 	NeonPulse pulse;
@@ -63,12 +49,12 @@ private:
 public:
 	TextureInfo* NeonTexture = NULL;
 
-	CarNeon(CarRenderInfo* carRenderInfo, bMatrix4* carMatrix)
+	CarNeon(CarRenderInfo* carRenderInfo, D3DXMATRIX* carMatrix)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->carMatrix = carMatrix;
-		this->mIdentity.Identity();
 		this->neonBlur = GetTextureInfo(Hashes::NEONBLUR, 0, 0);
+		D3DXMatrixIdentity(&this->identity);
 
 		if (Game::InFrontEnd())
 		{
@@ -131,7 +117,7 @@ public:
 		pulseBackup = this->pulse;
 	}
 
-	bColor GetColor()
+	Color GetColor()
 	{
 		return this->pulse.color;
 	}
@@ -154,7 +140,7 @@ public:
 					{
 						sprintf_s(buff, "NEON_END%02d", i);
 						auto end = part->GetMarker(StringHash(buff));
-						neons.push_back({ (bMatrix4*)start, (bMatrix4*)end });
+						neons.push_back({ start, end });
 					}
 					else
 					{
@@ -189,35 +175,35 @@ public:
 		}
 	}
 
-	void RenderMarker(bMatrix4* startMatrix, bMatrix4* endMatrix)
+	void RenderMarker(D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix)
 	{
 		ePoly poly;
 		poly.SetColor(this->pulse.color);
-		auto carPos = this->carMatrix->v3;
+		auto carPos = GetVector(this->carMatrix, 3);
 		auto carMatrix = *this->carMatrix;
-		carMatrix.v3 = { 0,0,0,0 };
+		SetVector(&carMatrix, 3, { 0,0,0,0 });
 
 		auto view = eView::GetPlayer1();
 		auto camera = view->pCamera;
 
-		bVector2 v35;
-		bVector3 a2;
-		bVector3 a3;
-		bVector3 v43;
-		bVector3 v239;
+		D3DXVECTOR2 v35;
+		D3DXVECTOR3 a2;
+		D3DXVECTOR4 a3;
+		D3DXVECTOR4 v43;
+		D3DXVECTOR3 v239;
 		const float size = 0.03;
 
 		float v14 = carPos.x - camera->CurrentKey.Position.x;
 		float v16 = carPos.y - camera->CurrentKey.Position.y;
 		float v18 = carPos.z - camera->CurrentKey.Position.z;
 
-		a3.x = camera->CurrentKey.Matrix.v0.x;
-		a3.y = camera->CurrentKey.Matrix.v1.x;
-		a3.z = camera->CurrentKey.Matrix.v2.x;
+		a3.x = camera->CurrentKey.Matrix._11;
+		a3.y = camera->CurrentKey.Matrix._21;
+		a3.z = camera->CurrentKey.Matrix._31;
 
-		v43.x = camera->CurrentKey.Matrix.v0.y;
-		v43.y = camera->CurrentKey.Matrix.v1.y;
-		v43.z = camera->CurrentKey.Matrix.v2.y;
+		v43.x = camera->CurrentKey.Matrix._12;
+		v43.y = camera->CurrentKey.Matrix._22;
+		v43.z = camera->CurrentKey.Matrix._32;
 
 		float v50 = size * v43.x;
 		float v45 = size * v43.y;
@@ -229,28 +215,28 @@ public:
 		float v40 = size * a3.x;
 		float v41 = size * a3.y;
 		float v37 = size * a3.z;
-		bVector3 v42 = -v43;
+		D3DXVECTOR4 v42 = -v43;
 
-		a3 = { 0, 0, 0 };
-		eMulVector(&a3, startMatrix, &a3);
-		eMulVector(&a3, &carMatrix, &a3);
+		a3 = { 0, 0, 0, 0 };
+		D3DXVec3Transform(&a3, (D3DXVECTOR3*)&a3, startMatrix);
+		D3DXVec3Transform(&a3, (D3DXVECTOR3*)&a3, &carMatrix);
 
 		a3.x = a3.x + carPos.x;
 		a3.y = a3.y + carPos.y;
 		a3.z = a3.z + carPos.z;
 
-		v43 = { 0, 0, 0 };
-		eMulVector(&v43, endMatrix, &v43);
-		eMulVector(&v43, &carMatrix, &v43);
+		v43 = { 0, 0, 0, 0 };
+		D3DXVec3Transform(&v43, (D3DXVECTOR3*)&v43, endMatrix);
+		D3DXVec3Transform(&v43, (D3DXVECTOR3*)&v43, &carMatrix);
 		v43.x = v43.x + carPos.x;
 		v43.y = v43.y + carPos.y;
 		v43.z = v43.z + carPos.z;
 
-		sub_5BC4A0(view, &a2, &a3);
-		sub_5BC4A0(view, &v239, &v43);
+		sub_5BC4A0(view, &a2, (D3DXVECTOR3*)&a3);
+		sub_5BC4A0(view, &v239, (D3DXVECTOR3*)&v43);
 		v35.x = v239.x - a2.x;
 		v35.y = v239.y - a2.y;
-		bNormalize(&v35, &v35);
+		D3DXVec2Normalize(&v35, &v35);
 
 		poly.Vertices[0] = a3;
 		poly.Vertices[1] = v43;
@@ -277,7 +263,7 @@ public:
 		poly.UVs[2].y = 0.0;
 		poly.UVs[3].x = 0.5;
 		poly.UVs[3].y = 0.0;
-		poly.Render(this->neonBlur, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->identity);
 
 		float v254 = v37 * v35.y;
 		float v77 = v40 * v35.y;
@@ -292,7 +278,7 @@ public:
 		poly.Vertices[3].x += v77 * 2 + v56 * 2;
 		poly.Vertices[3].y += v78 * 2 + v57 * 2;
 		poly.Vertices[3].z += v258 * 2 + v254 * 2;
-		poly.Render(this->neonBlur, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->identity);
 
 		float v268 = v37 * v35.y;
 		float v185 = v40 * v35.y;
@@ -337,7 +323,7 @@ public:
 		poly.UVs[2].y = 1.0;
 		poly.UVs[3].x = 0.5;
 		poly.UVs[3].y = 1.0;
-		poly.Render(this->neonBlur, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->identity);
 
 		float v269 = v37 * v35.y;
 		float v179 = v40 * v35.y;
@@ -399,6 +385,6 @@ public:
 		poly.Vertices[3].x = poly.Vertices[3].x + v187;
 		poly.Vertices[3].y = v97 * v35.x + poly.Vertices[3].y;
 		poly.Vertices[3].z = v273 + v269 + v43.z;
-		poly.Render(this->neonBlur, &this->mIdentity);
+		poly.Render(this->neonBlur, &this->identity);
 	}
 };

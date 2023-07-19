@@ -12,7 +12,7 @@ private:
 
 public:
 	bool IsVisible;
-	bMatrix4 CarMatrix;
+	D3DXMATRIX CarMatrix;
 
 	CarAnimations Animations;
 	CarNeon Neon;

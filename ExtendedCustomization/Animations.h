@@ -2,7 +2,7 @@
 #include "Feature.h"
 #include "CarRenderInfo.h"
 #include "Game.h"
-#include "D3DWrapper.h"
+#include "Math.h"
 #include "Constants.h"
 #include "PartAnimation.h"
 #include "PartMarker.h"
@@ -127,39 +127,6 @@ private:
 		return NULL;
 	}
 
-	static D3D::Matrix InitLeftDoorMarker(D3DXVECTOR3& a, D3DXVECTOR3& b)
-	{
-		D3DXVECTOR3 pos;
-		pos.x = b.x - 0.05;
-		pos.y = b.y;
-		pos.z = b.z - (b.z - a.z) / 2;
-		auto m = D3D::Matrix::FromRotationZ(-45);
-		m.SetW(pos);
-		return m;
-	}
-
-	static D3D::Matrix InitRightDoorMarker(D3DXVECTOR3& a, D3DXVECTOR3& b)
-	{
-		D3DXVECTOR3 pos;
-		pos.x = b.x - 0.05;
-		pos.y = a.y;
-		pos.z = b.z - (b.z - a.z) / 2;
-		auto m = D3D::Matrix::FromRotationZ(45);
-		m.SetW(pos);
-		return m;
-	}
-
-	static D3D::Matrix InitHoodMarker(D3DXVECTOR3& a, D3DXVECTOR3& b)
-	{
-		D3DXVECTOR3 pos;
-		pos.x = a.x + 0.05;
-		pos.y = b.y;
-		pos.z = b.z - (b.z - a.z) / 2;
-		auto m = D3D::Matrix::FromRotationY(-60);
-		m.SetW(pos);
-		return m;
-	}
-
 	void FindAnimationMarkers()
 	{
 		this->Clear();
@@ -170,24 +137,6 @@ private:
 		auto hoodAnim = this->FindAnimMarkers(Slot::HOOD);
 		auto leftDoorAnim = this->FindAnimMarkers(Slot::DOOR_LEFT);
 		auto rightDoorAnim = this->FindAnimMarkers(Slot::DOOR_RIGHT);
-
-		if (true) // Check config
-		{
-			if (!leftDoorAnim)
-			{
-				leftDoorAnim = this->CreateMarker(Slot::DOOR_LEFT, InitLeftDoorMarker);
-			}
-
-			if (!rightDoorAnim)
-			{
-				rightDoorAnim = this->CreateMarker(Slot::DOOR_RIGHT, InitRightDoorMarker);
-			}
-
-			if (!hoodAnim)
-			{
-				hoodAnim = this->CreateMarker(Slot::HOOD, InitHoodMarker);
-			}
-		}
 
 		if (leftHeadlightAnim)
 		{
@@ -218,32 +167,6 @@ private:
 			trunkAnim->AddSubSlot(Slot::DECAL_REAR_WINDOW);
 			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
 		}
-	}
-
-	PartAnimation* CreateMarker(Slot slot, D3D::Matrix(*func)(D3DXVECTOR3&, D3DXVECTOR3&))
-	{
-		auto rideInfo = this->carRenderInfo->RideInfo;
-
-		auto part = rideInfo->GetPart(slot);
-		if (part)
-		{
-			auto solid = part->GetSolid();
-			if (solid)
-			{
-				D3DXVECTOR3 a, b;
-				solid->GetBoundingBox(&a, &b);
-
-				D3D::Matrix end = func(a, b);
-				D3D::Matrix start = D3D::Matrix::FromRotationZ(0);
-				start.SetW(end.GetW());
-
-				auto anim = new PartAnimation(slot, start, end);
-				this->partAnimations.push_back(anim);
-				return anim;
-			}
-		}
-
-		return NULL;
 	}
 
 	void Clear()

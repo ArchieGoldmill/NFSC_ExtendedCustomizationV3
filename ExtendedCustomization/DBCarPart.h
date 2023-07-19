@@ -96,7 +96,7 @@ struct DBCarPart
 		return eSolid::Find(nameHash);
 	}
 
-	D3D::Matrix* GetMarker(Hash markerHash)
+	D3DXMATRIX* GetMarker(Hash markerHash)
 	{
 		auto solid = this->GetSolid();
 		if (solid)
@@ -111,7 +111,7 @@ struct DBCarPart
 		return NULL;
 	}
 
-	D3D::Matrix* GetAttachMarker(RideInfo* rideInfo, D3DXVECTOR3* scale = NULL)
+	D3DXMATRIX* GetAttachMarker(RideInfo* rideInfo, D3DXVECTOR3* scale = NULL)
 	{
 		Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR };
 

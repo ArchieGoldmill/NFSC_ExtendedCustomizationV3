@@ -1,7 +1,7 @@
 #include "Animations.h"
 #include "CarRenderInfoExtras.h"
 
-void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eModel** model, D3D::Matrix* marker, void* light, int flags)
+void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
 	if (model && *model)
 	{
@@ -19,7 +19,7 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 	}
 }
 
-void __fastcall RenderSpoiler(int view, int param, CarRenderInfo* carRenderInfo, eModel* model, D3D::Matrix* marker, void* light, int data, int a1, int a2)
+void __fastcall RenderSpoiler(int view, int param, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
 	eModel** modelPtr = &model;
 	RenderParts(carRenderInfo, Slot::SPOILER, view, modelPtr, marker, light, data);

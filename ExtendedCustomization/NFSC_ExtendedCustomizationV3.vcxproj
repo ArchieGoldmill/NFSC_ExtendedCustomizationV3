@@ -180,6 +180,7 @@
     <ClInclude Include="CarCustomizeManager.h" />
     <ClInclude Include="CarSkinManager.h" />
     <ClInclude Include="ColorData.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="eView.h" />
     <ClInclude Include="Exhaust.h" />
     <ClInclude Include="Math.h" />
