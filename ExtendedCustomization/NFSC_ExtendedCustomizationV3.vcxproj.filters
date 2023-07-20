@@ -318,5 +318,8 @@
     <ClInclude Include="ExhaustExtras.h">
       <Filter>Features\Exhaust</Filter>
     </ClInclude>
+    <ClInclude Include="MenuCameras.h">
+      <Filter>Features\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
