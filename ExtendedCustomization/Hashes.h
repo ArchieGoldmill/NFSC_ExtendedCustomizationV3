@@ -15,6 +15,7 @@ namespace Hashes
 	const Hash MIRROR = 0x6BFA56DA;
 	const Hash ZONE_HASH = 0xF418037E;
 	const Hash EXHAUST_FX = 0x66A4A9DE;
+	const Hash DRAW_MARKERS = 0x7738D461;
 
 	const Hash FRONT_TIRE_OFFSET = 0xFDE70341;
 	const Hash REAR_TIRE_OFFSET = 0x2FC42D62;

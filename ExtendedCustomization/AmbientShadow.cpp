@@ -41,7 +41,7 @@ void __declspec(naked) ShadowColorCave()
 float CarDistMax = 2.0f;
 float CarDistMult = CarDistMax / 4.0f;
 float FrontShadowSize = 1.2f;
-float RearShadowSize = 1.2f;
+float RearShadowSize = 1.15f;
 float SideShadowSize = 1.05f;
 void InitNeon()
 {

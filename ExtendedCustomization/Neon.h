@@ -112,26 +112,30 @@ public:
 	void FindMarkers()
 	{
 		auto rideInfo = this->carRenderInfo->RideInfo;
-		Slot slots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR };
-		for (Slot slot : slots)
+		auto neonPart = rideInfo->GetPart(Slot_Neon);
+		if (neonPart && neonPart->GetAppliedAttributeIParam(Hashes::DRAW_MARKERS, 1) == 1)
 		{
-			auto part = rideInfo->GetPart(slot);
-			if (part)
+			Slot slots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR };
+			for (Slot slot : slots)
 			{
-				for (int i = 0; i < 99; i++)
+				auto part = rideInfo->GetPart(slot);
+				if (part)
 				{
-					char buff[64];
-					sprintf_s(buff, "NEON_START%02d", i);
-					auto start = part->GetMarker(StringHash(buff));
-					if (start)
+					for (int i = 0; i < 99; i++)
 					{
-						sprintf_s(buff, "NEON_END%02d", i);
-						auto end = part->GetMarker(StringHash(buff));
-						neons.push_back({ start, end });
-					}
-					else
-					{
-						break;
+						char buff[64];
+						sprintf_s(buff, "NEON_START%02d", i);
+						auto start = part->GetMarker(StringHash(buff));
+						if (start)
+						{
+							sprintf_s(buff, "NEON_END%02d", i);
+							auto end = part->GetMarker(StringHash(buff));
+							neons.push_back({ start, end });
+						}
+						else
+						{
+							break;
+						}
 					}
 				}
 			}
