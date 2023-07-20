@@ -16,6 +16,10 @@ namespace Hashes
 	const Hash ZONE_HASH = 0xF418037E;
 	const Hash EXHAUST_FX = 0x66A4A9DE;
 	const Hash DRAW_MARKERS = 0x7738D461;
+	const Hash ZONE_AMOUNT = 0x4AA9F4CE;
+
+	const Hash LICENSEPLATE = 0x4C95C6F8;
+	const Hash LICENSEPLATE_FRAME = 0xA877FDC2;
 
 	const Hash FRONT_TIRE_OFFSET = 0xFDE70341;
 	const Hash REAR_TIRE_OFFSET = 0x2FC42D62;

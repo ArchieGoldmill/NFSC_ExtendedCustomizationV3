@@ -204,7 +204,7 @@
     <ClInclude Include="eLightContext.h" />
     <ClInclude Include="eLightMaterial.h" />
     <ClInclude Include="eModel.h" />
-    <ClInclude Include="eReplacementTextures.h" />
+    <ClInclude Include="ReplacementTextureEntry.h" />
     <ClInclude Include="eSolid.h" />
     <ClInclude Include="FEButton.h" />
     <ClInclude Include="FECarRecord.h" />
@@ -229,6 +229,7 @@
     <ClInclude Include="PaintSelectablePart.h" />
     <ClInclude Include="PartList.h" />
     <ClInclude Include="PartMarker.h" />
+    <ClInclude Include="ReplacementTextures.h" />
     <ClInclude Include="PositionMarker.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="PVehicle.h" />
@@ -240,6 +241,7 @@
     <ClInclude Include="SmoothVinyls.h" />
     <ClInclude Include="Stance.h" />
     <ClInclude Include="StandardSelectablePart.h" />
+    <ClInclude Include="TextureExtras.h" />
     <ClInclude Include="TextureInfo.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TrackWidth.h" />

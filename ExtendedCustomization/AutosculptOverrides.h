@@ -8,6 +8,7 @@
 #include "AutosculptSlider.h"
 #include "FrontEndRenderingCar.h"
 #include "CarRenderInfo.h"
+#include "CarRenderInfoExtras.h"
 
 const char* __stdcall ConvertSlotToFng(Slot slot)
 {
@@ -178,10 +179,17 @@ int __fastcall AutosculptSlider_Act(AutosculptSlider* slider, int, int a2, Hash 
 	auto currentSelectablePart = AutosculptSelectablePart::GetCurrent();
 	if (currentSelectablePart)
 	{
+		auto slot = currentSelectablePart->SlotId;
 		auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.CarRenderInfo;
-		if (currentSelectablePart->SlotId == Slot_Stance)
+
+		if (slot == Slot_Stance)
 		{
 			carRenderInfo->UpdateWheelYRenderOffset();
+		}
+
+		if (slot == Slot::LICENSE_PLATE)
+		{
+			carRenderInfo->Extras->Textures.UpdateLicensePlate();
 		}
 	}
 
@@ -201,6 +209,24 @@ Hash __cdecl ZoneName(char* str, int num)
 	}
 
 	return FromIndex(str, num);
+}
+
+void __fastcall InitAutosculptSlider(int* _this, int param, float a2, float max, int a4, float amount)
+{
+	static auto cSlider_InitValues = (void(__thiscall*)(int*, float, float, int, float))0x005733E0;
+	cSlider_InitValues(_this, a2, max, a4, amount);
+	auto current = AutosculptSelectablePart::GetCurrent();
+	if (current)
+	{
+		int num = _this[0x12] + 1;
+		float* _fthis = (float*)_this;
+
+		float amount = current->Part->GetAppliedAttributeFParam(Hashes::ZONE_AMOUNT, 1.0f);
+		amount = current->Part->GetAppliedAttributeFParam(FromIndex("ZONE_AMOUNT%d", num), amount);
+
+		_fthis[0x8] = amount;
+		_fthis[0x15] = current->Part->GetAppliedAttributeFParam(FromIndex("ZONE_STEP%d", num), 0.01f);
+	}
 }
 
 void __declspec(naked) ConvertSlotToStateCave()
@@ -260,5 +286,7 @@ void InitAutosculpt()
 
 	injector::WriteMemory(0x009FAA48, AutosculptSlider_Act);
 
-	injector::MakeCALL(0x0085B3D6, ZoneName, true);
+	injector::MakeCALL(0x0085B3D6, ZoneName);
+
+	injector::MakeCALL(0x0085AFDE, InitAutosculptSlider, true);
 }

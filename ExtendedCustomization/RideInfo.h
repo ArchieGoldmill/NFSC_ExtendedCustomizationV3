@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "ColorData.h"
 #include "Constants.h"
+#include "Math.h"
 
 struct DBCarPart;
 
@@ -11,6 +12,11 @@ struct AutosculptData
 {
 	float Zones[11];
 	int Modified;
+
+	int GetInt(int zone)
+	{
+		return ToInt(this->Zones[zone] * 100.0f);
+	}
 };
 
 class CarRenderInfo;

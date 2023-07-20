@@ -52,11 +52,11 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		break;
 	case CustomizeMainMenu::FRONT_RIMS:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
-		_this->AddMenuOption(0xB47AB2E, Slot::FRONT_WHEEL, _this->IsAutosculpt, 0);
+		_this->AddMenuOption(0xB47AB2E, Slot::FRONT_WHEEL, _this->IsAutosculpt, 17);
 		break;
 	case CustomizeMainMenu::REAR_RIMS:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
-		_this->AddMenuOption(0xB47AB2E, Slot::REAR_WHEEL, _this->IsAutosculpt, 0);
+		_this->AddMenuOption(0xB47AB2E, Slot::REAR_WHEEL, _this->IsAutosculpt, 17);
 		break;
 	case CustomizeMainMenu::ATTACHMENTS:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
@@ -69,7 +69,6 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 	case CustomizeMainMenu::SPECIALTIES:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
 
-		AddMenuOption(_this, Slot::LICENSE_PLATE, carId);
 		AddMenuOption(_this, Slot::FRONT_BRAKE, carId);
 		AddMenuOption(_this, Slot::FRONT_ROTOR, carId);
 		AddMenuOption(_this, Slot::INTERIOR, carId);

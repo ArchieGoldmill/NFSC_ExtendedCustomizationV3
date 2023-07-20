@@ -3,6 +3,7 @@
 #include "Hashes.h"
 #include "Func.h"
 #include "eLightMaterial.h"
+#include "ReplacementTextureEntry.h"
 
 class eModel
 {
@@ -28,5 +29,11 @@ public:
 	{
 		FUNC(0x0055C0B0, void, __thiscall, _ReplaceLightMaterial, eModel*, Hash, eLightMaterial*);
 		_ReplaceLightMaterial(this, materialName, newMaterial);
+	}
+
+	void AttachReplacementTextureTable(ReplacementTextureEntry* replaceNodes, int count)
+	{
+		FUNC(0x005588D0, void, __thiscall, _AttachReplacementTextureTable, eModel*, ReplacementTextureEntry*, int, int);
+		_AttachReplacementTextureTable(this, replaceNodes, count, 0);
 	}
 };

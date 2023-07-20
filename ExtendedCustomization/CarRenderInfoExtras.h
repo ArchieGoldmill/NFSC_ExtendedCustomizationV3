@@ -5,6 +5,7 @@
 #include "BrakelightGlow.h"
 #include "PaintExtras.h"
 #include "ExhaustExtras.h"
+#include "TextureExtras.h"
 
 class CarRenderInfoExtras
 {
@@ -20,9 +21,10 @@ public:
 	CarBrakelightGlow BrakelightGlow;
 	CarPaint Paint;
 	CarExhaust Exhaust;
+	CarTextures Textures;
 
 	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix), BrakelightGlow(carRenderInfo), Paint(carRenderInfo),
-		Exhaust(carRenderInfo)
+		Exhaust(carRenderInfo), Textures(carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;

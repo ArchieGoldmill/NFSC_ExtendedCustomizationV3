@@ -155,7 +155,7 @@ void GetPartsListV3(Slot slot, bNode<SelectablePart*>* listHead, bool isCarbon, 
 			HandleCart((AutosculptSelectablePart*)selectablePart, slot);
 		}
 
-		AddNodeToList((bNode<StandardSelectablePart*>*)listHead, (bNode<StandardSelectablePart*>*)&selectablePart->NodeItem);
+		AddNodeToList((bNode<StandardSelectablePart*>*)listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
 	}
 }
 
@@ -177,7 +177,7 @@ void __cdecl AutosculptSelectablePart_GetPartsList(Slot slot, bNode<AutosculptSe
 {
 	auto carId = FECarRecord::GetCarType();
 	int version = g_Config.GetVersion(carId);
-	if (version == 3)
+	if (version == 3 && slot != Slot::FRONT_WHEEL)
 	{
 		GetPartsListV3<AutosculptSelectablePart>(slot, listHead, isCarbon, brandName, innerRadius, carId, true);
 	}

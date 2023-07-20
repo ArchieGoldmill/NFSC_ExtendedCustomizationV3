@@ -3,14 +3,16 @@
 #include "CarRenderInfo.h"
 #include "Game.h"
 #include "eLightContext.h"
-#include "eReplacementTextures.h"
+#include "ReplacementTextureEntry.h"
 #include "CarRenderConn.h"
+#include "DBCarPart.h"
+#include "ReplacementTextures.h"
 
 void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 {
 	if (carRenderInfo->RideInfo->CarId.Id == 0x11)
 	{
-		auto entries = carRenderInfo->Get<eReplacementTextures::Entry>(0x588);
+		auto entries = carRenderInfo->Get<ReplacementTextureEntry>(0x588);
 		auto rideInfo = carRenderInfo->RideInfo;
 
 		auto leftHeadlightPart = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
@@ -121,6 +123,8 @@ void __declspec(naked) GetUsedCarTextureInfoCave()
 
 void InitTextures()
 {
+	InitReplacementTextures();
+
 	injector::WriteMemory(0x007CECC7, ((int)Slot::LEFT_HEADLIGHT + 0x15) * 4);
 	injector::WriteMemory(0x007CECCD, ((int)Slot::LEFT_BRAKELIGHT + 0x15) * 4);
 	injector::MakeJMP(0x007CF764, GetUsedCarTextureInfoCave);

@@ -53,6 +53,9 @@
     <Filter Include="Features\Exhaust">
       <UniqueIdentifier>{678b1008-2a71-4cc8-9a63-e68c526b42da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Textures">
+      <UniqueIdentifier>{f79d8fea-dbef-4922-b0f4-bad4f9091301}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -144,13 +147,10 @@
     <ClInclude Include="Animations.h">
       <Filter>Features\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="eLightContext.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="eReplacementTextures.h">
+    <ClInclude Include="ReplacementTextureEntry.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="PVehicle.h">
@@ -320,6 +320,16 @@
     </ClInclude>
     <ClInclude Include="MenuCameras.h">
       <Filter>Features\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="Textures.h">
+      <Filter>Features\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="ReplacementTextures.h">
+      <Filter>Features\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureExtras.h">
+      <Filter>Features\Textures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

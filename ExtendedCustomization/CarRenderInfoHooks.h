@@ -15,6 +15,7 @@ void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 	carRenderInfo->Extras->Neon.Init();
 	carRenderInfo->Extras->Paint.Init();
 	carRenderInfo->Extras->Exhaust.Init();
+	carRenderInfo->Extras->Textures.Init();
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
