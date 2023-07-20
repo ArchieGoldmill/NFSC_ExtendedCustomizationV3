@@ -50,6 +50,9 @@
     <Filter Include="Features\Shadow">
       <UniqueIdentifier>{5acc01d6-a900-4cfe-80c2-c7f6b09d46e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Exhaust">
+      <UniqueIdentifier>{678b1008-2a71-4cc8-9a63-e68c526b42da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -285,9 +288,6 @@
     <ClInclude Include="Paints.h">
       <Filter>Features\Paints</Filter>
     </ClInclude>
-    <ClInclude Include="Exhaust.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="PaintSelectablePart.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -311,6 +311,12 @@
     </ClInclude>
     <ClInclude Include="Neon.h">
       <Filter>Features\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="ExhaustFX.h">
+      <Filter>Features\Exhaust</Filter>
+    </ClInclude>
+    <ClInclude Include="ExhaustExtras.h">
+      <Filter>Features\Exhaust</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

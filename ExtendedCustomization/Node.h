@@ -12,3 +12,16 @@ struct bList
 {
 	bNode<T> HeadNode;
 };
+
+template <class T>
+struct bSNode
+{
+	T* Next;
+};
+
+template <class T>
+struct bSlist
+{
+	T* Head;
+	T* Tail;
+};

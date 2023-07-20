@@ -4,6 +4,7 @@
 #include "Neon.h"
 #include "BrakelightGlow.h"
 #include "PaintExtras.h"
+#include "ExhaustExtras.h"
 
 class CarRenderInfoExtras
 {
@@ -18,6 +19,7 @@ public:
 	CarNeon Neon;
 	CarBrakelightGlow BrakelightGlow;
 	CarPaint Paint;
+	CarExhaust Exhaust;
 
 	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix), BrakelightGlow(carRenderInfo), Paint(carRenderInfo)
 	{

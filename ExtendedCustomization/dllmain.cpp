@@ -15,7 +15,7 @@
 #include "UserInput.h"
 #include "Vinyls.h"
 #include "Stance.h"
-#include "Exhaust.h"
+#include "ExhaustFX.h"
 #include "Paints.h"
 
 void ToBeRemoved()
