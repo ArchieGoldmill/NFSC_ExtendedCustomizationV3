@@ -71,4 +71,9 @@ public:
 
 		return NULL;
 	}
+
+	bool IsPlayer()
+	{
+		return this->RenderUsage == 0;
+	}
 };

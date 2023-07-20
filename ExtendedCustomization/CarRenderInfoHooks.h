@@ -14,6 +14,7 @@ void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 {
 	carRenderInfo->Extras->Neon.Init();
 	carRenderInfo->Extras->Paint.Init();
+	carRenderInfo->Extras->Exhaust.Init();
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
@@ -49,6 +50,7 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 	{
 		carRenderInfo->Extras->Animations.Update();
 		carRenderInfo->Extras->Neon.Update();
+		carRenderInfo->Extras->Exhaust.Update();
 
 		if (carRenderInfo->Extras->IsVisible)
 		{

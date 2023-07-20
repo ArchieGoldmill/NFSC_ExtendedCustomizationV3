@@ -19,6 +19,9 @@ INLINE_FUNC(0x0046E580, void, __cdecl, HSV2RGB, float, float, float, float*, flo
 INLINE_FUNC(0x0046DB30, int, __cdecl, bRandom, int);
 INLINE_FUNC(0x007B1410, char*, __cdecl, GetSlotName, Slot);
 INLINE_FUNC(0x00477BE0, void*, __cdecl, bOMalloc, int);
+INLINE_FUNC(0x004A62E0, bool, __cdecl, IsPaused);
+INLINE_FUNC(0x004B65F0, bool, __thiscall, DALVehicle_GetRPM, void* DALVehicle, float* getVal, const int playerNum);
+INLINE_FUNC(0x004B6690, bool, __thiscall, DALVehicle_GetRedLine, void* DALVehicle, float* getVal, const int playerNum);
 
 inline Hash FromIndex(const char* str, int index)
 {

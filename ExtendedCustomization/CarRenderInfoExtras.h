@@ -21,7 +21,8 @@ public:
 	CarPaint Paint;
 	CarExhaust Exhaust;
 
-	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix), BrakelightGlow(carRenderInfo), Paint(carRenderInfo)
+	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix), BrakelightGlow(carRenderInfo), Paint(carRenderInfo),
+		Exhaust(carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
