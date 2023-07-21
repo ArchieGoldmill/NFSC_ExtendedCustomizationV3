@@ -3,6 +3,8 @@ version 2.8.3
 
 stop_errors false
 
+speedreflect auto
+
 // SlotTypes
 update_collection GLOBAL\GLOBALB.LZC SlotTypes MISC SlotMainOverride STANCE
 update_collection GLOBAL\GLOBALB.LZC SlotTypes CV SlotMainOverride NEON
@@ -15,9 +17,14 @@ update_collection GLOBAL\GLOBALB.LZC SlotTypes REAR_ROTOR SlotMainOverride BRAKE
 create_folder absolute scripts\ExtendedCustomizationCars
 move_file override relative absolute Files\ExtendedCustomization.ini scripts\ExtendedCustomization.ini
 move_file override relative absolute Files\ExtendedCustomization.asi scripts\ExtendedCustomization.asi
-move_file override relative absolute Files\EXHAUST.bin cars\EXHAUST\geometry.bin
-move_file override relative absolute Files\PLATES.bin cars\PLATES\geometry.bin
-move_file override relative absolute Files\BRAKES.bin cars\BRAKES\geometry.bin
+
+move_file override relative absolute Files\EXHAUST\GEOMETRY.bin cars\EXHAUST\GEOMETRY.bin
+
+move_file override relative absolute Files\PLATES\GEOMETRY.bin cars\PLATES\GEOMETRY.bin
+move_file override relative absolute Files\PLATES\TEXTURES.bin cars\PLATES\TEXTURES.bin
+
+move_file override relative absolute Files\BRAKES\GEOMETRY.bin cars\BRAKES\GEOMETRY.bin
+move_file override relative absolute Files\BRAKES\TEXTURES.bin cars\BRAKES\TEXTURES.bin
 
 // DBModelParts
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\BRAKES.bin

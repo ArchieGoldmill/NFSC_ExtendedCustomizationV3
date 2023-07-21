@@ -182,10 +182,8 @@
     <ClInclude Include="CarSkinManager.h" />
     <ClInclude Include="ColorData.h" />
     <ClInclude Include="ExhaustExtras.h" />
-    <ClInclude Include="Math.h" />
     <ClInclude Include="eView.h" />
     <ClInclude Include="ExhaustFX.h" />
-    <ClInclude Include="Math.h" />
     <ClInclude Include="MenuCameras.h" />
     <ClInclude Include="Neon.h" />
     <ClInclude Include="ePoly.h" />
@@ -256,6 +254,11 @@
     <ClInclude Include="PartAnimation.h" />
     <ClInclude Include="Vinyls.h" />
     <ClInclude Include="VinylManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Mod\ExtendedCustomization\Binary\Localization\English.end" />
+    <None Include="..\Mod\ExtendedCustomization\Binary\main.end" />
+    <None Include="..\Mod\ExtendedCustomization\install.nfsms" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

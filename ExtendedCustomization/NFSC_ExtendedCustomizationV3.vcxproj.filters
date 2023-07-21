@@ -59,6 +59,9 @@
     <Filter Include="Features\RotorGlow">
       <UniqueIdentifier>{f2396273-0649-471c-8bea-db2d89034e01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mod">
+      <UniqueIdentifier>{830da9b6-4b70-46df-b133-eca7dad7e3ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -307,9 +310,6 @@
       <Filter>SDK\ColorData</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
       <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Func.h">
@@ -338,9 +338,22 @@
       <Filter>Features\Textures</Filter>
     </ClInclude>
     <ClInclude Include="Math.h" />
-    <ClInclude Include="Math.h" />
     <ClInclude Include="RotorGlow.h">
       <Filter>Features\RotorGlow</Filter>
     </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Mod\ExtendedCustomization\Binary\main.end">
+      <Filter>Mod</Filter>
+    </None>
+    <None Include="..\Mod\ExtendedCustomization\Binary\Localization\English.end">
+      <Filter>Mod</Filter>
+    </None>
+    <None Include="..\Mod\ExtendedCustomization\install.nfsms">
+      <Filter>Mod</Filter>
+    </None>
   </ItemGroup>
 </Project>
