@@ -42,7 +42,7 @@ public:
 				auto marker = part->GetAttachMarker(rideInfo, &scale);
 				if (marker)
 				{
-					this->partMarkers.push_back(new PartMarker(slot, marker, scale));
+					this->partMarkers.push_back(new PartMarker(slot, marker, scale, this->carRenderInfo));
 				}
 			}
 		}

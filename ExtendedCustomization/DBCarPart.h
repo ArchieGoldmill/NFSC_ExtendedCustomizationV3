@@ -144,9 +144,10 @@ struct DBCarPart
 	{
 		D3DXVECTOR3 scale;
 
-		scale.x = this->GetAppliedAttributeFParam(StringHash1("_SX", marker), 1.0f);
-		scale.y = this->GetAppliedAttributeFParam(StringHash1("_SY", marker), 1.0f);
-		scale.z = this->GetAppliedAttributeFParam(StringHash1("_SZ", marker), 1.0f);
+		float s = this->GetAppliedAttributeFParam(StringHash1("_S", marker), 1.0f);
+		scale.x = this->GetAppliedAttributeFParam(StringHash1("_SX", marker), s);
+		scale.y = this->GetAppliedAttributeFParam(StringHash1("_SY", marker), s);
+		scale.z = this->GetAppliedAttributeFParam(StringHash1("_SZ", marker), s);
 
 		return scale;
 	}

@@ -5,6 +5,9 @@ stop_errors false
 
 speedreflect auto
 
+// CarTypeInfos
+import override GLOBAL\GLOBALB.LZC CarTypeInfos CarTypeInfos\STEERINGWHEEL.bin
+
 // SlotTypes
 update_collection GLOBAL\GLOBALB.LZC SlotTypes MISC SlotMainOverride STANCE
 update_collection GLOBAL\GLOBALB.LZC SlotTypes CV SlotMainOverride NEON
@@ -12,19 +15,7 @@ update_collection GLOBAL\GLOBALB.LZC SlotTypes FRONT_BRAKE SlotMainOverride BRAK
 update_collection GLOBAL\GLOBALB.LZC SlotTypes FRONT_ROTOR SlotMainOverride BRAKES
 update_collection GLOBAL\GLOBALB.LZC SlotTypes REAR_BRAKE SlotMainOverride BRAKES
 update_collection GLOBAL\GLOBALB.LZC SlotTypes REAR_ROTOR SlotMainOverride BRAKES
-
-// Files
-create_folder absolute scripts\ExtendedCustomizationCars
-move_file override relative absolute Files\ExtendedCustomization.ini scripts\ExtendedCustomization.ini
-move_file override relative absolute Files\ExtendedCustomization.asi scripts\ExtendedCustomization.asi
-
-move_file override relative absolute Files\EXHAUST\GEOMETRY.bin cars\EXHAUST\GEOMETRY.bin
-
-move_file override relative absolute Files\PLATES\GEOMETRY.bin cars\PLATES\GEOMETRY.bin
-move_file override relative absolute Files\PLATES\TEXTURES.bin cars\PLATES\TEXTURES.bin
-
-move_file override relative absolute Files\BRAKES\GEOMETRY.bin cars\BRAKES\GEOMETRY.bin
-move_file override relative absolute Files\BRAKES\TEXTURES.bin cars\BRAKES\TEXTURES.bin
+update_collection GLOBAL\GLOBALB.LZC SlotTypes STEERINGWHEEL SlotMainOverride STEERINGWHEEL
 
 // DBModelParts
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\BRAKES.bin
@@ -33,6 +24,30 @@ import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\EXHAUST.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\NEON.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\PLATES.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\STANCE.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\STEERINGWHEEL.bin
+
+// Files
+create_folder absolute scripts\ExtendedCustomizationCars
+move_file override relative absolute Files\ExtendedCustomization.ini scripts\ExtendedCustomization.ini
+move_file override relative absolute Files\ExtendedCustomization.asi scripts\ExtendedCustomization.asi
+move_file override relative absolute Files\EXHAUST\GEOMETRY.bin cars\EXHAUST\GEOMETRY.bin
+move_file override relative absolute Files\STEERINGWHEEL\GEOMETRY.bin cars\STEERINGWHEEL\GEOMETRY.bin
+move_file override relative absolute Files\PLATES\GEOMETRY.bin cars\PLATES\GEOMETRY.bin
+move_file override relative absolute Files\PLATES\TEXTURES.bin cars\PLATES\TEXTURES.bin
+move_file override relative absolute Files\BRAKES\GEOMETRY.bin cars\BRAKES\GEOMETRY.bin
+move_file override relative absolute Files\BRAKES\TEXTURES.bin cars\BRAKES\TEXTURES.bin
+
+// Textures
+add_or_replace_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW LICENSEPLATE_GLOW "Textures\LICENSEPLATE_GLOW.dds"
+update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW RenderingOrder 8
+update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW AlphaBlendType TEXBLEND_ADDATIVE
+update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW AlphaUsageType TEXUSAGE_MODULATED
+update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW ClassKey 2310797402
+update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW BiasLevel 1
+update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW ApplyAlphaSort 0
+update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW Flags 1
+
+replace_texture GLOBAL\GLOBALB.LZC TPKBlocks GLOBALTEXTURES CARSHADOW "Textures\CARSHADOW.dds"
 
 // Localization
 append Localization\English.end

@@ -355,5 +355,8 @@
     <None Include="..\Mod\ExtendedCustomization\install.nfsms">
       <Filter>Mod</Filter>
     </None>
+    <None Include="..\Mod\ExtendedCustomization\Binary\Files\ExtendedCustomization.ini">
+      <Filter>Mod</Filter>
+    </None>
   </ItemGroup>
 </Project>

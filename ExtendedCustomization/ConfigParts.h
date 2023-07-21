@@ -23,6 +23,7 @@ std::pair<Slot, const char*> ConfigParts[] = {
 	{ Slot::VINYL_GENERIC, "PART_VINYL_GENERIC" },
 	{ Slot::CV, "PART_CV" },
 	{ Slot::MISC, "PART_MISC" },
+	{ Slot::STEERINGWHEEL, "PART_STEERINGWHEEL" },
 	{ Slot::FRONT_WHEEL, "PART_FRONT_WHEEL" },
 	{ Slot::REAR_WHEEL, "PART_REAR_WHEEL" }
 };

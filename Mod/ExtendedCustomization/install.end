@@ -5,8 +5,9 @@
   "Game": "Carbon",
   "Endscript": "Binary/main.end",
   "Files": [
-    "GLOBAL\GLOBALA.BUN",
-    "GLOBAL\GLOBALB.LZC"
+    "GLOBAL\\GLOBALA.BUN",
+    "GLOBAL\\GLOBALB.LZC",
+    "GLOBAL\\INGAMEA.BUN"
   ],
   "Links": [
     {
