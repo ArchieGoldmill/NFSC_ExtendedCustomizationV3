@@ -1,3 +1,5 @@
+update_field fecameras customization cam_delay 0.1
+
 copy_node emitterdata emcar_nos_fire default emcar_shift_fire
 copy_node emitterdata emcar_nos_fire2 emcar_shift_fire emcar_shift_fire2
 copy_node emitterdata emcar_nos_glow default emcar_shift_glow
