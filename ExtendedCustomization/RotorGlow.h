@@ -1,5 +1,6 @@
 #pragma once
 #include "CarRenderInfo.h"
+#include "Config.h"
 
 void InitRotorGlow();
 
@@ -24,14 +25,19 @@ public:
 	void Init()
 	{
 		float rotorWidth = 0.04f;
-		auto rotorModel = this->carRenderInfo->PartModel[(int)Slot::FRONT_ROTOR][0];
-		if (rotorModel)
+		auto frontRotor = this->carRenderInfo->RideInfo->GetPart(Slot::FRONT_ROTOR);
+		if (frontRotor)
 		{
-			D3DXVECTOR3 a, b;
-			rotorModel->GetBoundingBox(&a, &b);
+			rotorWidth = frontRotor->GetAppliedAttributeFParam(Hashes::WIDTH, rotorWidth);
+			auto rotorModel = this->carRenderInfo->PartModel[(int)Slot::FRONT_ROTOR][0];
+			if (rotorModel)
+			{
+				D3DXVECTOR3 a, b;
+				rotorModel->GetBoundingBox(&a, &b);
 
-			this->rotorRadius = (b.z - a.z) / 2;
-			this->rotorOffset = b.y - rotorWidth;
+				this->rotorRadius = (b.z - a.z) / 2;
+				this->rotorOffset = b.y - rotorWidth;
+			}
 		}
 
 		this->temp = 0;
@@ -91,6 +97,11 @@ public:
 		if (alpha < 0)
 		{
 			alpha = 0;
+		}
+
+		if (g_Config.DebugRotorGlow)
+		{
+			alpha = 1.0f;
 		}
 
 		if (alpha > 0)

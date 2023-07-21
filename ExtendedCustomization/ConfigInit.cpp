@@ -127,6 +127,8 @@ void InitConfig()
 
 	InitShared(iniReader, &g_Config);
 
+	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
+
 	InitCars();
 
 	InitDefaultCars();

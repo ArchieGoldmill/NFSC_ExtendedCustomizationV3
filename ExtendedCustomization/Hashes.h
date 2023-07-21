@@ -18,6 +18,7 @@ namespace Hashes
 	const Hash DRAW_MARKERS = 0x7738D461;
 	const Hash ZONE_AMOUNT = 0x4AA9F4CE;
 	const Hash ROTORS_GLOW = 0x57CA3700;
+	const Hash WIDTH = 0x03FA5F3F;
 
 	const Hash LICENSEPLATE = 0x4C95C6F8;
 	const Hash LICENSEPLATE_FRAME = 0xA877FDC2;

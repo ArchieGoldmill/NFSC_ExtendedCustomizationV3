@@ -20,9 +20,8 @@ struct PartConfig
 	std::string Camera;
 };
 
-class SharedConfig
+struct SharedConfig
 {
-public:
 	std::vector<PartConfig> Parts;
 	State PopUpHeadLights = State::Default;
 	State ForceLodA = State::Default;
@@ -30,18 +29,18 @@ public:
 	PartConfig* GetPart(Slot slot);
 };
 
-class CarConfig : public SharedConfig
+struct CarConfig : public SharedConfig
 {
-public:
 	std::string Name;
 	Hash NameHash;
 	int Version = 0;
 };
 
-class GlobalConfig : public SharedConfig
+struct GlobalConfig : public SharedConfig
 {
-public:
 	std::vector<CarConfig*> Cars;
+
+	bool DebugRotorGlow;
 
 	PartConfig GetPart(Slot slot, CarType carId);
 	CarConfig* GetCarConfig(CarType carId);
