@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetExt>.asi</TargetExt>
-    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv3\scripts\</OutDir>
+    <OutDir>..\Mod\ExtendedCustomization\Binary\Files\</OutDir>
     <TargetName>ExtendedCustomization</TargetName>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
@@ -169,6 +169,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="eSolid.cpp" />
     <ClCompile Include="AmbientShadow.cpp" />
+    <ClCompile Include="RotorGlow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoSculpt.h" />
@@ -236,6 +237,7 @@
     <ClInclude Include="RasterizationManager.h" />
     <ClInclude Include="RideInfo.h" />
     <ClInclude Include="RimPaint.h" />
+    <ClInclude Include="RotorGlow.h" />
     <ClInclude Include="ScrollOption.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="SmoothVinyls.h" />

@@ -17,6 +17,7 @@ namespace Hashes
 	const Hash EXHAUST_FX = 0x66A4A9DE;
 	const Hash DRAW_MARKERS = 0x7738D461;
 	const Hash ZONE_AMOUNT = 0x4AA9F4CE;
+	const Hash ROTORS_GLOW = 0x57CA3700;
 
 	const Hash LICENSEPLATE = 0x4C95C6F8;
 	const Hash LICENSEPLATE_FRAME = 0xA877FDC2;

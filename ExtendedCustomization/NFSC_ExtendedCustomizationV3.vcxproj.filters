@@ -56,6 +56,9 @@
     <Filter Include="Features\Textures">
       <UniqueIdentifier>{f79d8fea-dbef-4922-b0f4-bad4f9091301}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\RotorGlow">
+      <UniqueIdentifier>{f2396273-0649-471c-8bea-db2d89034e01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -78,6 +81,9 @@
     </ClCompile>
     <ClCompile Include="AmbientShadow.cpp">
       <Filter>Features\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="RotorGlow.cpp">
+      <Filter>Features\RotorGlow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +336,11 @@
     </ClInclude>
     <ClInclude Include="TextureExtras.h">
       <Filter>Features\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="Math.h" />
+    <ClInclude Include="RotorGlow.h">
+      <Filter>Features\RotorGlow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

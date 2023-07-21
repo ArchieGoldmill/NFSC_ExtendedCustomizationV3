@@ -17,6 +17,7 @@
 #include "Stance.h"
 #include "ExhaustFX.h"
 #include "Paints.h"
+#include "RotorGlow.h"
 
 void ToBeRemoved()
 {
@@ -49,6 +50,7 @@ void Init()
 	InitStance();
 	InitExhaust();
 	InitPaints();
+	InitRotorGlow();
 
 	InitCarRenderInfoHooks();
 }

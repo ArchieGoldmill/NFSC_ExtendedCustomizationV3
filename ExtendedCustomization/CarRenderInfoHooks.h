@@ -16,6 +16,7 @@ void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 	carRenderInfo->Extras->Paint.Init();
 	carRenderInfo->Extras->Exhaust.Init();
 	carRenderInfo->Extras->Textures.Init();
+	carRenderInfo->Extras->RotorGlow.Init();
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
@@ -52,10 +53,12 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 		carRenderInfo->Extras->Animations.Update();
 		carRenderInfo->Extras->Neon.Update();
 		carRenderInfo->Extras->Exhaust.Update();
+		carRenderInfo->Extras->RotorGlow.Update();
 
 		if (carRenderInfo->Extras->IsVisible)
 		{
 			carRenderInfo->Extras->Neon.RenderMarkers();
+			carRenderInfo->Extras->RotorGlow.Render();
 		}
 
 		carRenderInfo->Extras->IsVisible = false;
