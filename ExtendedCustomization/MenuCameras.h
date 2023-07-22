@@ -7,7 +7,7 @@
 
 void __stdcall GetCameraScreenName(Slot slot, int maxChars, char* screenName)
 {
-	auto carId = FrontEndRenderingCar::Get()->RideInfo.CarId;
+	auto carId = FrontEndRenderingCar::GetCarId();
 	auto part = g_Config.GetPart(slot, carId);
 	strcpy_s(screenName, maxChars, part.Camera.c_str());
 }

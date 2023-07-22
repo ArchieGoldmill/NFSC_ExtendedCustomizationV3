@@ -120,9 +120,6 @@
     <ClInclude Include="Game.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="CarRenderInfoHooks.h">
       <Filter>Hooks</Filter>
     </ClInclude>
@@ -309,9 +306,6 @@
     <ClInclude Include="ColorData.h">
       <Filter>SDK\ColorData</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Func.h">
       <Filter>Utilities</Filter>
     </ClInclude>
@@ -342,6 +336,9 @@
       <Filter>Features\RotorGlow</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
       <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>

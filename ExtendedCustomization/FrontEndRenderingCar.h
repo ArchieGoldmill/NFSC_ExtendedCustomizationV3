@@ -12,4 +12,9 @@ public:
 		auto list = (FrontEndRenderingCar**)0x00B77970;
 		return *list;
 	}
+
+	static CarType GetCarId()
+	{
+		return Get()->RideInfo.CarId;
+	}
 };

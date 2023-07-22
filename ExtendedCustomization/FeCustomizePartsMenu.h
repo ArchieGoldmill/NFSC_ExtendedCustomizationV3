@@ -17,14 +17,13 @@ void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId)
 
 void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 {
-	auto carId = FrontEndRenderingCar::Get()->RideInfo.CarId;
+	auto carId = FrontEndRenderingCar::GetCarId();
 
 	switch (FeCustomizeMain::SelectedItem)
 	{
 	case CustomizeMainMenu::AFTERMARKET:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
-
-		AddMenuOption(_this, Slot::BODY, carId);
+		
 		AddMenuOption(_this, Slot::HOOD, carId);
 		AddMenuOption(_this, Slot::ROOFSCOOP, carId);
 		AddMenuOption(_this, Slot::SPOILER, carId);
@@ -69,12 +68,13 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 	case CustomizeMainMenu::SPECIALTIES:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
 
+		AddMenuOption(_this, Slot::BODY, carId);
 		AddMenuOption(_this, Slot::FRONT_BRAKE, carId);
 		AddMenuOption(_this, Slot::FRONT_ROTOR, carId);
 		AddMenuOption(_this, Slot::INTERIOR, carId);
 		AddMenuOption(_this, Slot::STEERINGWHEEL, carId);
-		AddMenuOption(_this, Slot::ATTACHMENT14, carId); // Left seat
-		AddMenuOption(_this, Slot::ATTACHMENT15, carId); // Right seat
+		AddMenuOption(_this, Slot_LeftSeat, carId);
+		AddMenuOption(_this, Slot_RightSeat, carId);
 		AddMenuOption(_this, Slot::DECAL_FRONT_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::DECAL_REAR_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::VINYL_GENERIC, carId);
