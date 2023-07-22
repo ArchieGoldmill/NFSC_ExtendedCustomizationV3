@@ -52,6 +52,11 @@ struct GlobalConfig : public SharedConfig
 	bool ExhaustShake;
 	bool RotorGlow;
 	bool UnhardcodeBodykitNames;
+	bool Camber;
+	bool TrackWidth;
+	bool Neon;
+	bool BrakelightGlow;
+	float FrontSteerAngle;
 
 	PartConfig GetPart(Slot slot, CarType carId);
 	CarConfig* GetCarConfig(CarType carId);

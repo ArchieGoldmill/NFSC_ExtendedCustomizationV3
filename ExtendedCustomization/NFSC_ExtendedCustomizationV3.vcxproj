@@ -169,6 +169,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="eSolid.cpp" />
     <ClCompile Include="AmbientShadow.cpp" />
+    <ClCompile Include="ExhaustFX.cpp" />
     <ClCompile Include="RotorGlow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +182,7 @@
     <ClInclude Include="CarCustomizeManager.h" />
     <ClInclude Include="CarSkinManager.h" />
     <ClInclude Include="ColorData.h" />
-    <ClInclude Include="ExhaustExtras.h" />
+    <ClInclude Include="ExhaustShake.h" />
     <ClInclude Include="eView.h" />
     <ClInclude Include="ExhaustFX.h" />
     <ClInclude Include="MenuCameras.h" />

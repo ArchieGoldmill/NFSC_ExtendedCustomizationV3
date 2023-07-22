@@ -1,6 +1,5 @@
 #pragma once
 #include "PositionMarker.h"
-#include "Config.h"
 
 class MarkerShaker
 {
@@ -76,42 +75,18 @@ private:
 	}
 };
 
-class CarExhaust
+class CarExhaustShake
 {
 private:
 	CarRenderInfo* carRenderInfo;
-	std::vector<PositionMarker*> markers;
 	MarkerShaker* LeftShaker = NULL;
 	MarkerShaker* RightShaker = NULL;
 	MarkerShaker* CenterShaker = NULL;
 
 public:
-	CarExhaust(CarRenderInfo* carRenderInfo)
+	CarExhaustShake(CarRenderInfo* carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
-	}
-
-	PositionMarker* GetAdjustedMarker(PositionMarker* fxMarker, PositionMarker* exhaustMarker, bool flip)
-	{
-		auto marker = new PositionMarker();
-
-		if (flip)
-		{
-			D3DXMATRIX flipped = fxMarker->Matrix;
-			D3DXMATRIX scale;
-			D3DXMatrixScaling(&scale, 1, -1, 1);
-
-			D3DXMatrixMultiply(&flipped, &flipped, &scale);
-			D3DXMatrixMultiply(&marker->Matrix, &flipped, &exhaustMarker->Matrix);
-		}
-		else
-		{
-			D3DXMatrixMultiply(&marker->Matrix, &fxMarker->Matrix, &exhaustMarker->Matrix);
-		}
-
-		this->markers.push_back(marker);
-
-		return marker;
 	}
 
 	void Init()
@@ -121,25 +96,22 @@ public:
 			return;
 		}
 
-		if (g_Config.ExhaustShake)
+		if (this->carRenderInfo->Markers.LeftExhaust)
 		{
-			if (this->carRenderInfo->Markers.LeftExhaust)
-			{
-				this->LeftShaker = new MarkerShaker(this->carRenderInfo->Markers.LeftExhaust);
-				this->carRenderInfo->Markers.LeftExhaust = this->LeftShaker->Get();
-			}
+			this->LeftShaker = new MarkerShaker(this->carRenderInfo->Markers.LeftExhaust);
+			this->carRenderInfo->Markers.LeftExhaust = this->LeftShaker->Get();
+		}
 
-			if (this->carRenderInfo->Markers.RightExhaust)
-			{
-				this->RightShaker = new MarkerShaker(this->carRenderInfo->Markers.RightExhaust);
-				this->carRenderInfo->Markers.RightExhaust = this->RightShaker->Get();
-			}
+		if (this->carRenderInfo->Markers.RightExhaust)
+		{
+			this->RightShaker = new MarkerShaker(this->carRenderInfo->Markers.RightExhaust);
+			this->carRenderInfo->Markers.RightExhaust = this->RightShaker->Get();
+		}
 
-			if (this->carRenderInfo->Markers.CenterExhaust)
-			{
-				this->CenterShaker = new MarkerShaker(this->carRenderInfo->Markers.CenterExhaust);
-				this->carRenderInfo->Markers.CenterExhaust = this->CenterShaker->Get();
-			}
+		if (this->carRenderInfo->Markers.CenterExhaust)
+		{
+			this->CenterShaker = new MarkerShaker(this->carRenderInfo->Markers.CenterExhaust);
+			this->carRenderInfo->Markers.CenterExhaust = this->CenterShaker->Get();
 		}
 	}
 
@@ -164,15 +136,8 @@ public:
 		}
 	}
 
-	~CarExhaust()
+	~CarExhaustShake()
 	{
-		for (auto& marker : this->markers)
-		{
-			delete marker;
-		}
-
-		this->markers.clear();
-
 		if (this->LeftShaker)
 		{
 			delete this->LeftShaker;

@@ -5,9 +5,9 @@
 void __fastcall RenderRotors(int view, int param, CarRenderInfo* carRenderInfo, int reflection, eModel* model, D3DXMATRIX* marker, D3DXMATRIX* light, int flags, int a1, int a2)
 {
 	model->Render(view, marker, light, flags);
-	if (!reflection)
+	if (!reflection && carRenderInfo->Extras->RotorGlow)
 	{
-		carRenderInfo->Extras->RotorGlow.SetMarker(marker);
+		carRenderInfo->Extras->RotorGlow->SetMarker(marker);
 	}
 }
 

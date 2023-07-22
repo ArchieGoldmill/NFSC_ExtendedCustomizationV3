@@ -12,10 +12,20 @@ void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo)
 
 void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 {
-	carRenderInfo->Extras->Neon.Init();
+	if (carRenderInfo->Extras->Neon)
+	{
+		carRenderInfo->Extras->Neon->Init();
+	}
+
 	carRenderInfo->Extras->Paint.Init();
-	carRenderInfo->Extras->Exhaust.Init();
+
+	if (carRenderInfo->Extras->ExhaustShake)
+	{
+		carRenderInfo->Extras->ExhaustShake->Init();
+	}
+
 	carRenderInfo->Extras->Textures.Init();
+
 	if (carRenderInfo->Extras->RotorGlow)
 	{
 		carRenderInfo->Extras->RotorGlow->Init();
@@ -37,8 +47,15 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2
 	carRenderInfo->Extras->CarMatrix = *carRenderInfo->GetMatrix();
 
 	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
-	carRenderInfo->Extras->Neon.RenderShadow(a2, a3, a4, a5, a6, a7);
-	carRenderInfo->Extras->BrakelightGlow.RenderShadow(a2, a3, a4, a5, a6, a7);
+	if (carRenderInfo->Extras->Neon)
+	{
+		carRenderInfo->Extras->Neon->RenderShadow(a2, a3, a4, a5, a6, a7);
+	}
+
+	if (carRenderInfo->Extras->BrakelightGlow)
+	{
+		carRenderInfo->Extras->BrakelightGlow->Render(a2, a3, a4, a5, a6, a7);
+	}
 
 	return result;
 }
@@ -46,7 +63,10 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2
 void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 {
 	carRenderInfo->Extras->Animations.FindMarkers();
-	carRenderInfo->Extras->Neon.FindMarkers();
+	if (carRenderInfo->Extras->Neon)
+	{
+		carRenderInfo->Extras->Neon->FindMarkers();
+	}
 }
 
 void OnAfterCarRender(CarRenderInfo* carRenderInfo)
@@ -54,8 +74,16 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 	if (carRenderInfo)
 	{
 		carRenderInfo->Extras->Animations.Update();
-		carRenderInfo->Extras->Neon.Update();
-		carRenderInfo->Extras->Exhaust.Update();
+		if (carRenderInfo->Extras->Neon)
+		{
+			carRenderInfo->Extras->Neon->Update();
+		}
+
+		if (carRenderInfo->Extras->ExhaustShake)
+		{
+			carRenderInfo->Extras->ExhaustShake->Update();
+		}
+
 		if (carRenderInfo->Extras->RotorGlow)
 		{
 			carRenderInfo->Extras->RotorGlow->Update();
@@ -63,7 +91,11 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 
 		if (carRenderInfo->Extras->IsVisible)
 		{
-			carRenderInfo->Extras->Neon.RenderMarkers();
+			if (carRenderInfo->Extras->Neon)
+			{
+				carRenderInfo->Extras->Neon->RenderMarkers();
+			}
+
 			if (carRenderInfo->Extras->RotorGlow)
 			{
 				carRenderInfo->Extras->RotorGlow->Render();

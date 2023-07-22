@@ -127,6 +127,7 @@ void InitConfig()
 
 	InitShared(iniReader, &g_Config);
 
+	g_Config.FrontSteerAngle = iniReader.ReadFloat("GENERAL", "FrontSteerAngle", 0);
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
 	g_Config.AllVinylsTransformable = iniReader.ReadInteger("MODS", "AllVinylsTransformable", 0) == 1;
 	g_Config.AllVinylsMirrorable = iniReader.ReadInteger("MODS", "AllVinylsMirrorable", 0) == 1;
@@ -139,6 +140,10 @@ void InitConfig()
 	g_Config.ExhaustShake = iniReader.ReadInteger("MODS", "ExhaustShake", 0) == 1;
 	g_Config.RotorGlow = iniReader.ReadInteger("MODS", "RotorGlow", 0) == 1;
 	g_Config.UnhardcodeBodykitNames = iniReader.ReadInteger("MODS", "UnhardcodeBodykitNames", 0) == 1;
+	g_Config.Camber = iniReader.ReadInteger("MODS", "Camber", 0) == 1;
+	g_Config.TrackWidth = iniReader.ReadInteger("MODS", "TrackWidth", 0) == 1;
+	g_Config.BrakelightGlow = iniReader.ReadInteger("MODS", "BrakelightGlow", 0) == 1;
+	g_Config.Neon = iniReader.ReadInteger("MODS", "Neon", 0) == 1;
 
 	InitCars();
 

@@ -88,6 +88,9 @@
     <ClCompile Include="RotorGlow.cpp">
       <Filter>Features\RotorGlow</Filter>
     </ClCompile>
+    <ClCompile Include="ExhaustFX.cpp">
+      <Filter>Features\Exhaust</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Feature.h">
@@ -315,13 +318,12 @@
     <ClInclude Include="ExhaustFX.h">
       <Filter>Features\Exhaust</Filter>
     </ClInclude>
-    <ClInclude Include="ExhaustExtras.h">
+    <ClInclude Include="ExhaustShake.h">
       <Filter>Features\Exhaust</Filter>
     </ClInclude>
     <ClInclude Include="MenuCameras.h">
       <Filter>Features\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="Math.h" />
     <ClInclude Include="Textures.h">
       <Filter>Features\Textures</Filter>
     </ClInclude>

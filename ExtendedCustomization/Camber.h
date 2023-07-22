@@ -49,10 +49,13 @@ void __declspec(naked) FrontCamberCave()
 float CamberMult = 0;
 void InitCamber()
 {
-	injector::WriteMemory<float*>(0x007DF76D, &CamberMult);
-	injector::MakeJMP(0x007DF788, FrontCamberCave);
-	injector::MakeJMP(0x007DF7AE, RearCamberCave);
+	if (g_Config.Camber)
+	{
+		injector::WriteMemory<float*>(0x007DF76D, &CamberMult);
+		injector::MakeJMP(0x007DF788, FrontCamberCave);
+		injector::MakeJMP(0x007DF7AE, RearCamberCave);
 
-	// Allow camber for lods
-	injector::MakeNOP(0x007DF77E, 2);
+		// Allow camber for lods
+		injector::MakeNOP(0x007DF77E, 2);
+	}
 }

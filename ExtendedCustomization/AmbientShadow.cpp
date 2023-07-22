@@ -7,14 +7,14 @@ D3DCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness
 {
 	Color color(0x80808080);
 
-	if (carRenderInfo->CarShadowTexture == carRenderInfo->Extras->Neon.NeonTexture)
+	if (carRenderInfo->Extras->Neon && carRenderInfo->CarShadowTexture == carRenderInfo->Extras->Neon->NeonTexture)
 	{
-		color = carRenderInfo->Extras->Neon.GetColor();
+		color = carRenderInfo->Extras->Neon->GetColor();
 	}
 
-	if (carRenderInfo->CarShadowTexture == carRenderInfo->Extras->BrakelightGlow.Texture)
+	if (carRenderInfo->Extras->BrakelightGlow && carRenderInfo->CarShadowTexture == carRenderInfo->Extras->BrakelightGlow->Texture)
 	{
-		color = carRenderInfo->Extras->BrakelightGlow.GetColor();
+		color = carRenderInfo->Extras->BrakelightGlow->GetColor();
 	}
 
 	color.Bytes[3] *= brightness;
@@ -45,13 +45,19 @@ float RearShadowSize = 1.15f;
 float SideShadowSize = 1.05f;
 void InitNeon()
 {
-	injector::WriteMemory<float*>(0x007BE4F4, &CarDistMax);
-	injector::WriteMemory<float*>(0x007BE50D, &CarDistMax);
-	injector::WriteMemory<float*>(0x007BE501, &CarDistMult);
-	injector::WriteMemory<float*>(0x007BE5B9, &FrontShadowSize);
-	injector::WriteMemory<float*>(0x007BE5AB, &RearShadowSize);
-	injector::WriteMemory<float*>(0x007BE59B, &SideShadowSize);
-	injector::WriteMemory<float*>(0x007BE58B, &SideShadowSize);
+	if (g_Config.Neon)
+	{
+		injector::WriteMemory<float*>(0x007BE4F4, &CarDistMax);
+		injector::WriteMemory<float*>(0x007BE50D, &CarDistMax);
+		injector::WriteMemory<float*>(0x007BE501, &CarDistMult);
+		injector::WriteMemory<float*>(0x007BE5B9, &FrontShadowSize);
+		injector::WriteMemory<float*>(0x007BE5AB, &RearShadowSize);
+		injector::WriteMemory<float*>(0x007BE59B, &SideShadowSize);
+		injector::WriteMemory<float*>(0x007BE58B, &SideShadowSize);
+	}
 
-	injector::MakeJMP(0x007BEA34, ShadowColorCave);
+	if (g_Config.Neon || g_Config.BrakelightGlow)
+	{
+		injector::MakeJMP(0x007BEA34, ShadowColorCave);
+	}
 }
