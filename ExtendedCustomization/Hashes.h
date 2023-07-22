@@ -53,6 +53,8 @@ namespace Hashes
 
 	const Hash REVERSE_OFF = 0xDBFDD475;
 	const Hash REVERSE_ON = 0x0E6C8A57;
+	const Hash INTERIOR_ON = 0x507C3067;
+	const Hash INTERIOR_OFF = 0x60023C85;
 
 	const Hash CUST_INSTALL = 0xAC258B54;
 	const Hash CUST_AUTOSCULPT = 0x663D2A11;

@@ -10,10 +10,11 @@
 
 void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 {
-	if (carRenderInfo->RideInfo->CarId.Id == 0x11)
+	auto rideInfo = carRenderInfo->RideInfo;
+	int version = g_Config.GetVersion(rideInfo->CarId);
+	if (version == 3)
 	{
 		auto entries = carRenderInfo->Get<ReplacementTextureEntry>(0x588);
-		auto rideInfo = carRenderInfo->RideInfo;
 
 		auto leftHeadlightPart = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
 		if (leftHeadlightPart)
@@ -60,8 +61,11 @@ void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 		bool isReverseOn = carRenderInfo->IsReverseOn();
 		auto newName = isReverseOn ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash);
 		auto reverse = entries + 0x24;
+		reverse->Update(isReverseOn ? Hashes::REVERSE_ON : Hashes::REVERSE_OFF, newName);
 
-		reverse->Update(carRenderInfo->IsReverseOn() ? Hashes::REVERSE_ON : Hashes::REVERSE_OFF, newName);
+		newName = Game::InRace() ? StringHash1("_INTERIOR_ON", carHash) : StringHash1("_INTERIOR_OFF", carHash);
+		auto interiorOn = entries + 0x25;
+		reverse->Update(Game::InRace() ? Hashes::INTERIOR_ON : Hashes::INTERIOR_OFF, newName);
 	}
 	else
 	{
@@ -101,6 +105,7 @@ void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 	Hash carHash = StringHash(rideInfo->GetCarTypeName());
 	SetTextureHash(texPtr, StringHash1("_REVERSE_ON", carHash));
 	SetTextureHash(texPtr, StringHash1("_REVERSE_OFF", carHash));
+	SetTextureHash(texPtr, StringHash1("_INTERIOR_ON", carHash));
 }
 
 void __declspec(naked) GetUsedCarTextureInfoCave()
