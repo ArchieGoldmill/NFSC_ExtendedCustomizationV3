@@ -33,7 +33,7 @@ import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\SEATS.bin
 // Files
 create_folder absolute scripts\ExtendedCustomizationCars
 move_file override relative absolute Files\ExtendedCustomization.ini scripts\ExtendedCustomization.ini
-move_file override relative absolute Files\ExtendedCustomization.asi scripts\ExtendedCustomization.asi
+//move_file override relative absolute Files\ExtendedCustomization.asi scripts\ExtendedCustomization.asi
 move_file override relative absolute Files\EXHAUST\GEOMETRY.bin cars\EXHAUST\GEOMETRY.bin
 move_file override relative absolute Files\STEERINGWHEEL\GEOMETRY.bin cars\STEERINGWHEEL\GEOMETRY.bin
 move_file override relative absolute Files\PLATES\GEOMETRY.bin cars\PLATES\GEOMETRY.bin

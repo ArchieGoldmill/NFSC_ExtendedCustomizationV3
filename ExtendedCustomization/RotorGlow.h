@@ -86,7 +86,7 @@ public:
 		}
 	}
 
-	void Render()
+	void RenderMarkers()
 	{
 		if (!this->rotorRadius)
 		{

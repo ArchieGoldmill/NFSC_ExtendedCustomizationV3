@@ -12,27 +12,10 @@ void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo)
 
 void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 {
-	if (carRenderInfo->Extras->Neon)
-	{
-		carRenderInfo->Extras->Neon->Init();
-	}
-
-	if (carRenderInfo->Extras->Paint)
-	{
-		carRenderInfo->Extras->Paint->Init();
-	}
-
-	if (carRenderInfo->Extras->ExhaustShake)
-	{
-		carRenderInfo->Extras->ExhaustShake->Init();
-	}
-
-	carRenderInfo->Extras->Textures.Init();
-
-	if (carRenderInfo->Extras->RotorGlow)
-	{
-		carRenderInfo->Extras->RotorGlow->Init();
-	}
+	SAFE_CALL(carRenderInfo->Extras->Neon, Init);
+	SAFE_CALL(carRenderInfo->Extras->Paint, Init);
+	SAFE_CALL(carRenderInfo->Extras->ExhaustShake, Init);
+	SAFE_CALL(carRenderInfo->Extras->RotorGlow, Init);
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
@@ -50,67 +33,31 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2
 	carRenderInfo->Extras->CarMatrix = *carRenderInfo->GetMatrix();
 
 	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
-	if (carRenderInfo->Extras->Neon)
-	{
-		carRenderInfo->Extras->Neon->RenderShadow(a2, a3, a4, a5, a6, a7);
-	}
-
-	if (carRenderInfo->Extras->BrakelightGlow)
-	{
-		carRenderInfo->Extras->BrakelightGlow->Render(a2, a3, a4, a5, a6, a7);
-	}
+	SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, a2, a3, a4, a5, a6, a7);
+	SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, a2, a3, a4, a5, a6, a7);
 
 	return result;
 }
 
 void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 {
-	if (carRenderInfo->Extras->Animations)
-	{
-		carRenderInfo->Extras->Animations->FindMarkers();
-	}
-
-	if (carRenderInfo->Extras->Neon)
-	{
-		carRenderInfo->Extras->Neon->FindMarkers();
-	}
+	SAFE_CALL(carRenderInfo->Extras->Animations, FindMarkers);
+	SAFE_CALL(carRenderInfo->Extras->Neon, FindMarkers);
 }
 
 void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 {
 	if (carRenderInfo)
 	{
-		if (carRenderInfo->Extras->Animations)
-		{
-			carRenderInfo->Extras->Animations->Update();
-		}
-
-		if (carRenderInfo->Extras->Neon)
-		{
-			carRenderInfo->Extras->Neon->Update();
-		}
-
-		if (carRenderInfo->Extras->ExhaustShake)
-		{
-			carRenderInfo->Extras->ExhaustShake->Update();
-		}
-
-		if (carRenderInfo->Extras->RotorGlow)
-		{
-			carRenderInfo->Extras->RotorGlow->Update();
-		}
+		SAFE_CALL(carRenderInfo->Extras->Animations, Update);
+		SAFE_CALL(carRenderInfo->Extras->Neon, Update);
+		SAFE_CALL(carRenderInfo->Extras->ExhaustShake, Update);
+		SAFE_CALL(carRenderInfo->Extras->RotorGlow, Update);
 
 		if (carRenderInfo->Extras->IsVisible)
 		{
-			if (carRenderInfo->Extras->Neon)
-			{
-				carRenderInfo->Extras->Neon->RenderMarkers();
-			}
-
-			if (carRenderInfo->Extras->RotorGlow)
-			{
-				carRenderInfo->Extras->RotorGlow->Render();
-			}
+			SAFE_CALL(carRenderInfo->Extras->Neon, RenderMarkers);
+			SAFE_CALL(carRenderInfo->Extras->RotorGlow, RenderMarkers);
 		}
 
 		carRenderInfo->Extras->IsVisible = false;

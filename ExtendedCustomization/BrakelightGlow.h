@@ -17,7 +17,7 @@ public:
 		this->Texture = GetTextureInfo(Hashes::BRAKELIGHT_GLOW, 0, 0);
 	}
 
-	void Render(int a1, float* a2, float a3, int a4, int a5, int a6)
+	void RenderShadow(int a1, float* a2, float a3, int a4, int a5, int a6)
 	{
 		if (this->Texture && Game::InRace())
 		{
