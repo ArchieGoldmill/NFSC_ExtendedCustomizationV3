@@ -23,12 +23,25 @@ public:
 	CarPaint Paint;
 	CarExhaust Exhaust;
 	CarTextures Textures;
-	CarRotorGlow RotorGlow;
+	CarRotorGlow* RotorGlow = NULL;
 
 	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Neon(carRenderInfo, &CarMatrix), BrakelightGlow(carRenderInfo), Paint(carRenderInfo),
-		Exhaust(carRenderInfo), Textures(carRenderInfo), RotorGlow(carRenderInfo)
+		Exhaust(carRenderInfo), Textures(carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
+
+		if (g_Config.RotorGlow)
+		{
+			this->RotorGlow = new CarRotorGlow(carRenderInfo);
+		}
+	}
+
+	~CarRenderInfoExtras()
+	{
+		if (this->RotorGlow)
+		{
+			delete this->RotorGlow;
+		}
 	}
 };

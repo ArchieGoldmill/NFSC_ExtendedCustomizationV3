@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "CarPartDatabase.h"
 #include "Hashes.h"
+#include "Config.h"
 
 struct UpgradeGroupAttribute
 {
@@ -46,8 +47,11 @@ void __declspec(naked) AfterInitializeEverythingCave()
 
 void InitDecals()
 {
-	injector::MakeJMP(0x006B7887, AfterInitializeEverythingCave);
+	if (g_Config.FixDecals)
+	{
+		injector::MakeJMP(0x006B7887, AfterInitializeEverythingCave);
 
-	// Get decal texture from texture name rather then part name
-	injector::WriteMemory<unsigned short>(0x007D5C35, 0x4277);
+		// Get decal texture from texture name rather then part name
+		injector::WriteMemory<unsigned short>(0x007D5C35, 0x4277);
+	}
 }

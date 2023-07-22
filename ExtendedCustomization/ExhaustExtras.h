@@ -1,5 +1,6 @@
 #pragma once
 #include "PositionMarker.h"
+#include "Config.h"
 
 class MarkerShaker
 {
@@ -80,9 +81,9 @@ class CarExhaust
 private:
 	CarRenderInfo* carRenderInfo;
 	std::vector<PositionMarker*> markers;
-	MarkerShaker* LeftShaker;
-	MarkerShaker* RightShaker;
-	MarkerShaker* CenterShaker;
+	MarkerShaker* LeftShaker = NULL;
+	MarkerShaker* RightShaker = NULL;
+	MarkerShaker* CenterShaker = NULL;
 
 public:
 	CarExhaust(CarRenderInfo* carRenderInfo)
@@ -120,22 +121,25 @@ public:
 			return;
 		}
 
-		if (this->carRenderInfo->Markers.LeftExhaust)
+		if (g_Config.ExhaustShake)
 		{
-			this->LeftShaker = new MarkerShaker(this->carRenderInfo->Markers.LeftExhaust);
-			this->carRenderInfo->Markers.LeftExhaust = this->LeftShaker->Get();
-		}
+			if (this->carRenderInfo->Markers.LeftExhaust)
+			{
+				this->LeftShaker = new MarkerShaker(this->carRenderInfo->Markers.LeftExhaust);
+				this->carRenderInfo->Markers.LeftExhaust = this->LeftShaker->Get();
+			}
 
-		if (this->carRenderInfo->Markers.RightExhaust)
-		{
-			this->RightShaker = new MarkerShaker(this->carRenderInfo->Markers.RightExhaust);
-			this->carRenderInfo->Markers.RightExhaust = this->RightShaker->Get();
-		}
+			if (this->carRenderInfo->Markers.RightExhaust)
+			{
+				this->RightShaker = new MarkerShaker(this->carRenderInfo->Markers.RightExhaust);
+				this->carRenderInfo->Markers.RightExhaust = this->RightShaker->Get();
+			}
 
-		if (this->carRenderInfo->Markers.CenterExhaust)
-		{
-			this->CenterShaker = new MarkerShaker(this->carRenderInfo->Markers.CenterExhaust);
-			this->carRenderInfo->Markers.CenterExhaust = this->CenterShaker->Get();
+			if (this->carRenderInfo->Markers.CenterExhaust)
+			{
+				this->CenterShaker = new MarkerShaker(this->carRenderInfo->Markers.CenterExhaust);
+				this->carRenderInfo->Markers.CenterExhaust = this->CenterShaker->Get();
+			}
 		}
 	}
 

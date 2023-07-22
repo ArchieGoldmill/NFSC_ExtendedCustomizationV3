@@ -6,6 +6,7 @@
 #include "RasterizationManager.h"
 #include "CarSkinManager.h"
 #include "DBCarPart.h"
+#include "Config.h"
 
 struct VinylPacked
 {
@@ -186,17 +187,28 @@ void InitVinyls()
 {
 	InitSmoothVinyls();
 
-	injector::MakeCALL(0x007C2EAB, GetVinylTransformUnpacked);
+	if (g_Config.FixVinylTransformOrder)
+	{
+		injector::MakeCALL(0x007C2EAB, GetVinylTransformUnpacked);
+		injector::MakeCALL(0x00577A5F, MoveVinylUpDown);
+		injector::MakeCALL(0x00577A72, MoveVinylLeftRight);
+	}
 
-	injector::MakeCALL(0x007DBAAA, RasterizationManager_Initialize);
-	injector::MakeCALL(0x007DBAE9, RasterizationManager_Initialize);
+	if (g_Config.ProperDecalMirror)
+	{
+		injector::MakeCALL(0x007DBAAA, RasterizationManager_Initialize);
+		injector::MakeCALL(0x007DBAE9, RasterizationManager_Initialize);
+		injector::MakeJMP(0x007B2BC6, CarSkinManagerFinalizeCave);
+	}
 
-	injector::MakeJMP(0x007B2BC6, CarSkinManagerFinalizeCave);
+	if (g_Config.AllVinylsMirrorable)
+	{
+		injector::MakeNOP(0x00841481, 2);
+		injector::MakeNOP(0x00851E4F, 2);
+	}
 
-	injector::MakeCALL(0x00577A5F, MoveVinylUpDown);
-	injector::MakeCALL(0x00577A72, MoveVinylLeftRight);
-
-	// All vinyls mirrorable
-	injector::MakeNOP(0x00841481, 2);
-	injector::MakeNOP(0x00851E4F, 2);
+	if (g_Config.AllVinylsTransformable)
+	{
+		injector::WriteMemory(0x005779E0, 0x5E9001B0, true);
+	}
 }

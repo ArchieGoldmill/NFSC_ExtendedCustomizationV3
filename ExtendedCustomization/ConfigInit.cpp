@@ -128,6 +128,17 @@ void InitConfig()
 	InitShared(iniReader, &g_Config);
 
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
+	g_Config.AllVinylsTransformable = iniReader.ReadInteger("MODS", "AllVinylsTransformable", 0) == 1;
+	g_Config.AllVinylsMirrorable = iniReader.ReadInteger("MODS", "AllVinylsMirrorable", 0) == 1;
+	g_Config.SmoothVinylTransform = iniReader.ReadInteger("MODS", "SmoothVinylTransform", 0) == 1;
+	g_Config.ProperDecalMirror = iniReader.ReadInteger("MODS", "ProperDecalMirror", 0) == 1;
+	g_Config.FixVinylTransformOrder = iniReader.ReadInteger("MODS", "FixVinylTransformOrder", 0) == 1;
+	g_Config.FixDecals = iniReader.ReadInteger("MODS", "FixDecals", 0) == 1;
+	g_Config.SeparateNosExhaustFX = iniReader.ReadInteger("MODS", "SeparateNosExhaustFX", 0) == 1;
+	g_Config.FixAutosculptExhaustFX = iniReader.ReadInteger("MODS", "FixAutosculptExhaustFX", 0) == 1;
+	g_Config.ExhaustShake = iniReader.ReadInteger("MODS", "ExhaustShake", 0) == 1;
+	g_Config.RotorGlow = iniReader.ReadInteger("MODS", "RotorGlow", 0) == 1;
+	g_Config.UnhardcodeBodykitNames = iniReader.ReadInteger("MODS", "UnhardcodeBodykitNames", 0) == 1;
 
 	InitCars();
 

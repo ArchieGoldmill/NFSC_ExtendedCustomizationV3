@@ -13,6 +13,8 @@ void InitMenu()
 	InitPartList();
 	InitMenuCameras();
 
-	// Unhardcode bodykit names
-	injector::WriteMemory<BYTE>(0x0085FAC2, 0xFF);
+	if (g_Config.UnhardcodeBodykitNames)
+	{
+		injector::WriteMemory<BYTE>(0x0085FAC2, 0xFF);
+	}
 }

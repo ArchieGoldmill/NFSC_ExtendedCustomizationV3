@@ -41,6 +41,17 @@ struct GlobalConfig : public SharedConfig
 	std::vector<CarConfig*> Cars;
 
 	bool DebugRotorGlow;
+	bool AllVinylsTransformable;
+	bool AllVinylsMirrorable;
+	bool SmoothVinylTransform;
+	bool ProperDecalMirror;
+	bool FixVinylTransformOrder;
+	bool FixDecals;
+	bool SeparateNosExhaustFX;
+	bool FixAutosculptExhaustFX;
+	bool ExhaustShake;
+	bool RotorGlow;
+	bool UnhardcodeBodykitNames;
 
 	PartConfig GetPart(Slot slot, CarType carId);
 	CarConfig* GetCarConfig(CarType carId);

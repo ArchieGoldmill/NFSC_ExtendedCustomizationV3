@@ -2,6 +2,7 @@
 #include "Feature.h"
 #include "Node.h"
 #include "Game.h"
+#include "Config.h"
 
 struct CarEmitterPosition :  bSNode< CarEmitterPosition>
 {
@@ -108,10 +109,15 @@ void __declspec(naked) NosEffectCave()
 
 void InitExhaust()
 {
-	injector::MakeJMP(0x007D5F76, NosEffectCave);
+	if (g_Config.SeparateNosExhaustFX)
+	{
+		injector::MakeJMP(0x007D5F76, NosEffectCave);
+	}
 
-	char disableRearBumperCheck[5] = { 0xB8, 0x01, 0x00, 0x00, 0x00 };
-	injector::WriteMemoryRaw(0x007CC6BD, disableRearBumperCheck, 5, true);
-
-	injector::MakeJMP(0x007BEBFB, GetEmitterPositionsCave, true);
+	if (g_Config.FixAutosculptExhaustFX)
+	{
+		char disableRearBumperCheck[5] = { 0xB8, 0x01, 0x00, 0x00, 0x00 };
+		injector::WriteMemoryRaw(0x007CC6BD, disableRearBumperCheck, 5, true);
+		injector::MakeJMP(0x007BEBFB, GetEmitterPositionsCave, true);
+	}
 }
