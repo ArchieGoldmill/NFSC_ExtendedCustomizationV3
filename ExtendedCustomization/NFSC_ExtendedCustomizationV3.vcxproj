@@ -259,6 +259,7 @@
     <None Include="..\Mod\ExtendedCustomization\Binary\Files\ExtendedCustomization.ini" />
     <None Include="..\Mod\ExtendedCustomization\Binary\Localization\English.end" />
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end" />
+    <None Include="..\Mod\ExtendedCustomization\install.end" />
     <None Include="..\Mod\ExtendedCustomization\install.nfsms" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

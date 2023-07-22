@@ -3,11 +3,11 @@
 {
   "Usage": "User",
   "Game": "Carbon",
-  "Endscript": "Binary/main.end",
+  "Endscript": "Binary\main.end",
   "Files": [
-    "GLOBAL\\GLOBALA.BUN",
-    "GLOBAL\\GLOBALB.LZC",
-    "GLOBAL\\INGAMEA.BUN"
+    "GLOBAL\GLOBALA.BUN",
+    "GLOBAL\GLOBALB.LZC",
+    "GLOBAL\INGAMEA.BUN"
   ],
   "Links": [
     {

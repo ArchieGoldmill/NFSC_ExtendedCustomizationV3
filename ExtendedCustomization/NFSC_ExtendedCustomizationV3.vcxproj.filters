@@ -358,5 +358,8 @@
     <None Include="..\Mod\ExtendedCustomization\Binary\Files\ExtendedCustomization.ini">
       <Filter>Mod</Filter>
     </None>
+    <None Include="..\Mod\ExtendedCustomization\install.end">
+      <Filter>Mod</Filter>
+    </None>
   </ItemGroup>
 </Project>
