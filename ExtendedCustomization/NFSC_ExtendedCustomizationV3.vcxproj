@@ -170,6 +170,7 @@
     <ClCompile Include="eSolid.cpp" />
     <ClCompile Include="AmbientShadow.cpp" />
     <ClCompile Include="ExhaustFX.cpp" />
+    <ClCompile Include="Paints.cpp" />
     <ClCompile Include="RotorGlow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +225,6 @@
     <ClInclude Include="IPartMarker.h" />
     <ClInclude Include="LegacyCustomization.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="PaintExtras.h" />
     <ClInclude Include="Paints.h" />
     <ClInclude Include="PaintSelectablePart.h" />
     <ClInclude Include="PartList.h" />

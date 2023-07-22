@@ -5,14 +5,17 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 {
 	if (model && *model)
 	{
-		auto animation = carRenderInfo->Extras->Animations.GetAnimation(slot);
-		if (animation)
+		if (carRenderInfo->Extras->Animations)
 		{
-			marker = animation->Get(marker);
-		}
-		else if (carRenderInfo->Extras->Animations.SlotNeedsMarker(slot))
-		{
-			return;
+			auto animation = carRenderInfo->Extras->Animations->GetAnimation(slot);
+			if (animation)
+			{
+				marker = animation->Get(marker);
+			}
+			else if (carRenderInfo->Extras->Animations->SlotNeedsMarker(slot))
+			{
+				return;
+			}
 		}
 
 		(*model)->Render(view, marker, light, flags);
@@ -52,10 +55,13 @@ void __declspec(naked) RenderPartsHook()
 
 void InitAnimations()
 {
-	injector::MakeJMP(0x007DF272, RenderPartsHook);
-	injector::MakeJMP(0x007DF5C9, RenderSpoilerHook);
+	if (g_Config.PartAnimations)
+	{
+		injector::MakeJMP(0x007DF272, RenderPartsHook);
+		injector::MakeJMP(0x007DF5C9, RenderSpoilerHook);
 
-	// Fix side mirrors
-	injector::WriteMemory<char>(0x007E0DD2, 2);
-	injector::WriteMemory<char>(0x007E0DDC, 2);
+		// Fix side mirrors
+		injector::WriteMemory<char>(0x007E0DD2, 2);
+		injector::WriteMemory<char>(0x007E0DDC, 2);
+	}
 }

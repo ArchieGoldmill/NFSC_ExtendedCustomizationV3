@@ -17,7 +17,10 @@ void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 		carRenderInfo->Extras->Neon->Init();
 	}
 
-	carRenderInfo->Extras->Paint.Init();
+	if (carRenderInfo->Extras->Paint)
+	{
+		carRenderInfo->Extras->Paint->Init();
+	}
 
 	if (carRenderInfo->Extras->ExhaustShake)
 	{
@@ -62,7 +65,11 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2
 
 void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 {
-	carRenderInfo->Extras->Animations.FindMarkers();
+	if (carRenderInfo->Extras->Animations)
+	{
+		carRenderInfo->Extras->Animations->FindMarkers();
+	}
+
 	if (carRenderInfo->Extras->Neon)
 	{
 		carRenderInfo->Extras->Neon->FindMarkers();
@@ -73,7 +80,11 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo)
 {
 	if (carRenderInfo)
 	{
-		carRenderInfo->Extras->Animations.Update();
+		if (carRenderInfo->Extras->Animations)
+		{
+			carRenderInfo->Extras->Animations->Update();
+		}
+
 		if (carRenderInfo->Extras->Neon)
 		{
 			carRenderInfo->Extras->Neon->Update();

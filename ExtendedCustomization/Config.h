@@ -56,6 +56,8 @@ struct GlobalConfig : public SharedConfig
 	bool TrackWidth;
 	bool Neon;
 	bool BrakelightGlow;
+	bool CustomPaints;
+	bool PartAnimations;
 	float FrontSteerAngle;
 
 	PartConfig GetPart(Slot slot, CarType carId);

@@ -91,6 +91,9 @@
     <ClCompile Include="ExhaustFX.cpp">
       <Filter>Features\Exhaust</Filter>
     </ClCompile>
+    <ClCompile Include="Paints.cpp">
+      <Filter>Features\Paints</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Feature.h">
@@ -294,16 +297,13 @@
     <ClInclude Include="AutosculptSlider.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="Paints.h">
-      <Filter>Features\Paints</Filter>
-    </ClInclude>
     <ClInclude Include="PaintSelectablePart.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="RimPaint.h">
       <Filter>Features\Paints</Filter>
     </ClInclude>
-    <ClInclude Include="PaintExtras.h">
+    <ClInclude Include="Paints.h">
       <Filter>Features\Paints</Filter>
     </ClInclude>
     <ClInclude Include="ColorData.h">

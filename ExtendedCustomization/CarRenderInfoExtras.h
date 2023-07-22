@@ -3,7 +3,7 @@
 #include "Animations.h"
 #include "Neon.h"
 #include "BrakelightGlow.h"
-#include "PaintExtras.h"
+#include "Paints.h"
 #include "TextureExtras.h"
 #include "RotorGlow.h"
 #include "ExhaustFX.h"
@@ -18,16 +18,16 @@ public:
 	bool IsVisible;
 	D3DXMATRIX CarMatrix;
 
-	CarAnimations Animations;
+	CarAnimations* Animations = NULL;
 	CarNeon* Neon = NULL;
 	CarBrakelightGlow* BrakelightGlow = NULL;
-	CarPaint Paint;
+	CarPaint* Paint = NULL;
 	CarExhaustFX* ExhaustFX = NULL;
 	CarExhaustShake* ExhaustShake = NULL;
 	CarTextures Textures;
 	CarRotorGlow* RotorGlow = NULL;
 
-	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Animations(carRenderInfo), Paint(carRenderInfo), Textures(carRenderInfo)
+	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Textures(carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
@@ -56,6 +56,16 @@ public:
 		{
 			this->ExhaustFX = new CarExhaustFX(carRenderInfo);
 		}
+
+		if (g_Config.CustomPaints)
+		{
+			this->Paint = new CarPaint(carRenderInfo);
+		}
+
+		if (g_Config.PartAnimations)
+		{
+			this->Animations = new CarAnimations(carRenderInfo);
+		}
 	}
 
 	~CarRenderInfoExtras()
@@ -83,6 +93,16 @@ public:
 		if (this->ExhaustFX)
 		{
 			delete this->ExhaustFX;
+		}
+		
+		if (this->Paint)
+		{
+			delete this->Paint;
+		}
+		
+		if (this->Animations)
+		{
+			delete this->Animations;
 		}
 	}
 };
