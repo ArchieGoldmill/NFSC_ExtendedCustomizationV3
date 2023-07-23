@@ -18,6 +18,18 @@ public:
 		return _IsPartTypeInCart(this, slot);
 	}
 
+	DBCarPart* GetCurrentPart(Slot slot)
+	{
+		auto cartPart = this->IsPartTypeInCart(slot);
+		if (cartPart)
+		{
+			auto listPart = (StandardSelectablePart*)cartPart[3];
+			return listPart->Part;
+		}
+
+		return this->GetInstalledPart(slot);
+	}
+
 	static CarCustomizeManager* Get()
 	{
 		return (CarCustomizeManager*)0x00BBABA8;

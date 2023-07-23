@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "Config.h"
 #include "LegacyCustomization.h"
+#include "CarCustomizeManager.h"
 
 void InstallPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot, DBCarPart* part)
 {
@@ -29,6 +30,16 @@ void InstallByKitNumber(Slot slot, RideInfo* rideInfo, FECustomizationRecord* re
 	}
 }
 
+void InstallByKitNumber(Slot from, Slot slot, RideInfo* rideInfo, FECustomizationRecord* record)
+{
+	auto fromPart = rideInfo->GetPart(from);
+	if (fromPart)
+	{
+		int kit = fromPart->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		InstallByKitNumber(slot, rideInfo, record, kit);
+	}
+}
+
 void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot, int kit)
 {
 	auto carId = rideInfo->CarId;
@@ -46,6 +57,59 @@ void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slo
 	}
 
 	InstallPart(rideInfo, record, slot, part);
+}
+
+void HandleBrakes(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
+{
+	if (!rideInfo)
+	{
+		return;
+	}
+
+	auto rotor = rideInfo->GetPart(Slot::FRONT_ROTOR);
+	auto brake = rideInfo->GetPart(Slot::FRONT_BRAKE);
+	if (brake && !rotor)
+	{
+		if (brake->IsStockByKit())
+		{
+			InstallByKitNumber(Slot::FRONT_ROTOR, rideInfo, record, 0);
+		}
+		else
+		{
+			auto currentPart = CarCustomizeManager::Get()->GetCurrentPart(Slot::FRONT_ROTOR);
+			if (currentPart->GetKit())
+			{
+				InstallPart(rideInfo, record, Slot::FRONT_ROTOR, currentPart);
+			}
+			else
+			{
+				InstallByKitNumber(Slot::FRONT_ROTOR, rideInfo, record, 1);
+			}
+		}
+	}
+
+	if (!brake && rotor)
+	{
+		if (rotor->IsStockByKit())
+		{
+			InstallByKitNumber(Slot::FRONT_BRAKE, rideInfo, record, 0);
+		}
+		else
+		{
+			auto currentPart = CarCustomizeManager::Get()->GetCurrentPart(Slot::FRONT_BRAKE);
+			if (currentPart->GetKit())
+			{
+				InstallPart(rideInfo, record, Slot::FRONT_BRAKE, currentPart);
+			}
+			else
+			{
+				InstallByKitNumber(Slot::FRONT_BRAKE, rideInfo, record, 1);
+			}
+		}
+	}
+
+	InstallByKitNumber(Slot::FRONT_BRAKE, Slot::REAR_BRAKE, rideInfo, record);
+	InstallByKitNumber(Slot::FRONT_ROTOR, Slot::REAR_ROTOR, rideInfo, record);
 }
 
 void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
@@ -73,12 +137,7 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 		InstallBodyPart(rideInfo, record, Slot::DOOR_LEFT, kit);
 	}
 
-	auto leftMirror = rideInfo->GetPart(Slot::LEFT_SIDE_MIRROR);
-	if (leftMirror)
-	{
-		int kit = leftMirror->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
-		InstallByKitNumber(Slot::RIGHT_SIDE_MIRROR, rideInfo, record, kit);
-	}
+	InstallByKitNumber(Slot::LEFT_SIDE_MIRROR, Slot::RIGHT_SIDE_MIRROR, rideInfo, record);
 
 	auto leftHeadlight = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
 	if (leftHeadlight)
@@ -98,26 +157,11 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 		InstallByKitNumber(Slot::RIGHT_BRAKELIGHT_GLASS, rideInfo, record, kit);
 	}
 
-	auto frontWindow = rideInfo->GetPart(Slot::REAR_WINDOW);
-	if (frontWindow)
-	{
-		int kit = frontWindow->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
-		InstallByKitNumber(Slot::DECAL_FRONT_WINDOW, rideInfo, record, kit);
-	}
+	InstallByKitNumber(Slot::FRONT_WINDOW, Slot::DECAL_FRONT_WINDOW, rideInfo, record);
 
-	auto rearWindow = rideInfo->GetPart(Slot::REAR_WINDOW);
-	if (rearWindow)
-	{
-		int kit = rearWindow->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
-		InstallByKitNumber(Slot::DECAL_REAR_WINDOW, rideInfo, record, kit);
-	}
+	InstallByKitNumber(Slot::REAR_WINDOW, Slot::DECAL_REAR_WINDOW, rideInfo, record);
 
-	auto leftDoor = rideInfo->GetPart(Slot::DOOR_LEFT);
-	if (rearWindow)
-	{
-		int kit = leftDoor->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
-		InstallByKitNumber(Slot::DOOR_RIGHT, rideInfo, record, kit);
-	}
+	InstallByKitNumber(Slot::DOOR_LEFT, Slot::DOOR_RIGHT, rideInfo, record);
 }
 
 void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMain, int, RideInfo* rideInfo, FECustomizationRecord* record)
@@ -129,12 +173,14 @@ void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMa
 	}
 	else if (version == 2)
 	{
-		HandleSpecialCustomizationV2(feGarageMain, rideInfo, record);
+		Legacy::HandleSpecialCustomizationV2(feGarageMain, rideInfo, record);
 	}
 	else
 	{
 		feGarageMain->HandleSpecialCustomization(rideInfo, record);
 	}
+
+	HandleBrakes(feGarageMain, rideInfo, record);
 }
 
 bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectablePart, int, FECustomizationRecord* record, bool setOnly)
@@ -145,13 +191,39 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 	}
 
 	auto carId = FECarRecord::GetCarType();
+	auto slot = selectablePart->SlotId;
+	auto part = selectablePart->Part;
 
-	return record->SetInstalledPart(selectablePart->SlotId, selectablePart->Part, carId, setOnly);
+	if (slot == Slot::FRONT_BRAKE)
+	{
+		auto rotorPart = record->GetInstalledPart(carId, Slot::FRONT_ROTOR);
+		if (rotorPart && rotorPart->IsStockByKit() != part->IsStockByKit())
+		{
+			record->UnInstallPart(carId, Slot::FRONT_ROTOR);
+		}
+	}
+
+	if (slot == Slot::FRONT_ROTOR)
+	{
+		auto rotorPart = record->GetInstalledPart(carId, Slot::FRONT_BRAKE);
+		if (rotorPart && rotorPart->IsStockByKit() != part->IsStockByKit())
+		{
+			record->UnInstallPart(carId, Slot::FRONT_BRAKE);
+		}
+	}
+
+	int version = g_Config.GetVersion(carId);
+	if (version == 3)
+	{
+		return record->SetInstalledPart(slot, part, carId, setOnly);
+	}
+
+	return selectablePart->Install(record, setOnly);
 }
 
 void InitCustomization()
 {
-	InitLegacyCustomization();
+	Legacy::InitCustomization();
 
 	injector::MakeCALL(0x0085EAEC, FeGarageMain_HandleSpecialCustomization, true);
 

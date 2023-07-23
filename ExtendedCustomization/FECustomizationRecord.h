@@ -1,6 +1,7 @@
 #pragma once
 #include "ColorData.h"
 #include "Func.h"
+#include "Game.h"
 
 class FECustomizationRecord
 {
@@ -14,6 +15,12 @@ public:
 	{
 		static auto _SetInstalledPart = (bool(__thiscall*)(FECustomizationRecord*, Slot, DBCarPart*, CarType, bool))0x004BAC50;
 		return _SetInstalledPart(this, slot, part, carId, setOnly);
+	}
+
+	void UnInstallPart(CarType carId, Slot slot)
+	{
+		static auto _UnInstallPart = (void(__thiscall*)(FECustomizationRecord*, CarType, Slot))0x004AE380;
+		_UnInstallPart(this, carId, slot);
 	}
 
 	DBCarPart* GetInstalledPart(CarType carId, Slot slot)

@@ -48,6 +48,16 @@ struct DBCarPart
 		return _GetTextureName(this);
 	}
 
+	int GetKit(int def = 0)
+	{
+		return this->GetAppliedAttributeIParam(Hashes::KITNUMBER, def);
+	}
+
+	bool IsStockByKit()
+	{
+		return this->GetKit() == 0;
+	}
+
 	bool IsAutosculpt()
 	{
 		return this->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) != 0;
