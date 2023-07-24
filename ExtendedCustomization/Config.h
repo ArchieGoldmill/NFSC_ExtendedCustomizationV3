@@ -40,6 +40,8 @@ struct GlobalConfig : public SharedConfig
 {
 	std::vector<CarConfig*> Cars;
 
+	float FrontSteerAngle;
+
 	bool DebugRotorGlow;
 	bool AllVinylsTransformable;
 	bool AllVinylsMirrorable;
@@ -59,7 +61,8 @@ struct GlobalConfig : public SharedConfig
 	bool CustomPaints;
 	bool PartAnimations;
 	bool FixAutosculptLods;
-	float FrontSteerAngle;
+	bool IgnoreSpoilerBoundingBox;
+	bool LicensePlateText;
 
 	PartConfig GetPart(Slot slot, CarType carId);
 	CarConfig* GetCarConfig(CarType carId);

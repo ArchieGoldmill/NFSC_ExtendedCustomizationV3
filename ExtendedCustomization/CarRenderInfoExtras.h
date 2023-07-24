@@ -4,7 +4,7 @@
 #include "Neon.h"
 #include "BrakelightGlow.h"
 #include "Paints.h"
-#include "TextureExtras.h"
+#include "LicensePlateText.h"
 #include "RotorGlow.h"
 #include "ExhaustFX.h"
 #include "ExhaustShake.h"
@@ -24,7 +24,7 @@ public:
 	CarPaint* Paint = NULL;
 	CarExhaustFX* ExhaustFX = NULL;
 	CarExhaustShake* ExhaustShake = NULL;
-	CarTextures* Textures = NULL;
+	CarLicensePlateText* LicensePlateText = NULL;
 	CarRotorGlow* RotorGlow = NULL;
 
 	CarRenderInfoExtras(CarRenderInfo* carRenderInfo)
@@ -32,7 +32,10 @@ public:
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
 
-		this->Textures = new CarTextures(carRenderInfo);
+		if (g_Config.LicensePlateText)
+		{
+			this->LicensePlateText = new CarLicensePlateText(carRenderInfo);
+		}
 
 		if (g_Config.RotorGlow)
 		{
@@ -72,9 +75,9 @@ public:
 
 	~CarRenderInfoExtras()
 	{
-		if (this->Textures)
+		if (this->LicensePlateText)
 		{
-			delete this->Textures;
+			delete this->LicensePlateText;
 		}
 
 		if (this->RotorGlow)
@@ -101,12 +104,12 @@ public:
 		{
 			delete this->ExhaustFX;
 		}
-		
+
 		if (this->Paint)
 		{
 			delete this->Paint;
 		}
-		
+
 		if (this->Animations)
 		{
 			delete this->Animations;

@@ -147,6 +147,8 @@ void InitConfig()
 	g_Config.CustomPaints = iniReader.ReadInteger("MODS", "CustomPaints", 0) == 1;
 	g_Config.PartAnimations = iniReader.ReadInteger("MODS", "PartAnimations", 0) == 1;
 	g_Config.FixAutosculptLods = iniReader.ReadInteger("MODS", "FixAutosculptLods", 0) == 1;
+	g_Config.IgnoreSpoilerBoundingBox = iniReader.ReadInteger("MODS", "IgnoreSpoilerBoundingBox", 0) == 1;
+	g_Config.LicensePlateText = iniReader.ReadInteger("MODS", "LicensePlateText", 0) == 1;
 
 	InitCars();
 

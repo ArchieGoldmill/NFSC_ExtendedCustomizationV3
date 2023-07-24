@@ -7,9 +7,9 @@
 
 void __fastcall AttachReplacementTextureTable(eModel* model, int, CarRenderInfo* carRenderInfo, ReplacementTextureEntry* nodes, int count, int)
 {
-	if (strstr(model->Solid->Name, "LICENSE_PLATE"))
+	if (carRenderInfo->Extras->LicensePlateText && strstr(model->Solid->Name, "LICENSE_PLATE"))
 	{
-		model->AttachReplacementTextureTable(carRenderInfo->Extras->Textures->LicensePlate, 11);
+		model->AttachReplacementTextureTable(carRenderInfo->Extras->LicensePlateText->TextureTable, 11);
 	}
 	else
 	{
@@ -32,5 +32,8 @@ void __declspec(naked) AttachReplacementTextureTableCave()
 
 void InitReplacementTextures()
 {
-	injector::MakeJMP(0x007D5743, AttachReplacementTextureTableCave, true);
+	if (g_Config.LicensePlateText)
+	{
+		injector::MakeJMP(0x007D5743, AttachReplacementTextureTableCave, true);
+	}
 }
