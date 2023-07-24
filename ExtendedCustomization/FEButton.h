@@ -5,9 +5,9 @@
 class FEButton :public FEObject
 {
 public:
-	static FEButton* GetLastButton(char* packageFilename)
+	static char GetLastButton(char* packageFilename)
 	{
-		FUNC(0x00571300, FEButton*, __cdecl, _GetLastButton, char*);
+		FUNC(0x00571300, int, __cdecl, _GetLastButton, char*);
 		return _GetLastButton(packageFilename);
 	}
 };

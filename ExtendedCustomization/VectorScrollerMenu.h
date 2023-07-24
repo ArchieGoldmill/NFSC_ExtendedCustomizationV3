@@ -70,9 +70,9 @@ public:
 		_SetTitleName(this, title);
 	}
 
-	void SetInitialOption(FEObject* obj)
+	void SetInitialOption(int n)
 	{
-		static auto _SetInitialOption = (void(__thiscall*)(VectorScrollerMenu*, FEObject*))0x005C5ED0;
-		_SetInitialOption(this, obj);
+		static auto _SetInitialOption = (void(__thiscall*)(VectorScrollerMenu*, int))0x005C5ED0;
+		_SetInitialOption(this, n);
 	}
 };
