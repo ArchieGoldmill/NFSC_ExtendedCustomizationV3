@@ -60,4 +60,9 @@ void InitNeon()
 	{
 		injector::MakeJMP(0x007BEA34, ShadowColorCave);
 	}
+
+	if (g_Config.IgnoreSpoilerBoundingBox)
+	{
+		injector::WriteMemory<BYTE>(0x007D595C, 1);
+	}
 }
