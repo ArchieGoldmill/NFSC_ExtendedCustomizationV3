@@ -24,13 +24,15 @@ public:
 	CarPaint* Paint = NULL;
 	CarExhaustFX* ExhaustFX = NULL;
 	CarExhaustShake* ExhaustShake = NULL;
-	CarTextures Textures;
+	CarTextures* Textures = NULL;
 	CarRotorGlow* RotorGlow = NULL;
 
-	CarRenderInfoExtras(CarRenderInfo* carRenderInfo) : Textures(carRenderInfo)
+	CarRenderInfoExtras(CarRenderInfo* carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
+
+		this->Textures = new CarTextures(carRenderInfo);
 
 		if (g_Config.RotorGlow)
 		{
@@ -70,6 +72,11 @@ public:
 
 	~CarRenderInfoExtras()
 	{
+		if (this->Textures)
+		{
+			delete this->Textures;
+		}
+
 		if (this->RotorGlow)
 		{
 			delete this->RotorGlow;

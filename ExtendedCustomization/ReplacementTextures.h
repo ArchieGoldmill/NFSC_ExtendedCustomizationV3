@@ -9,7 +9,7 @@ void __fastcall AttachReplacementTextureTable(eModel* model, int, CarRenderInfo*
 {
 	if (strstr(model->Solid->Name, "LICENSE_PLATE"))
 	{
-		model->AttachReplacementTextureTable(carRenderInfo->Extras->Textures.LicensePlate, 11);
+		model->AttachReplacementTextureTable(carRenderInfo->Extras->Textures->LicensePlate, 11);
 	}
 	else
 	{

@@ -16,6 +16,7 @@ void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 	SAFE_CALL(carRenderInfo->Extras->Paint, Init);
 	SAFE_CALL(carRenderInfo->Extras->ExhaustShake, Init);
 	SAFE_CALL(carRenderInfo->Extras->RotorGlow, Init);
+	SAFE_CALL(carRenderInfo->Extras->Textures, Init);
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)

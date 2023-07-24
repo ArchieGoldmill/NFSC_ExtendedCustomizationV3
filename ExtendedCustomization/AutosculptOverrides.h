@@ -190,7 +190,7 @@ int __fastcall AutosculptSlider_Act(AutosculptSlider* slider, int, int a2, Hash 
 
 		if (slot == Slot::LICENSE_PLATE)
 		{
-			carRenderInfo->Extras->Textures.UpdateLicensePlate();
+			SAFE_CALL(carRenderInfo->Extras->Textures, UpdateLicensePlate);
 		}
 	}
 
