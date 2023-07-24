@@ -9,6 +9,7 @@
 #include "FrontEndRenderingCar.h"
 #include "CarRenderInfo.h"
 #include "CarRenderInfoExtras.h"
+#include "AutosculptFixLods.h"
 
 const char* __stdcall ConvertSlotToFng(Slot slot)
 {
@@ -269,6 +270,8 @@ void __declspec(naked) FixZoneLoadCave()
 
 void InitAutosculpt()
 {
+	InitAutosculptFixLods();
+
 	injector::WriteMemory(0x009F867C, ConvertSlotToFng);
 	injector::MakeJMP(0x00843180, ConvertSlotToRegionCave);
 	injector::MakeJMP(0x00846FE0, ConvertSlotToStateCave);
