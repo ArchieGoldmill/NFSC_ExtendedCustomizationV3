@@ -1,14 +1,14 @@
 #pragma once
 #include "Feature.h"
 #include "DBCarPart.h"
+#include "RideInfo.h"
+#include "AutoSculpt.h"
 
-void __fastcall AutoSculptPose(void* _this, int param, Hash* hashes, int a3, int a4)
+void __fastcall AutoSculptPose(AutoSculpt* autoSculpt, int, Hash* hashes, int count, RideInfo* rideInfo)
 {
-	static auto _AutoSculptPose = (void(__thiscall*)(void*, Hash*, int, int))0x007DC7F0;
-
 	for (int i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < a3; j++)
+		for (int j = 0; j < count; j++)
 		{
 			if (hashes[j] != 0)
 			{
@@ -16,17 +16,17 @@ void __fastcall AutoSculptPose(void* _this, int param, Hash* hashes, int a3, int
 			}
 		}
 
-		_AutoSculptPose(_this, hashes, a3, a4);
+		autoSculpt->Pose(hashes, count, rideInfo);
 	}
 
-	for (int j = 0; j < a3; j++)
+	for (int j = 0; j < count; j++)
 	{
 		if (hashes[j] != 0)
 		{
 			hashes[j] -= 3;
 		}
 	}
-	_AutoSculptPose(_this, hashes, a3, a4);
+	autoSculpt->Pose(hashes, count, rideInfo);
 }
 
 Hash __cdecl ArnGetModelNameHash2(DBCarPart* part, int a2, int lod, int autosculpt)
@@ -52,8 +52,7 @@ Hash __cdecl ArnGetModelNameHash2(DBCarPart* part, int a2, int lod, int autoscul
 		autosculpt = 11;
 	}
 
-	static auto _GetModelNameHash = (Hash(__cdecl*)(DBCarPart*, int, int, int))0x007CDA40;
-	return _GetModelNameHash(part, a2, lod, autosculpt);
+	return part->GetModelNameHash(a2, lod, autosculpt);
 }
 
 

@@ -5,7 +5,7 @@
 
 float __stdcall GetCamber(CarRenderInfo* carRenderInfo, int zone)
 {
-	return carRenderInfo->RideInfo->AutosculptData[ZoneStance].Zones[zone];
+	return carRenderInfo->RideInfo->AutoSculptRegions[ZoneStance].Zones[zone];
 }
 
 void __declspec(naked) RearCamberCave()

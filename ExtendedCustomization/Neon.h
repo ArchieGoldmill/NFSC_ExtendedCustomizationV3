@@ -69,7 +69,7 @@ public:
 
 	void Update()
 	{
-		float pulse = this->carRenderInfo->RideInfo->AutosculptData[ZoneNeon].Zones[2];
+		float pulse = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
 		if (pulse)
 		{
 			this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
@@ -90,8 +90,8 @@ public:
 			this->pulse.Val = 1;
 		}
 
-		float h = carRenderInfo->RideInfo->AutosculptData[ZoneNeon].Zones[0] * 0.9999f;
-		float s = carRenderInfo->RideInfo->AutosculptData[ZoneNeon].Zones[1];
+		float h = carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
+		float s = carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
 
 		float r, g, b;
 		HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);

@@ -29,17 +29,17 @@ public:
 			if (plate->IsAutosculpt())
 			{
 				Hash plateh = plate->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
-				int plateIndex = carRenderInfo->RideInfo->AutosculptData[ZoneLicenseplate].GetInt(0);
+				int plateIndex = carRenderInfo->RideInfo->AutoSculptRegions[ZoneLicenseplate].GetInt(0);
 				Hash plateHash = StringHash1(std::to_string(plateIndex).c_str(), plateh);
 				this->LicensePlate[0].Set(Hashes::LICENSEPLATE, plateHash);
 
-				int frameIndex = carRenderInfo->RideInfo->AutosculptData[ZoneLicenseplate].GetInt(1);
+				int frameIndex = carRenderInfo->RideInfo->AutoSculptRegions[ZoneLicenseplate].GetInt(1);
 				Hash frameHash = FromIndex("LICENSEPLATE_FRAME%d", frameIndex);
 				this->LicensePlate[1].Set(Hashes::LICENSEPLATE_FRAME, frameHash);
 
 				for (int i = 0; i < 9; i++)
 				{
-					int textIndex = carRenderInfo->RideInfo->AutosculptData[ZoneLicenseplate].GetInt(i + 2);
+					int textIndex = carRenderInfo->RideInfo->AutoSculptRegions[ZoneLicenseplate].GetInt(i + 2);
 
 					Hash zoneHash = FromIndex("LICENSEPLATE_TEXT_ZONE%d", i);
 					Hash zoneValue = FromIndex("LICENSEPLATE_TEXT%d", textIndex);

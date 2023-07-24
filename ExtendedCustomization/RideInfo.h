@@ -5,31 +5,20 @@
 #include "ColorData.h"
 #include "Constants.h"
 #include "Math.h"
+#include "AutoSculpt.h"
 
 struct DBCarPart;
 
-struct AutosculptData
-{
-	float Zones[11];
-	int Modified;
-
-	int GetInt(int zone)
-	{
-		return ToInt(this->Zones[zone] * 100.0f);
-	}
-};
-
 class CarRenderInfo;
-class RideInfo
+struct RideInfo
 {
-public:
 	CarType CarId;
 	int unk1[285];
 	int RenderUsage;
 	int unk2;
 	float RideHeight;
 	int unk3[223];
-	AutosculptData AutosculptData[0x14];
+	AutoSculptRegion AutoSculptRegions[0x14];
 	int unk4[12];
 	CarRenderInfo* CarRenderInfo;
 
@@ -61,17 +50,17 @@ public:
 	{
 		if (num == 0 || num == 1)
 		{
-			auto as = (ASColorData*)&this->AutosculptData[ZoneColor1];
+			auto as = (ASColorData*)&this->AutoSculptRegions[ZoneColor1];
 			return as + num;
 		}
 		if (num == 2 || num == 3)
 		{
-			auto as = (ASColorData*)&this->AutosculptData[ZoneColor2];
+			auto as = (ASColorData*)&this->AutoSculptRegions[ZoneColor2];
 			return as + (num - 2);
 		}
 		if (num == 4 || num == 5)
 		{
-			auto as = (ASColorData*)&this->AutosculptData[ZoneColor3];
+			auto as = (ASColorData*)&this->AutoSculptRegions[ZoneColor3];
 			return as + (num - 4);
 		}
 
