@@ -175,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoSculpt.h" />
+    <ClInclude Include="AutosculptFixLods.h" />
     <ClInclude Include="AutosculptOverrides.h" />
     <ClInclude Include="AutosculptSlider.h" />
     <ClInclude Include="BrakelightGlow.h" />
@@ -236,13 +237,14 @@
     <ClInclude Include="RasterizationManager.h" />
     <ClInclude Include="RideInfo.h" />
     <ClInclude Include="RimPaint.h" />
+    <ClInclude Include="Rims.h" />
     <ClInclude Include="RotorGlow.h" />
     <ClInclude Include="ScrollOption.h" />
     <ClInclude Include="Slots.h" />
     <ClInclude Include="SmoothVinyls.h" />
     <ClInclude Include="Stance.h" />
     <ClInclude Include="StandardSelectablePart.h" />
-    <ClInclude Include="TextureExtras.h" />
+    <ClInclude Include="LicensePlateText.h" />
     <ClInclude Include="TextureInfo.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TrackWidth.h" />

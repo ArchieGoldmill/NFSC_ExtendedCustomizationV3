@@ -43,6 +43,7 @@ namespace Game
 	static auto CopyPoseValueToFamilyMap = (int*)0x00A79FC8;
 	static auto FrontSteerAngle = (float*)0x00A7B668;
 	static int* CarEmitterPositionSlotPool = (int*)0x00B74C34;
+	static auto AutosculptRegionList = (Slot*)0x00A79F70;
 
 	enum class State
 	{
