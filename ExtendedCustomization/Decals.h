@@ -5,14 +5,7 @@
 #include "Hashes.h"
 #include "Config.h"
 
-struct UpgradeGroupAttribute
-{
-	Hash Name;
-	unsigned char Level;
-	unsigned char Slot;
-};
-
-void __stdcall AfterInitializeEverything()
+void FixRearDecals()
 {
 	DBCarPart* part = NULL;
 	while (true)
@@ -25,7 +18,8 @@ void __stdcall AfterInitializeEverything()
 			{
 				if (upgradeGroup->Level == 33)
 				{
-					upgradeGroup->Slot = 0x68;
+					// Since all parts share the same reference to attribute we can change it once.
+					upgradeGroup->Part = 0x68;
 					upgradeGroup->Level = 32;
 					break;
 				}
@@ -36,21 +30,10 @@ void __stdcall AfterInitializeEverything()
 	Game::CarPartSlotMap[(int)Slot::DECAL_REAR_WINDOW_TEX0] = 0x68;
 }
 
-void __declspec(naked) AfterInitializeEverythingCave()
-{
-	__asm
-	{
-		call AfterInitializeEverything;
-		ret;
-	}
-}
-
 void InitDecals()
 {
 	if (g_Config.FixDecals)
 	{
-		injector::MakeJMP(0x006B7887, AfterInitializeEverythingCave);
-
 		// Get decal texture from texture name rather then part name
 		injector::WriteMemory<unsigned short>(0x007D5C35, 0x4277);
 	}

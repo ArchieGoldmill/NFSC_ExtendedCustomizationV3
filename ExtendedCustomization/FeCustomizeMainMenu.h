@@ -25,8 +25,8 @@ void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PERFORMANCE, (int)CustomizeMainMenu::PERFORMANCE));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PARTS, (int)CustomizeMainMenu::AFTERMARKET));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_AUTOSCULPT, (int)CustomizeMainMenu::AUTOSCULPT));
-	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_RIMS, (int)CustomizeMainMenu::FRONT_RIMS));
-	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_RIMS, (int)CustomizeMainMenu::REAR_RIMS));
+	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_WHEELS, (int)CustomizeMainMenu::FRONT_WHEELS));
+	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_WHEELS, (int)CustomizeMainMenu::REAR_WHEELS));
 	if (AnyAttachmentsEnabled())
 	{
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_ATTACHMENTS, (int)CustomizeMainMenu::ATTACHMENTS));
@@ -45,9 +45,9 @@ void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 CustomizeMainMenu __stdcall ShowMenu(CustomizeMainMenu menu)
 {
 	FeCustomizeMain::SelectedItem = menu;
-	if (menu == CustomizeMainMenu::FRONT_RIMS || menu == CustomizeMainMenu::REAR_RIMS)
+	if (menu == CustomizeMainMenu::FRONT_WHEELS || menu == CustomizeMainMenu::REAR_WHEELS)
 	{
-		return CustomizeMainMenu::AUTOSCULPT;
+		return CustomizeMainMenu::AFTERMARKET;
 	}
 
 	if (menu == CustomizeMainMenu::SPECIALTIES || menu == CustomizeMainMenu::ATTACHMENTS)

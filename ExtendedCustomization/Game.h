@@ -22,6 +22,7 @@ INLINE_FUNC(0x00477BE0, void*, __cdecl, bOMalloc, int);
 INLINE_FUNC(0x004A62E0, bool, __cdecl, IsPaused);
 INLINE_FUNC(0x004B65F0, bool, __thiscall, DALVehicle_GetRPM, void* DALVehicle, float* getVal, const int playerNum);
 INLINE_FUNC(0x004B6690, bool, __thiscall, DALVehicle_GetRedLine, void* DALVehicle, float* getVal, const int playerNum);
+INLINE_FUNC(0x006B5980, void, __cdecl, LoadResourceFile, const char* path, int type, int, int, int, int, int);
 
 inline Hash FromIndex(const char* str, int index)
 {

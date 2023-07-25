@@ -4,14 +4,21 @@
 #include "Func.h"
 #include "eLightMaterial.h"
 #include "ReplacementTextureEntry.h"
+#include "Node.h"
 
-class eModel
+struct eModel : bNode<eModel>
 {
-public:
-	eModel* Prev;
-	eModel* Next;
 	Hash NameHash;
 	eSolid* Solid;
+	ReplacementTextureEntry* ReplacementTextureTable;
+	short LodLevel;
+	short Pad;
+
+	eModel()
+	{
+		FUNC(0x00412230, void, __thiscall, _ctor, eModel*);
+		_ctor(this);
+	}
 
 	void Render(int view, D3DXMATRIX* matrix, void* light, int flags)
 	{
@@ -35,5 +42,17 @@ public:
 	{
 		FUNC(0x005588D0, void, __thiscall, _AttachReplacementTextureTable, eModel*, ReplacementTextureEntry*, int, int);
 		_AttachReplacementTextureTable(this, replaceNodes, count, 0);
+	}
+
+	void Init(Hash hash)
+	{
+		FUNC(0x0055E7E0, void, __thiscall, _Init, eModel*, Hash);
+		_Init(this, hash);
+	}
+
+	void UnInit()
+	{
+		FUNC(0x0055BF70, void, __thiscall, _Init, eModel*);
+		_Init(this);
 	}
 };

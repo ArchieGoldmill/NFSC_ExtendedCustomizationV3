@@ -14,10 +14,10 @@ void __fastcall FeCustomizeVisuals_Setup(FeCustomizeVisuals* _this)
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PAINT, (int)VisualsMenu::BODY_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_HOOD_PAINT, (int)VisualsMenu::HOOD_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_SPOILER_PAINT, (int)VisualsMenu::SPOILER_PAINT));
+		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_WHEELS, (int)VisualsMenu::FRONT_WHEEL_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_RIMS, (int)VisualsMenu::FRONT_RIM_PAINT));
-		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_LIP, (int)VisualsMenu::FRONT_LIP_PAINT));
+		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_RIMS, (int)VisualsMenu::REAR_WHEEL_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_RIMS, (int)VisualsMenu::REAR_RIM_PAINT));
-		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_LIP, (int)VisualsMenu::REAR_LIP_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_CALIPER_PAINT, (int)VisualsMenu::CALIPER_PAINT));
 	}
 
@@ -39,10 +39,10 @@ VisualsMenu __stdcall ShowVisualsMenu(VisualsMenu menu)
 	switch (menu)
 	{
 	case VisualsMenu::CALIPER_PAINT:
-	case VisualsMenu::FRONT_LIP_PAINT:
-	case VisualsMenu::REAR_LIP_PAINT:
+	case VisualsMenu::FRONT_RIM_PAINT:
 	case VisualsMenu::REAR_RIM_PAINT:
-		return VisualsMenu::FRONT_RIM_PAINT;
+	case VisualsMenu::REAR_WHEEL_PAINT:
+		return VisualsMenu::FRONT_WHEEL_PAINT;
 	case VisualsMenu::HOOD_PAINT:
 	case VisualsMenu::SPOILER_PAINT:
 		return VisualsMenu::BODY_PAINT;

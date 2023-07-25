@@ -3,13 +3,11 @@
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
-#include "Config.h"
 #include "Animations.h"
 #include "Customization.h"
 #include "Textures.h"
 #include "Menu.h"
 #include "ForceLodA.h"
-#include "Decals.h"
 #include "AutosculptOverrides.h"
 #include "CarRenderInfoHooks.h"
 #include "UserInput.h"
@@ -19,6 +17,7 @@
 #include "Paints.h"
 #include "RotorGlow.h"
 #include "Rims.h"
+#include "InitializeEverythingHooks.h"
 
 void ToBeRemoved()
 {
@@ -55,6 +54,7 @@ void Init()
 	InitRims();
 
 	InitCarRenderInfoHooks();
+	InitInitializeEverythingHooks();
 }
 
 BOOL APIENTRY DllMain(HMODULE, DWORD reason, LPVOID)

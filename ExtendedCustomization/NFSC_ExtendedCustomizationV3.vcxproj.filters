@@ -348,6 +348,9 @@
     <ClInclude Include="AutosculptFixLods.h">
       <Filter>Features\Autosculpt</Filter>
     </ClInclude>
+    <ClInclude Include="InitializeEverythingHooks.h">
+      <Filter>Hooks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

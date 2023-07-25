@@ -5,6 +5,13 @@
 #include "RideInfo.h"
 #include <stdio.h>
 
+struct UpgradeGroupAttribute
+{
+	Hash Name;
+	unsigned char Level;
+	unsigned char Part;
+};
+
 struct DBCarPart
 {
 	void* GetAppliedAttributeParam(Hash hash)

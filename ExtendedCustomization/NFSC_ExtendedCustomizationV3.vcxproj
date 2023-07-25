@@ -187,6 +187,7 @@
     <ClInclude Include="ExhaustShake.h" />
     <ClInclude Include="eView.h" />
     <ClInclude Include="ExhaustFX.h" />
+    <ClInclude Include="InitializeEverythingHooks.h" />
     <ClInclude Include="MenuCameras.h" />
     <ClInclude Include="Neon.h" />
     <ClInclude Include="ePoly.h" />

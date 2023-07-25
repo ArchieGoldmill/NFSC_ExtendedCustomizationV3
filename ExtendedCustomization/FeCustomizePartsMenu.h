@@ -49,11 +49,11 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::LICENSE_PLATE, carId);
 		AddMenuOption(_this, Slot_Neon, carId);
 		break;
-	case CustomizeMainMenu::FRONT_RIMS:
+	case CustomizeMainMenu::FRONT_WHEELS:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
 		_this->AddMenuOption(0xB47AB2E, Slot::FRONT_WHEEL, _this->IsAutosculpt, 17);
 		break;
-	case CustomizeMainMenu::REAR_RIMS:
+	case CustomizeMainMenu::REAR_WHEELS:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
 		_this->AddMenuOption(0xB47AB2E, Slot::REAR_WHEEL, _this->IsAutosculpt, 17);
 		break;

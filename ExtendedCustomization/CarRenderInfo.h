@@ -21,7 +21,7 @@ struct PositionMarkers
 	PositionMarker* RearLicensePlate;
 };
 
-struct Materials
+struct CarMaterials
 {
 	eLightMaterial* Body;
 	eLightMaterial* Hood;
@@ -52,16 +52,17 @@ public:
 	CarRenderInfoExtras* Extras;
 	D3DXVECTOR4 BoundingBoxMax;
 	char unk_2[0x5C];
-	int IsHoodCarbon;
+	bool IsHoodCarbon;
+	char unk_3[3];
 	RideInfo* RideInfo;
-	int* CarTypeInfo;
+	void* CarTypeInfo;
 	TextureInfo* CarShadowTexture;
 	TextureInfo* CarShadowRampTexture;
-	Materials Materials;
+	CarMaterials Materials;
 	PositionMarkers Markers;
-	char unk_3[0x18];
+	char unk_4[0x18];
 	WheelData WheelData;
-	char unk_4[0x818];
+	char unk_5[0x818];
 	eModel* PartModel[0x59][5];
 
 	void UpdateLightStateTextures()

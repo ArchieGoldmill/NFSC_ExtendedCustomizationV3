@@ -8,8 +8,8 @@ enum class CustomizeMainMenu :int
 	PERFORMANCE = 2,
 	VISUALS = 3,
 	CART = 4,
-	FRONT_RIMS = 5,
-	REAR_RIMS = 6,
+	FRONT_WHEELS = 5,
+	REAR_WHEELS = 6,
 	PAINTS = 7,
 	SPECIALTIES = 8,
 	ATTACHMENTS = 9

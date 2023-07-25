@@ -2,6 +2,52 @@
 #include "Feature.h"
 #include "Slots.h"
 #include "Constants.h"
+#include "CarRenderInfo.h"
+
+#define WHEEL_FL 0
+#define WHEEL_FR 1
+#define WHEEL_RR 2
+#define WHEEL_RL 3
+
+void RenderWheel(CarRenderInfo* carRenderInfo, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data, int wheel)
+{
+	if (model && *model)
+	{
+		(*model)->Render(view, marker, light, data);
+	}
+}
+
+void __fastcall RenderFrontLeftWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data)
+{
+	RenderWheel(carRenderInfo, view, model, marker, light, data, WHEEL_FL);
+}
+
+void __fastcall RenderFrontRightWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data)
+{
+	RenderWheel(carRenderInfo, view, model, marker, light, data, WHEEL_FR);
+}
+
+void __fastcall RenderRearRightWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data)
+{
+	RenderWheel(carRenderInfo, view, model, marker, light, data, WHEEL_RR);
+}
+
+void __fastcall RenderRearLeftWheel(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, D3DXMATRIX* light, int data, int a1, int a2)
+{
+	RenderWheel(carRenderInfo, view, &model, marker, light, data, WHEEL_RL);
+}
+
+void __declspec(naked) RenderRearLeftWheelCave()
+{
+	static constexpr auto cExit = 0x007E0516;
+
+	__asm
+	{
+		push esi;
+		call RenderRearLeftWheel;
+		jmp cExit;
+	}
+}
 
 void InitRims()
 {
@@ -21,4 +67,9 @@ void InitRims()
 	Game::CarPartSlotMap[(int)Slot::REAR_WHEEL] = 0x54;
 
 	Game::AutosculptRegionList[ZoneRearWheel] = Slot::REAR_WHEEL;
+
+	injector::MakeCALL(0x007DFEF7, RenderFrontLeftWheel);
+	injector::MakeCALL(0x007E0098, RenderFrontRightWheel);
+	injector::MakeCALL(0x007E0295, RenderRearRightWheel);
+	injector::MakeJMP(0x007E0511, RenderRearLeftWheelCave);
 }
