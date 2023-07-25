@@ -163,29 +163,46 @@ void GetPartsListV3(Slot slot, bNode<SelectablePart*>* listHead, bool isCarbon, 
 void GetWheelParts(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 {
 	brandName = GetBrandByHeader(brandName);
-	if (brandName == Hashes::STOCK)
+	if (FeCustomizeMain::SelectedItem == CustomizeMainMenu::REAR_WHEELS)
 	{
-		auto carId = FECarRecord::GetCarType();
-		DBCarPart* part = NULL;
-		while (true)
-		{
-			part = CarPartDatabase::Instance->GetCarPart(slot, carId, part);
-			if (!part)
-			{
-				break;
-			}
+		slot = Slot::REAR_WHEEL;
+	}
 
-			if (part->IsStock())
+	auto carId = FECarRecord::GetCarType();
+	DBCarPart* part = NULL;
+	while (true)
+	{
+		part = CarPartDatabase::Instance->GetCarPart(slot, carId, part);
+		if (!part)
+		{
+			break;
+		}
+
+		if (brandName == Hashes::STOCK)
+		{
+			if (!part->IsStock())
 			{
-				auto selectablePart = (StandardSelectablePart*)j_malloc_0(sizeof(StandardSelectablePart));
-				*selectablePart = StandardSelectablePart(slot, part);
-				AddNodeToList(listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
+				continue;
 			}
 		}
-	}
-	else
-	{
-		StandardSelectablePart::GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
+		else
+		{
+			auto partBrand = part->GetAppliedAttributeIParam(Hashes::BRAND_NAME, 0);
+			if (partBrand != brandName)
+			{
+				continue;
+			}
+
+			int partRadius = part->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, 0);
+			if (partRadius != innerRadius)
+			{
+				continue;
+			}
+		}
+
+		auto selectablePart = (StandardSelectablePart*)j_malloc_0(sizeof(StandardSelectablePart));
+		*selectablePart = StandardSelectablePart(slot, part);
+		AddNodeToList(listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
 	}
 }
 
