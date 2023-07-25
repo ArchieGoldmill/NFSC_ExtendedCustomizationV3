@@ -95,6 +95,16 @@ void SetTextureHash(Hash* texPtr, Hash hash)
 
 void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 {
+	auto rearWheel = rideInfo->GetPart(Slot::REAR_WHEEL);
+	if (rearWheel)
+	{
+		auto textureName = rearWheel->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
+		if (textureName)
+		{
+			SetTextureHash(texPtr, StringHash1("_WHEEL", textureName));
+		}
+	}
+
 	auto leftBrakelight = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
 	if (leftBrakelight)
 	{
