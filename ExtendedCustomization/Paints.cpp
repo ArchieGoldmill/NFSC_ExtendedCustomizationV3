@@ -4,7 +4,6 @@
 #include "CarPartDatabase.h"
 #include "FeCustomizeVisuals.h"
 #include "Game.h"
-#include "RimPaint.h"
 
 void __fastcall PaintSelectablePart_Install(PaintSelectablePart* _this, int, FECustomizationRecord* record, int)
 {
@@ -176,8 +175,6 @@ void InitPaints()
 {
 	if (g_Config.CustomPaints)
 	{
-		InitRimPaint();
-
 		injector::WriteMemory(0x009F9E2C, PaintSelectablePart_Install);
 
 		// Change part id for paint parts so they dont conflict in the cart

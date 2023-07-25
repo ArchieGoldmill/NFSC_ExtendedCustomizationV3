@@ -303,7 +303,7 @@
     <ClInclude Include="PaintSelectablePart.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="RimPaint.h">
+    <ClInclude Include="WheelPaint.h">
       <Filter>Features\Paints</Filter>
     </ClInclude>
     <ClInclude Include="Paints.h">

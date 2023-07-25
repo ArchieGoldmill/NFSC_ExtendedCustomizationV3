@@ -237,7 +237,7 @@
     <ClInclude Include="PVehicle.h" />
     <ClInclude Include="RasterizationManager.h" />
     <ClInclude Include="RideInfo.h" />
-    <ClInclude Include="RimPaint.h" />
+    <ClInclude Include="WheelPaint.h" />
     <ClInclude Include="Wheels.h" />
     <ClInclude Include="RotorGlow.h" />
     <ClInclude Include="ScrollOption.h" />

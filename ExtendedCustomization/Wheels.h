@@ -5,16 +5,48 @@
 #include "CarRenderInfo.h"
 #include "CarPartDatabase.h"
 #include "WheelBrands.h"
+#include "CarRenderInfoExtras.h"
 
 #define WHEEL_FL 0
 #define WHEEL_FR 1
 #define WHEEL_RR 2
 #define WHEEL_RL 3
 
+void ReplaceFrontWheels(CarRenderInfo* carRenderInfo, eModel* model)
+{
+	if (model)
+	{
+		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Materials.FrontRims);
+		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->FrontLipMaterial);
+		carRenderInfo->Extras->Paint->FrontWheel = model;
+	}
+}
+
+void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
+{
+	if (model)
+	{
+		auto frontWheel = carRenderInfo->Extras->Paint->FrontWheel;
+		if (frontWheel && frontWheel->Solid == model->Solid)
+		{
+			// Skip material replace if we dont have mesh for rear wheels
+			return;
+		}
+
+		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Extras->Paint->RearRimMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->RearLipMaterial);
+	}
+}
+
 void RenderWheel(CarRenderInfo* carRenderInfo, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data, int wheel)
 {
 	if (model && *model)
 	{
+		if (g_Config.CustomPaints)
+		{
+			wheel < 2 ? ReplaceFrontWheels(carRenderInfo, *model) : ReplaceRearWheels(carRenderInfo, *model);
+		}
+
 		(*model)->Render(view, marker, light, data);
 	}
 }
@@ -74,4 +106,8 @@ void InitWheels()
 	injector::MakeCALL(0x007E0098, RenderFrontRightWheel);
 	injector::MakeCALL(0x007E0295, RenderRearRightWheel);
 	injector::MakeJMP(0x007E0511, RenderRearLeftWheelCave);
+
+	// Change rear marker to front for rear wheels
+	injector::WriteMemory(0x007DF712, Hashes::FRONT_BRAKE);
+	injector::WriteMemory(0x007E6057, Hashes::FRONT_BRAKE);
 }

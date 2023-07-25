@@ -22,6 +22,7 @@ namespace Hashes
 	const Hash WIDTH = 0x03FA5F3F;
 	const Hash BRAND_NAME = 0xEBB03E66;
 	const Hash INNER_RADIUS = 0xEB0101E2;
+	const Hash FRONT_BRAKE = 0xA4CCD4AC;
 
 	const Hash LICENSEPLATE = 0x4C95C6F8;
 	const Hash LICENSEPLATE_FRAME = 0xA877FDC2;
