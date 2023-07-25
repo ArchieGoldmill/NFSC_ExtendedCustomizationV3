@@ -6,6 +6,7 @@ namespace Hashes
 	const Hash KITNUMBER = 0x796C0CB0;
 	const Hash MORPHTARGET_NUM = 0x2850A03B;
 	const Hash STOCK = 0x03B83203;
+	const Hash COMMON_STOCK = 0x28C09CCB;
 	const Hash PARTID_UPGRADE_GROUP = 0x9239CF16;
 	const Hash MARKER = 0x6B6973C1;
 	const Hash CARBONFIBRE = 0x721AFF7C;
@@ -19,6 +20,8 @@ namespace Hashes
 	const Hash ZONE_AMOUNT = 0x4AA9F4CE;
 	const Hash ROTORS_GLOW = 0x57CA3700;
 	const Hash WIDTH = 0x03FA5F3F;
+	const Hash BRAND_NAME = 0xEBB03E66;
+	const Hash INNER_RADIUS = 0xEB0101E2;
 
 	const Hash LICENSEPLATE = 0x4C95C6F8;
 	const Hash LICENSEPLATE_FRAME = 0xA877FDC2;

@@ -65,6 +65,9 @@
     <Filter Include="Features\Autosculpt">
       <UniqueIdentifier>{f9e6804e-2b0e-4be9-8b4f-559034af91a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Wheels">
+      <UniqueIdentifier>{f1ed2186-a905-424c-bf47-1597159132c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -339,9 +342,6 @@
     <ClInclude Include="Constants.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Rims.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="AutosculptOverrides.h">
       <Filter>Features\Autosculpt</Filter>
     </ClInclude>
@@ -350,6 +350,15 @@
     </ClInclude>
     <ClInclude Include="InitializeEverythingHooks.h">
       <Filter>Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="WheelBrands.h">
+      <Filter>Features\Wheels</Filter>
+    </ClInclude>
+    <ClInclude Include="WheelBrandsHelpBar.h">
+      <Filter>Features\Wheels</Filter>
+    </ClInclude>
+    <ClInclude Include="Wheels.h">
+      <Filter>Features\Wheels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

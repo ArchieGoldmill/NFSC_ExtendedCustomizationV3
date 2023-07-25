@@ -16,8 +16,8 @@
 #include "ExhaustFX.h"
 #include "Paints.h"
 #include "RotorGlow.h"
-#include "Rims.h"
 #include "InitializeEverythingHooks.h"
+#include "Wheels.h"
 
 void ToBeRemoved()
 {
@@ -51,7 +51,7 @@ void Init()
 	InitExhaust();
 	InitPaints();
 	InitRotorGlow();
-	InitRims();
+	InitWheels();
 
 	InitCarRenderInfoHooks();
 	InitInitializeEverythingHooks();

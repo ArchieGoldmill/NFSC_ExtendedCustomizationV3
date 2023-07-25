@@ -16,7 +16,7 @@ void __fastcall FeCustomizeVisuals_Setup(FeCustomizeVisuals* _this)
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_SPOILER_PAINT, (int)VisualsMenu::SPOILER_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_WHEELS, (int)VisualsMenu::FRONT_WHEEL_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_RIMS, (int)VisualsMenu::FRONT_RIM_PAINT));
-		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_RIMS, (int)VisualsMenu::REAR_WHEEL_PAINT));
+		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_WHEELS, (int)VisualsMenu::REAR_WHEEL_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_RIMS, (int)VisualsMenu::REAR_RIM_PAINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_CALIPER_PAINT, (int)VisualsMenu::CALIPER_PAINT));
 	}

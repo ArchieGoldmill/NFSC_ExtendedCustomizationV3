@@ -19,4 +19,5 @@ class FeCustomizeMain : public VectorScrollerMenu
 {
 public:
 	inline static CustomizeMainMenu SelectedItem;
+	inline static bool WheelSelected;
 };

@@ -26,15 +26,15 @@ void __fastcall PaintSelectablePart_Install(PaintSelectablePart* _this, int, FEC
 		{
 			num = 0;
 		}
-		if (_this->SlotId == Slot::FRONT_LIP_PAINT)
+		if (_this->SlotId == Slot::FRONT_RIM_PAINT)
 		{
 			num = 1;
 		}
-		if (_this->SlotId == Slot::REAR_LIP_PAINT)
+		if (_this->SlotId == Slot::REAR_RIM_PAINT)
 		{
 			num = 2;
 		}
-		if (_this->SlotId == Slot::REAR_RIM_PAINT)
+		if (_this->SlotId == Slot::REAR_WHEEL_PAINT)
 		{
 			num = 3;
 		}
@@ -60,7 +60,7 @@ void __fastcall PaintSelectablePart_Install(PaintSelectablePart* _this, int, FEC
 
 void __fastcall FECustomizationRecord_GetColor(FECustomizationRecord* record, int, int colorNum, ColorData* paintData)
 {
-	if (FeCustomizeVisuals::SelectedItem == VisualsMenu::BODY_PAINT || FeCustomizeVisuals::SelectedItem == VisualsMenu::FRONT_RIM_PAINT)
+	if (FeCustomizeVisuals::SelectedItem == VisualsMenu::BODY_PAINT || FeCustomizeVisuals::SelectedItem == VisualsMenu::FRONT_WHEEL_PAINT)
 	{
 		record->GetColor(colorNum, paintData);
 	}
@@ -71,15 +71,15 @@ void __fastcall FECustomizationRecord_GetColor(FECustomizationRecord* record, in
 		{
 			num = 0;
 		}
-		if (FeCustomizeVisuals::SelectedItem == VisualsMenu::FRONT_LIP_PAINT)
+		if (FeCustomizeVisuals::SelectedItem == VisualsMenu::FRONT_RIM_PAINT)
 		{
 			num = 1;
 		}
-		if (FeCustomizeVisuals::SelectedItem == VisualsMenu::REAR_LIP_PAINT)
+		if (FeCustomizeVisuals::SelectedItem == VisualsMenu::REAR_RIM_PAINT)
 		{
 			num = 2;
 		}
-		if (FeCustomizeVisuals::SelectedItem == VisualsMenu::REAR_RIM_PAINT)
+		if (FeCustomizeVisuals::SelectedItem == VisualsMenu::REAR_WHEEL_PAINT)
 		{
 			num = 3;
 		}
@@ -109,9 +109,9 @@ void __stdcall GetPaintParts(PaintSelectablePart* part, Slot slot)
 	switch (FeCustomizeVisuals::SelectedItem)
 	{
 	case VisualsMenu::CALIPER_PAINT: slot = Slot::CALIPER_PAINT; break;
-	case VisualsMenu::FRONT_LIP_PAINT: slot = Slot::FRONT_LIP_PAINT; break;
-	case VisualsMenu::REAR_LIP_PAINT: slot = Slot::REAR_LIP_PAINT; break;
+	case VisualsMenu::FRONT_RIM_PAINT: slot = Slot::FRONT_RIM_PAINT; break;
 	case VisualsMenu::REAR_RIM_PAINT: slot = Slot::REAR_RIM_PAINT; break;
+	case VisualsMenu::REAR_WHEEL_PAINT: slot = Slot::REAR_WHEEL_PAINT; break;
 	case VisualsMenu::HOOD_PAINT: slot = Slot::HOOD_PAINT; break;
 	case VisualsMenu::SPOILER_PAINT: slot = Slot::SPOILER_PAINT; break;
 	default:
@@ -130,17 +130,17 @@ Hash __fastcall PaintSelectablePart_GetNameHash(PaintSelectablePart* _this)
 		{
 			slotName = (char*)"CALIPER_PAINT";
 		}
-		if (_this->SlotId == Slot::FRONT_LIP_PAINT)
+		if (_this->SlotId == Slot::FRONT_RIM_PAINT)
 		{
-			slotName = (char*)"FRONT_LIP_PAINT";
-		}
-		if (_this->SlotId == Slot::REAR_LIP_PAINT)
-		{
-			slotName = (char*)"REAR_LIP_PAINT";
+			slotName = (char*)"FRONT_RIM_PAINT";
 		}
 		if (_this->SlotId == Slot::REAR_RIM_PAINT)
 		{
 			slotName = (char*)"REAR_RIM_PAINT";
+		}
+		if (_this->SlotId == Slot::REAR_WHEEL_PAINT)
+		{
+			slotName = (char*)"REAR_WHEEL_PAINT";
 		}
 		if (_this->SlotId == Slot::HOOD_PAINT)
 		{

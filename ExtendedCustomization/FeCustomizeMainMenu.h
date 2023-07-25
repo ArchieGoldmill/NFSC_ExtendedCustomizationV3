@@ -2,6 +2,7 @@
 #include "Feature.h"
 #include "FeCustomizeMain.h"
 #include "FEButton.h"
+#include "FECarRecord.h"
 
 bool AnyAttachmentsEnabled()
 {
@@ -45,8 +46,10 @@ void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 CustomizeMainMenu __stdcall ShowMenu(CustomizeMainMenu menu)
 {
 	FeCustomizeMain::SelectedItem = menu;
+	FeCustomizeMain::WheelSelected = false;
 	if (menu == CustomizeMainMenu::FRONT_WHEELS || menu == CustomizeMainMenu::REAR_WHEELS)
 	{
+		FeCustomizeMain::WheelSelected = true;
 		return CustomizeMainMenu::AFTERMARKET;
 	}
 

@@ -238,7 +238,7 @@
     <ClInclude Include="RasterizationManager.h" />
     <ClInclude Include="RideInfo.h" />
     <ClInclude Include="RimPaint.h" />
-    <ClInclude Include="Rims.h" />
+    <ClInclude Include="Wheels.h" />
     <ClInclude Include="RotorGlow.h" />
     <ClInclude Include="ScrollOption.h" />
     <ClInclude Include="Slots.h" />
@@ -258,6 +258,8 @@
     <ClInclude Include="PartAnimation.h" />
     <ClInclude Include="Vinyls.h" />
     <ClInclude Include="VinylManager.h" />
+    <ClInclude Include="WheelBrands.h" />
+    <ClInclude Include="WheelBrandsHelpBar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\Files\ExtendedCustomization.ini" />

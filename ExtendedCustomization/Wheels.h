@@ -3,6 +3,8 @@
 #include "Slots.h"
 #include "Constants.h"
 #include "CarRenderInfo.h"
+#include "CarPartDatabase.h"
+#include "WheelBrands.h"
 
 #define WHEEL_FL 0
 #define WHEEL_FR 1
@@ -49,8 +51,10 @@ void __declspec(naked) RenderRearLeftWheelCave()
 	}
 }
 
-void InitRims()
+void InitWheels()
 {
+	InitWheelBrands();
+
 	// Disable masking
 	injector::MakeNOP(0x007B2C90, 5);
 	injector::MakeNOP(0x007C358F, 5);
@@ -65,8 +69,6 @@ void InitRims()
 	// Make rear wheels installable
 	injector::WriteMemory(0x007D6C76, 5, true);
 	Game::CarPartSlotMap[(int)Slot::REAR_WHEEL] = 0x54;
-
-	Game::AutosculptRegionList[ZoneRearWheel] = Slot::REAR_WHEEL;
 
 	injector::MakeCALL(0x007DFEF7, RenderFrontLeftWheel);
 	injector::MakeCALL(0x007E0098, RenderFrontRightWheel);

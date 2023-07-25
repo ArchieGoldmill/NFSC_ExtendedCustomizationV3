@@ -1,6 +1,7 @@
 #pragma once
 #include "Feature.h"
 #include "Decals.h"
+#include "WheelBrands.h"
 
 void __stdcall AfterInitializeEverything()
 {
@@ -8,6 +9,8 @@ void __stdcall AfterInitializeEverything()
 	{
 		FixRearDecals();
 	}
+
+	GetWheelBrands();
 
 	//LoadResourceFile("CARS\\TIRES\\GEOMETRY.BIN", 0, 0, 0, 0, 0, 0);
 	//LoadResourceFile("CARS\\TIRES\\TEXTURES.BIN", 6, 0, 0, 0, 0, 0);

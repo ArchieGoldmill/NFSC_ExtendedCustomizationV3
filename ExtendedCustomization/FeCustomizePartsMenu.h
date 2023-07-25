@@ -5,6 +5,8 @@
 #include "FeCustomizeMain.h"
 #include "FrontEndRenderingCar.h"
 #include "Config.h"
+#include "WheelBrands.h"
+#include "FrontEndRenderingCar.h"
 
 void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId)
 {
@@ -12,6 +14,22 @@ void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId)
 	if (partConfig.State == State::Enabled)
 	{
 		_this->AddMenuOption(partConfig.Header, slot, _this->IsAutosculpt, 0);
+	}
+}
+
+void AddWheelBrands(FeCustomizeParts* _this, Slot slot)
+{
+	_this->Header->SetLanguageHash(Hashes::CUST_MAINMENU_FRONT_RIMS);
+	int wheelSize = 17;
+	auto part = FrontEndRenderingCar::Get()->RideInfo.GetPart(slot);
+	if (part)
+	{
+		wheelSize = part->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, wheelSize);
+	}
+
+	for (auto& wheel : WheelBrands)
+	{
+		_this->AddMenuOption(wheel.Header, slot, _this->IsAutosculpt, wheelSize);
 	}
 }
 
@@ -23,7 +41,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 	{
 	case CustomizeMainMenu::AFTERMARKET:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
-		
+
 		AddMenuOption(_this, Slot::HOOD, carId);
 		AddMenuOption(_this, Slot::ROOFSCOOP, carId);
 		AddMenuOption(_this, Slot::SPOILER, carId);
@@ -50,12 +68,10 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot_Neon, carId);
 		break;
 	case CustomizeMainMenu::FRONT_WHEELS:
-		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
-		_this->AddMenuOption(0xB47AB2E, Slot::FRONT_WHEEL, _this->IsAutosculpt, 17);
+		AddWheelBrands(_this, Slot::FRONT_WHEEL);
 		break;
 	case CustomizeMainMenu::REAR_WHEELS:
-		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
-		_this->AddMenuOption(0xB47AB2E, Slot::REAR_WHEEL, _this->IsAutosculpt, 17);
+		AddWheelBrands(_this, Slot::REAR_WHEEL);
 		break;
 	case CustomizeMainMenu::ATTACHMENTS:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);

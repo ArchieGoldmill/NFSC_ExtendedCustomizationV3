@@ -11,6 +11,7 @@
 #include "AutosculptSelectablePart.h"
 #include "CarCustomizeManager.h"
 #include "FECustomizationRecord.h"
+#include "WheelBrands.h"
 
 Slot KitwParts[] = {
 	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT
@@ -159,17 +160,53 @@ void GetPartsListV3(Slot slot, bNode<SelectablePart*>* listHead, bool isCarbon, 
 	}
 }
 
-void __cdecl StandardSelectablePart_GetPartsList(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
+void GetWheelParts(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 {
-	auto carId = FECarRecord::GetCarType();
-	int version = g_Config.GetVersion(carId);
-	if (version == 3 && slot != Slot::FRONT_WHEEL)
+	brandName = GetBrandByHeader(brandName);
+	if (brandName == Hashes::STOCK)
 	{
-		GetPartsListV3<StandardSelectablePart>(slot, listHead, isCarbon, brandName, innerRadius, carId, false);
+		auto carId = FECarRecord::GetCarType();
+		DBCarPart* part = NULL;
+		while (true)
+		{
+			part = CarPartDatabase::Instance->GetCarPart(slot, carId, part);
+			if (!part)
+			{
+				break;
+			}
+
+			if (part->IsStock())
+			{
+				auto selectablePart = (StandardSelectablePart*)j_malloc_0(sizeof(StandardSelectablePart));
+				*selectablePart = StandardSelectablePart(slot, part);
+				AddNodeToList(listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
+			}
+		}
 	}
 	else
 	{
 		StandardSelectablePart::GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
+	}
+}
+
+void __cdecl StandardSelectablePart_GetPartsList(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
+{
+	if (slot == Slot::FRONT_WHEEL || slot == Slot::REAR_WHEEL)
+	{
+		GetWheelParts(slot, listHead, isCarbon, brandName, innerRadius);
+	}
+	else
+	{
+		auto carId = FECarRecord::GetCarType();
+		int version = g_Config.GetVersion(carId);
+		if (version == 3)
+		{
+			GetPartsListV3<StandardSelectablePart>(slot, listHead, isCarbon, brandName, innerRadius, carId, false);
+		}
+		else
+		{
+			StandardSelectablePart::GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
+		}
 	}
 }
 
