@@ -2,47 +2,91 @@
 #include "Feature.h"
 #include "FeGarageMain.h"
 #include "FECarRecord.h"
-#include "Config.h"
 
 namespace Legacy
 {
-	//void HandleDoors(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
-	//{
-	//	if (Config::GetPartState(rideInfo->CarId, DBPart::LeftDoor) == Config::EnabledState)
-	//	{
-	//		int* leftDoor = Game::GetPart(rideInfo, DBPart::LeftDoor);
-	//		if (leftDoor)
-	//		{
-	//			int kit = Game::GetAppliedAttributeIParam1(leftDoor, Game::StringHash((char*)"KITNUMBER"), 0);
-	//			if (kit)
-	//			{
-	//				Game::InstallPart(_this, rideInfo, FECustomizationRecord, DBPart::LeftDoor, 1, "%s_KIT%02d_DOOR_RIGHT", carName, kit);
-	//			}
-	//			else
-	//			{
-	//				Game::InstallPart(_this, rideInfo, FECustomizationRecord, DBPart::RightDoor, 1, "%s_DOOR_RIGHT", carName);
-	//			}
-	//		}
-	//	}
-	//	else
-	//	{
-	//		int* body = Game::GetPart(rideInfo, DBPart::Body);
-	//		if (body)
-	//		{
-	//			int kit = Game::GetAppliedAttributeIParam1(body, Game::StringHash((char*)"KITNUMBER"), 0);
-	//			if (kit)
-	//			{
-	//				Game::InstallPart(_this, rideInfo, FECustomizationRecord, DBPart::LeftDoor, 1, "%s_KITW%02d_DOOR_LEFT", carName, kit);
-	//				Game::InstallPart(_this, rideInfo, FECustomizationRecord, DBPart::RightDoor, 1, "%s_KITW%02d_DOOR_RIGHT", carName, kit);
-	//			}
-	//			else
-	//			{
-	//				Game::InstallPart(_this, rideInfo, FECustomizationRecord, DBPart::LeftDoor, 1, "%s_DOOR_LEFT", carName);
-	//				Game::InstallPart(_this, rideInfo, FECustomizationRecord, DBPart::RightDoor, 1, "%s_DOOR_RIGHT", carName);
-	//			}
-	//		}
-	//	}
-	//}
+	void UninstallPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot)
+	{
+		if (record)
+		{
+			record->UnInstallPart(rideInfo->CarId, slot);
+		}
+
+		if (rideInfo)
+		{
+			rideInfo->SetPart(slot, 0);
+		}
+	}
+
+	void HandleBadging(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, const char* position, Slot slot, char* carName)
+	{
+		auto body = rideInfo->GetPart(Slot::BODY);
+		if (body && !body->IsStock())
+		{
+			UninstallPart(rideInfo, record, Slot::FRONT_BUMPER_BADGING_SET);
+			UninstallPart(rideInfo, record, Slot::REAR_BUMPER_BADGING_SET);
+			return;
+		}
+
+		if (g_Config.GetPart(slot, rideInfo->CarId).State == State::Enabled)
+		{
+			auto badgingPart = rideInfo->GetPart(slot);
+			if (!badgingPart)
+			{
+				if (!body || body->IsStock())
+				{
+					FeGarageMain::InstallPart(_this, rideInfo, record, slot, 1, "%s_KIT00_%s_BUMPER_BADGING_SET", carName, position);
+				}
+			}
+		}
+		else
+		{
+			auto bumperPart = rideInfo->GetPart((Slot)((int)slot - 1));
+			if (bumperPart)
+			{
+				int kit = bumperPart->GetKit();
+				FeGarageMain::InstallPart(_this, rideInfo, record, slot, 1, "%s_KIT%02d_%s_BUMPER_BADGING_SET", carName, kit, position);
+			}
+		}
+	}
+
+	void HandleDoors(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		if (g_Config.GetPart(Slot::DOOR_LEFT, rideInfo->CarId).State == State::Enabled)
+		{
+			auto leftDoor = rideInfo->GetPart(Slot::DOOR_LEFT);
+			if (leftDoor)
+			{
+				int kit = leftDoor->GetKit();
+				if (kit)
+				{
+					FeGarageMain::InstallPart(_this, rideInfo, record, Slot::DOOR_RIGHT, 1, "%s_KIT%02d_DOOR_RIGHT", carName, kit);
+				}
+				else
+				{
+					FeGarageMain::InstallPart(_this, rideInfo, record, Slot::DOOR_RIGHT, 1, "%s_DOOR_RIGHT", carName);
+				}
+			}
+		}
+		else
+		{
+			auto body = rideInfo->GetPart(Slot::BODY);
+			if (body)
+			{
+				int kit = body->GetKit();
+				if (kit)
+				{
+					FeGarageMain::InstallPart(_this, rideInfo, record, Slot::DOOR_LEFT, 1, "%s_KITW%02d_DOOR_LEFT", carName, kit);
+					FeGarageMain::InstallPart(_this, rideInfo, record, Slot::DOOR_RIGHT, 1, "%s_KITW%02d_DOOR_RIGHT", carName, kit);
+				}
+				else
+				{
+					FeGarageMain::InstallPart(_this, rideInfo, record, Slot::DOOR_LEFT, 1, "%s_DOOR_LEFT", carName);
+					FeGarageMain::InstallPart(_this, rideInfo, record, Slot::DOOR_RIGHT, 1, "%s_DOOR_RIGHT", carName);
+				}
+			}
+		}
+	}
 
 	void HandleSpecialCustomizationV2(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
 	{
@@ -52,7 +96,10 @@ namespace Legacy
 		}
 
 		char* carName = GetCarTypeName(rideInfo->CarId);
-		//HandleDoors(feGarageMain, record, rideInfo, carName);
+
+		HandleBadging(feGarageMain, rideInfo, record, "FRONT", Slot::FRONT_BUMPER_BADGING_SET, carName);
+		HandleBadging(feGarageMain, rideInfo, record, "REAR", Slot::REAR_BUMPER_BADGING_SET, carName);
+		HandleDoors(feGarageMain, rideInfo, record, carName);
 	}
 
 	int __fastcall IsSetHeadlightOn(FECarRecord* feCarRecord)

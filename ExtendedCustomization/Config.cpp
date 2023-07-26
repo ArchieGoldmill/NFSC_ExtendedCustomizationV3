@@ -117,3 +117,16 @@ PartConfig GlobalConfig::GetPart(Slot slot, CarType carId)
 
 	return result;
 }
+
+Slot GlobalConfig::GetSlotByHeader(Hash header)
+{
+	for (auto& partConfig : this->Parts)
+	{
+		if (partConfig.Header == header)
+		{
+			return partConfig.Slot;
+		}
+	}
+
+	return Slot::INVALID;
+}

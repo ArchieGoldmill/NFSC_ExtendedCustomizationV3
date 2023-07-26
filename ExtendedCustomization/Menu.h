@@ -4,6 +4,7 @@
 #include "PartList.h"
 #include "FeCustomizeVisualsMenu.h"
 #include "MenuCameras.h"
+#include "PartWarning.h"
 
 void InitMenu()
 {
@@ -12,6 +13,7 @@ void InitMenu()
 	InitFeCustomizeVisualsMenu();
 	InitPartList();
 	InitMenuCameras();
+	InitPartWarning();
 
 	if (g_Config.UnhardcodeBodykitNames)
 	{

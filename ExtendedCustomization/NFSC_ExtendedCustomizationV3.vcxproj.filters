@@ -360,6 +360,9 @@
     <ClInclude Include="TireWidth.h">
       <Filter>Features\Stance</Filter>
     </ClInclude>
+    <ClInclude Include="PartWarning.h">
+      <Filter>Features\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

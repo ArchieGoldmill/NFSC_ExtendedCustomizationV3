@@ -66,6 +66,7 @@ struct GlobalConfig : public SharedConfig
 	bool TireWidth;
 
 	PartConfig GetPart(Slot slot, CarType carId);
+	Slot GetSlotByHeader(Hash header);
 	CarConfig* GetCarConfig(CarType carId);
 	CarConfig* GetCarConfig(Hash carName);
 	State GetPopUpHeadLights(CarType carId);

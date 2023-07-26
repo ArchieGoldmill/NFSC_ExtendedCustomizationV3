@@ -207,6 +207,7 @@
     <ClInclude Include="eLightContext.h" />
     <ClInclude Include="eLightMaterial.h" />
     <ClInclude Include="eModel.h" />
+    <ClInclude Include="PartWarning.h" />
     <ClInclude Include="ReplacementTextureEntry.h" />
     <ClInclude Include="eSolid.h" />
     <ClInclude Include="FEButton.h" />
