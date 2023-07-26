@@ -13,7 +13,7 @@ void InitMenu()
 	InitFeCustomizeVisualsMenu();
 	InitPartList();
 	InitMenuCameras();
-	InitPartWarning();
+	Legacy::InitPartWarning();
 
 	if (g_Config.UnhardcodeBodykitNames)
 	{

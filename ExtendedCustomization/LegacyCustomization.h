@@ -18,6 +18,96 @@ namespace Legacy
 		}
 	}
 
+	void SetHeadlightsOff(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_HEADLIGHT, 1, "%s_LEFT_HEADLIGHT_OFF", carName);
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_HEADLIGHT, 1, "%s_RIGHT_HEADLIGHT_OFF", carName);
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_HEADLIGHT_GLASS, 1, "%s_RIGHT_HEADLIGHT_GLASS_OFF", carName);
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_HEADLIGHT_GLASS, 1, "%s_LEFT_HEADLIGHT_GLASS_OFF", carName);
+	}
+
+	void SetHeadlightsOn(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_HEADLIGHT, 1, "%s_LEFT_HEADLIGHT", carName);
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_HEADLIGHT, 1, "%s_RIGHT_HEADLIGHT", carName);
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_HEADLIGHT_GLASS, 1, "%s_RIGHT_HEADLIGHT_GLASS", carName);
+		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_HEADLIGHT_GLASS, 1, "%s_LEFT_HEADLIGHT_GLASS", carName);
+	}
+
+	void SetHeadlights(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		auto leftHeadlight = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
+		if (leftHeadlight)
+		{
+			int kit = leftHeadlight->GetKit();
+			if (kit)
+			{
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_HEADLIGHT, 1, "%s_KIT%02d_RIGHT_HEADLIGHT", carName, kit);
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_HEADLIGHT_GLASS, 1, "%s_KIT%02d_RIGHT_HEADLIGHT_GLASS", carName, kit);
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_HEADLIGHT_GLASS, 1, "%s_KIT%02d_LEFT_HEADLIGHT_GLASS", carName, kit);
+			}
+			else
+			{
+				SetHeadlightsOn(_this, rideInfo, record, carName);
+			}
+		}
+	}
+
+	void HandleHeadlights(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		if (g_Config.GetPopUpHeadLights(rideInfo->CarId) == State::Enabled)
+		{
+			SetHeadlightsOff(_this, rideInfo, record, carName);
+			return;
+		}
+
+		if (g_Config.GetPart(Slot::LEFT_HEADLIGHT, rideInfo->CarId).State == State::Enabled)
+		{
+			SetHeadlights(_this, rideInfo, record, carName);
+			return;
+		}
+
+		SetHeadlightsOn(_this, rideInfo, record, carName);
+	}
+
+	void HandleBrakelights(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		auto leftBrakelight = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
+		if (leftBrakelight)
+		{
+			int kit = leftBrakelight->GetKit();
+			if (kit)
+			{
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_BRAKELIGHT, 1, "%s_KIT%02d_RIGHT_BRAKELIGHT", carName, kit);
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_BRAKELIGHT_GLASS, 1, "%s_KIT%02d_LEFT_BRAKELIGHT_GLASS", carName, kit);
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_BRAKELIGHT_GLASS, 1, "%s_KIT%02d_RIGHT_BRAKELIGHT_GLASS", carName, kit);
+			}
+			else
+			{
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_BRAKELIGHT, 1, "%s_RIGHT_BRAKELIGHT", carName);
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_BRAKELIGHT_GLASS, 1, "%s_LEFT_BRAKELIGHT_GLASS", carName);
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_BRAKELIGHT_GLASS, 1, "%s_RIGHT_BRAKELIGHT_GLASS", carName);
+			}
+		}
+	}
+
+	void HandleSideMirrors(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		auto leftMirror = rideInfo->GetPart(Slot::LEFT_SIDE_MIRROR);
+		if (leftMirror)
+		{
+			int kit = leftMirror->GetKit();
+			if (kit)
+			{
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_SIDE_MIRROR, 1, "%s_KIT%02d_RIGHT_SIDE_MIRROR", carName, kit);
+			}
+			else
+			{
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::RIGHT_SIDE_MIRROR, 1, "%s_RIGHT_SIDE_MIRROR", carName);
+			}
+		}
+	}
+
 	void HandleExhaust(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
 	{
 		auto rearBumper = rideInfo->GetPart(Slot::REAR_BUMPER);
@@ -125,6 +215,9 @@ namespace Legacy
 		HandleBadging(feGarageMain, rideInfo, record, "REAR", Slot::REAR_BUMPER_BADGING_SET, carName);
 		HandleDoors(feGarageMain, rideInfo, record, carName);
 		HandleExhaust(feGarageMain, rideInfo, record, carName);
+		HandleSideMirrors(feGarageMain, rideInfo, record, carName);
+		HandleBrakelights(feGarageMain, rideInfo, record, carName);
+		HandleHeadlights(feGarageMain, rideInfo, record, carName);
 	}
 
 	int __fastcall IsSetHeadlightOn(FECarRecord* feCarRecord)

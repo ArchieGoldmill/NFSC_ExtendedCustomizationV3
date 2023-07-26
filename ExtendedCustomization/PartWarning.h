@@ -4,91 +4,94 @@
 #include "DBCarPart.h"
 #include "CarRenderInfo.h"
 
-bool ShowWarning(Slot slot)
+namespace Legacy
 {
-	auto rideInfo = &FrontEndRenderingCar::Get()->RideInfo;
-	if (g_Config.GetVersion(rideInfo->CarId) < 3)
+	bool ShowWarning(Slot slot)
 	{
-		auto carRenderInfo = rideInfo->CarRenderInfo;
-
-		if (slot == Slot::FRONT_BUMPER_BADGING_SET || slot == Slot::REAR_BUMPER_BADGING_SET ||
-			slot == Slot::FRONT_BUMPER || slot == Slot::REAR_BUMPER || slot == Slot::SKIRT)
+		auto rideInfo = &FrontEndRenderingCar::Get()->RideInfo;
+		if (g_Config.GetVersion(rideInfo->CarId) < 3)
 		{
-			auto body = rideInfo->GetPart(Slot::BODY);
-			return body && !body->IsStock();
+			auto carRenderInfo = rideInfo->CarRenderInfo;
+
+			if (slot == Slot::FRONT_BUMPER_BADGING_SET || slot == Slot::REAR_BUMPER_BADGING_SET ||
+				slot == Slot::FRONT_BUMPER || slot == Slot::REAR_BUMPER || slot == Slot::SKIRT)
+			{
+				auto body = rideInfo->GetPart(Slot::BODY);
+				return body && !body->IsStock();
+			}
+
+			if (slot == Slot::EXHAUST)
+			{
+				return !carRenderInfo->HasExhaustMerker();
+			}
 		}
 
-		if (slot == Slot::EXHAUST)
+		return false;
+	}
+
+	int __stdcall PartWarning(Slot slot, int a2)
+	{
+		if (ShowWarning(slot))
 		{
-			return !carRenderInfo->HasExhaustMerker();
+			auto ShowPartWarning = (int(__stdcall*)(Hash, int))0x0085F8F0;
+			ShowPartWarning(0x22105094, a2);
+			return 1;
+		}
+
+		return 0;
+	}
+
+	int __stdcall DisableParts(Hash header)
+	{
+		auto slot = g_Config.GetSlotByHeader(header);
+		return ShowWarning(slot);
+	}
+
+	void __declspec(naked) DisablePartsCave()
+	{
+		static constexpr auto cExit = 0x00866638;
+		static constexpr auto cExit1 = 0x008665FC;
+		__asm
+		{
+			pushad;
+			mov eax, [ecx + 0x2C];
+			push eax;
+			call DisableParts;
+			test eax, eax;
+			popad;
+			je enableParts;
+			jmp cExit1;
+
+		enableParts:
+			jmp cExit;
 		}
 	}
 
-	return false;
-}
-
-int __stdcall PartWarning(Slot slot, int a2)
-{
-	if (ShowWarning(slot))
+	void __declspec(naked) PartWarningCave()
 	{
-		auto ShowPartWarning = (int(__stdcall*)(Hash, int))0x0085F8F0;
-		ShowPartWarning(0x22105094, a2);
-		return 1;
+		static constexpr auto cExit = 0x0085F7BD;
+		__asm
+		{
+			pushad;
+			push ebx;
+			push eax;
+			call PartWarning;
+			test eax, eax;
+			popad;
+			je noWarn;
+			pop edi;
+			pop esi;
+			pop ebx;
+			ret 0x0014;
+
+		noWarn:
+			jmp cExit;
+		}
 	}
 
-	return 0;
-}
-
-int __stdcall DisableParts(Hash header)
-{
-	auto slot = g_Config.GetSlotByHeader(header);
-	return ShowWarning(slot);
-}
-
-void __declspec(naked) DisablePartsCave()
-{
-	static constexpr auto cExit = 0x00866638;
-	static constexpr auto cExit1 = 0x008665FC;
-	__asm
+	void InitPartWarning()
 	{
-		pushad;
-		mov eax, [ecx + 0x2C];
-		push eax;
-		call DisableParts;
-		test eax, eax;
-		popad;
-		je enableParts;
-		jmp cExit1;
-
-	enableParts:
-		jmp cExit;
+		injector::MakeJMP(0x0085F74C, PartWarningCave);
+		injector::MakeJMP(0x008665DA, DisablePartsCave);
 	}
-}
-
-void __declspec(naked) PartWarningCave()
-{
-	static constexpr auto cExit = 0x0085F7BD;
-	__asm
-	{
-		pushad;
-		push ebx;
-		push eax;
-		call PartWarning;
-		test eax, eax;
-		popad;
-		je noWarn;
-		pop edi;
-		pop esi;
-		pop ebx;
-		ret 0x0014;
-
-	noWarn:
-		jmp cExit;
-	}
-}
-
-void InitPartWarning()
-{
-	injector::MakeJMP(0x0085F74C, PartWarningCave);
-	injector::MakeJMP(0x008665DA, DisablePartsCave);
 }
