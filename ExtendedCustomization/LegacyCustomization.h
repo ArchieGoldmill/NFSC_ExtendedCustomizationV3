@@ -18,6 +18,30 @@ namespace Legacy
 		}
 	}
 
+	void HandleExhaust(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	{
+		auto rearBumper = rideInfo->GetPart(Slot::REAR_BUMPER);
+		if (rearBumper)
+		{
+			if (rearBumper->IsStock())
+			{
+				FeGarageMain::InstallPart(_this, rideInfo, record, Slot::EXHAUST, 1, "%s_KIT00_EXHAUST", carName);
+			}
+			else
+			{
+				auto exhaust = rideInfo->GetPart(Slot::EXHAUST);
+				if (!exhaust || exhaust->IsStock())
+				{
+					FeGarageMain::InstallPart(_this, rideInfo, record, Slot::EXHAUST, 1, "EXHAUST_STYLE17_LEVEL1");
+				}
+			}
+		}
+		else
+		{
+			UninstallPart(rideInfo, record, Slot::EXHAUST);
+		}
+	}
+
 	void HandleBadging(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, const char* position, Slot slot, char* carName)
 	{
 		auto body = rideInfo->GetPart(Slot::BODY);
@@ -100,6 +124,7 @@ namespace Legacy
 		HandleBadging(feGarageMain, rideInfo, record, "FRONT", Slot::FRONT_BUMPER_BADGING_SET, carName);
 		HandleBadging(feGarageMain, rideInfo, record, "REAR", Slot::REAR_BUMPER_BADGING_SET, carName);
 		HandleDoors(feGarageMain, rideInfo, record, carName);
+		HandleExhaust(feGarageMain, rideInfo, record, carName);
 	}
 
 	int __fastcall IsSetHeadlightOn(FECarRecord* feCarRecord)
