@@ -162,6 +162,11 @@ void GetPartsListV3(Slot slot, bNode<SelectablePart*>* listHead, bool isCarbon, 
 
 void GetWheelParts(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 {
+	if (innerRadius < 17 || innerRadius > 21)
+	{
+		innerRadius = 17;
+	}
+
 	brandName = GetBrandByHeader(brandName);
 	if (FeCustomizeMain::SelectedItem == CustomizeMainMenu::REAR_WHEELS)
 	{

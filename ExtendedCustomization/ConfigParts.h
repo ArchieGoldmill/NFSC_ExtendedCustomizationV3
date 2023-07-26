@@ -10,6 +10,7 @@ std::pair<Slot, const char*> ConfigParts[] = {
 	{ Slot::ROOFSCOOP, "PART_ROOF_SCOOP" },
 	{ Slot::SPOILER, "PART_SPOILER" },
 	{ Slot::EXHAUST, "PART_EXHAUST" },
+	{ Slot::LEFT_SIDE_MIRROR, "PART_LEFT_SIDE_MIRROR" },
 	{ Slot::LICENSE_PLATE, "PART_LICENSE_PLATE" },
 	{ Slot::FRONT_BRAKE, "PART_FRONT_BRAKE" },
 	{ Slot::FRONT_ROTOR, "PART_FRONT_ROTOR" },

@@ -29,6 +29,12 @@ import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\PLATES.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\STANCE.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\STEERINGWHEEL.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\SEATS.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS2.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS3.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS4.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS5.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS6.bin
 
 // Files
 create_folder absolute scripts\ExtendedCustomizationCars

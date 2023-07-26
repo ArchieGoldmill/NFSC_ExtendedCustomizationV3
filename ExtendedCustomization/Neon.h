@@ -5,6 +5,7 @@
 #include "eView.h"
 #include "Constants.h"
 #include "Neon.h"
+#include "DBCarPart.h"
 
 void InitNeon();
 
@@ -115,7 +116,7 @@ public:
 		auto neonPart = rideInfo->GetPart(Slot_Neon);
 		if (neonPart && neonPart->GetAppliedAttributeIParam(Hashes::DRAW_MARKERS, 1) == 1)
 		{
-			Slot slots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR };
+			Slot slots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR, Slot::SKIRT };
 			for (Slot slot : slots)
 			{
 				auto part = rideInfo->GetPart(slot);
