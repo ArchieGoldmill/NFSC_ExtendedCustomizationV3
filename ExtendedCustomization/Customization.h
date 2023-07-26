@@ -77,7 +77,7 @@ void HandleBrakes(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizatio
 		else
 		{
 			auto currentPart = CarCustomizeManager::Get()->GetCurrentPart(Slot::FRONT_ROTOR);
-			if (currentPart->GetKit())
+			if (currentPart && currentPart->GetKit())
 			{
 				InstallPart(rideInfo, record, Slot::FRONT_ROTOR, currentPart);
 			}
@@ -97,7 +97,7 @@ void HandleBrakes(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizatio
 		else
 		{
 			auto currentPart = CarCustomizeManager::Get()->GetCurrentPart(Slot::FRONT_BRAKE);
-			if (currentPart->GetKit())
+			if (currentPart && currentPart->GetKit())
 			{
 				InstallPart(rideInfo, record, Slot::FRONT_BRAKE, currentPart);
 			}

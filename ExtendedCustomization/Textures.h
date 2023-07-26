@@ -65,7 +65,7 @@ void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 
 		newName = Game::InRace() ? StringHash1("_INTERIOR_ON", carHash) : StringHash1("_INTERIOR_OFF", carHash);
 		auto interiorOn = entries + 0x25;
-		reverse->Update(Game::InRace() ? Hashes::INTERIOR_ON : Hashes::INTERIOR_OFF, newName);
+		interiorOn->Update(Game::InRace() ? Hashes::INTERIOR_ON : Hashes::INTERIOR_OFF, newName);
 	}
 	else
 	{
@@ -93,17 +93,23 @@ void SetTextureHash(Hash* texPtr, Hash hash)
 	texPtr[0xD0]++;
 }
 
-void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
+void SetWheelTexture(Hash* texPtr, RideInfo* rideInfo, Slot slot)
 {
-	auto rearWheel = rideInfo->GetPart(Slot::REAR_WHEEL);
-	if (rearWheel)
+	auto wheel = rideInfo->GetPart(slot);
+	if (wheel)
 	{
-		auto textureName = rearWheel->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
+		auto textureName = wheel->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
 		if (textureName)
 		{
 			SetTextureHash(texPtr, StringHash1("_WHEEL", textureName));
 		}
 	}
+}
+
+void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
+{
+	SetWheelTexture(texPtr, rideInfo, Slot::FRONT_WHEEL);
+	SetWheelTexture(texPtr, rideInfo, Slot::REAR_WHEEL);
 
 	auto leftBrakelight = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
 	if (leftBrakelight)
