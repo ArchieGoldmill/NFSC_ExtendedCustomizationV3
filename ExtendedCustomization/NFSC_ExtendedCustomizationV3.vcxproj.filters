@@ -303,9 +303,6 @@
     <ClInclude Include="PaintSelectablePart.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="WheelPaint.h">
-      <Filter>Features\Paints</Filter>
-    </ClInclude>
     <ClInclude Include="Paints.h">
       <Filter>Features\Paints</Filter>
     </ClInclude>
@@ -359,6 +356,9 @@
     </ClInclude>
     <ClInclude Include="Wheels.h">
       <Filter>Features\Wheels</Filter>
+    </ClInclude>
+    <ClInclude Include="TireWidth.h">
+      <Filter>Features\Stance</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
