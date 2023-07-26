@@ -36,6 +36,7 @@ float __stdcall GetTrackWidth(CarRenderInfo* carRenderInfo, int isRear, int orig
 
 	res += GetPartValue(rideInfo, isRear ? Slot::REAR_BUMPER_BADGING_SET : Slot::FRONT_BUMPER_BADGING_SET, Hashes::TIRE_OFFSET);
 	res += rideInfo->AutoSculptRegions[ZoneStance].Zones[isRear ? 3 : 2] / 7.0f;
+	res += rideInfo->AutoSculptRegions[ZoneStance].Zones[isRear ? 1 : 0] / 20.0f; // Camber
 
 	return res;
 }

@@ -47,6 +47,10 @@ void RenderWheel(CarRenderInfo* carRenderInfo, int view, eModel** model, D3DXMAT
 			wheel < 2 ? ReplaceFrontWheels(carRenderInfo, *model) : ReplaceRearWheels(carRenderInfo, *model);
 		}
 
+		int side = wheel < 2 ? 0 : 1;
+		carRenderInfo->Extras->WheelTextures->Tires[side].Render(view, marker, light, data);
+		(*model)->AttachReplacementTextureTable(carRenderInfo->Extras->WheelTextures->TextureTable[side].TextureTable, 4);
+
 		(*model)->Render(view, marker, light, data);
 	}
 }

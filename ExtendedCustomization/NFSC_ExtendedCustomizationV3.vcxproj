@@ -126,6 +126,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
     </Link>
+    <PostBuildEvent>
+      <Command>del /f $(TargetDir)ExtendedCustomization.pdb</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -190,6 +193,7 @@
     <ClInclude Include="InitializeEverythingHooks.h" />
     <ClInclude Include="LegacyMenu.h" />
     <ClInclude Include="LegacyTextures.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="MenuCameras.h" />
     <ClInclude Include="Neon.h" />
     <ClInclude Include="ePoly.h" />
@@ -262,6 +266,7 @@
     <ClInclude Include="VinylManager.h" />
     <ClInclude Include="WheelBrands.h" />
     <ClInclude Include="WheelBrandsHelpBar.h" />
+    <ClInclude Include="WheelTextures.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\Files\ExtendedCustomization.ini" />

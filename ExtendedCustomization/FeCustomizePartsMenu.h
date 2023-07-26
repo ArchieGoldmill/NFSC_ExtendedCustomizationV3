@@ -87,6 +87,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::BODY, carId);
 		AddMenuOption(_this, Slot::FRONT_BRAKE, carId);
 		AddMenuOption(_this, Slot::FRONT_ROTOR, carId);
+		AddMenuOption(_this, Slot_Tires, carId);
 		AddMenuOption(_this, Slot::INTERIOR, carId);
 		AddMenuOption(_this, Slot::STEERINGWHEEL, carId);
 		AddMenuOption(_this, Slot_LeftSeat, carId);

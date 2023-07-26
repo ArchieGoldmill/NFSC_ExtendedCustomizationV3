@@ -8,6 +8,7 @@ const Slot Slot_Stance = Slot::MISC;
 const Slot Slot_Neon = Slot::CV;
 const Slot Slot_LeftSeat = Slot::ATTACHMENT14;
 const Slot Slot_RightSeat = Slot::ATTACHMENT15;
+const Slot Slot_Tires = Slot::CUSTOM_HUD;
 
 const int ZoneFrontBumper = 0;
 const int ZoneRearBumper = 1;

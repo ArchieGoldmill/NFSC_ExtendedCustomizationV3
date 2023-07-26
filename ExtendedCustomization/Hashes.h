@@ -12,6 +12,7 @@ namespace Hashes
 	const Hash CARBONFIBRE = 0x721AFF7C;
 	const Hash NEONBLUR = 0x04F54C24;
 	const Hash TEXTURE_NAME = 0x10C98090;
+	const Hash MODEL = 0x0348B290;
 	const Hash BRAKELIGHT_GLOW = 0xD9455454;
 	const Hash MIRROR = 0x6BFA56DA;
 	const Hash ZONE_HASH = 0xF418037E;
@@ -23,6 +24,12 @@ namespace Hashes
 	const Hash BRAND_NAME = 0xEBB03E66;
 	const Hash INNER_RADIUS = 0xEB0101E2;
 	const Hash FRONT_BRAKE = 0xA4CCD4AC;
+	const Hash TIRE_BACK = 0xE38806E3;
+	const Hash TIRE_STYLE01 = 0xE4CEA024;
+	const Hash TIRE_STYLE02 = 0xE4CEA025;
+	const Hash DEFAULTALPHA = 0x66994F4A;
+	const Hash WHEEL_TIRE = 0xC2999EC7;
+	const Hash WHEEL_TIRE_N = 0xCF7C7914;
 
 	const Hash LICENSEPLATE = 0x4C95C6F8;
 	const Hash LICENSEPLATE_FRAME = 0xA877FDC2;

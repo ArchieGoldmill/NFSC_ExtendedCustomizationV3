@@ -8,6 +8,7 @@
 #include "RotorGlow.h"
 #include "ExhaustFX.h"
 #include "ExhaustShake.h"
+#include "WheelTextures.h"
 
 class CarRenderInfoExtras
 {
@@ -26,6 +27,7 @@ public:
 	CarExhaustShake* ExhaustShake = NULL;
 	CarLicensePlateText* LicensePlateText = NULL;
 	CarRotorGlow* RotorGlow = NULL;
+	CarWheelTextures* WheelTextures = NULL;
 
 	CarRenderInfoExtras(CarRenderInfo* carRenderInfo)
 	{
@@ -71,6 +73,8 @@ public:
 		{
 			this->Animations = new CarAnimations(carRenderInfo);
 		}
+
+		this->WheelTextures = new CarWheelTextures(carRenderInfo);
 	}
 
 	~CarRenderInfoExtras()
@@ -113,6 +117,11 @@ public:
 		if (this->Animations)
 		{
 			delete this->Animations;
+		}
+		
+		if (this->WheelTextures)
+		{
+			delete this->WheelTextures;
 		}
 	}
 };

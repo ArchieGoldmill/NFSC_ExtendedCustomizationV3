@@ -114,9 +114,6 @@
     <ClInclude Include="FECustomizationRecord.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="Hashes.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
     <ClInclude Include="Slots.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -365,6 +362,15 @@
     </ClInclude>
     <ClInclude Include="LegacyMenu.h">
       <Filter>Features\Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="Hashes.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="WheelTextures.h">
+      <Filter>Features\Textures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
