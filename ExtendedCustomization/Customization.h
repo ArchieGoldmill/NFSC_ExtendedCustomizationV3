@@ -223,8 +223,6 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 
 void InitCustomization()
 {
-	Legacy::InitCustomization();
-
 	injector::MakeCALL(0x0085EAEC, FeGarageMain_HandleSpecialCustomization, true);
 
 	injector::WriteMemory(0x009F9CFC, StandardSelectablePart_Install, true);

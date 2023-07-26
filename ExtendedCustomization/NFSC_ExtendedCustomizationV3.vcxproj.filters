@@ -29,9 +29,6 @@
     <Filter Include="Config">
       <UniqueIdentifier>{a0a654d8-1298-4245-aa0a-f3d7a132bedf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Features\Customization">
-      <UniqueIdentifier>{6caa5eb4-48e9-4127-ae9b-91dd2e320090}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Features\Vinyls">
       <UniqueIdentifier>{a89337fd-9f91-4a15-8086-1d7cc4037057}</UniqueIdentifier>
     </Filter>
@@ -67,6 +64,9 @@
     </Filter>
     <Filter Include="Features\Wheels">
       <UniqueIdentifier>{f1ed2186-a905-424c-bf47-1597159132c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Legacy">
+      <UniqueIdentifier>{77f917e6-ceb3-4234-bd0c-6e5ce12746cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -231,12 +231,6 @@
     <ClInclude Include="AutosculptSelectablePart.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="Customization.h">
-      <Filter>Features\Customization</Filter>
-    </ClInclude>
-    <ClInclude Include="LegacyCustomization.h">
-      <Filter>Features\Customization</Filter>
-    </ClInclude>
     <ClInclude Include="ForceLodA.h">
       <Filter>Features</Filter>
     </ClInclude>
@@ -362,6 +356,15 @@
     </ClInclude>
     <ClInclude Include="PartWarning.h">
       <Filter>Features\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyCustomization.h">
+      <Filter>Features\Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="Customization.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyTextures.h">
+      <Filter>Features\Legacy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

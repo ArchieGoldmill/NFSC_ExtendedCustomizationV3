@@ -43,8 +43,9 @@ namespace Game
 	static auto ScreenSizeY = (int*)0x00A63F84;
 	static auto CopyPoseValueToFamilyMap = (int*)0x00A79FC8;
 	static auto FrontSteerAngle = (float*)0x00A7B668;
-	static int* CarEmitterPositionSlotPool = (int*)0x00B74C34;
+	static auto CarEmitterPositionSlotPool = (int*)0x00B74C34;
 	static auto AutosculptRegionList = (Slot*)0x00A79F70;
+	static auto ForceHeadlightsOff = (bool*)0x00B74C18;
 
 	enum class State
 	{

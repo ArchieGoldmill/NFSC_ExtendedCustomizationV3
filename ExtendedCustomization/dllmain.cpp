@@ -18,6 +18,7 @@
 #include "RotorGlow.h"
 #include "InitializeEverythingHooks.h"
 #include "Wheels.h"
+#include "LegacyTextures.h"
 
 void ToBeRemoved()
 {
@@ -52,6 +53,9 @@ void Init()
 	InitPaints();
 	InitRotorGlow();
 	InitWheels();
+
+	Legacy::InitCustomization();
+	Legacy::InitTextures();
 
 	InitCarRenderInfoHooks();
 	InitInitializeEverythingHooks();
