@@ -354,9 +354,6 @@
     <ClInclude Include="TireWidth.h">
       <Filter>Features\Stance</Filter>
     </ClInclude>
-    <ClInclude Include="PartWarning.h">
-      <Filter>Features\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="LegacyCustomization.h">
       <Filter>Features\Legacy</Filter>
     </ClInclude>
@@ -364,6 +361,9 @@
       <Filter>Features</Filter>
     </ClInclude>
     <ClInclude Include="LegacyTextures.h">
+      <Filter>Features\Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyMenu.h">
       <Filter>Features\Legacy</Filter>
     </ClInclude>
   </ItemGroup>

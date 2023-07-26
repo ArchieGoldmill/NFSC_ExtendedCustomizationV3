@@ -89,7 +89,7 @@ namespace Legacy
 		}
 	}
 
-	void InitPartWarning()
+	void InitMenu()
 	{
 		injector::MakeJMP(0x0085F74C, PartWarningCave);
 		injector::MakeJMP(0x008665DA, DisablePartsCave);

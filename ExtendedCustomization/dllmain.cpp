@@ -19,6 +19,8 @@
 #include "InitializeEverythingHooks.h"
 #include "Wheels.h"
 #include "LegacyTextures.h"
+#include "LegacyMenu.h"
+#include "LegacyCustomization.h"
 
 void ToBeRemoved()
 {
@@ -56,6 +58,7 @@ void Init()
 
 	Legacy::InitCustomization();
 	Legacy::InitTextures();
+	Legacy::InitMenu();
 
 	InitCarRenderInfoHooks();
 	InitInitializeEverythingHooks();
