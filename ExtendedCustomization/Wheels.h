@@ -110,4 +110,16 @@ void InitWheels()
 	// Change rear marker to front for rear wheels
 	injector::WriteMemory(0x007DF712, Hashes::FRONT_BRAKE);
 	injector::WriteMemory(0x007E6057, Hashes::FRONT_BRAKE);
+
+	if (g_Config.FixClaiperLighting)
+	{
+		// Save car's lighting context
+		BYTE brakeLightFix[] = { 0x8B, 0x44, 0x24, 0x2C, 0x89, 0x84, 0x24, 0xF4, 0x00, 0x00, 0x00 };
+		injector::WriteMemoryRaw(0x007DE6EB, brakeLightFix, sizeof(brakeLightFix), true);
+
+		// Pass lighting context to brakes, so they do not flicker, since they are not rotating with the wheel
+		injector::WriteMemory<DWORD>(0x007E0C2C, 0x9090C931, true);
+		injector::WriteMemory<DWORD64>(0x007E0C34, 0x548B000000F8C181, true);
+		injector::WriteMemory<DWORD64>(0x007E0C43, 0x084D8B9031FFE101, true);
+	}
 }
