@@ -32,6 +32,7 @@ namespace Hashes
 	const Hash WHEEL_TIRE_N = 0xCF7C7914;
 	const Hash WINDOW_DAMAGE0 = 0x0A155545;
 	const Hash WINDOW_DAMAGE1 = 0x0A155546;
+	const Hash DEFAULT = 0x2C420D64;
 
 	const Hash LICENSEPLATE = 0x4C95C6F8;
 	const Hash LICENSEPLATE_FRAME = 0xA877FDC2;

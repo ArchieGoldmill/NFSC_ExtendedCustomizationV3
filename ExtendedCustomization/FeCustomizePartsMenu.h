@@ -74,10 +74,11 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		break;
 	case CustomizeMainMenu::ATTACHMENTS:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
-		for (int i = 0; i < 13; i++)
+		for (int i = 0; i < (int)Slot::ATTACHMENT15; i++)
 		{
 			AddMenuOption(_this, (Slot)((int)Slot::ATTACHMENT0 + i), carId);
 		}
+		AddMenuOption(_this, Slot::STEERINGWHEEL, carId);
 
 		break;
 	case CustomizeMainMenu::SPECIALTIES:
@@ -88,9 +89,6 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::FRONT_ROTOR, carId);
 		AddMenuOption(_this, Slot_Tires, carId);
 		AddMenuOption(_this, Slot::INTERIOR, carId);
-		AddMenuOption(_this, Slot::STEERINGWHEEL, carId);
-		AddMenuOption(_this, Slot_LeftSeat, carId);
-		AddMenuOption(_this, Slot_RightSeat, carId);
 		AddMenuOption(_this, Slot::DECAL_FRONT_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::DECAL_REAR_WINDOW_TEX0, carId);
 

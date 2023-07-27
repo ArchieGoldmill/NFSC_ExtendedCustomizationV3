@@ -17,8 +17,8 @@ void ReplaceFrontWheels(CarRenderInfo* carRenderInfo, eModel* model)
 	if (model)
 	{
 		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Materials.FrontRims);
+		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Materials.FrontRims);
 		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->FrontLipMaterial);
-		carRenderInfo->Extras->Paint->FrontWheel = model;
 	}
 }
 
@@ -26,14 +26,14 @@ void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
 {
 	if (model)
 	{
-		auto frontWheel = carRenderInfo->Extras->Paint->FrontWheel;
-		if (frontWheel && frontWheel->Solid == model->Solid)
+		auto rearWheel = carRenderInfo->RideInfo->GetPart(Slot::REAR_WHEEL);
+		if (rearWheel && rearWheel->GetAppliedAttributeIParam(Hashes::DEFAULT, 0) != 0)
 		{
-			// Skip material replace if we dont have mesh for rear wheels
 			return;
 		}
 
 		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Extras->Paint->RearRimMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Extras->Paint->RearRimMaterial);
 		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->RearLipMaterial);
 	}
 }

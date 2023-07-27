@@ -17,7 +17,6 @@ private:
 	ColorMaterialData* SpoilerMaterialData = NULL;
 
 public:
-	eModel* FrontWheel = NULL;
 	eLightMaterial* FrontLipMaterial = NULL;
 	eLightMaterial* RearLipMaterial = NULL;
 	eLightMaterial* RearRimMaterial = NULL;
