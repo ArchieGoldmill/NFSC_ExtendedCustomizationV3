@@ -140,6 +140,12 @@ public:
 		return this->Markers.LeftExhaust || this->Markers.RightExhaust || this->Markers.CenterExhaust;
 	}
 
+	int SetPlayerDamage(int* damage)
+	{
+		FUNC(0x007BDEA0, int, __thiscall, _SetPlayerDamage, CarRenderInfo*, int*);
+		return _SetPlayerDamage(this, damage);
+	}
+
 private:
 	bool IsBrakelightOn(int b)
 	{

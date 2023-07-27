@@ -49,6 +49,7 @@ move_file override relative absolute Files\PLATES\TEXTURES.bin cars\PLATES\TEXTU
 move_file override relative absolute Files\BRAKES\GEOMETRY.bin cars\BRAKES\GEOMETRY.bin
 move_file override relative absolute Files\BRAKES\TEXTURES.bin cars\BRAKES\TEXTURES.bin
 move_file override relative absolute Files\SEATS\GEOMETRY.bin cars\SEATS\GEOMETRY.bin
+move_file override relative absolute Files\TIRES\GEOMETRY.bin cars\TIRES\GEOMETRY.bin
 
 // Textures
 add_or_replace_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW LICENSEPLATE_GLOW "Textures\LICENSEPLATE_GLOW.dds"
