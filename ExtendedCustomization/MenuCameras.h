@@ -4,9 +4,23 @@
 #include "Slots.h"
 #include "Config.h"
 #include "FrontEndRenderingCar.h"
+#include "SteerAngle.h"
 
 void __stdcall GetCameraScreenName(Slot slot, int maxChars, char* screenName)
 {
+	if (slot == Slot_Tires)
+	{
+		SteerAngle.SetTarget(-30);
+	}
+	else if (slot == Slot::FRONT_WHEEL)
+	{
+		SteerAngle.SetTarget(30);
+	}
+	else
+	{
+		SteerAngle.Reset();
+	}
+
 	auto carId = FrontEndRenderingCar::GetCarId();
 	auto part = g_Config.GetPart(slot, carId);
 	strcpy_s(screenName, maxChars, part.Camera.c_str());

@@ -3,13 +3,14 @@
 #include "FeCustomizeMain.h"
 #include "FEButton.h"
 #include "FECarRecord.h"
+#include "SteerAngle.h"
 
 bool AnyAttachmentsEnabled()
 {
 	auto carId = FECarRecord::GetCarType();
-	for (int i = 0; i < 13; i++)
+	for (auto slot : AttachSlots)
 	{
-		auto part = g_Config.GetPart((Slot)((int)Slot::ATTACHMENT0 + i), carId);
+		auto part = g_Config.GetPart(slot, carId);
 		if (part.State == State::Enabled)
 		{
 			return true;
@@ -21,6 +22,7 @@ bool AnyAttachmentsEnabled()
 
 void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 {
+	SteerAngle.Reset();
 	_this->SetTitleName(Hashes::CUST_MAINMENU_TITLE);
 
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PERFORMANCE, (int)CustomizeMainMenu::PERFORMANCE));

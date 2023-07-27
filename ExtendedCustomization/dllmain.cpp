@@ -21,6 +21,7 @@
 #include "LegacyTextures.h"
 #include "LegacyMenu.h"
 #include "LegacyCustomization.h"
+#include "SteerAngle.h"
 
 void ToBeRemoved()
 {
@@ -39,6 +40,7 @@ void Init()
 	ToBeRemoved();
 
 	InitConfig();
+	SteerAngle = FESteerAngle();
 
 	InitAnimations();
 	InitCustomization();

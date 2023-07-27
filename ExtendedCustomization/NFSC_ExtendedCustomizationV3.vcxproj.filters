@@ -366,6 +366,9 @@
     <ClInclude Include="WheelTextures.h">
       <Filter>Features\Textures</Filter>
     </ClInclude>
+    <ClInclude Include="SteerAngle.h">
+      <Filter>Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

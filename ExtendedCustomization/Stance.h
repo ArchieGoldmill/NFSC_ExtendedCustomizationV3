@@ -9,6 +9,4 @@ void InitStance()
 	InitCamber();
 	InitTrackWidth();
 	InitTireWidth();
-
-	*Game::FrontSteerAngle = g_Config.FrontSteerAngle;
 }

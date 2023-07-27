@@ -4,6 +4,7 @@
 #include "CarRenderInfoExtras.h"
 #include "FrontEndRenderingCar.h"
 #include "CarRenderConn.h"
+#include "SteerAngle.h"
 
 void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo)
 {
@@ -74,6 +75,7 @@ void __stdcall PostCarRender()
 	{
 		auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
 		OnAfterCarRender(rideInfo->CarRenderInfo);
+		SteerAngle.Update();
 	}
 
 	if (Game::InRace())
