@@ -13,7 +13,7 @@ void __stdcall AfterInitializeEverything()
 	GetWheelBrands();
 
 	LoadResourceFile("CARS\\TIRES\\GEOMETRY.BIN", 6, 0, 0, 0, 0, 0);
-	//LoadResourceFile("CARS\\TIRES\\TEXTURES.BIN", 6, 0, 0, 0, 0, 0);
+	LoadResourceFile("CARS\\TIRES\\TEXTURES.BIN", 6, 0, 0, 0, 0, 0);
 }
 
 void __declspec(naked) AfterInitializeEverythingCave()

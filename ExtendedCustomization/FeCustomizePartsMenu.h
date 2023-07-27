@@ -74,11 +74,10 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		break;
 	case CustomizeMainMenu::ATTACHMENTS:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
-		for (int i = 0; i < (int)Slot::ATTACHMENT15; i++)
+		for (auto slot : AttachSlots)
 		{
-			AddMenuOption(_this, (Slot)((int)Slot::ATTACHMENT0 + i), carId);
+			AddMenuOption(_this, slot, carId);
 		}
-		AddMenuOption(_this, Slot::STEERINGWHEEL, carId);
 
 		break;
 	case CustomizeMainMenu::SPECIALTIES:
