@@ -192,6 +192,7 @@
     <ClInclude Include="ExhaustFX.h" />
     <ClInclude Include="InitializeEverythingHooks.h" />
     <ClInclude Include="LegacyMenu.h" />
+    <ClInclude Include="LegacyRandomParts.h" />
     <ClInclude Include="LegacyTextures.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MenuCameras.h" />
@@ -213,6 +214,7 @@
     <ClInclude Include="eLightContext.h" />
     <ClInclude Include="eLightMaterial.h" />
     <ClInclude Include="eModel.h" />
+    <ClInclude Include="RandomParts.h" />
     <ClInclude Include="ReplacementTextureEntry.h" />
     <ClInclude Include="eSolid.h" />
     <ClInclude Include="FEButton.h" />

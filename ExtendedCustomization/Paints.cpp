@@ -96,8 +96,8 @@ void __fastcall FECustomizationRecord_GetColor(FECustomizationRecord* record, in
 			auto ptr = record->GetASColorData(num);
 			paintData->Brightness = ToInt(ptr->Brightness * 100.0f);
 			paintData->Saturation = ToInt(ptr->Saturation * 100.0f);
-			paintData->Part1 = CarPartDatabase::Instance->GetPartByNum(num > 3 ? Slot::BODY_PAINT_SWATCH : Slot::WHEEL_PAINT_SWATCH, ToInt(ptr->Index1 * 100.0f));
-			paintData->Part2 = CarPartDatabase::Instance->GetPartByNum(num > 3 ? Slot::BODY_PAINT_GROUP : Slot::WHEEL_PAINT_GROUP, ToInt(ptr->Index2 * 100.0f));
+			paintData->Part1 = CarPartDatabase::Instance->GetPartByNum(num > 3 ? Slot::BODY_PAINT_SWATCH : Slot::WHEEL_PAINT_SWATCH, CarType(-1), ToInt(ptr->Index1 * 100.0f));
+			paintData->Part2 = CarPartDatabase::Instance->GetPartByNum(num > 3 ? Slot::BODY_PAINT_GROUP : Slot::WHEEL_PAINT_GROUP, CarType(-1), ToInt(ptr->Index2 * 100.0f));
 		}
 	}
 }

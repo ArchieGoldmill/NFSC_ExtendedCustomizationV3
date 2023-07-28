@@ -39,6 +39,7 @@ int __stdcall sub_714820(eSolid* solid, int a1, D3DXVECTOR3* a2, int a3)
 		newBounds[0] = a2[0];
 		newBounds[1] = a2[1];
 		newBounds[1].x += 0.5;
+		newBounds[1].z += 0.1;
 
 		a2 = newBounds;
 	}
@@ -47,7 +48,8 @@ int __stdcall sub_714820(eSolid* solid, int a1, D3DXVECTOR3* a2, int a3)
 	{
 		newBounds[0] = a2[0];
 		newBounds[1] = a2[1];
-		newBounds[1].x -= 0.5;
+		newBounds[0].x -= 0.5;
+		newBounds[1].z += 0.1;
 
 		a2 = newBounds;
 	}

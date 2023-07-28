@@ -129,6 +129,7 @@ void InitConfig()
 
 	g_Config.FrontSteerAngle = iniReader.ReadFloat("GENERAL", "FrontSteerAngle", 0);
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
+	g_Config.DebugAICar = iniReader.ReadUInteger("DEBUG", "AICar", 0);
 	g_Config.AllVinylsTransformable = iniReader.ReadInteger("MODS", "AllVinylsTransformable", 0) == 1;
 	g_Config.AllVinylsMirrorable = iniReader.ReadInteger("MODS", "AllVinylsMirrorable", 0) == 1;
 	g_Config.SmoothVinylTransform = iniReader.ReadInteger("MODS", "SmoothVinylTransform", 0) == 1;

@@ -14,9 +14,13 @@ struct eMorphTarget
 
 struct eSolid
 {
-	char unk[0x90];
+	char unk[0x20];
+	D3DXVECTOR3 BoundingBoxMin;
+	void* TextureTable;
+	D3DXVECTOR3 BoundingBoxMax;
+	char unk_1[0x54];
 	eMorphTarget* MorphTargetList;
-	char unk_1[0xC];
+	char unk_2[0xC];
 	char Name[60];
 
 	static eSolid* Find(Hash name)

@@ -8,6 +8,7 @@
 #include "Config.h"
 #include "LegacyCustomization.h"
 #include "CarCustomizeManager.h"
+#include "RandomParts.h"
 
 void InstallPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot, DBCarPart* part)
 {
@@ -223,6 +224,8 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 
 void InitCustomization()
 {
+	InitRandomParts();
+
 	injector::MakeCALL(0x0085EAEC, FeGarageMain_HandleSpecialCustomization, true);
 
 	injector::WriteMemory(0x009F9CFC, StandardSelectablePart_Install, true);

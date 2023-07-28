@@ -53,9 +53,9 @@ namespace Legacy
 		}
 	}
 
-	void HandleHeadlights(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
+	void HandleHeadlights(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName, bool bot = false)
 	{
-		if (g_Config.GetPopUpHeadLights(rideInfo->CarId) == State::Enabled)
+		if (!bot && g_Config.GetPopUpHeadLights(rideInfo->CarId) == State::Enabled)
 		{
 			SetHeadlightsOff(_this, rideInfo, record, carName);
 			return;
@@ -66,6 +66,7 @@ namespace Legacy
 			SetHeadlights(_this, rideInfo, record, carName);
 			return;
 		}
+
 
 		SetHeadlightsOn(_this, rideInfo, record, carName);
 	}
@@ -132,7 +133,7 @@ namespace Legacy
 		}
 	}
 
-	void HandleBadging(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, const char* position, Slot slot, char* carName)
+	void HandleBadging(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record)
 	{
 		auto body = rideInfo->GetPart(Slot::BODY);
 		if (body && !body->IsStock())
@@ -141,7 +142,11 @@ namespace Legacy
 			UninstallPart(rideInfo, record, Slot::REAR_BUMPER_BADGING_SET);
 			return;
 		}
+	}
 
+	void HandleBadging(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, const char* position, Slot slot, char* carName)
+	{
+		auto body = rideInfo->GetPart(Slot::BODY);
 		if (g_Config.GetPart(slot, rideInfo->CarId).State == State::Enabled)
 		{
 			auto badgingPart = rideInfo->GetPart(slot);
@@ -202,7 +207,18 @@ namespace Legacy
 		}
 	}
 
-	void HandleSpecialCustomizationV2(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
+	void HandleBody(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
+	{
+		auto body = rideInfo->GetPart(Slot::BODY);
+		if (body && !body->IsStock())
+		{
+			UninstallPart(rideInfo, record, Slot::FRONT_BUMPER);
+			UninstallPart(rideInfo, record, Slot::REAR_BUMPER);
+			UninstallPart(rideInfo, record, Slot::SKIRT);
+		}
+	}
+
+	void HandleSpecialCustomizationV2(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record, bool bot = false)
 	{
 		if (!rideInfo)
 		{
@@ -211,13 +227,15 @@ namespace Legacy
 
 		char* carName = GetCarTypeName(rideInfo->CarId);
 
+		HandleBody(feGarageMain, rideInfo, record);
+		HandleBadging(feGarageMain, rideInfo, record);
 		HandleBadging(feGarageMain, rideInfo, record, "FRONT", Slot::FRONT_BUMPER_BADGING_SET, carName);
 		HandleBadging(feGarageMain, rideInfo, record, "REAR", Slot::REAR_BUMPER_BADGING_SET, carName);
 		HandleDoors(feGarageMain, rideInfo, record, carName);
 		HandleExhaust(feGarageMain, rideInfo, record, carName);
 		HandleSideMirrors(feGarageMain, rideInfo, record, carName);
 		HandleBrakelights(feGarageMain, rideInfo, record, carName);
-		HandleHeadlights(feGarageMain, rideInfo, record, carName);
+		HandleHeadlights(feGarageMain, rideInfo, record, carName, bot);
 	}
 
 	int __fastcall IsSetHeadlightOn(FECarRecord* feCarRecord)

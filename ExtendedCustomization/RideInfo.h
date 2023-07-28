@@ -30,7 +30,7 @@ struct RideInfo
 
 	void SetPart(Slot slot, DBCarPart* part, bool updatePartsEnabled = true)
 	{
-		static auto _SetPart = (void(__thiscall*)(RideInfo*, Slot, DBCarPart* part, bool updatePartsEnabled))0x007D67A0;
+		static auto _SetPart = (void(__thiscall*)(RideInfo*, Slot, DBCarPart * part, bool updatePartsEnabled))0x007D67A0;
 		_SetPart(this, slot, part, updatePartsEnabled);
 	}
 
@@ -70,5 +70,17 @@ struct RideInfo
 	bool IsPlayer()
 	{
 		return this->RenderUsage == 0;
+	}
+
+	void SetRandomParts(int a)
+	{
+		FUNC(0x007E1880, void, __thiscall, _SetRandomParts, RideInfo*, int);
+		_SetRandomParts(this, a);
+	}
+
+	void SetRandomPart(Slot slot)
+	{
+		FUNC(0x007DA970, void, __thiscall, _SetRandomPart, RideInfo*, Slot, Hash);
+		_SetRandomPart(this, slot, -1);
 	}
 };

@@ -43,6 +43,7 @@ struct GlobalConfig : public SharedConfig
 	float FrontSteerAngle;
 
 	bool DebugRotorGlow;
+	unsigned int DebugAICar;
 	bool AllVinylsTransformable;
 	bool AllVinylsMirrorable;
 	bool SmoothVinylTransform;

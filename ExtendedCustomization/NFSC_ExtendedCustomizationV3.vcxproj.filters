@@ -64,6 +64,9 @@
     <Filter Include="Features\Legacy">
       <UniqueIdentifier>{77f917e6-ceb3-4234-bd0c-6e5ce12746cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Features\Customization">
+      <UniqueIdentifier>{495c6bed-aa4c-4fd0-a44f-785876ce678b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp">
@@ -348,9 +351,6 @@
     <ClInclude Include="LegacyCustomization.h">
       <Filter>Features\Legacy</Filter>
     </ClInclude>
-    <ClInclude Include="Customization.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="LegacyTextures.h">
       <Filter>Features\Legacy</Filter>
     </ClInclude>
@@ -368,6 +368,15 @@
     </ClInclude>
     <ClInclude Include="SteerAngle.h">
       <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyRandomParts.h">
+      <Filter>Features\Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="Customization.h">
+      <Filter>Features\Customization</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomParts.h">
+      <Filter>Features\Customization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

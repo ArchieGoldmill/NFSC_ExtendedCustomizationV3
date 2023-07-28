@@ -186,6 +186,12 @@ public:
         return std::stoi(str, nullptr, starts_with(str.c_str(), "0x", false) ? 16 : 10);
     }
 
+    unsigned int ReadUInteger(std::string_view szSection, std::string_view szKey, int iDefaultValue)
+    {
+        auto str = data.get(szSection.data(), szKey.data(), std::to_string(iDefaultValue));
+        return std::stoul(str, nullptr, starts_with(str.c_str(), "0x", false) ? 16 : 10);
+    }
+
     float ReadFloat(std::string_view szSection, std::string_view szKey, float fltDefaultValue)
     {
         return (float)atof(data.get(szSection.data(), szKey.data(), std::to_string(fltDefaultValue)).c_str());

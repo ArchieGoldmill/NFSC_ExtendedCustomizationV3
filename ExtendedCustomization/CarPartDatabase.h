@@ -71,20 +71,44 @@ struct CarPartDatabase
 		return num;
 	}
 
-	DBCarPart* GetPartByNum(Slot slot, int num)
+	DBCarPart* GetPartByNum(Slot slot, CarType carId, int num)
 	{
-		int c = 0;
-		DBCarPart* part = 0;
+		DBCarPart* part = NULL;
+		do
+		{
+			--num;
+			part = this->GetCarPart(slot, carId, part);
+		} while (num > 0);
+
+		return part;
+	}
+
+	int GetNumCarParts(CarType carId, Slot slot)
+	{
+		FUNC(0x007D6660, int, __thiscall, _GetNumCarParts, CarPartDatabase*, CarType, Slot, Hash, int);
+		return _GetNumCarParts(this, carId, slot, 0, -1);
+	}
+
+	int GetNumCarParts(CarType carId, Slot slot, bool skipAutosculpt)
+	{
+		DBCarPart* part = NULL;
+		int count = 0;
 		while (true)
 		{
-			c++;
-			part = CarPartDatabase::Instance->GetCarPart(slot, CarType(-1), part);
-			if (!part || c == num)
+			part = this->GetCarPart(slot, carId, part);
+			if (!part)
 			{
 				break;
 			}
+
+			if (skipAutosculpt && part->IsAutosculpt())
+			{
+				continue;
+			}
+
+			count++;
 		}
 
-		return part;
+		return count;
 	}
 };
