@@ -135,6 +135,7 @@ void InitConfig()
 	g_Config.ProperDecalMirror = iniReader.ReadInteger("MODS", "ProperDecalMirror", 0) == 1;
 	g_Config.FixVinylTransformOrder = iniReader.ReadInteger("MODS", "FixVinylTransformOrder", 0) == 1;
 	g_Config.FixDecals = iniReader.ReadInteger("MODS", "FixDecals", 0) == 1;
+	g_Config.FixDecalsZOrder = iniReader.ReadInteger("MODS", "FixDecalsZOrder", 0) == 1;
 	g_Config.SeparateNosExhaustFX = iniReader.ReadInteger("MODS", "SeparateNosExhaustFX", 0) == 1;
 	g_Config.FixAutosculptExhaustFX = iniReader.ReadInteger("MODS", "FixAutosculptExhaustFX", 0) == 1;
 	g_Config.ExhaustShake = iniReader.ReadInteger("MODS", "ExhaustShake", 0) == 1;

@@ -49,6 +49,7 @@ struct GlobalConfig : public SharedConfig
 	bool ProperDecalMirror;
 	bool FixVinylTransformOrder;
 	bool FixDecals;
+	bool FixDecalsZOrder;
 	bool SeparateNosExhaustFX;
 	bool FixAutosculptExhaustFX;
 	bool ExhaustShake;
