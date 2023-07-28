@@ -68,6 +68,28 @@ void __fastcall GetVinylTransformUnpacked(VinylPacked* packed, int, VinylUnpcack
 	unpacked->Matrix = scale * shear * rotation;
 }
 
+bool CheckVinylGroup(DBCarPart* vinyl)
+{
+	if (vinyl)
+	{
+		auto group = vinyl->GetAppliedAttributeIParam(Hashes::GROUPLANGUAGEHASH,0);
+		if (group)
+		{
+			if (group == Hashes::CUST_VINYL_GROUP_MANUFACTURER)
+			{
+				return true;
+			}
+
+			if (group == Hashes::CUST_VINYL_GROUP_AFTERMARKET)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 char __fastcall RasterizationManager_Initialize(RasterizationManager* rasterizationManager, int, TextureInfo* texture, signed int canvasWidth, signed int canvasHeight, RideInfo* rideInfo, char vinylNum, char a7, int a8)
 {
 	auto result = rasterizationManager->Initialize(texture, canvasWidth, canvasHeight, rideInfo, vinylNum, a7, a8);
@@ -77,7 +99,7 @@ char __fastcall RasterizationManager_Initialize(RasterizationManager* rasterizat
 		if (result && rasterizationManager->Mirror)
 		{
 			auto vinylPart = rideInfo->GetVinylPart(vinylNum);
-			if (vinylPart && !vinylPart->GetAppliedAttributeIParam(Hashes::MIRROR, 0))
+			if (CheckVinylGroup(vinylPart))
 			{
 				auto vinyl = VinylManager::GetByHash(vinylPart->GetPartNameHash());
 				if (vinyl)
