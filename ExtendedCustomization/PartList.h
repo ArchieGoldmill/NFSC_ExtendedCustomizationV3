@@ -39,13 +39,19 @@ void AddNodeToList(bNode<StandardSelectablePart*>* listHead, bNode<StandardSelec
 
 bool CheckKitwPart(Slot slot, DBCarPart* part)
 {
-	if (Contains(KitwParts, slot, sizeof(KitwParts)))
+	if (Contains(KitwSlots, slot, sizeof(KitwSlots)))
 	{
 		auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
 		auto bodyPart = rideInfo->GetPart(Slot::BODY);
 		if (bodyPart)
 		{
 			auto kit = bodyPart->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+			auto kitwExists = CarPartDatabase::Instance->GetByKitW(slot, rideInfo->CarId, kit);
+			if (!kitwExists)
+			{
+				kit = 0;
+			}
+
 			return !part->HasKitW(kit);
 		}
 	}

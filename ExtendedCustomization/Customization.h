@@ -45,15 +45,25 @@ void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slo
 {
 	auto carId = rideInfo->CarId;
 
+	// Check if car has parts with this slot type that have KITW
+	auto part = CarPartDatabase::Instance->GetByKitW(slot, carId, kit);
+	if (!part)
+	{
+		// If not then general parts are supported for this kit
+		kit = 0;
+	}
+
 	auto installedPart = rideInfo->GetPart(slot);
+
+	// Check if current part has matching KITW to bodykit
 	if (installedPart && installedPart->HasKitW(kit))
 	{
 		return;
 	}
-
-	auto part = CarPartDatabase::Instance->GetByKitW(slot, carId, kit);
+	
 	if (!part)
 	{
+		// Get first part that has KITW to install
 		part = CarPartDatabase::Instance->GetByKitW(slot, carId, 0);
 	}
 
@@ -124,18 +134,10 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 	if (body)
 	{
 		int kit = body->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
-		InstallBodyPart(rideInfo, record, Slot::FRONT_BUMPER, kit);
-		InstallBodyPart(rideInfo, record, Slot::REAR_BUMPER, kit);
-		InstallBodyPart(rideInfo, record, Slot::SKIRT, kit);
-		InstallBodyPart(rideInfo, record, Slot_FrontFender, kit);
-		InstallBodyPart(rideInfo, record, Slot_RearFender, kit);
-		InstallBodyPart(rideInfo, record, Slot::HOOD, kit);
-		InstallBodyPart(rideInfo, record, Slot::LEFT_HEADLIGHT, kit);
-		InstallBodyPart(rideInfo, record, Slot::LEFT_SIDE_MIRROR, kit);
-		InstallBodyPart(rideInfo, record, Slot_Trunk, kit);
-		InstallBodyPart(rideInfo, record, Slot::FRONT_WINDOW, kit);
-		InstallBodyPart(rideInfo, record, Slot::REAR_WINDOW, kit);
-		InstallBodyPart(rideInfo, record, Slot::DOOR_LEFT, kit);
+		for (auto kiwSlot : KitwSlots)
+		{
+			InstallBodyPart(rideInfo, record, kiwSlot, kit);
+		}
 	}
 
 	InstallByKitNumber(Slot::LEFT_SIDE_MIRROR, Slot::RIGHT_SIDE_MIRROR, rideInfo, record);
