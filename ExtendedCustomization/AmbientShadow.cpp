@@ -40,9 +40,9 @@ void __declspec(naked) ShadowColorCave()
 
 float CarDistMax = 2.0f;
 float CarDistMult = CarDistMax / 4.0f;
-float FrontShadowSize = 1.2f;
+float FrontShadowSize = 1.15f;
 float RearShadowSize = 1.15f;
-float SideShadowSize = 1.05f;
+float SideShadowSize = 1.15f;
 void InitNeon()
 {
 	if (g_Config.Neon)
@@ -63,6 +63,13 @@ void InitNeon()
 
 	if (g_Config.IgnoreSpoilerBoundingBox)
 	{
-		injector::WriteMemory<BYTE>(0x007D595C, 1);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::SPOILER, 1);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::LEFT_SIDE_MIRROR, 1);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::RIGHT_SIDE_MIRROR, 1);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::FRONT_BUMPER_BADGING_SET, 0);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::REAR_BUMPER_BADGING_SET, 0);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::FRONT_BUMPER, 0);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::REAR_BUMPER, 0);
+		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::SKIRT, 0);
 	}
 }

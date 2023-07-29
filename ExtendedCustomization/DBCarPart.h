@@ -130,8 +130,6 @@ struct DBCarPart
 
 	D3DXMATRIX* GetAttachMarker(RideInfo* rideInfo, D3DXVECTOR3* scale = NULL)
 	{
-		Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR, Slot::SKIRT, Slot::BODY, Slot::ROOF, Slot_Trunk };
-
 		auto markerName = this->GetAppliedAttributeIParam(Hashes::MARKER, 0);
 		if (markerName)
 		{

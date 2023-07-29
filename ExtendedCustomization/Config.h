@@ -44,13 +44,13 @@ struct GlobalConfig : public SharedConfig
 
 	bool DebugRotorGlow;
 	unsigned int DebugAICar;
+
 	bool AllVinylsTransformable;
 	bool AllVinylsMirrorable;
 	bool SmoothVinylTransform;
 	bool ProperDecalMirror;
 	bool FixVinylTransformOrder;
 	bool FixDecals;
-	bool FixDecalsZOrder;
 	bool SeparateNosExhaustFX;
 	bool FixAutosculptExhaustFX;
 	bool ExhaustShake;

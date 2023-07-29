@@ -26,3 +26,18 @@ const int ZoneColor3 = 12;
 const int ZoneStance = 13;
 const int ZoneNeon = 14;
 const int ZoneLicenseplate = 15;
+
+inline Slot AttachSlots[] = {
+	Slot::ATTACHMENT0, Slot::ATTACHMENT1, Slot::ATTACHMENT2, Slot::ATTACHMENT3, Slot::ATTACHMENT4, Slot::ATTACHMENT5, Slot::ATTACHMENT6, Slot::ATTACHMENT7,
+	Slot::ATTACHMENT8, Slot::ATTACHMENT9, Slot::ATTACHMENT10, Slot::ATTACHMENT11, Slot::ATTACHMENT12, Slot::ATTACHMENT13, Slot::ATTACHMENT14,Slot::ATTACHMENT15,
+	Slot::STEERINGWHEEL
+};
+
+inline Slot KitwParts[] = {
+	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT,
+	Slot::LEFT_SIDE_MIRROR, Slot::DOOR_LEFT
+};
+
+inline Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR, Slot::SKIRT, Slot::BODY, Slot::ROOF, Slot_Trunk };
+
+inline Slot NeonSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot::INTERIOR };

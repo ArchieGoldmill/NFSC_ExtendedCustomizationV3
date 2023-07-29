@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "Feature.h"
-#include "Slots.h"
+#include "Constants.h"
 #include "Hashes.h"
 #include "FECarRecord.h"
 #include "Config.h"
@@ -12,10 +12,6 @@
 #include "CarCustomizeManager.h"
 #include "FECustomizationRecord.h"
 #include "WheelBrands.h"
-
-Slot KitwParts[] = {
-	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT
-};
 
 template<typename T>
 bool Contains(T* ar, T s, int size)
@@ -43,16 +39,18 @@ void AddNodeToList(bNode<StandardSelectablePart*>* listHead, bNode<StandardSelec
 
 bool CheckKitwPart(Slot slot, DBCarPart* part)
 {
-	auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-
-	auto bodyPart = rideInfo->GetPart(Slot::BODY);
-	if (bodyPart)
+	if (Contains(KitwParts, slot, sizeof(KitwParts)))
 	{
-		auto kit = bodyPart->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
-		return part->HasKitW(kit);
+		auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
+		auto bodyPart = rideInfo->GetPart(Slot::BODY);
+		if (bodyPart)
+		{
+			auto kit = bodyPart->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+			return !part->HasKitW(kit);
+		}
 	}
 
-	return true;
+	return false;
 }
 
 bool CheckMarker(Slot slot, DBCarPart* part)
@@ -139,7 +137,7 @@ void GetPartsListV3(Slot slot, bNode<SelectablePart*>* listHead, bool isCarbon, 
 			}
 		}
 
-		if (Contains(KitwParts, slot, sizeof(KitwParts)) && !CheckKitwPart(slot, part))
+		if (CheckKitwPart(slot, part))
 		{
 			continue;
 		}
