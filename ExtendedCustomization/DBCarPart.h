@@ -33,6 +33,11 @@ struct DBCarPart
 		return _GetAppliedAttributeIParam(this, hash, defaultValue);
 	}
 
+	bool GetAppliedAttributeBParam(Hash hash, bool defaultValue)
+	{
+		return this->GetAppliedAttributeIParam(hash, defaultValue) != 0;
+	}
+
 	float GetAppliedAttributeFParam(Hash hash, float defaultValue)
 	{
 		auto attr = this->GetAppliedAttributeParam<float>(hash);

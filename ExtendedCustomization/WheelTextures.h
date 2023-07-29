@@ -41,29 +41,29 @@ public:
 			{
 				auto frontWheel = rideInfo->GetPart(Slot::FRONT_WHEEL);
 				int radius = 0;
+
 				if (frontWheel && !frontWheel->IsStock())
 				{
 					radius = frontWheel->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, 0);
 					this->TextureTable[0].Init(texture);
+
+					this->Tires[0].Init(FromIndex("_%d_A", radius, model));
+					this->Tires[0].AttachReplacementTextureTable(this->TextureTable[0].TextureTable, 4);
 				}
 
-				char buff[64];
-				sprintf_s(buff, "_%d_A", radius);
-				auto frontTire = StringHash1(buff, model);
-				this->Tires[0].Init(frontTire);
-				this->Tires[0].AttachReplacementTextureTable(this->TextureTable[0].TextureTable, 4);
-
 				auto rearWheel = rideInfo->GetPart(Slot::REAR_WHEEL);
-				if (rearWheel && !rearWheel->IsStock())
+				if (rearWheel && (!rearWheel->IsStock() || rearWheel->GetAppliedAttributeBParam(Hashes::DEFAULT, false)))
 				{
 					radius = rearWheel->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, radius);
 				}
 
-				this->TextureTable[1].Init(texture);
-				sprintf_s(buff, "_%d_A", radius);
-				auto rearTire = StringHash1(buff, model);
-				this->Tires[1].Init(rearTire);
-				this->Tires[1].AttachReplacementTextureTable(this->TextureTable[1].TextureTable, 4);
+				if (radius)
+				{
+					this->TextureTable[1].Init(texture);
+
+					this->Tires[1].Init(FromIndex("_%d_A", radius, model));
+					this->Tires[1].AttachReplacementTextureTable(this->TextureTable[1].TextureTable, 4);
+				}
 			}
 		}
 	}

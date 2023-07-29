@@ -26,9 +26,16 @@ INLINE_FUNC(0x006B5980, void, __cdecl, LoadResourceFile, const char* path, int t
 
 inline Hash FromIndex(const char* str, int index)
 {
-	char buff[64];
+	char buff[128];
 	sprintf(buff, str, index);
 	return StringHash(buff);
+}
+
+inline Hash FromIndex(const char* str, int index, Hash hash)
+{
+	char buff[128];
+	sprintf(buff, str, index);
+	return StringHash1(buff, hash);
 }
 
 namespace Game
