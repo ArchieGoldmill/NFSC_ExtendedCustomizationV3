@@ -5,19 +5,26 @@
 #include "RideInfo.h"
 #include <stdio.h>
 
-struct UpgradeGroupAttribute
+struct UpgradeGroup
 {
-	Hash Name;
 	unsigned char Level;
 	unsigned char Part;
 };
 
+template<typename T>
+struct Attribute
+{
+	Hash Name;
+	T Value;
+};
+
 struct DBCarPart
 {
-	void* GetAppliedAttributeParam(Hash hash)
+	template<typename T>
+	Attribute<T>* GetAppliedAttributeParam(Hash hash)
 	{
 		static auto _GetAppliedAttributeParam = (void* (__thiscall*)(DBCarPart*, Hash, int))0x007B00E0;
-		return _GetAppliedAttributeParam(this, hash, 0);
+		return (Attribute<T>*)_GetAppliedAttributeParam(this, hash, 0);
 	}
 
 	int GetAppliedAttributeIParam(Hash hash, int defaultValue)
@@ -28,10 +35,10 @@ struct DBCarPart
 
 	float GetAppliedAttributeFParam(Hash hash, float defaultValue)
 	{
-		float* ptr = (float*)this->GetAppliedAttributeParam(hash);
-		if (ptr)
+		auto attr = this->GetAppliedAttributeParam<float>(hash);
+		if (attr)
 		{
-			return ptr[1];
+			return attr->Value;
 		}
 
 		return defaultValue;
@@ -84,11 +91,8 @@ struct DBCarPart
 	{
 		for (int i = 0; i < 99; i++)
 		{
-			char kitStr[16];
-			sprintf_s(kitStr, "KITW_%d", i);
-
-			int* kit = (int*)this->GetAppliedAttributeParam(StringHash(kitStr));
-			if (!kit)
+			auto attr = this->GetAppliedAttributeParam<int>(FromIndex("KITW_%d", i));
+			if (!attr)
 			{
 				if (i == 0 && kitw == 0)
 				{
@@ -98,7 +102,7 @@ struct DBCarPart
 				break;
 			}
 
-			if (kit[1] == kitw)
+			if (attr->Value == kitw)
 			{
 				return true;
 			}
@@ -136,7 +140,7 @@ struct DBCarPart
 			for (auto markerSlot : MarkerSlots)
 			{
 				auto markerPart = rideInfo->GetPart(markerSlot);
-				if (markerPart)
+				if (markerPart && markerPart->HasMarker(markerName) >= 0)
 				{
 					auto marker = markerPart->GetMarker(markerName);
 					if (marker)
@@ -155,14 +159,39 @@ struct DBCarPart
 		return NULL;
 	}
 
+	int HasMarker(Hash marker)
+	{
+		for (int i = 0; i < 99; i++)
+		{
+			auto attr = this->GetAppliedAttributeParam<Hash>(FromIndex("MARKER_%d", i));
+			if (attr)
+			{
+				if (attr->Value == marker)
+				{
+					return i;
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		return -1;
+	}
+
 	D3DXVECTOR3 GetMarkerScale(Hash marker)
 	{
-		D3DXVECTOR3 scale;
-
-		float s = this->GetAppliedAttributeFParam(StringHash1("_S", marker), 1.0f);
-		scale.x = this->GetAppliedAttributeFParam(StringHash1("_SX", marker), s);
-		scale.y = this->GetAppliedAttributeFParam(StringHash1("_SY", marker), s);
-		scale.z = this->GetAppliedAttributeFParam(StringHash1("_SZ", marker), s);
+		D3DXVECTOR3 scale = { 1.0f, 1.0f, 1.0f };
+		int i = this->HasMarker(marker);
+		if (i >= 0)
+		{
+			marker = FromIndex("MARKER_%d", i);
+			float s = this->GetAppliedAttributeFParam(StringHash1("_S", marker), 1.0f);
+			scale.x = this->GetAppliedAttributeFParam(StringHash1("_SX", marker), s);
+			scale.y = this->GetAppliedAttributeFParam(StringHash1("_SY", marker), s);
+			scale.z = this->GetAppliedAttributeFParam(StringHash1("_SZ", marker), s);
+		}
 
 		return scale;
 	}

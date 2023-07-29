@@ -14,14 +14,14 @@ void FixRearDecals()
 		part = CarPartDatabase::Instance->GetCarPart(Slot::DECAL_FRONT_WINDOW_TEX0, CarType(-1), part);
 		if (part)
 		{
-			auto upgradeGroup = (UpgradeGroupAttribute*)part->GetAppliedAttributeParam(Hashes::PARTID_UPGRADE_GROUP);
-			if (upgradeGroup)
+			auto attr = part->GetAppliedAttributeParam<UpgradeGroup>(Hashes::PARTID_UPGRADE_GROUP);
+			if (attr)
 			{
-				if (upgradeGroup->Level == 33)
+				if (attr->Value.Level == 33)
 				{
 					// Since all parts share the same reference to attribute we can change it once.
-					upgradeGroup->Part = 0x68;
-					upgradeGroup->Level = 32;
+					attr->Value.Part = 0x68;
+					attr->Value.Level = 32;
 					break;
 				}
 			}
