@@ -11,4 +11,10 @@ struct FeGarageMain
 	}
 
 	static inline auto InstallPart = (void(__cdecl*)(FeGarageMain*, RideInfo*, FECustomizationRecord*, Slot, bool setOnly, const char*, ...))0x0084F040;
+
+	static void UnInstall(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot)
+	{
+		FUNC(0x0083EEB0, void, __stdcall, _UnInstall, RideInfo*, FECustomizationRecord*, Slot);
+		_UnInstall(rideInfo, record, slot);
+	}
 };

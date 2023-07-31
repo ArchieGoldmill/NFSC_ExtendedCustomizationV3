@@ -215,11 +215,40 @@ void GetWheelParts(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isC
 	}
 }
 
+void GetGenericVinyls(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
+{
+	auto carId = FECarRecord::GetCarType();
+	auto carName = StringHash(GetCarTypeName(carId));
+	DBCarPart* part = NULL;
+	while (true)
+	{
+		part = CarPartDatabase::Instance->GetCarPart(slot, carId, part);
+		if (!part)
+		{
+			break;
+		}
+
+		auto attr = part->GetAppliedAttributeParam<Hash>(Hashes::CAR_NAME);
+		if (attr && attr->Value != carName)
+		{
+			continue;
+		}
+
+		auto selectablePart = (StandardSelectablePart*)j_malloc_0(sizeof(StandardSelectablePart));
+		*selectablePart = StandardSelectablePart(slot, part);
+		AddNodeToList(listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
+	}
+}
+
 void __cdecl StandardSelectablePart_GetPartsList(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 {
 	if (slot == Slot::FRONT_WHEEL || slot == Slot::REAR_WHEEL)
 	{
 		GetWheelParts(slot, listHead, isCarbon, brandName, innerRadius);
+	}
+	else if (slot == Slot::VINYL_GENERIC)
+	{
+		GetGenericVinyls(slot, listHead, isCarbon, brandName, innerRadius);
 	}
 	else
 	{

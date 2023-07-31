@@ -123,6 +123,15 @@ void HandleBrakes(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizatio
 	InstallByKitNumber(Slot::FRONT_ROTOR, Slot::REAR_ROTOR, rideInfo, record);
 }
 
+void HandleGenericVinyls(RideInfo* rideInfo, FECustomizationRecord* record)
+{
+	auto vinyl = rideInfo->GetPart(Slot::VINYL_GENERIC);
+	if (vinyl && vinyl->IsStock())
+	{
+		FeGarageMain::UnInstall(rideInfo, record, Slot::VINYL_GENERIC);
+	}
+}
+
 void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
 {
 	if (!rideInfo)
@@ -184,6 +193,7 @@ void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMa
 	}
 
 	HandleBrakes(feGarageMain, rideInfo, record);
+	HandleGenericVinyls(rideInfo, record);
 }
 
 bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectablePart, int, FECustomizationRecord* record, bool setOnly)

@@ -90,6 +90,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::INTERIOR, carId);
 		AddMenuOption(_this, Slot::DECAL_FRONT_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::DECAL_REAR_WINDOW_TEX0, carId);
+		AddMenuOption(_this, Slot::VINYL_GENERIC, carId);
 
 		break;
 	}

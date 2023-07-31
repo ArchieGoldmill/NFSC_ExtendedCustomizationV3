@@ -37,6 +37,7 @@ import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS4.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS5.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\WHEELS6.bin
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\TIRES.bin
+import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\VINYL_GENERIC.bin
 
 // Files
 create_folder absolute scripts\ExtendedCustomizationCars

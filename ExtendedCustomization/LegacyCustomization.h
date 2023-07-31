@@ -5,19 +5,6 @@
 
 namespace Legacy
 {
-	void UninstallPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot)
-	{
-		if (record)
-		{
-			record->UnInstallPart(rideInfo->CarId, slot);
-		}
-
-		if (rideInfo)
-		{
-			rideInfo->SetPart(slot, 0);
-		}
-	}
-
 	void SetHeadlightsOff(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
 	{
 		FeGarageMain::InstallPart(_this, rideInfo, record, Slot::LEFT_HEADLIGHT, 1, "%s_LEFT_HEADLIGHT_OFF", carName);
@@ -129,7 +116,7 @@ namespace Legacy
 		}
 		else
 		{
-			UninstallPart(rideInfo, record, Slot::EXHAUST);
+			FeGarageMain::UnInstall(rideInfo, record, Slot::EXHAUST);
 		}
 	}
 
@@ -138,8 +125,8 @@ namespace Legacy
 		auto body = rideInfo->GetPart(Slot::BODY);
 		if (body && !body->IsStock())
 		{
-			UninstallPart(rideInfo, record, Slot::FRONT_BUMPER_BADGING_SET);
-			UninstallPart(rideInfo, record, Slot::REAR_BUMPER_BADGING_SET);
+			FeGarageMain::UnInstall(rideInfo, record, Slot::FRONT_BUMPER_BADGING_SET);
+			FeGarageMain::UnInstall(rideInfo, record, Slot::REAR_BUMPER_BADGING_SET);
 			return;
 		}
 	}
@@ -212,9 +199,9 @@ namespace Legacy
 		auto body = rideInfo->GetPart(Slot::BODY);
 		if (body && !body->IsStock())
 		{
-			UninstallPart(rideInfo, record, Slot::FRONT_BUMPER);
-			UninstallPart(rideInfo, record, Slot::REAR_BUMPER);
-			UninstallPart(rideInfo, record, Slot::SKIRT);
+			FeGarageMain::UnInstall(rideInfo, record, Slot::FRONT_BUMPER);
+			FeGarageMain::UnInstall(rideInfo, record, Slot::REAR_BUMPER);
+			FeGarageMain::UnInstall(rideInfo, record, Slot::SKIRT);
 		}
 	}
 
