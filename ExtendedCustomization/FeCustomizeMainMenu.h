@@ -4,6 +4,7 @@
 #include "FEButton.h"
 #include "FECarRecord.h"
 #include "SteerAngle.h"
+#include "FrontEndRenderingCar.h"
 
 bool AnyAttachmentsEnabled()
 {
@@ -28,8 +29,20 @@ void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PERFORMANCE, (int)CustomizeMainMenu::PERFORMANCE));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PARTS, (int)CustomizeMainMenu::AFTERMARKET));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_AUTOSCULPT, (int)CustomizeMainMenu::AUTOSCULPT));
-	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_FRONT_WHEELS, (int)CustomizeMainMenu::FRONT_WHEELS));
-	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_REAR_WHEELS, (int)CustomizeMainMenu::REAR_WHEELS));
+
+	auto carId = FrontEndRenderingCar::GetCarId();
+	auto frontWheel = g_Config.GetPart(Slot::FRONT_WHEEL, carId);
+	if (frontWheel.State == State::Enabled)
+	{
+		_this->AddOption(TextOption::Create(frontWheel.Header, (int)CustomizeMainMenu::FRONT_WHEELS));
+	}
+
+	auto rearWheel = g_Config.GetPart(Slot::REAR_WHEEL, carId);
+	if (rearWheel.State == State::Enabled)
+	{
+		_this->AddOption(TextOption::Create(rearWheel.Header, (int)CustomizeMainMenu::REAR_WHEELS));
+	}
+
 	if (AnyAttachmentsEnabled())
 	{
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_ATTACHMENTS, (int)CustomizeMainMenu::ATTACHMENTS));

@@ -99,3 +99,186 @@ update_field emitterdata emcar_shift_fire Size Y 0.05
 update_field emitterdata emcar_shift_fire Size Z 0.2
 update_field emitterdata emcar_shift_fire Size W 0
 update_field emitterdata emcar_shift_fire Speed 9
+
+// Front fenders
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_fefrontfenders
+copy_node fecameras hood angles frontFenders
+update_field fecameras customize_0_fefrontfenders cam_angle Collection frontFenders
+
+update_field fecameras frontFenders cam_orbit_vertical 110
+update_field fecameras frontFenders cam_orbit_horizontal -40
+update_field fecameras frontFenders cam_orbit_radius 3.5
+update_field fecameras frontFenders cam_roll_angle 0
+update_field fecameras frontFenders cam_fov 60
+update_field fecameras frontFenders cam_lookat_x 1
+update_field fecameras frontFenders cam_lookat_y 0.5
+update_field fecameras frontFenders cam_lookat_z 0.5
+
+// Rear fenders
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_ferearfenders
+copy_node fecameras hood angles rearFenders
+update_field fecameras customize_0_ferearfenders cam_angle Collection rearFenders
+
+update_field fecameras rearFenders cam_orbit_vertical 110
+update_field fecameras rearFenders cam_orbit_horizontal 45
+update_field fecameras rearFenders cam_orbit_radius 4
+update_field fecameras rearFenders cam_roll_angle 0
+update_field fecameras rearFenders cam_fov 55
+update_field fecameras rearFenders cam_lookat_x -0.5
+update_field fecameras rearFenders cam_lookat_y 0
+update_field fecameras rearFenders cam_lookat_z 0.6
+
+// Interior
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feinterior
+copy_node fecameras hood angles interior
+update_field fecameras customize_0_feinterior cam_angle Collection interior
+update_field fecameras customize_0_feinterior cam_user_rotate True
+
+update_field fecameras interior cam_orbit_vertical 120
+update_field fecameras interior cam_orbit_horizontal 333
+update_field fecameras interior cam_orbit_radius 3
+update_field fecameras interior cam_roll_angle 0
+update_field fecameras interior cam_fov 60
+update_field fecameras interior cam_lookat_x 0
+update_field fecameras interior cam_lookat_y 0
+update_field fecameras interior cam_lookat_z 1
+
+// Left mirror
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feleftmirror
+copy_node fecameras hood angles leftMirror
+update_field fecameras customize_0_feleftmirror cam_angle Collection leftMirror
+
+update_field fecameras leftMirror cam_orbit_vertical 130
+update_field fecameras leftMirror cam_orbit_horizontal 285
+update_field fecameras leftMirror cam_orbit_radius 3
+update_field fecameras leftMirror cam_roll_angle 0
+update_field fecameras leftMirror cam_fov 60
+update_field fecameras leftMirror cam_lookat_x -0.5
+update_field fecameras leftMirror cam_lookat_y 0
+update_field fecameras leftMirror cam_lookat_z 0.6
+
+// License plate
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_felicenseplate
+copy_node fecameras hood angles licensePlate
+update_field fecameras customize_0_felicenseplate cam_angle Collection licensePlate
+
+update_field fecameras licensePlate cam_orbit_vertical 95
+update_field fecameras licensePlate cam_orbit_horizontal 70
+update_field fecameras licensePlate cam_orbit_radius 4
+update_field fecameras licensePlate cam_roll_angle 3
+update_field fecameras licensePlate cam_fov 55
+update_field fecameras licensePlate cam_lookat_x 0
+update_field fecameras licensePlate cam_lookat_y 0
+update_field fecameras licensePlate cam_lookat_z 1
+
+// Front brake
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_fefrontbrake
+copy_node fecameras hood angles frontBrake
+update_field fecameras customize_0_fefrontbrake cam_angle Collection frontBrake
+
+update_field fecameras frontBrake cam_orbit_vertical 100
+update_field fecameras frontBrake cam_orbit_horizontal 330
+update_field fecameras frontBrake cam_orbit_radius 4
+update_field fecameras frontBrake cam_roll_angle 0
+update_field fecameras frontBrake cam_fov 50
+update_field fecameras frontBrake cam_lookat_x 0
+update_field fecameras frontBrake cam_lookat_y 0
+update_field fecameras frontBrake cam_lookat_z 0
+
+// Front decal
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_fefrontdecal
+copy_node fecameras hood angles frontDecal
+update_field fecameras customize_0_fefrontdecal cam_angle Collection frontDecal
+
+update_field fecameras frontDecal cam_orbit_vertical 120
+update_field fecameras frontDecal cam_orbit_horizontal 300
+update_field fecameras frontDecal cam_orbit_radius 4
+update_field fecameras frontDecal cam_roll_angle 0
+update_field fecameras frontDecal cam_fov 50
+update_field fecameras frontDecal cam_lookat_x -2
+update_field fecameras frontDecal cam_lookat_y 0
+update_field fecameras frontDecal cam_lookat_z 0
+
+// Rear decal
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_fereardecal
+copy_node fecameras hood angles rearDecal
+update_field fecameras customize_0_fereardecal cam_angle Collection rearDecal
+
+update_field fecameras rearDecal cam_orbit_vertical 120
+update_field fecameras rearDecal cam_orbit_horizontal 90
+update_field fecameras rearDecal cam_orbit_radius 4
+update_field fecameras rearDecal cam_roll_angle 0
+update_field fecameras rearDecal cam_fov 50
+update_field fecameras rearDecal cam_lookat_x 2
+update_field fecameras rearDecal cam_lookat_y 2
+update_field fecameras rearDecal cam_lookat_z 0
+
+// Tires
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_fetires
+copy_node fecameras hood angles tires
+update_field fecameras customize_0_fetires cam_angle Collection tires
+
+update_field fecameras tires cam_orbit_vertical 105
+update_field fecameras tires cam_orbit_horizontal 310
+update_field fecameras tires cam_orbit_radius 3
+update_field fecameras tires cam_roll_angle 0.2
+update_field fecameras tires cam_fov 50
+update_field fecameras tires cam_lookat_x 1
+update_field fecameras tires cam_lookat_y 0
+update_field fecameras tires cam_lookat_z 0.3
+
+// Neon
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feneon
+copy_node fecameras hood angles neon
+update_field fecameras customize_0_feneon cam_angle Collection neon
+
+update_field fecameras neon cam_orbit_vertical 110
+update_field fecameras neon cam_orbit_horizontal 320
+update_field fecameras neon cam_orbit_radius 4.65
+update_field fecameras neon cam_roll_angle 3
+update_field fecameras neon cam_fov 55
+update_field fecameras neon cam_lookat_x 0
+update_field fecameras neon cam_lookat_y 0
+update_field fecameras neon cam_lookat_z 0.5
+
+// Head lights
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feheadlights
+copy_node fecameras hood angles headLights
+update_field fecameras customize_0_feheadlights cam_angle Collection headLights
+
+update_field fecameras headLights cam_orbit_vertical 110
+update_field fecameras headLights cam_orbit_horizontal 290
+update_field fecameras headLights cam_orbit_radius 4
+update_field fecameras headLights cam_roll_angle 0
+update_field fecameras headLights cam_fov 50
+update_field fecameras headLights cam_lookat_x 0
+update_field fecameras headLights cam_lookat_y 0
+update_field fecameras headLights cam_lookat_z 0
+
+// Brake lights
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_febrakelights
+copy_node fecameras hood angles brakeLights
+update_field fecameras customize_0_febrakelights cam_angle Collection brakeLights
+
+update_field fecameras brakeLights cam_orbit_vertical 110
+update_field fecameras brakeLights cam_orbit_horizontal 70
+update_field fecameras brakeLights cam_orbit_radius 4
+update_field fecameras brakeLights cam_roll_angle 0
+update_field fecameras brakeLights cam_fov 55
+update_field fecameras brakeLights cam_lookat_x -0.5
+update_field fecameras brakeLights cam_lookat_y 0
+update_field fecameras brakeLights cam_lookat_z 0.6
+
+// Rear wheels
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_ferearwheels
+copy_node fecameras hood angles rearWheels
+update_field fecameras customize_0_ferearwheels cam_angle Collection rearWheels
+
+update_field fecameras rearWheels cam_orbit_vertical 105
+update_field fecameras rearWheels cam_orbit_horizontal 28
+update_field fecameras rearWheels cam_orbit_radius 3.3
+update_field fecameras rearWheels cam_roll_angle 2
+update_field fecameras rearWheels cam_fov 48.5
+update_field fecameras rearWheels cam_lookat_x -0.8
+update_field fecameras rearWheels cam_lookat_y 0
+update_field fecameras rearWheels cam_lookat_z 0.5
