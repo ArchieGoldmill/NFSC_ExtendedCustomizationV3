@@ -7,7 +7,7 @@
 
 class PartMarker : public IPartMarker
 {
-private:
+protected:
 	D3DXMATRIX* marker;
 	D3DXVECTOR3 scale;
 	CarRenderInfo* carRenderInfo;

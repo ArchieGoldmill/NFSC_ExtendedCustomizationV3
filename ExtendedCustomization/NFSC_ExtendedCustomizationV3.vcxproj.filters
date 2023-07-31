@@ -378,6 +378,9 @@
     <ClInclude Include="RandomParts.h">
       <Filter>Features\Customization</Filter>
     </ClInclude>
+    <ClInclude Include="SteeringWheelMarker.h">
+      <Filter>Features\Animations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

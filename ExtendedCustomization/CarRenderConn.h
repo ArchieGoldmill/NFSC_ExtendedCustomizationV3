@@ -7,6 +7,9 @@ class CarRenderConn
 public:
 	int** data[0x10];
 	CarRenderInfo* carRenderInfo;
+	BYTE unk[0x140];
+	float LeftWheelRotation;
+	float RightWheelRotation;
 
 	static int GetListCount()
 	{

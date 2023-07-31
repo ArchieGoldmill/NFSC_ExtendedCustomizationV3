@@ -282,3 +282,59 @@ update_field fecameras rearWheels cam_fov 48.5
 update_field fecameras rearWheels cam_lookat_x -0.8
 update_field fecameras rearWheels cam_lookat_y 0
 update_field fecameras rearWheels cam_lookat_z 0.5
+
+// Steering wheel left
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_festeeringwheelleft
+copy_node fecameras hood angles steeringWheelLeft
+update_field fecameras customize_0_festeeringwheelleft cam_angle Collection steeringWheelLeft
+
+update_field fecameras steeringWheelLeft cam_orbit_vertical 130
+update_field fecameras steeringWheelLeft cam_orbit_horizontal 140
+update_field fecameras steeringWheelLeft cam_orbit_radius 3
+update_field fecameras steeringWheelLeft cam_roll_angle -2
+update_field fecameras steeringWheelLeft cam_fov 45
+update_field fecameras steeringWheelLeft cam_lookat_x 0.8
+update_field fecameras steeringWheelLeft cam_lookat_y 0.3
+update_field fecameras steeringWheelLeft cam_lookat_z 0.5
+
+// Steering wheel right
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_festeeringwheelright
+copy_node fecameras hood angles steeringWheelRight
+update_field fecameras customize_0_festeeringwheelright cam_angle Collection steeringWheelRight
+
+update_field fecameras steeringWheelRight cam_orbit_vertical 130
+update_field fecameras steeringWheelRight cam_orbit_horizontal 140
+update_field fecameras steeringWheelRight cam_orbit_radius 3
+update_field fecameras steeringWheelRight cam_roll_angle -2
+update_field fecameras steeringWheelRight cam_fov 45
+update_field fecameras steeringWheelRight cam_lookat_x 0.8
+update_field fecameras steeringWheelRight cam_lookat_y 0.3
+update_field fecameras steeringWheelRight cam_lookat_z 0.5
+
+// Seat left
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feleftseat
+copy_node fecameras hood angles leftSeat
+update_field fecameras customize_0_feleftseat cam_angle Collection leftSeat
+
+update_field fecameras leftSeat cam_orbit_vertical 120
+update_field fecameras leftSeat cam_orbit_horizontal 210
+update_field fecameras leftSeat cam_orbit_radius 3
+update_field fecameras leftSeat cam_roll_angle 358
+update_field fecameras leftSeat cam_fov 45
+update_field fecameras leftSeat cam_lookat_x -0.8
+update_field fecameras leftSeat cam_lookat_y -1
+update_field fecameras leftSeat cam_lookat_z 0.5
+
+// Seat right
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_ferightseat
+copy_node fecameras hood angles rightSeat
+update_field fecameras customize_0_ferightseat cam_angle Collection rightSeat
+
+update_field fecameras rightSeat cam_orbit_vertical 120
+update_field fecameras rightSeat cam_orbit_horizontal 320
+update_field fecameras rightSeat cam_orbit_radius 3
+update_field fecameras rightSeat cam_roll_angle 358
+update_field fecameras rightSeat cam_fov 45
+update_field fecameras rightSeat cam_lookat_x -0.8
+update_field fecameras rightSeat cam_lookat_y 1
+update_field fecameras rightSeat cam_lookat_z 0.5

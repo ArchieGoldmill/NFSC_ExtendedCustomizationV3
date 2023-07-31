@@ -7,6 +7,7 @@
 #include "PartAnimation.h"
 #include "PartMarker.h"
 #include "DBCarPart.h"
+#include "SteeringWheelMarker.h"
 
 void InitAnimations();
 
@@ -42,7 +43,9 @@ public:
 				auto marker = part->GetAttachMarker(rideInfo, &scale);
 				if (marker)
 				{
-					this->partMarkers.push_back(new PartMarker(slot, marker, scale, this->carRenderInfo));
+					this->partMarkers.push_back(slot == Slot::STEERINGWHEEL ? 
+						new SteeringWheelMarker(slot, marker, scale, this->carRenderInfo) : 
+						new PartMarker(slot, marker, scale, this->carRenderInfo));
 				}
 			}
 		}
