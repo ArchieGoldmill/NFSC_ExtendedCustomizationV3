@@ -112,6 +112,11 @@ PartConfig GlobalConfig::GetPart(Slot slot, CarType carId)
 			{
 				result.Header = part->Header;
 			}
+
+			if (part->Animation != Animate::Default)
+			{
+				result.Animation = part->Animation;
+			}
 		}
 	}
 

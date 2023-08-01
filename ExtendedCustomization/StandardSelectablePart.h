@@ -29,6 +29,12 @@ struct StandardSelectablePart
 		return _Install(this, record, setOnly);
 	}
 
+	int Preview(bool a)
+	{
+		FUNC(0x00866A40, int, __thiscall, _Preview, StandardSelectablePart*, bool);
+		return _Preview(this, a);
+	}
+
 	Hash GetCategoryHash()
 	{
 		static auto _GetCategoryHash = (Hash(__thiscall*)(StandardSelectablePart*))0x00842670;

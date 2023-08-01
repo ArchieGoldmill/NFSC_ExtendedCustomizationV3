@@ -5,6 +5,49 @@
 #include "Func.h"
 #include "IPartMarker.h"
 
+struct FEPartAnimation
+{
+	Slot SlotId;
+	float Amount;
+	float Target;
+	bool Enabled;
+
+	static inline std::vector<FEPartAnimation> List;
+
+	static inline Slot LastSlot = Slot::INVALID;
+
+	static FEPartAnimation* Get(Slot slot)
+	{
+		for (auto& part : List)
+		{
+			if (part.SlotId == slot)
+			{
+				return &part;
+			}
+		}
+
+		return NULL;
+	}
+
+	static void Create(Slot slot)
+	{
+		auto part = Get(slot);
+		if (!part)
+		{
+			List.push_back({ slot, 0, 0, false });
+			part = &List[List.size() - 1];
+		}
+
+		part->Enabled = true;
+		part->Target = 1.0;
+	}
+
+	static void ResetAll()
+	{
+		List.clear();
+	}
+};
+
 class PartAnimation : public IPartMarker
 {
 private:
@@ -20,11 +63,21 @@ public:
 	{
 		this->slot = slot;
 
-		this->start = start;
-		this->end = end;
-
 		this->amount = 0;
 		this->target = 0;
+
+		if (Game::InFrontEnd())
+		{
+			auto backup = FEPartAnimation::Get(slot);
+			if (backup && backup->Enabled)
+			{
+				this->target = backup->Target;
+				this->amount = backup->Amount;
+			}
+		}
+
+		this->start = start;
+		this->end = end;
 	}
 
 	void Start()
@@ -57,6 +110,15 @@ public:
 	void Update()
 	{
 		MoveTowards(this->amount, this->target, Game::DeltaTime() * 2);
+		if (Game::InFrontEnd())
+		{
+			auto backup = FEPartAnimation::Get(this->slot);
+			if (backup && backup->Enabled)
+			{
+				backup->Amount = this->amount;
+				this->target = backup->Target;
+			}
+		}
 	}
 
 	bool IsSlot(Slot slot)

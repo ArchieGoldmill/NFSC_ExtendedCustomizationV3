@@ -12,12 +12,25 @@ enum class State
 	Default = -1,
 };
 
+enum class Animate
+{
+	None = 0,
+	Headlights = 1,
+	Hood = 2,
+	LeftDoor = 3,
+	RightDoor = 4,
+	Doors = 5,
+	Trunk = 6,
+	Default = -1
+};
+
 struct PartConfig
 {
 	State State = State::Default;
 	Hash Header = -1;
 	Slot Slot = Slot::INVALID;
 	std::string Camera;
+	Animate Animation;
 };
 
 struct SharedConfig

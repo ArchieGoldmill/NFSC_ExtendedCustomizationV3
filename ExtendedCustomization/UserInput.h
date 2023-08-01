@@ -74,5 +74,5 @@ DWORD WINAPI HandleUserInput(LPVOID arg)
 
 void InitUserInput()
 {
-	CreateThread(NULL, NULL, HandleUserInput, NULL, NULL, NULL);
+	//CreateThread(NULL, NULL, HandleUserInput, NULL, NULL, NULL);
 }

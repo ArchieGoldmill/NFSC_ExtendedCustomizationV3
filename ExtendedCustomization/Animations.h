@@ -106,6 +106,16 @@ public:
 		return false;
 	}
 
+	void ResetAllAnimations()
+	{
+		for (auto anim : this->partAnimations)
+		{
+			anim->SetTarget(0);
+		}
+
+		FEPartAnimation::ResetAll();
+	}
+
 private:
 	PartAnimation* FindAnimMarkers(Slot slot)
 	{

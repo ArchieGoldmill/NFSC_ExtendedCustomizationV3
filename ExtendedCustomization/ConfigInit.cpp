@@ -24,6 +24,7 @@ void InitPart(CIniReader& iniReader, SharedConfig* shared, Slot slot, const char
 	partConfig.Slot = slot;
 	partConfig.State = InitState(iniReader, iniSection, "Enabled");
 	partConfig.Camera = iniReader.ReadString(iniSection, "Camera", "");
+	partConfig.Animation = (Animate)iniReader.ReadInteger(iniSection, "Animate", -1);
 
 	auto header = iniReader.ReadString(iniSection, "Header", "");
 	if (header.size())
