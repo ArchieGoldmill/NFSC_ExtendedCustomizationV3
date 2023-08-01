@@ -1,5 +1,5 @@
 [VERSN2]
-version 2.8.3
+version 2.9.0
 
 stop_errors false
 
@@ -64,6 +64,11 @@ update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW App
 update_texture GLOBAL\INGAMEA.BUN TPKBlocks INGAMETEXTURES LICENSEPLATE_GLOW Flags 1
 
 replace_texture GLOBAL\GLOBALB.LZC TPKBlocks GLOBALTEXTURES CARSHADOW "Textures\CARSHADOW.dds"
+
+// FNGs
+new negate FRONTEND\FRONTB2.BUN
+import override FRONTEND\FRONTB2.BUN FNGroups FNG\FEAUTOSCULPTFRONTBUMPER.bin
+delete FRONTEND\FRONTB2.BUN
 
 // Localization
 append Localization\English.end
