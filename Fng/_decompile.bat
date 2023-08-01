@@ -1,1 +1,0 @@
-C:\Users\ARCHIE\source\repos\FEngLib\FEngCli\bin\Debug\net6.0\FEngCli.exe decompile -i "%~1" -o "%~dpn1".json
