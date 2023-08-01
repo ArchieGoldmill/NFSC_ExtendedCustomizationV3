@@ -29,6 +29,12 @@ struct StandardSelectablePart
 		return _Install(this, record, setOnly);
 	}
 
+	Hash GetCategoryHash()
+	{
+		static auto _GetCategoryHash = (Hash(__thiscall*)(StandardSelectablePart*))0x00842670;
+		return _GetCategoryHash(this);
+	}
+
 	static void GetPartsList(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 	{
 		FUNC(0x00852940, void, __cdecl, _GetPartsList, Slot, bNode<StandardSelectablePart*>*, bool, Hash, int);

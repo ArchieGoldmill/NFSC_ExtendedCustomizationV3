@@ -7,6 +7,7 @@
 #include "Config.h"
 #include "WheelBrands.h"
 #include "FrontEndRenderingCar.h"
+#include "AutosculptSelectablePart.h"
 
 void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId)
 {
@@ -96,6 +97,28 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 	}
 }
 
+Hash __fastcall StandardSelectablePart_GetCategoryHash(StandardSelectablePart* _this)
+{
+	auto header = g_Config.GetPart(_this->SlotId, FrontEndRenderingCar::GetCarId()).Header;
+	if (header != -1)
+	{
+		return header;
+	}
+
+	return _this->GetCategoryHash();
+}
+
+Hash __fastcall AutosculptSelectablePart_GetCategoryHash(AutosculptSelectablePart* _this)
+{
+	auto header = g_Config.GetPart(_this->SlotId, FrontEndRenderingCar::GetCarId()).Header;
+	if (header != -1)
+	{
+		return header;
+	}
+
+	return _this->GetCategoryHash();
+}
+
 void __declspec(naked) PopulateAllOptionsCave()
 {
 	static constexpr auto cExit = 0x00866235;
@@ -115,4 +138,7 @@ void InitFeCustomizePartsMenu()
 
 	// Start part menu from first part in list
 	injector::WriteMemory<BYTE>(0x0086623F, 0);
+
+	injector::WriteMemory(0x009F9D14, StandardSelectablePart_GetCategoryHash);
+	injector::WriteMemory(0x009F9F6C, AutosculptSelectablePart_GetCategoryHash);
 }

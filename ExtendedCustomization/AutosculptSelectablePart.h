@@ -25,6 +25,12 @@ struct AutosculptSelectablePart : StandardSelectablePart
 		_SetToCurrentPart(this);
 	}
 
+	Hash GetCategoryHash()
+	{
+		static auto _GetCategoryHash = (Hash(__thiscall*)(AutosculptSelectablePart*))0x008432F0;
+		return _GetCategoryHash(this);
+	}
+
 	static void GetPartsList(Slot slot, bNode<AutosculptSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 	{
 		FUNC(0x008534A0, void, __cdecl, _GetPartsList, Slot, bNode<AutosculptSelectablePart*>*, bool, Hash, int);
