@@ -26,12 +26,12 @@
 void ToBeRemoved()
 {
 #ifdef _DEBUG
-	injector::WriteMemory<uint8_t>(0x9CB4E4, 0, true);
-	injector::WriteMemory<uint8_t>(0x5BD528, 3, true);
-	injector::MakeNOP(0x5891C3, 8, true);
-	injector::MakeNOP(0x716583, 34, true);
-	injector::MakeNOP(0x7165B1, 12, true);
-	injector::MakeNOP(0x44A588, 6, true);
+	injector::WriteMemory<uint8_t>(0x9CB4E4, 0);
+	injector::WriteMemory<uint8_t>(0x5BD528, 3);
+	injector::MakeNOP(0x5891C3, 8);
+	injector::MakeNOP(0x716583, 34);
+	injector::MakeNOP(0x7165B1, 12);
+	injector::MakeNOP(0x44A588, 6);
 #endif 
 }
 

@@ -186,6 +186,7 @@ int __fastcall AutosculptSlider_Act(AutosculptSlider* slider, int, int a2, Hash 
 		if (slot == Slot_Stance)
 		{
 			carRenderInfo->UpdateWheelYRenderOffset();
+			SAFE_CALL(carRenderInfo->Extras->WheelTextures, UpdateBrands);
 		}
 
 		if (slot == Slot::LICENSE_PLATE)
