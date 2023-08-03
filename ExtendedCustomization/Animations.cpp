@@ -4,6 +4,15 @@
 #include "FrontEndRenderingCar.h"
 #include "FeCustomizeParts.h"
 
+void CalcTrunkAnim(CarRenderInfo* carRenderInfo, D3DXMATRIX* partMarker, IPartMarker* markerData, D3DXMATRIX* marker)
+{
+	auto animMarker = ((PartAnimation*)markerData)->Calculate();
+	D3DXMatrixMultiply(marker, partMarker, &animMarker);
+
+	auto position = carRenderInfo->GetMatrix();
+	D3DXMatrixMultiply(marker, marker, position);
+}
+
 void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
 	if (model && *model)
@@ -13,10 +22,34 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 			auto animation = carRenderInfo->Extras->Animations->GetAnimation(slot);
 			if (animation)
 			{
-				marker = animation->Get(marker);
+				bool handled = false;
+				if (slot == Slot::SPOILER)
+				{
+					auto spoiler = carRenderInfo->RideInfo->GetPart(slot);
+					if (spoiler && spoiler->GetUpgradeLevel() > 0)
+					{
+						CalcTrunkAnim(carRenderInfo, &carRenderInfo->Markers.Spoiler->Matrix, animation, marker);
+						handled = true;
+					}
+				}
+
+				if (slot == Slot::LICENSE_PLATE)
+				{
+					D3DXMATRIX rot;
+					D3DXMatrixRotationY(&rot, 3.14f / 2);
+					D3DXMatrixMultiply(&rot, &rot, &carRenderInfo->Markers.RearLicensePlate->Matrix);
+					CalcTrunkAnim(carRenderInfo, &rot, animation, marker);
+					handled = true;
+				}
+
+				if (!handled)
+				{
+					marker = animation->Get(marker);
+				}
 			}
 			else if (carRenderInfo->Extras->Animations->SlotNeedsMarker(slot))
 			{
+				// Do not render attachment if marker is not found
 				return;
 			}
 		}
@@ -25,10 +58,23 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 	}
 }
 
-void __fastcall RenderSpoiler(int view, int param, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
+void __fastcall RenderSpoiler(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
 	eModel** modelPtr = &model;
 	RenderParts(carRenderInfo, Slot::SPOILER, view, modelPtr, marker, light, data);
+}
+
+void __fastcall RenderLicensePlate(int view, int, CarRenderInfo* carRenderInfo, int type, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
+{
+	if (type == 1)
+	{
+		eModel** modelPtr = &model;
+		RenderParts(carRenderInfo, Slot::LICENSE_PLATE, view, modelPtr, marker, light, data);
+	}
+	else
+	{
+		model->Render(view, marker, light, data);
+	}
 }
 
 void ToggleAnimation(Slot slot)
@@ -106,6 +152,19 @@ void __declspec(naked) RenderSpoilerHook()
 	}
 }
 
+void __declspec(naked) RenderLicensePlateHook()
+{
+	static constexpr auto cExit = 0x007DF490;
+	__asm
+	{
+		push[esp + 0x34];
+		push esi;
+		call RenderLicensePlate;
+
+		jmp cExit;
+	}
+}
+
 void __declspec(naked) RenderPartsHook()
 {
 	static constexpr auto cExit = 0x007DF277;
@@ -125,6 +184,7 @@ void InitAnimations()
 	{
 		injector::MakeJMP(0x007DF272, RenderPartsHook);
 		injector::MakeJMP(0x007DF5C9, RenderSpoilerHook);
+		injector::MakeJMP(0x007DF48B, RenderLicensePlateHook);
 
 		// Fix side mirrors
 		injector::WriteMemory<char>(0x007E0DD2, 2);

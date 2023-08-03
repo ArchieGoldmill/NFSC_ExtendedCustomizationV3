@@ -43,8 +43,8 @@ public:
 				auto marker = part->GetAttachMarker(rideInfo, &scale);
 				if (marker)
 				{
-					this->partMarkers.push_back(slot == Slot::STEERINGWHEEL ? 
-						new SteeringWheelMarker(slot, marker, scale, this->carRenderInfo) : 
+					this->partMarkers.push_back(slot == Slot::STEERINGWHEEL ?
+						new SteeringWheelMarker(slot, marker, scale, this->carRenderInfo) :
 						new PartMarker(slot, marker, scale, this->carRenderInfo));
 				}
 			}
@@ -130,7 +130,7 @@ private:
 				auto end = part->GetMarker(Hashes::ANIM_END);
 				if (end)
 				{
-					auto anim = new PartAnimation(slot, start, end);
+					auto anim = new PartAnimation(slot, start, end, this->carRenderInfo);
 					this->partAnimations.push_back(anim);
 					return anim;
 				}
@@ -175,10 +175,11 @@ private:
 
 		if (trunkAnim)
 		{
-			trunkAnim->AddSubSlot(Slot::SPOILER);
 			trunkAnim->AddSubSlot(Slot::REAR_WINDOW);
 			trunkAnim->AddSubSlot(Slot::DECAL_REAR_WINDOW);
-			//trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
+			trunkAnim->AddSubSlot(Slot::SPOILER);
+			trunkAnim->AddSubSlot(Slot::UNIVERSAL_SPOILER_BASE);
+			trunkAnim->AddSubSlot(Slot::LICENSE_PLATE);
 		}
 	}
 

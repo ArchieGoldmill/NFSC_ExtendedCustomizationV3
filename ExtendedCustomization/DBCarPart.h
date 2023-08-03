@@ -92,6 +92,12 @@ struct DBCarPart
 		return this->GetAppliedAttributeIParam(Hashes::STOCK, 0);
 	}
 
+	int GetUpgradeLevel()
+	{
+		static auto _GetUpgradeLevel = (int(__thiscall*)(DBCarPart*))0x007C28C0;
+		return _GetUpgradeLevel(this);
+	}
+
 	bool HasKitW(int kitw)
 	{
 		for (int i = 0; i < 99; i++)

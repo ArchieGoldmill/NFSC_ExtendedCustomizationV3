@@ -4,6 +4,7 @@
 #include "Slots.h"
 #include "Func.h"
 #include "IPartMarker.h"
+#include "DBCarPart.h"
 
 struct FEPartAnimation
 {
@@ -55,11 +56,12 @@ private:
 	D3DXMATRIX* end;
 	float amount;
 	float target;
+	CarRenderInfo* carRenderInfo;
 
 	std::vector<Slot> subSlots;
 
 public:
-	PartAnimation(Slot slot, D3DXMATRIX* start, D3DXMATRIX* end)
+	PartAnimation(Slot slot, D3DXMATRIX* start, D3DXMATRIX* end, CarRenderInfo* carRenderInfo)
 	{
 		this->slot = slot;
 
@@ -78,6 +80,7 @@ public:
 
 		this->start = start;
 		this->end = end;
+		this->carRenderInfo = carRenderInfo;
 	}
 
 	void Start()
@@ -141,10 +144,40 @@ public:
 
 	void AddSubSlot(Slot slot)
 	{
-		this->subSlots.push_back(slot);
+		if (this->slot == Slot_Trunk)
+		{
+			auto trunk = this->carRenderInfo->RideInfo->GetPart(Slot_Trunk);
+			if (trunk)
+			{
+				if ((slot == Slot::SPOILER || slot == Slot::UNIVERSAL_SPOILER_BASE) && !trunk->GetAppliedAttributeBParam(Hashes::ANIMATE_SPOILER, false))
+				{
+					return;
+				}
+
+				if (slot == Slot::LICENSE_PLATE && !trunk->GetAppliedAttributeBParam(Hashes::ANIMATE_LICENSE_PLATE, false))
+				{
+					return;
+				}
+			}
+		}
+
+		auto part = this->carRenderInfo->RideInfo->GetPart(slot);
+		if (part && part->GetAppliedAttributeBParam(Hashes::ANIMATE, true))
+		{
+			this->subSlots.push_back(slot);
+		}
 	}
 
 	D3DXMATRIX* Get(D3DXMATRIX* matrix)
+	{
+		auto result = this->Calculate();
+
+		D3DXMatrixMultiply(&this->state, &result, matrix);
+
+		return &this->state;
+	}
+
+	D3DXMATRIX Calculate()
 	{
 		D3DXQUATERNION qStart;
 		D3DXQuaternionRotationMatrix(&qStart, this->start);
@@ -165,8 +198,6 @@ public:
 		auto pos = (GetVector3(this->end, 3) - GetVector3(this->start, 3)) * this->amount;
 		SetVector3(&result, 3, GetVector3(&result, 3) + pos);
 
-		D3DXMatrixMultiply(&this->state, &result, matrix);
-
-		return &this->state;
+		return result;
 	}
 };
