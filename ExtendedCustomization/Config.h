@@ -55,6 +55,9 @@ struct GlobalConfig : public SharedConfig
 
 	float FrontSteerAngle;
 
+	float NeonSize;
+	float NeonInnerSize;
+
 	bool DebugRotorGlow;
 	unsigned int DebugAICar;
 

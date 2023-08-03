@@ -129,6 +129,8 @@ void InitConfig()
 	InitShared(iniReader, &g_Config);
 
 	g_Config.FrontSteerAngle = iniReader.ReadFloat("GENERAL", "FrontSteerAngle", 0);
+	g_Config.NeonSize = iniReader.ReadFloat("GENERAL", "NeonSize", 0);
+	g_Config.NeonInnerSize = iniReader.ReadFloat("GENERAL", "NeonInnerSize", 0);
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
 	g_Config.DebugAICar = iniReader.ReadUInteger("DEBUG", "AICar", 0);
 	g_Config.AllVinylsTransformable = iniReader.ReadInteger("MODS", "AllVinylsTransformable", 0) == 1;

@@ -30,6 +30,7 @@ private:
 	std::vector<Neon> neons;
 	D3DXMATRIX identity;
 	TextureInfo* neonBlur = NULL;
+	TextureInfo* neonBlurInner = NULL;
 
 	NeonPulse pulse;
 	inline static NeonPulse pulseBackup;
@@ -42,6 +43,7 @@ public:
 		this->carRenderInfo = carRenderInfo;
 		this->carMatrix = carMatrix;
 		this->neonBlur = GetTextureInfo(Hashes::NEONBLUR, 0, 0);
+		this->neonBlurInner = GetTextureInfo(Hashes::NEONBLUR_INNER, 0, 0);
 		D3DXMatrixIdentity(&this->identity);
 
 		if (Game::InFrontEnd())
@@ -91,8 +93,8 @@ public:
 			this->pulse.Val = 1;
 		}
 
-		float h = carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
-		float s = carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
+		float h = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
+		float s = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
 
 		float r, g, b;
 		HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
@@ -161,15 +163,42 @@ public:
 		{
 			for (auto neon : neons)
 			{
-				RenderMarker(neon.Start, neon.End);
+				float size = g_Config.NeonSize;
+				if (this->neonBlur && size > 0)
+				{
+					RenderMarker(neon.Start, neon.End, size, this->pulse.color, this->neonBlur);
+				}
+
+				size = g_Config.NeonInnerSize;
+				if (this->neonBlurInner && size > 0)
+				{
+					float h = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
+					float s = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
+					s += 0.5f;
+					if (s > 1.0f)
+					{
+						s = 1.0f;
+					}
+
+					float r, g, b;
+					HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
+
+					Color color;
+					color.Bytes[0] = r * 128.0f * this->pulse.Val;
+					color.Bytes[1] = g * 128.0f * this->pulse.Val;
+					color.Bytes[2] = b * 128.0f * this->pulse.Val;
+					color.Bytes[3] = 0xFF * this->pulse.Val;
+
+					RenderMarker(neon.Start, neon.End, size, color, this->neonBlurInner);
+				}
 			}
 		}
 	}
 
-	void RenderMarker(D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix)
+	void RenderMarker(D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix, float size, Color color, TextureInfo* texture)
 	{
 		ePoly poly;
-		poly.SetColor(this->pulse.color);
+		poly.SetColor(color);
 		auto carPos = GetVector(this->carMatrix, 3);
 		auto carMatrix = *this->carMatrix;
 		SetVector(&carMatrix, 3, { 0,0,0,0 });
@@ -182,7 +211,6 @@ public:
 		D3DXVECTOR4 a3;
 		D3DXVECTOR4 v43;
 		D3DXVECTOR3 v239;
-		const float size = 0.03;
 
 		float v14 = carPos.x - camera->CurrentKey.Position.x;
 		float v16 = carPos.y - camera->CurrentKey.Position.y;
@@ -254,7 +282,7 @@ public:
 		poly.UVs[2].y = 0.0;
 		poly.UVs[3].x = 0.5;
 		poly.UVs[3].y = 0.0;
-		poly.Render(this->neonBlur, &this->identity);
+		poly.Render(texture, &this->identity);
 
 		float v254 = v37 * v35.y;
 		float v77 = v40 * v35.y;
@@ -269,7 +297,7 @@ public:
 		poly.Vertices[3].x += v77 * 2 + v56 * 2;
 		poly.Vertices[3].y += v78 * 2 + v57 * 2;
 		poly.Vertices[3].z += v258 * 2 + v254 * 2;
-		poly.Render(this->neonBlur, &this->identity);
+		poly.Render(texture, &this->identity);
 
 		float v268 = v37 * v35.y;
 		float v185 = v40 * v35.y;
@@ -314,7 +342,7 @@ public:
 		poly.UVs[2].y = 1.0;
 		poly.UVs[3].x = 0.5;
 		poly.UVs[3].y = 1.0;
-		poly.Render(this->neonBlur, &this->identity);
+		poly.Render(texture, &this->identity);
 
 		float v269 = v37 * v35.y;
 		float v179 = v40 * v35.y;
@@ -376,6 +404,6 @@ public:
 		poly.Vertices[3].x = poly.Vertices[3].x + v187;
 		poly.Vertices[3].y = v97 * v35.x + poly.Vertices[3].y;
 		poly.Vertices[3].z = v273 + v269 + v43.z;
-		poly.Render(this->neonBlur, &this->identity);
+		poly.Render(texture, &this->identity);
 	}
 };
