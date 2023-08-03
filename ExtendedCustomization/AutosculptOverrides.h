@@ -231,6 +231,25 @@ void __fastcall InitAutosculptSlider(int* _this, int param, float a2, float max,
 	}
 }
 
+void* __fastcall SetTitle(VectorScrollerMenu* _this, int param, int a)
+{
+	static auto FeAutosculpt_Ctor = (void* (__thiscall*)(void*, int))0x0085B1D0;
+	void* result = FeAutosculpt_Ctor(_this, a);
+
+	auto currentPart = AutosculptSelectablePart::GetCurrent();
+	if (currentPart)
+	{
+		auto slot = currentPart->SlotId;
+		if (slot == Slot_Stance || slot == Slot_Neon || slot == Slot::LICENSE_PLATE)
+		{
+			auto header = g_Config.GetPart(slot, FrontEndRenderingCar::GetCarId()).Header;
+			_this->SetTitleName(StringHash1("_TITLE", header));
+		}
+	}
+
+	return result;
+}
+
 void __declspec(naked) ConvertSlotToStateCave()
 {
 	__asm
@@ -293,4 +312,6 @@ void InitAutosculpt()
 	injector::MakeCALL(0x0085B3D6, ZoneName);
 
 	injector::MakeCALL(0x0085AFDE, InitAutosculptSlider, true);
+
+	injector::MakeCALL(0x005749F9, SetTitle, true);
 }
