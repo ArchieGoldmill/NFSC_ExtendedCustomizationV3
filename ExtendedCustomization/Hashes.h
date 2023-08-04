@@ -55,6 +55,7 @@ namespace Hashes
 
 	const Hash MAGSILVER = 0x22719FA9;
 	const Hash MAGCHROME = 0xFD102A92;
+	const Hash MAGMATTE = 0xD20EBC2F;
 	const Hash MAGLIP = 0x6B637059;
 	const Hash CALIPER = 0xD6640DFF;
 

@@ -6,9 +6,9 @@
 class FeCustomizeParts
 {
 public:
-	int unk1[0xB2];
+	BYTE unk1[0x2C8];
 	FEString* Header;
-	int unk2[0x2];
+	BYTE unk2[0x8];
 	bool IsAutosculpt;
 	char WheelFilter;
 

@@ -5,6 +5,8 @@ stop_errors false
 
 speedreflect auto
 
+unlock_memory all
+
 // CarTypeInfos
 import override GLOBAL\GLOBALB.LZC CarTypeInfos CarTypeInfos\STEERINGWHEEL.bin
 import override GLOBAL\GLOBALB.LZC CarTypeInfos CarTypeInfos\SEATS.bin

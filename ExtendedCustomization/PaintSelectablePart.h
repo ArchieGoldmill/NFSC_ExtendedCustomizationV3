@@ -5,6 +5,5 @@
 struct PaintSelectablePart : StandardSelectablePart
 {
 	RecordColorData Color;
-	//short unk; // padding
 	DBCarPart* SecondPart;
 };

@@ -18,8 +18,7 @@ struct RideInfo
 	int unk2;
 	float RideHeight;
 	int unk3[223];
-	AutoSculptRegion AutoSculptRegions[0x14];
-	int unk4[12];
+	AutoSculptRegion AutoSculptRegions[0x15];
 	CarRenderInfo* CarRenderInfo;
 
 	DBCarPart* GetPart(Slot slot)

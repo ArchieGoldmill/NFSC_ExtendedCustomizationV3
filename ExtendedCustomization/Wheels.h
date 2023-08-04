@@ -18,6 +18,7 @@ void ReplaceFrontWheels(CarRenderInfo* carRenderInfo, eModel* model)
 	{
 		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Materials.FrontRims);
 		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Materials.FrontRims);
+		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Materials.FrontRims);
 		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->FrontLipMaterial);
 	}
 }
@@ -34,6 +35,7 @@ void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
 
 		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Extras->Paint->RearRimMaterial);
 		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Extras->Paint->RearRimMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Extras->Paint->RearRimMaterial);
 		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->RearLipMaterial);
 	}
 }

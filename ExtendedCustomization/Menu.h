@@ -20,5 +20,5 @@ void InitMenu()
 	}
 
 	// Thanks to rx
-	injector::WriteMemory(0x00865919, g_Config.PreviewDebounceTime);
+	injector::WriteMemory(0x00865919, g_Config.PartPreviewDelay);
 }
