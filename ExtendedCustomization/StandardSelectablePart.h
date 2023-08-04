@@ -41,6 +41,12 @@ struct StandardSelectablePart
 		return _GetCategoryHash(this);
 	}
 
+	int GetPrice()
+	{
+		FUNC(0x008426A0, int, __thiscall, _GetPrice, StandardSelectablePart*);
+		return _GetPrice(this);
+	}
+
 	static void GetPartsList(Slot slot, bNode<StandardSelectablePart*>* listHead, bool isCarbon, Hash brandName, int innerRadius)
 	{
 		FUNC(0x00852940, void, __cdecl, _GetPartsList, Slot, bNode<StandardSelectablePart*>*, bool, Hash, int);

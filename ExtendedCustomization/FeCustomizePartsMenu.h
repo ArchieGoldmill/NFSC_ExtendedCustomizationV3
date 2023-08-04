@@ -132,6 +132,18 @@ void __declspec(naked) PopulateAllOptionsCave()
 	}
 }
 
+int __fastcall GetPrice(StandardSelectablePart* selectablePart)
+{
+	auto part = selectablePart->Part;
+	auto priceAttr = part->GetAppliedAttributeParam<int>(Hashes::PRICE);
+	if (priceAttr)
+	{
+		return priceAttr->Value;
+	}
+
+	return selectablePart->GetPrice();
+}
+
 void InitFeCustomizePartsMenu()
 {
 	injector::MakeJMP(0x00866074, PopulateAllOptionsCave);
@@ -141,4 +153,7 @@ void InitFeCustomizePartsMenu()
 
 	injector::WriteMemory(0x009F9D14, StandardSelectablePart_GetCategoryHash);
 	injector::WriteMemory(0x009F9F6C, AutosculptSelectablePart_GetCategoryHash);
+
+	injector::WriteMemory(0x009F9D1C, GetPrice);
+	injector::WriteMemory(0x009F9F74, GetPrice);
 }
