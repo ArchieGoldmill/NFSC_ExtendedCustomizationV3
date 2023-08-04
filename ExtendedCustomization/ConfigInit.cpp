@@ -129,6 +129,7 @@ void InitConfig()
 	InitShared(iniReader, &g_Config);
 
 	g_Config.FrontSteerAngle = iniReader.ReadFloat("GENERAL", "FrontSteerAngle", 0);
+	g_Config.PreviewDebounceTime = iniReader.ReadInteger("GENERAL", "PreviewDebounceTime", 2400);
 	g_Config.NeonSize = iniReader.ReadFloat("GENERAL", "NeonSize", 0);
 	g_Config.NeonInnerSize = iniReader.ReadFloat("GENERAL", "NeonInnerSize", 0);
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;

@@ -5,6 +5,7 @@
 #include "FeCustomizeVisualsMenu.h"
 #include "MenuCameras.h"
 
+
 void InitMenu()
 {
 	InitFeCustomizeMainMenu();
@@ -17,4 +18,7 @@ void InitMenu()
 	{
 		injector::WriteMemory<BYTE>(0x0085FAC2, 0xFF);
 	}
+
+	// Thanks to rx
+	injector::WriteMemory(0x00865919, g_Config.PreviewDebounceTime);
 }

@@ -61,6 +61,8 @@ struct GlobalConfig : public SharedConfig
 	bool DebugRotorGlow;
 	unsigned int DebugAICar;
 
+	int PreviewDebounceTime;
+
 	bool AllVinylsTransformable;
 	bool AllVinylsMirrorable;
 	bool SmoothVinylTransform;
