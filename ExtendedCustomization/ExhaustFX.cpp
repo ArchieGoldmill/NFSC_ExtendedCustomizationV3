@@ -43,7 +43,7 @@ void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSli
 	{
 		if (carRenderInfo->HasExhaustMerker())
 		{
-			if (strstr(model->Solid->Name, "EXHAUST_STYLE"))
+			if (strstr(model->Solid->Name, "EXHAUST"))
 			{
 				if (carRenderInfo->Markers.LeftExhaust)
 				{
