@@ -46,6 +46,15 @@ void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 {
 	SAFE_CALL(carRenderInfo->Extras->Animations, FindMarkers);
 	SAFE_CALL(carRenderInfo->Extras->Neon, FindMarkers);
+
+	if (!carRenderInfo->Markers.RearLicensePlate)
+	{
+		auto rearBumper = carRenderInfo->RideInfo->GetPart(Slot::REAR_BUMPER);
+		if (rearBumper)
+		{
+			carRenderInfo->Markers.RearLicensePlate = rearBumper->GetPositionMarker(Hashes::REAR_LICENSE_PLATE);
+		}
+	}
 }
 
 void OnAfterCarRender(CarRenderInfo* carRenderInfo)
@@ -119,7 +128,7 @@ void __declspec(naked) CarRenderInfoCtStartCave()
 		call CarRenderInfoCtStart;
 		popad;
 
-		mov eax, fs: [00000000];
+		mov eax, fs: [00000000] ;
 		jmp ctExit;
 	}
 }
