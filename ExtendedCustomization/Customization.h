@@ -60,7 +60,7 @@ void InstallBodyPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slo
 	{
 		return;
 	}
-	
+
 	if (!part)
 	{
 		// Get first part that has KITW to install
@@ -234,12 +234,24 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 	return selectablePart->Install(record, setOnly);
 }
 
+void __fastcall CarCustomizeManager_HandleCart(CarCustomizeManager* customizeManager, int, int* carType, StandardSelectablePart* selectablePart)
+{
+	auto carId = CarType(carType[0x2F]);
+	int version = g_Config.GetVersion(carId);
+	if (version != 3)
+	{
+		customizeManager->HandleCart(carType, selectablePart);
+	}
+}
+
 void InitCustomization()
 {
 	InitRandomParts();
 
-	injector::MakeCALL(0x0085EAEC, FeGarageMain_HandleSpecialCustomization, true);
+	injector::MakeCALL(0x0085EAEC, FeGarageMain_HandleSpecialCustomization);
 
-	injector::WriteMemory(0x009F9CFC, StandardSelectablePart_Install, true);
-	injector::MakeCALL(0x0084324A, StandardSelectablePart_Install, true);
+	injector::WriteMemory(0x009F9CFC, StandardSelectablePart_Install);
+	injector::MakeCALL(0x0084324A, StandardSelectablePart_Install);
+
+	injector::MakeCALL(0x00865597, CarCustomizeManager_HandleCart);
 }

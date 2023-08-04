@@ -30,6 +30,12 @@ public:
 		return this->GetInstalledPart(slot);
 	}
 
+	void HandleCart(int* carType, StandardSelectablePart* selectablePart)
+	{
+		FUNC(0x00850370, void, __thiscall, _HandleCart, CarCustomizeManager*, int*, StandardSelectablePart*);
+		_HandleCart(this, carType, selectablePart);
+	}
+
 	static CarCustomizeManager* Get()
 	{
 		return (CarCustomizeManager*)0x00BBABA8;
