@@ -128,16 +128,23 @@ struct DBCarPart
 		return eSolid::Find(nameHash);
 	}
 
-	D3DXMATRIX* GetMarker(Hash markerHash)
+	PositionMarker* GetPositionMarker(Hash markerHash)
 	{
 		auto solid = this->GetSolid();
 		if (solid)
 		{
-			auto marker = solid->GetPostionMarker(markerHash);
-			if (marker)
-			{
-				return &marker->Matrix;
-			}
+			return solid->GetPostionMarker(markerHash);
+		}
+
+		return NULL;
+	}
+
+	D3DXMATRIX* GetMarker(Hash markerHash)
+	{
+		auto posMarker = this->GetPositionMarker(markerHash);
+		if (posMarker)
+		{
+			return &posMarker->Matrix;
 		}
 
 		return NULL;

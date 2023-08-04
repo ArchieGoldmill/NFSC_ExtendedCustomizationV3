@@ -5,18 +5,18 @@
 #include "CarRenderInfo.h"
 #include "Constants.h"
 
-float GetPartValue(RideInfo* rideInfo, Slot slot, Hash hash)
+void SetPartValue(RideInfo* rideInfo, Slot slot, Hash hash, float& val)
 {
-	float val = 0;
-
 	if (rideInfo) {
 		auto part = rideInfo->GetPart(slot);
 		if (part) {
-			val = part->GetAppliedAttributeFParam(hash, 0);
+			auto attr = part->GetAppliedAttributeParam<float>(hash);
+			if (attr)
+			{
+				val = attr->Value;
+			}
 		}
 	}
-
-	return val;
 }
 
 float __stdcall GetTrackWidth(CarRenderInfo* carRenderInfo, int isRear, int original)
@@ -24,17 +24,10 @@ float __stdcall GetTrackWidth(CarRenderInfo* carRenderInfo, int isRear, int orig
 	auto rideInfo = carRenderInfo->RideInfo;
 
 	float res = (float)original * 0.001f;
-	auto bodyPart = rideInfo->GetPart(Slot::BODY);
-	if (bodyPart)
-	{
-		float offset = bodyPart->GetAppliedAttributeFParam(isRear ? Hashes::REAR_TIRE_OFFSET : Hashes::FRONT_TIRE_OFFSET, 0);
-		if (offset)
-		{
-			res = offset;
-		}
-	}
 
-	res += GetPartValue(rideInfo, isRear ? Slot::REAR_BUMPER_BADGING_SET : Slot::FRONT_BUMPER_BADGING_SET, Hashes::TIRE_OFFSET);
+	SetPartValue(rideInfo, Slot::BODY, isRear ? Hashes::REAR_TIRE_OFFSET : Hashes::FRONT_TIRE_OFFSET, res);
+	SetPartValue(rideInfo, isRear ? Slot::REAR_BUMPER_BADGING_SET : Slot::FRONT_BUMPER_BADGING_SET, Hashes::TIRE_OFFSET, res);
+
 	res += rideInfo->AutoSculptRegions[ZoneStance].Zones[isRear ? 3 : 2] / 7.0f;
 	res += rideInfo->AutoSculptRegions[ZoneStance].Zones[isRear ? 1 : 0] / 20.0f; // Camber
 
