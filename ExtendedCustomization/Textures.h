@@ -122,6 +122,30 @@ void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 	SetTextureHash(texPtr, StringHash1("_REVERSE_ON", carHash));
 	SetTextureHash(texPtr, StringHash1("_REVERSE_OFF", carHash));
 	SetTextureHash(texPtr, StringHash1("_INTERIOR_ON", carHash));
+
+	auto interior = rideInfo->GetPart(Slot::INTERIOR);
+	if (interior)
+	{
+		auto textureName = interior->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
+		if (textureName)
+		{
+			SetTextureHash(texPtr, textureName);
+		}
+	}
+}
+
+void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
+{
+	auto interior = carRenderInfo->RideInfo->GetPart(Slot::INTERIOR);
+	if (interior)
+	{
+		auto textureName = interior->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
+		if (textureName)
+		{
+			auto badgingEntry = carRenderInfo->Get< ReplacementTextureEntry>(0x5C4);
+			badgingEntry->Set(Hashes::INTERIOR, textureName);
+		}
+	}
 }
 
 void __declspec(naked) GetUsedCarTextureInfoCave()
@@ -142,6 +166,18 @@ void __declspec(naked) GetUsedCarTextureInfoCave()
 	}
 }
 
+void __declspec(naked) HandleTextureReplacementsCave()
+{
+	__asm
+	{
+		pushad;
+		push esi;
+		call HandleTextureReplacements;
+		popad;
+		ret;
+	}
+}
+
 void InitTextures()
 {
 	InitReplacementTextures();
@@ -151,4 +187,6 @@ void InitTextures()
 	injector::MakeJMP(0x007CF764, GetUsedCarTextureInfoCave);
 
 	injector::MakeCALL(0x007DE789, UpdateLightStateTextures);
+
+	injector::MakeJMP(0x007D9E14, HandleTextureReplacementsCave);
 }
