@@ -69,8 +69,19 @@ void __fastcall RenderSpoiler(int view, int, CarRenderInfo* carRenderInfo, eMode
 		}
 	}
 
-	eModel** modelPtr = &model;
-	RenderParts(carRenderInfo, Slot::SPOILER, view, modelPtr, marker, light, data);
+	eModel** pModel = &model;
+	RenderParts(carRenderInfo, Slot::SPOILER, view, pModel, marker, light, data);
+}
+
+void __fastcall RenderRoofScoop(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
+{
+	if (!carRenderInfo->Markers.RoofScoop)
+	{
+		return;
+	}
+
+	eModel** pModel = &model;
+	RenderParts(carRenderInfo, Slot::ROOFSCOOP, view, pModel, marker, light, data);
 }
 
 void __fastcall RenderLicensePlate(int view, int, CarRenderInfo* carRenderInfo, int type, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
@@ -161,6 +172,18 @@ void __declspec(naked) RenderSpoilerHook()
 	}
 }
 
+void __declspec(naked) RenderRoofScoopHook()
+{
+	static constexpr auto cExit = 0x007DF6D1;
+	__asm
+	{
+		push esi;
+		call RenderRoofScoop;
+
+		jmp cExit;
+	}
+}
+
 void __declspec(naked) RenderLicensePlateHook()
 {
 	static constexpr auto cExit = 0x007DF490;
@@ -193,6 +216,7 @@ void InitAnimations()
 	{
 		injector::MakeJMP(0x007DF272, RenderPartsHook);
 		injector::MakeJMP(0x007DF5C9, RenderSpoilerHook);
+		injector::MakeJMP(0x007DF6CC, RenderRoofScoopHook);
 		injector::MakeJMP(0x007DF48B, RenderLicensePlateHook);
 
 		// Fix side mirrors
