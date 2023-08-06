@@ -8,7 +8,6 @@ namespace Hashes
 	const Hash STOCK = 0x03B83203;
 	const Hash COMMON_STOCK = 0x28C09CCB;
 	const Hash PARTID_UPGRADE_GROUP = 0x9239CF16;
-	const Hash MARKER = 0x6B6973C1;
 	const Hash CARBONFIBRE = 0x721AFF7C;
 	const Hash NEONBLUR = 0x04F54C24;
 	const Hash NEONBLUR_INNER = 0x28DE023F;

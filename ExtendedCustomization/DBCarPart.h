@@ -152,23 +152,27 @@ struct DBCarPart
 
 	D3DXMATRIX* GetAttachMarker(RideInfo* rideInfo, D3DXVECTOR3* scale = NULL)
 	{
-		auto markerName = this->GetAppliedAttributeIParam(Hashes::MARKER, 0);
-		if (markerName)
+		for (int i = 0; i < 99; i++)
 		{
-			for (auto markerSlot : MarkerSlots)
+			auto attr = this->GetAppliedAttributeParam<Hash>(FromIndex("MARKER_%d", i));
+			if (attr)
 			{
-				auto markerPart = rideInfo->GetPart(markerSlot);
-				if (markerPart && markerPart->HasMarker(markerName) >= 0)
+				auto markerName = attr->Value;
+				for (auto markerSlot : MarkerSlots)
 				{
-					auto marker = markerPart->GetMarker(markerName);
-					if (marker)
+					auto markerPart = rideInfo->GetPart(markerSlot);
+					if (markerPart && markerPart->HasMarker(markerName) >= 0)
 					{
-						if (scale)
+						auto marker = markerPart->GetMarker(markerName);
+						if (marker)
 						{
-							*scale = markerPart->GetMarkerScale(markerName);
-						}
+							if (scale)
+							{
+								*scale = markerPart->GetMarkerScale(markerName);
+							}
 
-						return marker;
+							return marker;
+						}
 					}
 				}
 			}
@@ -216,6 +220,7 @@ struct DBCarPart
 
 	bool HasMarkerName()
 	{
-		return this->GetAppliedAttributeIParam(Hashes::MARKER, 0) != 0;
+		auto attr = this->GetAppliedAttributeParam<Hash>(FromIndex("MARKER_%d", 0));
+		return attr != NULL;
 	}
 };

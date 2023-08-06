@@ -97,10 +97,16 @@ public:
 
 	bool SlotNeedsMarker(Slot slot)
 	{
-		auto part = this->carRenderInfo->RideInfo->GetPart(slot);
-		if (part)
+		for (auto s : AttachSlots)
 		{
-			return part->GetAppliedAttributeIParam(Hashes::MARKER, 0) != 0;
+			if (s == slot)
+			{
+				auto part = this->carRenderInfo->RideInfo->GetPart(slot);
+				if (part)
+				{
+					return part->HasMarkerName();
+				}
+			}
 		}
 
 		return false;
