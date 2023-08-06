@@ -2,10 +2,12 @@
 version 2.9.0
 
 stop_errors false
-
 speedreflect auto
-
 unlock_memory all
+
+// TPK blocks
+import override GLOBAL\GLOBALB.LZC TPKBlocks TPKBlocks\EXTENDED_CUSTOMIZATION.bin
+import override GLOBAL\GLOBALB.LZC TPKBlocks TPKBlocks\EXTENDED_CUSTOMIZATION_DECALS.bin
 
 // CarTypeInfos
 import override GLOBAL\GLOBALB.LZC CarTypeInfos CarTypeInfos\STEERINGWHEEL.bin
