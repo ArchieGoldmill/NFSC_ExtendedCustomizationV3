@@ -60,6 +60,15 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 
 void __fastcall RenderSpoiler(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
+	auto spoiler = carRenderInfo->RideInfo->GetPart(Slot::SPOILER);
+	if (spoiler && spoiler->GetUpgradeLevel() > 0)
+	{
+		if (!carRenderInfo->Markers.Spoiler)
+		{
+			return;
+		}
+	}
+
 	eModel** modelPtr = &model;
 	RenderParts(carRenderInfo, Slot::SPOILER, view, modelPtr, marker, light, data);
 }
