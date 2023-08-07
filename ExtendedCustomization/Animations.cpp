@@ -17,6 +17,15 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 {
 	if (model && *model)
 	{
+		if (slot == Slot::UNIVERSAL_SPOILER_BASE)
+		{
+			auto spoiler = carRenderInfo->RideInfo->GetPart(Slot::SPOILER);
+			if (spoiler && spoiler->GetAppliedAttributeBParam(Hashes::USEMARKER2, false))
+			{
+				return;
+			}
+		}
+
 		if (carRenderInfo->Extras->Animations)
 		{
 			auto animation = carRenderInfo->Extras->Animations->GetAnimation(slot);
