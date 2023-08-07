@@ -244,6 +244,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="PVehicle.h" />
     <ClInclude Include="RasterizationManager.h" />
+    <ClInclude Include="RideHeight.h" />
     <ClInclude Include="RideInfo.h" />
     <ClInclude Include="SteerAngle.h" />
     <ClInclude Include="SteeringWheelMarker.h" />

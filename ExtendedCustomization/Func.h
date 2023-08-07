@@ -21,6 +21,42 @@
 	__asm pop ebx\
 }\
 
+#define SAVE_REGS_ECX __asm\
+{\
+	__asm push ebx\
+	__asm push eax\
+	__asm push edx\
+	__asm push edi\
+	__asm push esi\
+}\
+
+#define RESTORE_REGS_ECX __asm\
+{\
+	__asm pop esi\
+	__asm pop edi\
+	__asm pop edx\
+	__asm pop eax\
+	__asm pop ebx\
+}\
+
+#define SAVE_REGS_EDX __asm\
+{\
+	__asm push ebx\
+	__asm push ecx\
+	__asm push eax\
+	__asm push edi\
+	__asm push esi\
+}\
+
+#define RESTORE_REGS_EDX __asm\
+{\
+	__asm pop esi\
+	__asm pop edi\
+	__asm pop eax\
+	__asm pop ecx\
+	__asm pop ebx\
+}\
+
 #define SAVE_REGS_ESI __asm\
 {\
 	__asm push eax\
