@@ -58,6 +58,6 @@ void InitTrackWidth()
 {
 	if (g_Config.TrackWidth)
 	{
-		injector::MakeJMP(0x007CB85F, TrackWidthCave, true);
+		injector::MakeJMP(0x007CB85F, TrackWidthCave);
 	}
 }

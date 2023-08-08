@@ -11,6 +11,12 @@ float __stdcall GetTireWidth(CarRenderInfo* carRenderInfo, float original, int w
 	return original * mult;
 }
 
+float TireSkidWidth[2] = { 1.0f, 1.0f };
+float* GetDefaultAttribute()
+{
+	return TireSkidWidth;
+}
+
 void __declspec(naked) TireWidthCave()
 {
 	static constexpr auto Exit = 0x007CB8D0;
@@ -41,5 +47,7 @@ void InitTireWidth()
 	if (g_Config.TireWidth)
 	{
 		injector::MakeJMP(0x007CB8C8, TireWidthCave);
+		injector::MakeCALL(0x007CB910, GetDefaultAttribute);
+		injector::MakeCALL(0x007CB8F3, GetDefaultAttribute);
 	}
 }
