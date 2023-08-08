@@ -14,57 +14,53 @@ void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 	int version = g_Config.GetVersion(rideInfo->CarId);
 	if (version == 3)
 	{
-		auto entries = carRenderInfo->Get<ReplacementTextureEntry>(0x588);
+		auto entries = carRenderInfo->Get<ReplacementTextureEntry>(0x6CC);
 
 		auto leftHeadlightPart = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
 		if (leftHeadlightPart)
 		{
-			auto leftHeadlight = entries + 0x1B;
-			auto rightHeadlight = entries + 0x1C;
-			auto leftHeadlightGlass = entries + 0x20;
-			auto rightHeadlightGlass = entries + 0x21;
+			auto headlights = entries++;
+			auto headlightsOnOff = entries++;
+			auto headlightsGlass = entries++;
 
 			bool lightsOn = Game::InRace() && carRenderInfo->IsGlareOn();
 			auto texture = leftHeadlightPart->GetTextureName();
 
+			headlights->Update(Hashes::HEADLIGHTS, texture);
+
 			auto newName = StringHash1(lightsOn ? "_ON" : "_OFF", texture);
-			leftHeadlight->Update(lightsOn ? Hashes::HEADLIGHT_LEFT_ON : Hashes::HEADLIGHT_LEFT_OFF, newName);
-			rightHeadlight->Update(lightsOn ? Hashes::HEADLIGHT_RIGHT_ON : Hashes::HEADLIGHT_RIGHT_OFF, newName);
+			headlightsOnOff->Update(lightsOn ? Hashes::HEADLIGHTS_ON : Hashes::HEADLIGHTS_OFF, newName);
 
 			newName = StringHash1(lightsOn ? "_GLASS_ON" : "_GLASS_OFF", texture);
-			leftHeadlightGlass->Update(Hashes::HEADLIGHT_GLASS_LEFT, newName);
-			rightHeadlightGlass->Update(Hashes::HEADLIGHT_GLASS_RIGHT, newName);
+			headlightsGlass->Update(Hashes::HEADLIGHTS_GLASS, newName);
 		}
 
 		auto leftBrakelightPart = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
 		if (leftBrakelightPart)
 		{
-			auto leftBrakelight = entries + 0x1D;
-			auto rightBrakelight = entries + 0x1E;
-			auto leftBrakelightGlass = entries + 0x1F;
-			auto rightBrakelightGlass = entries + 0x22;
-			auto centerBrakelight = entries + 0x23;
+			auto brakelights = entries++;
+			auto brakelightsOnOff = entries++;
+			auto brakelightsGlass = entries++;
 
 			auto texture = leftBrakelightPart->GetTextureName();
 
+			brakelights->Update(Hashes::BRAKELIGHTS, texture);
+
 			auto newName = StringHash1(Game::InRace() ? (carRenderInfo->IsLeftBrakelightOn() ? "_ON" : "_ONF") : "_OFF", texture);
-			leftBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_LEFT_ON : Hashes::BRAKELIGHT_LEFT_OFF, newName);
-			rightBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_RIGHT_ON : Hashes::BRAKELIGHT_RIGHT_OFF, newName);
-			centerBrakelight->Update(Game::InRace() ? Hashes::BRAKELIGHT_CENTRE_ON : Hashes::BRAKELIGHT_CENTRE_OFF, newName);
+			brakelightsOnOff->Update(Game::InRace() ? Hashes::BRAKELIGHTS_ON : Hashes::BRAKELIGHTS_OFF, newName);
 
 			newName = StringHash1(Game::InRace() ? "_GLASS_ON" : "_GLASS_OFF", texture);
-			leftBrakelightGlass->Update(Hashes::BRAKELIGHT_GLASS_LEFT, newName);
-			rightBrakelightGlass->Update(Hashes::BRAKELIGHT_GLASS_RIGHT, newName);
+			brakelightsGlass->Update(Hashes::BRAKELIGHTS_GLASS, newName);
 		}
 
 		Hash carHash = StringHash(rideInfo->GetCarTypeName());
 		bool isReverseOn = carRenderInfo->IsReverseOn();
 		auto newName = isReverseOn ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash);
-		auto reverse = entries + 0x24;
+		auto reverse = entries++;
 		reverse->Update(isReverseOn ? Hashes::REVERSE_ON : Hashes::REVERSE_OFF, newName);
 
 		newName = Game::InRace() ? StringHash1("_INTERIOR_ON", carHash) : StringHash1("_INTERIOR_OFF", carHash);
-		auto interiorOn = entries + 0x25;
+		auto interiorOn = entries++;
 		interiorOn->Update(Game::InRace() ? Hashes::INTERIOR_ON : Hashes::INTERIOR_OFF, newName);
 	}
 	else
@@ -115,7 +111,15 @@ void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 	if (leftBrakelight)
 	{
 		auto texture = leftBrakelight->GetTextureName();
+		SetTextureHash(texPtr, texture);
 		SetTextureHash(texPtr, StringHash1("_ONF", texture));
+	}
+
+	auto leftHeadlight = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
+	if (leftHeadlight)
+	{
+		auto texture = leftHeadlight->GetTextureName();
+		SetTextureHash(texPtr, texture);
 	}
 
 	Hash carHash = StringHash(rideInfo->GetCarTypeName());
