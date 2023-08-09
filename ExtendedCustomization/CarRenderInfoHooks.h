@@ -30,7 +30,7 @@ void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
 	}
 }
 
-double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, int a2, float* a3, float a4, int a5, int a6, int a7)
+double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, eView* a2, D3DXVECTOR4* a3, float a4, D3DXMATRIX* a5, D3DXMATRIX* a6, D3DXMATRIX* a7)
 {
 	carRenderInfo->Extras->IsVisible = true;
 	carRenderInfo->Extras->CarMatrix = *carRenderInfo->GetMatrix();

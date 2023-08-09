@@ -23,7 +23,7 @@ D3DCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness
 
 void __declspec(naked) ShadowColorCave()
 {
-	static constexpr auto hExit = 0x007BEA6D;
+	static constexpr auto cExit = 0x007BEA6D;
 
 	__asm
 	{
@@ -34,7 +34,33 @@ void __declspec(naked) ShadowColorCave()
 
 		mov ecx, 1;
 		mov ebx, [ebx + 0x3F8];
-		jmp hExit;
+		jmp cExit;
+	}
+}
+
+void __stdcall ShadowClipFix(D3DXMATRIX* m)
+{
+	FUNC(0x00727780, void, __cdecl, sub_727780, int*, int, int, int, D3DXMATRIX*, int, int);
+
+	int** a1 = (int**)0xAB09B0;
+	**a1 = *(int*)0xAB09BC;
+
+	sub_727780(*a1, 0, *(int*)0x00B42FEC, *(int*)0xAB09B8, m, 0, 0);
+}
+
+void __declspec(naked) ShadowClipFixCave()
+{
+	static constexpr auto cExit = 0x007BEB51;
+
+	__asm
+	{
+		pushad;
+		mov edx, [ebp + 0x1C];
+		push edx;
+		call ShadowClipFix;
+		popad;
+
+		jmp cExit;
 	}
 }
 
@@ -59,6 +85,11 @@ void InitNeon()
 	if (g_Config.Neon || g_Config.BrakelightGlow)
 	{
 		injector::MakeJMP(0x007BEA34, ShadowColorCave);
+	}
+
+	if (g_Config.FixShadowClipping)
+	{
+		injector::MakeJMP(0x007BEB4C, ShadowClipFixCave);
 	}
 
 	if (g_Config.IgnoreSpoilerBoundingBox)

@@ -144,7 +144,7 @@ public:
 		}
 	}
 
-	void RenderShadow(int a1, float* a2, float a3, int a4, int a5, int a6)
+	void RenderShadow(eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 	{
 		if (this->NeonTexture)
 		{

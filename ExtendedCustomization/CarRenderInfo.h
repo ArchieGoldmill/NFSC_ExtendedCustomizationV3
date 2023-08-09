@@ -6,6 +6,7 @@
 #include "eLightMaterial.h"
 #include "eModel.h"
 #include "CarRenderConn.h"
+#include "eView.h"
 
 struct PositionMarkers
 {
@@ -123,9 +124,9 @@ public:
 		return this->RideInfo->RenderUsage == 0;
 	}
 
-	double DrawAmbientShadow(int a1, float* a2, float a3, int a4, int a5, int a6)
+	double DrawAmbientShadow(eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 	{
-		FUNC(0x007BE4C0, double, __thiscall, _DrawAmbientShadow, CarRenderInfo*, int, float*, float, int, int, int);
+		FUNC(0x007BE4C0, double, __thiscall, _DrawAmbientShadow, CarRenderInfo*, eView*, D3DXVECTOR4*, float, D3DXMATRIX*, D3DXMATRIX*, D3DXMATRIX*);
 		return _DrawAmbientShadow(this, a1, a2, a3, a4, a5, a6);
 	}
 

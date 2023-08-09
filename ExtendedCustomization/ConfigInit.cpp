@@ -156,6 +156,7 @@ void InitConfig()
 	g_Config.LicensePlateText = iniReader.ReadInteger("MODS", "LicensePlateText", 0) == 1;
 	g_Config.TireWidth = iniReader.ReadInteger("MODS", "TireWidth", 0) == 1;
 	g_Config.FixClaiperLighting = iniReader.ReadInteger("MODS", "FixClaiperLighting", 0) == 1;
+	g_Config.FixShadowClipping = iniReader.ReadInteger("MODS", "FixShadowClipping", 0) == 1;
 
 	InitCars();
 

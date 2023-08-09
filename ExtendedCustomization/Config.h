@@ -85,6 +85,7 @@ struct GlobalConfig : public SharedConfig
 	bool LicensePlateText;
 	bool TireWidth;
 	bool FixClaiperLighting;
+	bool FixShadowClipping;
 
 	PartConfig GetPart(Slot slot, CarType carId);
 	Slot GetSlotByHeader(Hash header);
