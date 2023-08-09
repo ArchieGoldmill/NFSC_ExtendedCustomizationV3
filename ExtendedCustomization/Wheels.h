@@ -77,6 +77,17 @@ void __fastcall RenderRearLeftWheel(int view, int, CarRenderInfo* carRenderInfo,
 	RenderWheel(carRenderInfo, view, &model, marker, light, data, WHEEL_RL);
 }
 
+void __fastcall RenderTireSkids(void* _this, int, float a2, float* a3, D3DXMATRIX* wheelMatrix, D3DXMATRIX* carMatrix, float skidWidth)
+{
+	D3DXMATRIX skidMatrix = *wheelMatrix;
+	float camberAdjust = 0.03;
+	float skidOffset = skidWidth / 2 - camberAdjust;
+	skidMatrix._42 += skidMatrix._42 < 0 ? skidOffset : -skidOffset;
+
+	static auto RenderTireSkids = (void(__thiscall*)(void*, float, float*, D3DXMATRIX*, D3DXMATRIX*, float))0x007BFE60;
+	RenderTireSkids(_this, a2, a3, &skidMatrix, carMatrix, skidWidth);
+}
+
 void __declspec(naked) RenderRearLeftWheelCave()
 {
 	static constexpr auto cExit = 0x007E0516;
@@ -116,6 +127,8 @@ void InitWheels()
 	// Change rear marker to front for rear wheels
 	injector::WriteMemory(0x007DF712, Hashes::FRONT_BRAKE);
 	injector::WriteMemory(0x007E6057, Hashes::FRONT_BRAKE);
+
+	injector::MakeCALL(0x007C19CA, RenderTireSkids);
 
 	if (g_Config.FixClaiperLighting)
 	{
