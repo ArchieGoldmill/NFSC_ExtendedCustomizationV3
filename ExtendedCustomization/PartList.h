@@ -37,6 +37,15 @@ void AddNodeToList(bNode<StandardSelectablePart*>* listHead, bNode<StandardSelec
 	slot->Next = listHead;
 }
 
+void AddNodeToListStart(bNode<StandardSelectablePart*>* listHead, bNode<StandardSelectablePart*>* slot)
+{
+	auto listStart = listHead->Next;
+	listStart->Prev = slot;
+	slot->Prev = listHead;
+	slot->Next = listStart;
+	listHead->Next = slot;
+}
+
 bool CheckKitwPart(Slot slot, DBCarPart* part)
 {
 	if (Contains(KitwSlots, slot, sizeof(KitwSlots)))
@@ -236,7 +245,14 @@ void GetGenericVinyls(Slot slot, bNode<StandardSelectablePart*>* listHead, bool 
 
 		auto selectablePart = (StandardSelectablePart*)j_malloc_0(sizeof(StandardSelectablePart));
 		*selectablePart = StandardSelectablePart(slot, part);
-		AddNodeToList(listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
+		if (part->IsStock())
+		{
+			AddNodeToListStart(listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
+		}
+		else
+		{
+			AddNodeToList(listHead, (bNode<StandardSelectablePart*>*) & selectablePart->NodeItem);
+		}
 	}
 }
 

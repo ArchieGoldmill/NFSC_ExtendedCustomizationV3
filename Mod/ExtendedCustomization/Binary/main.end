@@ -24,6 +24,8 @@ update_collection GLOBAL\GLOBALB.LZC SlotTypes STEERINGWHEEL SlotMainOverride ST
 update_collection GLOBAL\GLOBALB.LZC SlotTypes ATTACHMENT14 SlotMainOverride SEATS
 update_collection GLOBAL\GLOBALB.LZC SlotTypes ATTACHMENT15 SlotMainOverride SEATS
 update_collection GLOBAL\GLOBALB.LZC SlotTypes CUSTOM_HUD SlotMainOverride TIRES
+update_collection GLOBAL\GLOBALB.LZC SlotTypes VINYL_GENERIC SlotStockOverride ""
+update_collection GLOBAL\GLOBALB.LZC SlotTypes VINYL_GENERIC SlotMainOverride VINYL_GENERIC
 
 // DBModelParts
 import override GLOBAL\GLOBALB.LZC DBModelParts DBModelParts\BRAKES.bin
