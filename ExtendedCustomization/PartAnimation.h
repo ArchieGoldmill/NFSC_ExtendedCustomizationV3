@@ -49,14 +49,10 @@ struct FEPartAnimation
 	}
 };
 
-class PartAnimation : public IPartMarker
+class PartAnimation : public IPartAnimation
 {
 private:
-	D3DXMATRIX* start;
-	D3DXMATRIX* end;
-	float amount;
 	float target;
-	CarRenderInfo* carRenderInfo;
 
 	std::vector<Slot> subSlots;
 

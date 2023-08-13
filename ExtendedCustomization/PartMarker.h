@@ -10,7 +10,6 @@ class PartMarker : public IPartMarker
 protected:
 	D3DXMATRIX* marker;
 	D3DXVECTOR3 scale;
-	CarRenderInfo* carRenderInfo;
 
 public:
 	PartMarker(Slot slot, D3DXMATRIX* marker, D3DXVECTOR3 scale, CarRenderInfo* carRenderInfo)

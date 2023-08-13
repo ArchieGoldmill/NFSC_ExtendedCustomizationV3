@@ -190,6 +190,7 @@
     <ClInclude Include="ExhaustShake.h" />
     <ClInclude Include="eView.h" />
     <ClInclude Include="ExhaustFX.h" />
+    <ClInclude Include="ActiveAero.h" />
     <ClInclude Include="InitializeEverythingHooks.h" />
     <ClInclude Include="LegacyMenu.h" />
     <ClInclude Include="LegacyRandomParts.h" />

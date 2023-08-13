@@ -8,6 +8,7 @@
 #include "PartMarker.h"
 #include "DBCarPart.h"
 #include "SteeringWheelMarker.h"
+#include "ActiveAero.h"
 
 void InitAnimations();
 
@@ -15,7 +16,7 @@ class CarAnimations
 {
 private:
 	CarRenderInfo* carRenderInfo;
-	std::vector<PartAnimation*> partAnimations;
+	std::vector<IPartAnimation*> partAnimations;
 	std::vector<PartMarker*> partMarkers;
 
 public:
@@ -123,7 +124,7 @@ public:
 	}
 
 private:
-	PartAnimation* FindAnimMarkers(Slot slot)
+	IPartAnimation* FindAnimMarkers(Slot slot)
 	{
 		auto rideInfo = this->carRenderInfo->RideInfo;
 
@@ -136,7 +137,17 @@ private:
 				auto end = part->GetMarker(Hashes::ANIM_END);
 				if (end)
 				{
-					auto anim = new PartAnimation(slot, start, end, this->carRenderInfo);
+					IPartAnimation* anim;
+					int speed = part->GetAppliedAttributeIParam(Hashes::ACTIVE_AERO, 0);
+					if (speed && slot == Slot::SPOILER)
+					{
+						anim = new ActiveAero(start, end, this->carRenderInfo, (float)speed);
+					}
+					else
+					{
+						anim = new PartAnimation(slot, start, end, this->carRenderInfo);
+					}
+
 					this->partAnimations.push_back(anim);
 					return anim;
 				}
@@ -150,12 +161,18 @@ private:
 	{
 		this->Clear();
 
-		auto leftHeadlightAnim = this->FindAnimMarkers(Slot::LEFT_HEADLIGHT);
-		auto rightHeadlightAnim = this->FindAnimMarkers(Slot::RIGHT_HEADLIGHT);
-		auto trunkAnim = this->FindAnimMarkers(Slot_Trunk);
-		auto hoodAnim = this->FindAnimMarkers(Slot::HOOD);
-		auto leftDoorAnim = this->FindAnimMarkers(Slot::DOOR_LEFT);
-		auto rightDoorAnim = this->FindAnimMarkers(Slot::DOOR_RIGHT);
+		auto trunkPart = this->carRenderInfo->RideInfo->GetPart(Slot_Trunk);
+		if (!trunkPart || !trunkPart->GetAppliedAttributeBParam(Hashes::ANIMATE_SPOILER, false))
+		{
+			this->FindAnimMarkers(Slot::SPOILER);
+		}
+
+		auto leftHeadlightAnim = (PartAnimation*)this->FindAnimMarkers(Slot::LEFT_HEADLIGHT);
+		auto rightHeadlightAnim = (PartAnimation*)this->FindAnimMarkers(Slot::RIGHT_HEADLIGHT);
+		auto trunkAnim = (PartAnimation*)this->FindAnimMarkers(Slot_Trunk);
+		auto hoodAnim = (PartAnimation*)this->FindAnimMarkers(Slot::HOOD);
+		auto leftDoorAnim = (PartAnimation*)this->FindAnimMarkers(Slot::DOOR_LEFT);
+		auto rightDoorAnim = (PartAnimation*)this->FindAnimMarkers(Slot::DOOR_RIGHT);
 
 		if (leftHeadlightAnim)
 		{

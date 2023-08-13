@@ -41,6 +41,7 @@ namespace Hashes
 	const Hash ANIMATE_LICENSE_PLATE = 0xE8320295;
 	const Hash REAR_LICENSE_PLATE = 0xC805F7E0;
 	const Hash PRICE = 0x0380B632;
+	const Hash ACTIVE_AERO = 0xD5D5B561;
 
 	const Hash RIDE_HEIGHT_OFFSET = 0xF11B00C1;
 	const Hash USEMARKER2 = 0x09163FA0;
