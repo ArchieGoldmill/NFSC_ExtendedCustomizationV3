@@ -132,8 +132,10 @@ void InitConfig()
 	g_Config.PartPreviewDelay = iniReader.ReadInteger("GENERAL", "PartPreviewDelay", 2400);
 	g_Config.NeonSize = iniReader.ReadFloat("GENERAL", "NeonSize", 0);
 	g_Config.NeonInnerSize = iniReader.ReadFloat("GENERAL", "NeonInnerSize", 0);
+
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
 	g_Config.DebugAICar = iniReader.ReadUInteger("DEBUG", "AICar", 0);
+
 	g_Config.AllVinylsTransformable = iniReader.ReadInteger("MODS", "AllVinylsTransformable", 0) == 1;
 	g_Config.AllVinylsMirrorable = iniReader.ReadInteger("MODS", "AllVinylsMirrorable", 0) == 1;
 	g_Config.SmoothVinylTransform = iniReader.ReadInteger("MODS", "SmoothVinylTransform", 0) == 1;
@@ -157,6 +159,13 @@ void InitConfig()
 	g_Config.TireWidth = iniReader.ReadInteger("MODS", "TireWidth", 0) == 1;
 	g_Config.FixClaiperLighting = iniReader.ReadInteger("MODS", "FixClaiperLighting", 0) == 1;
 	g_Config.FixShadowClipping = iniReader.ReadInteger("MODS", "FixShadowClipping", 0) == 1;
+
+	g_Config.HK_Enabled = iniReader.ReadInteger("HOT_KEYS", "Enabled", 0) == 1;
+	g_Config.HK_ToggleHeadlights = iniReader.ReadInteger("HOT_KEYS", "ToggleHeadlights", 0);
+	g_Config.HK_ToggleHood = iniReader.ReadInteger("HOT_KEYS", "ToggleHood", 0);
+	g_Config.HK_ToggleLeftDoor = iniReader.ReadInteger("HOT_KEYS", "ToggleLeftDoor", 0);
+	g_Config.HK_ToggleRightDoor = iniReader.ReadInteger("HOT_KEYS", "ToggleRightDoor", 0);
+	g_Config.HK_ToggleTrunk = iniReader.ReadInteger("HOT_KEYS", "ToggleTrunk", 0);
 
 	InitCars();
 

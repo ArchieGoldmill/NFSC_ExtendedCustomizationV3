@@ -54,6 +54,7 @@ namespace Game
 	static auto AutosculptRegionList = (Slot*)0x00A79F70;
 	static auto ForceHeadlightsOff = (bool*)0x00B74C18;
 	static auto FeFastRep = (int*)0x005FDF66;
+	static auto FePhotoModeMenuScreen_Instance = (int*)0x00A97B10;
 
 	enum class State
 	{

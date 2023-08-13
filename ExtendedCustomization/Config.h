@@ -87,6 +87,13 @@ struct GlobalConfig : public SharedConfig
 	bool FixClaiperLighting;
 	bool FixShadowClipping;
 
+	bool HK_Enabled;
+	int HK_ToggleHood;
+	int HK_ToggleLeftDoor;
+	int HK_ToggleRightDoor;
+	int HK_ToggleTrunk;
+	int HK_ToggleHeadlights;
+
 	PartConfig GetPart(Slot slot, CarType carId);
 	Slot GetSlotByHeader(Hash header);
 	CarConfig* GetCarConfig(CarType carId);

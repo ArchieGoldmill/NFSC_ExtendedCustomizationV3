@@ -20,15 +20,6 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 					anim->Toggle();
 				}
 			}
-
-			if (slot == Slot::DOOR_LEFT)
-			{
-				anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetAnimation(Slot::DOOR_RIGHT);
-				if (anim)
-				{
-					anim->Toggle();
-				}
-			}
 		}
 
 		while ((GetAsyncKeyState(hk) & 0x8000) > 0) { Sleep(0); }
@@ -37,33 +28,37 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 
 void HandleUserInput1(CarRenderInfo* carRenderInfo)
 {
-	ToggleAnimation(carRenderInfo, Slot::HOOD, 49);
-	ToggleAnimation(carRenderInfo, Slot::LEFT_HEADLIGHT, 50);
-	ToggleAnimation(carRenderInfo, Slot::DOOR_LEFT, 51);
-	ToggleAnimation(carRenderInfo, Slot_Trunk, 52);
+	ToggleAnimation(carRenderInfo, Slot::HOOD, g_Config.HK_ToggleHood);
+	ToggleAnimation(carRenderInfo, Slot::LEFT_HEADLIGHT, g_Config.HK_ToggleHeadlights);
+	ToggleAnimation(carRenderInfo, Slot::DOOR_LEFT, g_Config.HK_ToggleLeftDoor);
+	ToggleAnimation(carRenderInfo, Slot::DOOR_RIGHT, g_Config.HK_ToggleRightDoor);
+	ToggleAnimation(carRenderInfo, Slot_Trunk, g_Config.HK_ToggleTrunk);
 }
 
 DWORD WINAPI HandleUserInput(LPVOID arg)
 {
 	while (true)
 	{
-		if (Game::InFrontEnd())
+		if (*Game::FePhotoModeMenuScreen_Instance)
 		{
-			auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-			HandleUserInput1(rideInfo->CarRenderInfo);
-		}
-
-		if (Game::InRace())
-		{
-			int count = CarRenderConn::GetListCount();
-			auto list = CarRenderConn::GetList();
-			for (int i = 0; i < count; i++)
+			if (Game::InFrontEnd())
 			{
-				auto carRenderInfo = list[i]->carRenderInfo;
-				if (carRenderInfo->IsPlayer())
+				auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
+				HandleUserInput1(rideInfo->CarRenderInfo);
+			}
+
+			if (Game::InRace())
+			{
+				int count = CarRenderConn::GetListCount();
+				auto list = CarRenderConn::GetList();
+				for (int i = 0; i < count; i++)
 				{
-					HandleUserInput1(carRenderInfo);
-					break;
+					auto carRenderInfo = list[i]->carRenderInfo;
+					if (carRenderInfo->IsPlayer())
+					{
+						HandleUserInput1(carRenderInfo);
+						break;
+					}
 				}
 			}
 		}
@@ -74,5 +69,8 @@ DWORD WINAPI HandleUserInput(LPVOID arg)
 
 void InitUserInput()
 {
-	//CreateThread(NULL, NULL, HandleUserInput, NULL, NULL, NULL);
+	if (g_Config.HK_Enabled)
+	{
+		CreateThread(NULL, NULL, HandleUserInput, NULL, NULL, NULL);
+	}
 }
