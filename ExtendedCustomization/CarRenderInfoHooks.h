@@ -6,8 +6,9 @@
 #include "CarRenderConn.h"
 #include "SteerAngle.h"
 
-void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo)
+void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo, RideInfo* rideInfo)
 {
+	carRenderInfo->RideInfo = rideInfo;
 	carRenderInfo->Extras = new CarRenderInfoExtras(carRenderInfo);
 }
 
@@ -18,7 +19,6 @@ void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
 	SAFE_CALL(carRenderInfo->Extras->ExhaustShake, Init);
 	SAFE_CALL(carRenderInfo->Extras->RotorGlow, Init);
 	SAFE_CALL(carRenderInfo->Extras->LicensePlateText, Init);
-	SAFE_CALL(carRenderInfo->Extras->WheelTextures, Init);
 }
 
 void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
@@ -46,6 +46,7 @@ void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 {
 	SAFE_CALL(carRenderInfo->Extras->Animations, FindMarkers);
 	SAFE_CALL(carRenderInfo->Extras->Neon, FindMarkers);
+	SAFE_CALL(carRenderInfo->Extras->WheelTextures, AdjustWheelData);
 
 	if (!carRenderInfo->Markers.RearLicensePlate)
 	{
@@ -124,11 +125,15 @@ void __declspec(naked) CarRenderInfoCtStartCave()
 	_asm
 	{
 		pushad;
+		mov eax, esp;
+		add eax, 0x38;
+		mov eax, [eax];
+		push eax;
 		push ecx;
 		call CarRenderInfoCtStart;
 		popad;
 
-		mov eax, fs: [00000000] ;
+		mov eax, fs: [00000000];
 		jmp ctExit;
 	}
 }

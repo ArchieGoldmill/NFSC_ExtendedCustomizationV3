@@ -1,18 +1,18 @@
 #pragma once
 #include "CarRenderInfo.h"
 #include "Hashes.h"
+#include "CarPartDatabase.h"
 
 struct WheelTextureTable
 {
 	ReplacementTextureEntry TextureTable[5];
 
-	void Init(Hash tire, int tireBrand)
+	void Init(Hash tire)
 	{
 		this->TextureTable[0].Set(Hashes::TIRE_STYLE01, Hashes::DEFAULTALPHA);
 		this->TextureTable[1].Set(Hashes::TIRE_STYLE02, Hashes::DEFAULTALPHA);
 		this->TextureTable[2].Set(Hashes::WHEEL_TIRE, tire);
 		this->TextureTable[3].Set(Hashes::WHEEL_TIRE_N, StringHash1("_N", tire));
-		this->UpdateBrand(tireBrand);
 	}
 
 	void UpdateBrand(int tireBrand)
@@ -33,47 +33,60 @@ public:
 	CarWheelTextures(CarRenderInfo* carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
-	}
 
-	void Init()
-	{
 		auto rideInfo = this->carRenderInfo->RideInfo;
+
 		auto tire = rideInfo->GetPart(Slot_Tires);
+
+		auto frontWheel = rideInfo->GetPart(Slot::FRONT_WHEEL);
+		auto rearWheel = rideInfo->GetPart(Slot::REAR_WHEEL);
+
+		bool frontTire = !(frontWheel && frontWheel->GetAppliedAttributeBParam(Hashes::TIRE, true));
+		bool rearTire = !(rearWheel && rearWheel->GetAppliedAttributeBParam(Hashes::TIRE, true));
+		if (!tire && (frontTire || rearTire))
+		{
+			tire = CarPartDatabase::Instance->GetCarPart(Slot_Tires, CarType(-1), nullptr);
+		}
+
 		if (tire)
 		{
 			auto model = tire->GetAppliedAttributeIParam(Hashes::MODEL, 0);
 			auto texture = tire->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
 			if (model)
 			{
-				auto frontWheel = rideInfo->GetPart(Slot::FRONT_WHEEL);
 				int radius = 0;
 
-				if (frontWheel && !frontWheel->IsStock())
+				if (frontWheel && (!frontWheel->IsStock() || frontTire))
 				{
 					radius = frontWheel->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, 0);
-					int tireBrand = rideInfo->AutoSculptRegions[ZoneStance].GetInt(6);
-					this->TextureTable[0].Init(texture, tireBrand);
+					this->TextureTable[0].Init(texture);
 
 					this->Tires[0].Init(FromIndex("_%d_A", radius, model));
 					this->Tires[0].AttachReplacementTextureTable(this->TextureTable[0].TextureTable, 5);
 				}
 
-				auto rearWheel = rideInfo->GetPart(Slot::REAR_WHEEL);
-				if (rearWheel && (!rearWheel->IsStock() || rearWheel->GetAppliedAttributeBParam(Hashes::DEFAULT, false)))
+				if (rearWheel && (!rearWheel->IsStock() || rearWheel->GetAppliedAttributeBParam(Hashes::DEFAULT, false) || rearTire))
 				{
 					radius = rearWheel->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, radius);
 				}
 
 				if (radius)
 				{
-					int tireBrand = rideInfo->AutoSculptRegions[ZoneStance].GetInt(7);
-					this->TextureTable[1].Init(texture, tireBrand);
+					this->TextureTable[1].Init(texture);
 
 					this->Tires[1].Init(FromIndex("_%d_A", radius, model));
 					this->Tires[1].AttachReplacementTextureTable(this->TextureTable[1].TextureTable, 5);
 				}
 			}
 		}
+
+		this->UpdateBrands();
+	}
+
+	void AdjustWheelData()
+	{
+		this->AdjustWheelData(0);
+		this->AdjustWheelData(1);
 	}
 
 	void UpdateBrands()
@@ -92,6 +105,21 @@ public:
 		for (auto& tire : this->Tires)
 		{
 			tire.UnInit();
+		}
+	}
+
+private:
+	void AdjustWheelData(int num)
+	{
+		if (this->Tires[num].Solid)
+		{
+			D3DXVECTOR3 a, b;
+			this->Tires[num].GetBoundingBox(&a, &b);
+
+			float width = abs(a.y - b.y);
+			float radius = abs(a.x - b.x) / 2.0f;
+			this->carRenderInfo->WheelData.Widths[num] = width;
+			this->carRenderInfo->WheelData.Radius[num] = radius;
 		}
 	}
 };

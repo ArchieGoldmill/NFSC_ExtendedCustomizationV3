@@ -132,7 +132,10 @@ public:
 						{
 							sprintf_s(buff, "NEON_END%02d", i);
 							auto end = part->GetMarker(StringHash(buff));
-							neons.push_back({ start, end });
+							if (end)
+							{
+								neons.push_back({ start, end });
+							}
 						}
 						else
 						{
