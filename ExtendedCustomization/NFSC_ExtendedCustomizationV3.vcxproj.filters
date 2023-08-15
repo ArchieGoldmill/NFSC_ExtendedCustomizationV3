@@ -387,6 +387,9 @@
     <ClInclude Include="ActiveAero.h">
       <Filter>Features\Animations</Filter>
     </ClInclude>
+    <ClInclude Include="Version.h">
+      <Filter>Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

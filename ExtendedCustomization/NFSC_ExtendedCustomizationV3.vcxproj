@@ -250,6 +250,7 @@
     <ClInclude Include="SteerAngle.h" />
     <ClInclude Include="SteeringWheelMarker.h" />
     <ClInclude Include="TireWidth.h" />
+    <ClInclude Include="Version.h" />
     <ClInclude Include="Wheels.h" />
     <ClInclude Include="RotorGlow.h" />
     <ClInclude Include="ScrollOption.h" />

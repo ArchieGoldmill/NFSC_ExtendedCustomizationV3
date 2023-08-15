@@ -32,7 +32,7 @@ void CreateEmitter(PositionMarker* marker, bSlist<CarEmitterPosition>* list, int
 	}
 	else
 	{
-		MessageBoxA(NULL, "Unable to allocate 'CarEmitterPosition'!", "NFSC - Style Point", MB_ICONERROR);
+		MessageBoxA(NULL, "Unable to allocate 'CarEmitterPosition'!", "Extended Customization", MB_ICONERROR);
 		exit(1);
 	}
 }

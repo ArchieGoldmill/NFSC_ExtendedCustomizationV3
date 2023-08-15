@@ -22,6 +22,7 @@
 #include "LegacyMenu.h"
 #include "LegacyCustomization.h"
 #include "SteerAngle.h"
+#include "Version.h"
 
 void ToBeRemoved()
 {
@@ -37,7 +38,8 @@ void ToBeRemoved()
 
 void Init()
 {
-	ToBeRemoved();
+	//ToBeRemoved();
+	InitVersion();
 
 	InitConfig();
 	SteerAngle = FESteerAngle();
@@ -80,7 +82,7 @@ BOOL APIENTRY DllMain(HMODULE, DWORD reason, LPVOID)
 		}
 		else
 		{
-			MessageBoxA(NULL, "This .exe is not supported.\nPlease use v1.4 English nfsc.exe (6,88 MB (7.217.152 bytes)).", "NFSC - Style Point", MB_ICONERROR);
+			MessageBoxA(NULL, "This .exe is not supported.\nPlease use v1.4 English nfsc.exe (6,88 MB (7.217.152 bytes)).", "Extended Customization", MB_ICONERROR);
 			return FALSE;
 		}
 	}
