@@ -338,3 +338,31 @@ update_field fecameras rightSeat cam_fov 45
 update_field fecameras rightSeat cam_lookat_x -0.8
 update_field fecameras rightSeat cam_lookat_y 1
 update_field fecameras rightSeat cam_lookat_z 0.5
+
+// Engine
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feengine
+copy_node fecameras hood angles engine
+update_field fecameras customize_0_feengine cam_angle Collection engine
+
+update_field fecameras engine cam_orbit_vertical 120
+update_field fecameras engine cam_orbit_horizontal 240
+update_field fecameras engine cam_orbit_radius 4
+update_field fecameras engine cam_roll_angle 0.2
+update_field fecameras engine cam_fov 50
+update_field fecameras engine cam_lookat_x 1
+update_field fecameras engine cam_lookat_y 0.8
+update_field fecameras engine cam_lookat_z 0.6
+
+// Audio
+copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feaudio
+copy_node fecameras hood angles audio
+update_field fecameras customize_0_feaudio cam_angle Collection audio
+
+update_field fecameras audio cam_orbit_vertical 125
+update_field fecameras audio cam_orbit_horizontal 120
+update_field fecameras audio cam_orbit_radius 4
+update_field fecameras audio cam_roll_angle 0
+update_field fecameras audio cam_fov 50
+update_field fecameras audio cam_lookat_x 0
+update_field fecameras audio cam_lookat_y -1
+update_field fecameras audio cam_lookat_z 0.4
