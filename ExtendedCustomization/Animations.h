@@ -33,7 +33,7 @@ public:
 	void FindMarkers()
 	{
 		this->FindAnimationMarkers();
-		auto rideInfo = this->carRenderInfo->RideInfo;
+		auto rideInfo = this->carRenderInfo->pRideInfo;
 
 		for (auto slot : AttachSlots)
 		{
@@ -102,7 +102,7 @@ public:
 		{
 			if (s == slot)
 			{
-				auto part = this->carRenderInfo->RideInfo->GetPart(slot);
+				auto part = this->carRenderInfo->pRideInfo->GetPart(slot);
 				if (part)
 				{
 					return part->HasMarkerName();
@@ -126,7 +126,7 @@ public:
 private:
 	IPartAnimation* FindAnimMarkers(Slot slot)
 	{
-		auto rideInfo = this->carRenderInfo->RideInfo;
+		auto rideInfo = this->carRenderInfo->pRideInfo;
 
 		auto part = rideInfo->GetPart(slot);
 		if (part)
@@ -161,7 +161,7 @@ private:
 	{
 		this->Clear();
 
-		auto trunkPart = this->carRenderInfo->RideInfo->GetPart(Slot_Trunk);
+		auto trunkPart = this->carRenderInfo->pRideInfo->GetPart(Slot_Trunk);
 		if (!trunkPart || !trunkPart->GetAppliedAttributeBParam(Hashes::ANIMATE_SPOILER, false))
 		{
 			this->FindAnimMarkers(Slot::SPOILER);

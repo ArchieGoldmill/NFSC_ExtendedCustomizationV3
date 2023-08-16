@@ -10,7 +10,7 @@
 
 void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 {
-	auto rideInfo = carRenderInfo->RideInfo;
+	auto rideInfo = carRenderInfo->pRideInfo;
 	int version = g_Config.GetVersion(rideInfo->CarId);
 	if (version == 3)
 	{
@@ -140,7 +140,7 @@ void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 
 void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
 {
-	auto interior = carRenderInfo->RideInfo->GetPart(Slot::INTERIOR);
+	auto interior = carRenderInfo->pRideInfo->GetPart(Slot::INTERIOR);
 	if (interior)
 	{
 		auto textureName = interior->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);

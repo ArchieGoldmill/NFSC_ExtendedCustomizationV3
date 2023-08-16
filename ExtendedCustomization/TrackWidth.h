@@ -21,7 +21,7 @@ void SetPartValue(RideInfo* rideInfo, Slot slot, Hash hash, float& val)
 
 float __stdcall GetTrackWidth(CarRenderInfo* carRenderInfo, int isRear, int original)
 {
-	auto rideInfo = carRenderInfo->RideInfo;
+	auto rideInfo = carRenderInfo->pRideInfo;
 
 	float res = (float)original * 0.001f;
 

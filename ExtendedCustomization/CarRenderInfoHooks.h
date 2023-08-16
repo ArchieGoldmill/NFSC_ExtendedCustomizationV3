@@ -6,10 +6,12 @@
 #include "CarRenderConn.h"
 #include "SteerAngle.h"
 
-void __stdcall CarRenderInfoCtStart(CarRenderInfo* carRenderInfo, RideInfo* rideInfo)
+void __fastcall CarRenderInfoCt(CarRenderInfo* carRenderInfo, int, RideInfo* rideInfo)
 {
-	carRenderInfo->RideInfo = rideInfo;
+	carRenderInfo->pRideInfo = rideInfo;
 	carRenderInfo->Extras = new CarRenderInfoExtras(carRenderInfo);
+
+	carRenderInfo->Ctor( rideInfo);
 }
 
 void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
@@ -50,7 +52,7 @@ void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 
 	if (!carRenderInfo->Markers.RearLicensePlate)
 	{
-		auto rearBumper = carRenderInfo->RideInfo->GetPart(Slot::REAR_BUMPER);
+		auto rearBumper = carRenderInfo->pRideInfo->GetPart(Slot::REAR_BUMPER);
 		if (rearBumper)
 		{
 			carRenderInfo->Markers.RearLicensePlate = rearBumper->GetPositionMarker(Hashes::REAR_LICENSE_PLATE);
@@ -118,26 +120,6 @@ void __declspec(naked) UpdateCarPartsCave()
 	}
 }
 
-void __declspec(naked) CarRenderInfoCtStartCave()
-{
-	static constexpr auto ctExit = 0x007E55F3;
-
-	_asm
-	{
-		pushad;
-		mov eax, esp;
-		add eax, 0x38;
-		mov eax, [eax];
-		push eax;
-		push ecx;
-		call CarRenderInfoCtStart;
-		popad;
-
-		mov eax, fs: [00000000];
-		jmp ctExit;
-	}
-}
-
 void __declspec(naked) CarRenderInfoCtEndCave()
 {
 	_asm
@@ -169,7 +151,8 @@ void __declspec(naked) CarRenderInfoDtCave()
 
 void InitCarRenderInfoHooks()
 {
-	injector::MakeJMP(0x007E55ED, CarRenderInfoCtStartCave);
+	injector::MakeCALL(0x007E64AE, CarRenderInfoCt);
+	injector::MakeCALL(0x007E6F90, CarRenderInfoCt);
 	injector::MakeJMP(0x007E640A, CarRenderInfoCtEndCave);
 
 	injector::MakeJMP(0x007D5282, CarRenderInfoDtCave);

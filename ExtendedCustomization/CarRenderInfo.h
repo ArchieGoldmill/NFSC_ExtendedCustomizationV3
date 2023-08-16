@@ -55,7 +55,7 @@ public:
 	char unk_2[0x5C];
 	bool IsHoodCarbon;
 	char unk_3[3];
-	RideInfo* RideInfo;
+	RideInfo* pRideInfo;
 	void* CarTypeInfo;
 	TextureInfo* CarShadowTexture;
 	TextureInfo* CarShadowRampTexture;
@@ -65,6 +65,12 @@ public:
 	WheelData WheelData;
 	char unk_5[0x818];
 	eModel* PartModel[0x59][5];
+
+	void Ctor(RideInfo* rideInfo)
+	{
+		FUNC(0x007E55E0, void, __thiscall, _Ctor, CarRenderInfo*, RideInfo*);
+		_Ctor(this, rideInfo);
+	}
 
 	void UpdateLightStateTextures()
 	{
@@ -121,7 +127,7 @@ public:
 
 	bool IsPlayer()
 	{
-		return this->RideInfo->RenderUsage == 0;
+		return this->pRideInfo->RenderUsage == 0;
 	}
 
 	double DrawAmbientShadow(eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)

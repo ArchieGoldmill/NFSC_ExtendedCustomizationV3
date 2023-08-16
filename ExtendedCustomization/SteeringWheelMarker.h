@@ -16,7 +16,7 @@ public:
 	D3DXMATRIX* Get(D3DXMATRIX* matrix)
 	{
 		D3DXMATRIX scale;
-		auto part = this->carRenderInfo->RideInfo->GetPart(this->slot);
+		auto part = this->carRenderInfo->pRideInfo->GetPart(this->slot);
 		if (part && part->IsStock())
 		{
 			D3DXMatrixIdentity(&scale);

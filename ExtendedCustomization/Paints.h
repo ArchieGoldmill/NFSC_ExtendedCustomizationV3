@@ -82,7 +82,7 @@ public:
 private:
 	void InitPaint(ColorMaterialData*& materialData, eLightMaterial*& target, int num, Hash defaultMat)
 	{
-		auto paintData = this->carRenderInfo->RideInfo->GetCustomPaintData(num);
+		auto paintData = this->carRenderInfo->pRideInfo->GetCustomPaintData(num);
 		if (paintData->CanGenerate())
 		{
 			if (!materialData)

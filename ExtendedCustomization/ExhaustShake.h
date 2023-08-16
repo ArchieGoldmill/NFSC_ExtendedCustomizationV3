@@ -91,7 +91,7 @@ public:
 
 	void Init()
 	{
-		if (!this->carRenderInfo->RideInfo->IsPlayer() || Game::InFrontEnd())
+		if (!this->carRenderInfo->pRideInfo->IsPlayer() || Game::InFrontEnd())
 		{
 			return;
 		}

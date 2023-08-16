@@ -59,7 +59,7 @@ public:
 
 	void Init()
 	{
-		auto neonPart = this->carRenderInfo->RideInfo->GetPart(Slot_Neon);
+		auto neonPart = this->carRenderInfo->pRideInfo->GetPart(Slot_Neon);
 		if (neonPart)
 		{
 			auto textureHash = neonPart->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
@@ -72,7 +72,7 @@ public:
 
 	void Update()
 	{
-		float pulse = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
+		float pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
 		if (pulse)
 		{
 			this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
@@ -93,8 +93,8 @@ public:
 			this->pulse.Val = 1;
 		}
 
-		float h = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
-		float s = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
+		float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
+		float s = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
 
 		float r, g, b;
 		HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
@@ -114,7 +114,7 @@ public:
 
 	void FindMarkers()
 	{
-		auto rideInfo = this->carRenderInfo->RideInfo;
+		auto rideInfo = this->carRenderInfo->pRideInfo;
 		auto neonPart = rideInfo->GetPart(Slot_Neon);
 		if (neonPart && neonPart->GetAppliedAttributeIParam(Hashes::DRAW_MARKERS, 1) == 1)
 		{
@@ -175,8 +175,8 @@ public:
 				size = g_Config.NeonInnerSize;
 				if (this->neonBlurInner && size > 0)
 				{
-					float h = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
-					float s = this->carRenderInfo->RideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
+					float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
+					float s = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
 					s += 0.5f;
 					if (s > 1.0f)
 					{

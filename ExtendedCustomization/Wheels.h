@@ -27,7 +27,7 @@ void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
 {
 	if (model)
 	{
-		auto rearWheel = carRenderInfo->RideInfo->GetPart(Slot::REAR_WHEEL);
+		auto rearWheel = carRenderInfo->pRideInfo->GetPart(Slot::REAR_WHEEL);
 		if (rearWheel && rearWheel->GetAppliedAttributeBParam(Hashes::DEFAULT, false))
 		{
 			return;

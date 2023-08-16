@@ -34,7 +34,7 @@ public:
 	{
 		this->carRenderInfo = carRenderInfo;
 
-		auto rideInfo = this->carRenderInfo->RideInfo;
+		auto rideInfo = this->carRenderInfo->pRideInfo;
 
 		auto tire = rideInfo->GetPart(Slot_Tires);
 
@@ -91,7 +91,7 @@ public:
 
 	void UpdateBrands()
 	{
-		auto rideInfo = this->carRenderInfo->RideInfo;
+		auto rideInfo = this->carRenderInfo->pRideInfo;
 
 		int tireBrand = rideInfo->AutoSculptRegions[ZoneStance].GetInt(6);
 		this->TextureTable[0].UpdateBrand(tireBrand);

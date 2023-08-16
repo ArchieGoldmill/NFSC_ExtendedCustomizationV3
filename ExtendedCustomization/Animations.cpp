@@ -19,7 +19,7 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 	{
 		if (slot == Slot::UNIVERSAL_SPOILER_BASE)
 		{
-			auto spoiler = carRenderInfo->RideInfo->GetPart(Slot::SPOILER);
+			auto spoiler = carRenderInfo->pRideInfo->GetPart(Slot::SPOILER);
 			if (spoiler && spoiler->GetAppliedAttributeBParam(Hashes::USEMARKER2, false))
 			{
 				return;
@@ -34,7 +34,7 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 				bool handled = false;
 				if (slot == Slot::SPOILER)
 				{
-					auto spoiler = carRenderInfo->RideInfo->GetPart(slot);
+					auto spoiler = carRenderInfo->pRideInfo->GetPart(slot);
 					if (spoiler && spoiler->GetUpgradeLevel() > 0)
 					{
 						CalcTrunkAnim(carRenderInfo, &carRenderInfo->Markers.Spoiler->Matrix, animation, marker);
@@ -69,7 +69,7 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 
 void __fastcall RenderSpoiler(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
-	auto spoiler = carRenderInfo->RideInfo->GetPart(Slot::SPOILER);
+	auto spoiler = carRenderInfo->pRideInfo->GetPart(Slot::SPOILER);
 	if (spoiler && spoiler->GetUpgradeLevel() > 0)
 	{
 		if (!carRenderInfo->Markers.Spoiler)

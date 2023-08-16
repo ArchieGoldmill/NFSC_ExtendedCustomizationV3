@@ -25,7 +25,7 @@ public:
 	void Init()
 	{
 		float rotorWidth = 0.04f;
-		auto frontRotor = this->carRenderInfo->RideInfo->GetPart(Slot::FRONT_ROTOR);
+		auto frontRotor = this->carRenderInfo->pRideInfo->GetPart(Slot::FRONT_ROTOR);
 		if (frontRotor)
 		{
 			rotorWidth = frontRotor->GetAppliedAttributeFParam(Hashes::WIDTH, rotorWidth);

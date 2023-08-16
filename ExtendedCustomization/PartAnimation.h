@@ -142,7 +142,7 @@ public:
 	{
 		if (this->slot == Slot_Trunk)
 		{
-			auto trunk = this->carRenderInfo->RideInfo->GetPart(Slot_Trunk);
+			auto trunk = this->carRenderInfo->pRideInfo->GetPart(Slot_Trunk);
 			if (trunk)
 			{
 				if ((slot == Slot::SPOILER || slot == Slot::UNIVERSAL_SPOILER_BASE) && !trunk->GetAppliedAttributeBParam(Hashes::ANIMATE_SPOILER, false))
@@ -157,7 +157,7 @@ public:
 			}
 		}
 
-		auto part = this->carRenderInfo->RideInfo->GetPart(slot);
+		auto part = this->carRenderInfo->pRideInfo->GetPart(slot);
 		if (part && part->GetAppliedAttributeBParam(Hashes::ANIMATE, true))
 		{
 			this->subSlots.push_back(slot);
