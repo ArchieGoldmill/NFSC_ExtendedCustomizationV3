@@ -13,7 +13,7 @@ struct CarPartDatabase
 		return _GetCarPart(this, 0, carId, slot, 0, prevPart, -1);
 	}
 
-	DBCarPart* GetByKitNumber(Slot slot, CarType carId, int kitNumber)
+	DBCarPart* GetByKit(Slot slot, CarType carId, int kitNumber)
 	{
 		DBCarPart* part = 0;
 		while (true)
@@ -24,7 +24,7 @@ struct CarPartDatabase
 				break;
 			}
 
-			int kit = part->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+			int kit = part->GetKit();
 			if (kit == kitNumber)
 			{
 				return part;
@@ -87,28 +87,5 @@ struct CarPartDatabase
 	{
 		FUNC(0x007D6660, int, __thiscall, _GetNumCarParts, CarPartDatabase*, CarType, Slot, Hash, int);
 		return _GetNumCarParts(this, carId, slot, 0, -1);
-	}
-
-	int GetNumCarParts(CarType carId, Slot slot, bool skipAutosculpt)
-	{
-		DBCarPart* part = NULL;
-		int count = 0;
-		while (true)
-		{
-			part = this->GetCarPart(slot, carId, part);
-			if (!part)
-			{
-				break;
-			}
-
-			if (skipAutosculpt && part->IsAutosculpt())
-			{
-				continue;
-			}
-
-			count++;
-		}
-
-		return count;
 	}
 };

@@ -24,7 +24,7 @@ void InstallPart(RideInfo* rideInfo, FECustomizationRecord* record, Slot slot, D
 
 void InstallByKitNumber(Slot slot, RideInfo* rideInfo, FECustomizationRecord* record, int kit)
 {
-	auto part = CarPartDatabase::Instance->GetByKitNumber(slot, rideInfo->CarId, kit);
+	auto part = CarPartDatabase::Instance->GetByKit(slot, rideInfo->CarId, kit);
 	if (part)
 	{
 		InstallPart(rideInfo, record, slot, part);
