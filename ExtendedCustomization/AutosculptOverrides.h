@@ -250,6 +250,16 @@ void* __fastcall SetTitle(VectorScrollerMenu* _this, int param, int a)
 	return result;
 }
 
+AutoSculptRegion* __stdcall PoseHook(int zone, AutoSculptRegion* ptr)
+{
+	if ((zone < 9 || zone > 19))
+	{
+		return ptr + zone;
+	}
+
+	return ptr + 7;
+}
+
 void __declspec(naked) ConvertSlotToStateCave()
 {
 	__asm
@@ -288,6 +298,24 @@ void __declspec(naked) FixZoneLoadCave()
 	}
 }
 
+void __declspec(naked) PoseCave()
+{
+	static constexpr auto hExit = 0x007D8C1C;
+
+	__asm
+	{
+		SAVE_REGS_EBP;
+		push[esp + 0x28];
+		push ebx;
+		call PoseHook;
+		mov ebp, eax;
+		RESTORE_REGS_EBP;
+
+		cmp ebx, 0x15;
+		jmp hExit;
+	}
+}
+
 void InitAutosculpt()
 {
 	InitAutosculptFixLods();
@@ -297,6 +325,7 @@ void InitAutosculpt()
 	injector::MakeJMP(0x00846FE0, ConvertSlotToStateCave);
 
 	// Disable chop top values copy
+	injector::MakeJMP(0x007D8C16, PoseCave, true);
 	for (int i = 0; i < 21; i++) Game::CopyPoseValueToFamilyMap[i] = 0x15;
 
 	// Fix loading float zone value that is transformed to int
