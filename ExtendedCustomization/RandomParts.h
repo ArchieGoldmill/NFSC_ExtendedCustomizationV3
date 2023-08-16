@@ -36,6 +36,7 @@ void SetRandomPartsV3(RideInfo* rideInfo)
 	SetRandomPart(rideInfo, Slot::LEFT_HEADLIGHT, true, kit);
 	SetRandomPart(rideInfo, Slot::LEFT_BRAKELIGHT, false, kit);
 	SetRandomPart(rideInfo, Slot::LEFT_SIDE_MIRROR, false, kit);
+	SetRandomPart(rideInfo, Slot::INTERIOR, false, kit);
 
 	if (bRandom(2))
 	{

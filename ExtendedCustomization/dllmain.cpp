@@ -38,7 +38,7 @@ void ToBeRemoved()
 
 void Init()
 {
-	//ToBeRemoved();
+	ToBeRemoved();
 	InitVersion();
 
 	InitConfig();
