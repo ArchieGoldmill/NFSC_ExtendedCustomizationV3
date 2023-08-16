@@ -14,7 +14,7 @@ void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId)
 	auto partConfig = g_Config.GetPart(slot, carId);
 	if (partConfig.State == State::Enabled)
 	{
-		_this->AddMenuOption(partConfig.Header, slot, _this->IsAutosculpt, 0);
+		_this->AddMenuOption(partConfig.Header, slot, _this->IsAutosculpt, slot == Slot::FRONT_WHEEL ? 17 : 0);
 	}
 }
 
@@ -67,6 +67,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot_Stance, carId);
 		AddMenuOption(_this, Slot::LICENSE_PLATE, carId);
 		AddMenuOption(_this, Slot_Neon, carId);
+		AddMenuOption(_this, Slot::FRONT_WHEEL, carId);
 		break;
 	case CustomizeMainMenu::FRONT_WHEELS:
 		AddWheelBrands(_this, Slot::FRONT_WHEEL);
