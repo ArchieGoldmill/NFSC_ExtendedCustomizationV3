@@ -12,6 +12,7 @@ struct CarType
 
 INLINE_FUNC(0x00471080, Hash, __cdecl, StringHash1, const char*, Hash);
 INLINE_FUNC(0x00471050, Hash, __cdecl, StringHash, const char*);
+INLINE_FUNC(0x00402560, Hash, __cdecl, StringHash32, const char*);
 INLINE_FUNC(0x0055CFD0, TextureInfo*, __cdecl, GetTextureInfo, Hash, bool, bool);
 INLINE_FUNC(0x006A1560, void*, __cdecl, j_malloc_0, int);
 INLINE_FUNC(0x007B0290, char*, __cdecl, GetCarTypeName, CarType);

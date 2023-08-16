@@ -134,7 +134,7 @@ void InitConfig()
 	g_Config.NeonInnerSize = iniReader.ReadFloat("GENERAL", "NeonInnerSize", 0);
 
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
-	g_Config.DebugAICar = iniReader.ReadUInteger("DEBUG", "AICar", 0);
+	g_Config.DebugAICar = StringHash32(iniReader.ReadString("DEBUG", "AICar", "").c_str());
 
 	g_Config.AllVinylsTransformable = iniReader.ReadInteger("MODS", "AllVinylsTransformable", 0) == 1;
 	g_Config.AllVinylsMirrorable = iniReader.ReadInteger("MODS", "AllVinylsMirrorable", 0) == 1;
