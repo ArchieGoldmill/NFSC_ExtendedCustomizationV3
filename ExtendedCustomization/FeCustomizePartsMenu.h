@@ -62,6 +62,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::HOOD, carId);
 		AddMenuOption(_this, Slot::ROOFSCOOP, carId);
 		AddMenuOption(_this, Slot::SPOILER, carId);
+		AddMenuOption(_this, Slot::ROOF, carId);
 		AddMenuOption(_this, Slot::EXHAUST, carId);
 		AddMenuOption(_this, Slot_Stance, carId);
 		AddMenuOption(_this, Slot::LICENSE_PLATE, carId);

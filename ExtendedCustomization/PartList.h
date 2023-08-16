@@ -266,6 +266,10 @@ void __cdecl StandardSelectablePart_GetPartsList(Slot slot, bNode<StandardSelect
 	{
 		GetGenericVinyls(slot, listHead, isCarbon, brandName, innerRadius);
 	}
+	else if (slot == Slot::ROOFSCOOP)
+	{
+		StandardSelectablePart::GetPartsList(slot, listHead, isCarbon, brandName, innerRadius);
+	}
 	else
 	{
 		auto carId = FECarRecord::GetCarType();
@@ -285,7 +289,7 @@ void __cdecl AutosculptSelectablePart_GetPartsList(Slot slot, bNode<AutosculptSe
 {
 	auto carId = FECarRecord::GetCarType();
 	int version = g_Config.GetVersion(carId);
-	if (version == 3 && slot != Slot::FRONT_WHEEL)
+	if (version == 3 && slot != Slot::FRONT_WHEEL && slot != Slot::ROOFSCOOP)
 	{
 		GetPartsListV3<AutosculptSelectablePart>(slot, listHead, isCarbon, brandName, innerRadius, carId, true);
 	}
