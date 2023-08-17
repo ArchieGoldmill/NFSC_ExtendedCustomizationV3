@@ -43,6 +43,9 @@ namespace Hashes
 	const Hash PRICE = 0x0380B632;
 	const Hash ACTIVE_AERO = 0xD5D5B561;
 	const Hash TIRE = 0x001D38B3;
+	const Hash RED = 0x0000D99A;
+	const Hash GREEN = 0x02DDC8F0;
+	const Hash BLUE = 0x00136707;
 
 	const Hash RIDE_HEIGHT_OFFSET = 0xF11B00C1;
 	const Hash USEMARKER2 = 0x09163FA0;

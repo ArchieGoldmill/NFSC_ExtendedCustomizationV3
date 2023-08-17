@@ -72,39 +72,56 @@ public:
 
 	void Update()
 	{
-		float pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
-		if (pulse)
+		auto neonPart = this->carRenderInfo->pRideInfo->GetPart(Slot_Neon);
+		if (neonPart)
 		{
-			this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
-			if (this->pulse.Val > 1.0f)
+			if (neonPart->IsAutosculpt())
 			{
-				this->pulse.Val = 1.0f;
-				this->pulse.Dir *= -1.0f;
-			}
+				float pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
+				if (pulse)
+				{
+					this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
+					if (this->pulse.Val > 1.0f)
+					{
+						this->pulse.Val = 1.0f;
+						this->pulse.Dir *= -1.0f;
+					}
 
-			if (this->pulse.Val < 0.3f)
+					if (this->pulse.Val < 0.3f)
+					{
+						this->pulse.Val = 0.3f;
+						this->pulse.Dir *= -1.0f;
+					}
+				}
+				else
+				{
+					this->pulse.Val = 1;
+				}
+
+				float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
+				float s = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
+
+				float r, g, b;
+				HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
+
+				this->pulse.color.Bytes[0] = r * 128.0f * this->pulse.Val;
+				this->pulse.color.Bytes[1] = g * 128.0f * this->pulse.Val;
+				this->pulse.color.Bytes[2] = b * 128.0f * this->pulse.Val;
+				this->pulse.color.Bytes[3] = 0xFF * this->pulse.Val;
+
+				pulseBackup = this->pulse;
+			}
+			else
 			{
-				this->pulse.Val = 0.3f;
-				this->pulse.Dir *= -1.0f;
+				float r = neonPart->GetAppliedAttributeIParam(Hashes::RED, 0) / 255.0f;
+				float g = neonPart->GetAppliedAttributeIParam(Hashes::GREEN, 0) / 255.0f;
+				float b = neonPart->GetAppliedAttributeIParam(Hashes::BLUE, 0) / 255.0f;
+				this->pulse.color.Bytes[0] = r * 128.0f;
+				this->pulse.color.Bytes[1] = g * 128.0f;
+				this->pulse.color.Bytes[2] = b * 128.0f;
+				this->pulse.color.Bytes[3] = 0xFFl;
 			}
 		}
-		else
-		{
-			this->pulse.Val = 1;
-		}
-
-		float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
-		float s = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
-
-		float r, g, b;
-		HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
-
-		this->pulse.color.Bytes[0] = r * 128.0f * this->pulse.Val;
-		this->pulse.color.Bytes[1] = g * 128.0f * this->pulse.Val;
-		this->pulse.color.Bytes[2] = b * 128.0f * this->pulse.Val;
-		this->pulse.color.Bytes[3] = 0xFF * this->pulse.Val;
-
-		pulseBackup = this->pulse;
 	}
 
 	Color GetColor()
