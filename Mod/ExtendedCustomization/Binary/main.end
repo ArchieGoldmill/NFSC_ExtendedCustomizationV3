@@ -81,3 +81,14 @@ delete FRONTEND\FRONTB2.BUN
 
 // Localization
 append Localization\English.end
+append Localization\Danish.end
+append Localization\Dutch.end
+append Localization\Finnish.end
+append Localization\French.end
+append Localization\German.end
+append Localization\Italian.end
+append Localization\Mexican.end
+append Localization\Polish.end
+append Localization\Russian.end
+append Localization\Spanish.end
+append Localization\Swedish.end

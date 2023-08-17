@@ -132,7 +132,6 @@ update_field fecameras rearFenders cam_lookat_z 0.6
 copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_feinterior
 copy_node fecameras hood angles interior
 update_field fecameras customize_0_feinterior cam_angle Collection interior
-update_field fecameras customize_0_feinterior cam_user_rotate True
 
 update_field fecameras interior cam_orbit_vertical 120
 update_field fecameras interior cam_orbit_horizontal 333
