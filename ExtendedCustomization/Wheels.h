@@ -116,8 +116,10 @@ void InitWheels()
 	injector::WriteMemoryRaw(0x007E585D, makeWheelsRotated, 3);
 
 	// Make rear wheels installable
-	injector::WriteMemory(0x007D6C76, 5, true);
+	injector::WriteMemory(0x007D6C76, 5);
 	Game::CarPartSlotMap[(int)Slot::REAR_WHEEL] = 0x54;
+	injector::MakeNOP(0x004C4818, 3);
+	injector::MakeNOP(0x004C481D, 2);
 
 	injector::MakeCALL(0x007DFEF7, RenderFrontLeftWheel);
 	injector::MakeCALL(0x007E0098, RenderFrontRightWheel);
@@ -134,11 +136,11 @@ void InitWheels()
 	{
 		// Save car's lighting context
 		BYTE brakeLightFix[] = { 0x8B, 0x44, 0x24, 0x2C, 0x89, 0x84, 0x24, 0xF4, 0x00, 0x00, 0x00 };
-		injector::WriteMemoryRaw(0x007DE6EB, brakeLightFix, sizeof(brakeLightFix), true);
+		injector::WriteMemoryRaw(0x007DE6EB, brakeLightFix, sizeof(brakeLightFix));
 
 		// Pass lighting context to brakes, so they do not flicker, since they are not rotating with the wheel
-		injector::WriteMemory<DWORD>(0x007E0C2C, 0x9090C931, true);
-		injector::WriteMemory<DWORD64>(0x007E0C34, 0x548B000000F8C181, true);
-		injector::WriteMemory<DWORD64>(0x007E0C43, 0x084D8B9031FFE101, true);
+		injector::WriteMemory<DWORD>(0x007E0C2C, 0x9090C931);
+		injector::WriteMemory<DWORD64>(0x007E0C34, 0x548B000000F8C181);
+		injector::WriteMemory<DWORD64>(0x007E0C43, 0x084D8B9031FFE101);
 	}
 }
