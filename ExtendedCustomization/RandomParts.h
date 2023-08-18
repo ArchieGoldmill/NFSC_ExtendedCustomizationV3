@@ -13,30 +13,30 @@ void SetRandomPartsV3(RideInfo* rideInfo)
 	auto carId = rideInfo->CarId;
 
 	auto body = SetRandomPart(rideInfo, Slot::BODY, false);
-	int kit = body->GetKit();
+	int kitw = body ? body->GetKit() : -1;
 
-	auto frontBumper = SetRandomPart(rideInfo, Slot::FRONT_BUMPER, false, kit);
+	auto frontBumper = SetRandomPart(rideInfo, Slot::FRONT_BUMPER, false, kitw);
 	if (frontBumper)
 	{
-		kit = frontBumper->GetKit();
+		int kit = frontBumper->GetKit();
 		InstallByKitNumber(Slot::REAR_BUMPER, rideInfo, null, kit);
 		InstallByKitNumber(Slot::SKIRT, rideInfo, null, kit);
-
-		auto frontFender = SetRandomPart(rideInfo, Slot_FrontFender, false, kit);
-		if (frontFender)
-		{
-			kit = frontFender->GetKit();
-			InstallByKitNumber(Slot_RearFender, rideInfo, null, kit);
-		}
 	}
 
-	SetRandomPart(rideInfo, Slot::EXHAUST, false, kit);
-	SetRandomPart(rideInfo, Slot::SPOILER, true, kit);
-	SetRandomPart(rideInfo, Slot::HOOD, true, kit);
-	SetRandomPart(rideInfo, Slot::LEFT_HEADLIGHT, true, kit);
-	SetRandomPart(rideInfo, Slot::LEFT_BRAKELIGHT, false, kit);
-	SetRandomPart(rideInfo, Slot::LEFT_SIDE_MIRROR, false, kit);
-	SetRandomPart(rideInfo, Slot::INTERIOR, false, kit);
+	auto frontFender = SetRandomPart(rideInfo, Slot_FrontFender, false, kitw);
+	if (frontFender)
+	{
+		int kit = frontFender->GetKit();
+		InstallByKitNumber(Slot_RearFender, rideInfo, null, kit);
+	}
+
+	SetRandomPart(rideInfo, Slot::EXHAUST, false, kitw);
+	SetRandomPart(rideInfo, Slot::SPOILER, true, kitw);
+	SetRandomPart(rideInfo, Slot::HOOD, true, kitw);
+	SetRandomPart(rideInfo, Slot::LEFT_HEADLIGHT, true, kitw);
+	SetRandomPart(rideInfo, Slot::LEFT_BRAKELIGHT, false, kitw);
+	SetRandomPart(rideInfo, Slot::LEFT_SIDE_MIRROR, false, kitw);
+	SetRandomPart(rideInfo, Slot::INTERIOR, false, kitw);
 
 	if (bRandom(2))
 	{
@@ -51,7 +51,7 @@ void SetRandomPartsV3(RideInfo* rideInfo)
 	{
 		auto neon = SetRandomPart(rideInfo, Slot_Neon, false);
 		rideInfo->AutoSculptRegions[ZoneNeon].Zones[0] = (float)bRandom(99) / 100.0f;
-		if (neon->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) > 2)
+		if (neon && neon->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) > 2)
 		{
 			rideInfo->AutoSculptRegions[ZoneNeon].Zones[2] = (float)bRandom(99) / 100.0f;
 		}

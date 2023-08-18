@@ -65,7 +65,7 @@ public:
 					this->Tires[0].AttachReplacementTextureTable(this->TextureTable[0].TextureTable, 5);
 				}
 
-				if (rearWheel && ((!rearWheel->IsStock() && !frontWheel->IsAutosculpt()) || rearWheel->GetAppliedAttributeBParam(Hashes::DEFAULT, false) || rearTire))
+				if (rearWheel && ((!rearWheel->IsStock() && !rearWheel->IsAutosculpt()) || rearWheel->GetAppliedAttributeBParam(Hashes::DEFAULT, false) || rearTire))
 				{
 					radius = rearWheel->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, radius);
 				}

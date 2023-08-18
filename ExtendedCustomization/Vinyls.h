@@ -210,22 +210,21 @@ Hash __fastcall GetGenericPrecompositeSkinNameHash(RideInfo* rideInfo)
 	auto vinyl = rideInfo->GetPart(Slot::VINYL_GENERIC);
 	if (vinyl)
 	{
-		Hash hash = vinyl->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
-		if (hash)
-		{
-			return hash;
-		}
-
 		auto attr = vinyl->GetAppliedAttributeParam<unsigned int>(Hashes::TEXTURE);
 		if (attr)
 		{
-
 			char* table = *(char**)0x00B74CB0;
 			table += attr->Value * 4;
 			char buff[128];
 			sprintf_s(buff, "GENERIC_%s", table);
 
 			return StringHash(buff);
+		}
+
+		Hash hash = vinyl->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
+		if (hash)
+		{
+			return hash;
 		}
 	}
 

@@ -8,6 +8,7 @@ new negate LANGUAGES\FRENCH_FRONTEND.bin
 add_or_update_string LANGUAGES\FRENCH_FRONTEND.BIN STRBlocks Frontend AUTO STOCK "STOCK"
 add_or_update_string LANGUAGES\FRENCH_FRONTEND.BIN STRBlocks Frontend AUTO PART_NONE "NONE"
 add_or_update_string LANGUAGES\FRENCH_FRONTEND.BIN STRBlocks Frontend AUTO REAR_WHEEL_DEFAULT "SAME AS FRONT"
+add_or_update_string LANGUAGES\FRENCH_FRONTEND.BIN STRBlocks Frontend AUTO CUST_EXHAUST_WARNING "Part is restricted by other customization"
 
 // Customization parts
 add_or_update_string LANGUAGES\FRENCH_FRONTEND.BIN STRBlocks Frontend AUTO CUST_PARTS_FRONT_FENDERS "FRONT FENDERS"
