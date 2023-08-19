@@ -74,5 +74,9 @@ void InitFeCustomizeVisualsMenu()
 	injector::MakeCALL(0x0085A565, FeCustomizeVisuals_Setup);
 
 	// Disable stock rims check for paint
-	injector::MakeNOP(0x0086850C, 2);
+	if (g_Config.AllowStockRimsPaint)
+	{
+		injector::MakeNOP(0x0086850C, 2);
+		injector::MakeNOP(0x007E5FB2, 2);
+	}
 }
