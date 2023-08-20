@@ -6,7 +6,7 @@ class CarRenderConn
 {
 public:
 	int** data[0x10];
-	CarRenderInfo* carRenderInfo;
+	CarRenderInfo* pCarRenderInfo;
 	BYTE unk[0x140];
 	float LeftWheelRotation;
 	float RightWheelRotation;
@@ -29,7 +29,7 @@ public:
 		auto list = CarRenderConn::GetList();
 		for (int i = 0; i < count; i++)
 		{
-			if (list[i]->carRenderInfo == carRenderInfo)
+			if (list[i]->pCarRenderInfo == carRenderInfo)
 			{
 				return list[i];
 			}

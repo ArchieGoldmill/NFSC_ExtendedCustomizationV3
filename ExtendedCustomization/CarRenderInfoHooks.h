@@ -96,7 +96,7 @@ void __stdcall PostCarRender()
 		auto list = CarRenderConn::GetList();
 		for (int i = 0; i < count; i++)
 		{
-			auto carRenderInfo = list[i]->carRenderInfo;
+			auto carRenderInfo = list[i]->pCarRenderInfo;
 			OnAfterCarRender(carRenderInfo);
 		}
 	}

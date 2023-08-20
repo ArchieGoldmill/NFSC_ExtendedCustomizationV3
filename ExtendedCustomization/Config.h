@@ -84,6 +84,7 @@ struct GlobalConfig : public SharedConfig
 	bool IgnoreSpoilerBoundingBox;
 	bool LicensePlateText;
 	bool TireWidth;
+	bool RideHeight;
 	bool FixClaiperLighting;
 	bool FixShadowClipping;
 	bool AllowStockRimsPaint;

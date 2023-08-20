@@ -2,6 +2,7 @@
 #include "Feature.h"
 #include "RideInfo.h"
 #include "Constants.h"
+#include "CarRenderConn.h"
 
 float __stdcall GetRideHeight(RideInfo* rideInfo)
 {
@@ -83,13 +84,62 @@ void __declspec(naked) RideHeightCave1()
 	}
 }
 
+bool __stdcall RideHeightLimit(CarRenderConn* conn, unsigned int eax)
+{
+	auto carRenderInfo = conn->pCarRenderInfo;
+	if (carRenderInfo)
+	{
+		auto rideInfo = carRenderInfo->pRideInfo;
+		if (rideInfo)
+		{
+			auto body = rideInfo->GetPart(Slot::BODY);
+			if (body)
+			{
+				auto attr = body->GetAppliedAttributeParam<float>(Hashes::RIDE_HEIGHT_OFFSET);
+				if (attr)
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	unsigned char ah = (eax & 0xFF00) >> 8;
+	return ah & 0x41;
+}
+
+void __declspec(naked) RideHeightLimitCave()
+{
+	static constexpr auto cExit1 = 0x007C1FAB;
+	static constexpr auto cExit2 = 0x007C20E4;
+
+	_asm
+	{
+		SAVE_REGS_EAX;
+		push eax;
+		push esi;
+		call RideHeightLimit;
+		RESTORE_REGS_EAX;
+
+		test al, al;
+		jne SkipLimit;
+		jmp cExit1;
+
+	SkipLimit:
+		jmp cExit2;
+	}
+}
+
 void InitRideHeight()
 {
-	// Remove ride height reset if goes to low
-	injector::WriteMemory<size_t>(0x007C1FA5, 0x64D8900000013AE9);
+	if (g_Config.RideHeight)
+	{
+		// Remove ride height reset if goes to low
+		injector::MakeJMP(0x007C1FA2, RideHeightLimitCave);
 
-	injector::MakeJMP(0x007AD7C9, RideHeightCave1);
-	injector::MakeJMP(0x007E0FFD, RideHeightCave2);
-	injector::MakeJMP(0x007DF765, RideHeightCave3);
-	injector::MakeJMP(0x007C1C4D, RideHeightCave4);
+		injector::MakeJMP(0x007AD7C9, RideHeightCave1);
+		injector::MakeJMP(0x007E0FFD, RideHeightCave2);
+		injector::MakeJMP(0x007DF765, RideHeightCave3);
+		injector::MakeJMP(0x007C1C4D, RideHeightCave4);
+	}
 }

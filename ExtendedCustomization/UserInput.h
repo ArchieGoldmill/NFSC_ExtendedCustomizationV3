@@ -53,7 +53,7 @@ DWORD WINAPI HandleUserInput(LPVOID arg)
 				auto list = CarRenderConn::GetList();
 				for (int i = 0; i < count; i++)
 				{
-					auto carRenderInfo = list[i]->carRenderInfo;
+					auto carRenderInfo = list[i]->pCarRenderInfo;
 					if (carRenderInfo->IsPlayer())
 					{
 						HandleUserInput1(carRenderInfo);
