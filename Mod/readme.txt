@@ -1,4 +1,4 @@
-NFS Carbon - Extended Customization v3.0.0
+NFS Carbon - Extended Customization v3.0.1
 
 Installation:
 1. Run Binary in User mode and select install.end (https://github.com/NFSCO/Binary/releases/tag/v2.9.0).

@@ -54,7 +54,7 @@ bool CheckKitwPart(Slot slot, DBCarPart* part)
 		auto bodyPart = rideInfo->GetPart(Slot::BODY);
 		if (bodyPart)
 		{
-			auto kit = bodyPart->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+			auto kit = bodyPart->GetKit();
 			auto kitwExists = CarPartDatabase::Instance->GetByKitW(slot, rideInfo->CarId, kit);
 			if (!kitwExists)
 			{

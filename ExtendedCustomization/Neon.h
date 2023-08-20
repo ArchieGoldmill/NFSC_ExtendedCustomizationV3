@@ -215,6 +215,7 @@ public:
 		}
 	}
 
+	// This is a direct copy of the code from UG2 decomp, not fully reversed yet.
 	void RenderMarker(D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix, float size, Color color, TextureInfo* texture)
 	{
 		ePoly poly;

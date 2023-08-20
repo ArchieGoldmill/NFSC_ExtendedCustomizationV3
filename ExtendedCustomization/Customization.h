@@ -36,7 +36,7 @@ void InstallByKitNumber(Slot from, Slot slot, RideInfo* rideInfo, FECustomizatio
 	auto fromPart = rideInfo->GetPart(from);
 	if (fromPart)
 	{
-		int kit = fromPart->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		int kit = fromPart->GetKit();
 		InstallByKitNumber(slot, rideInfo, record, kit);
 	}
 }
@@ -142,7 +142,7 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 	auto body = rideInfo->GetPart(Slot::BODY);
 	if (body)
 	{
-		int kit = body->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		int kit = body->GetKit();
 		for (auto kiwSlot : KitwSlots)
 		{
 			InstallBodyPart(rideInfo, record, kiwSlot, kit);
@@ -154,7 +154,7 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 	auto leftHeadlight = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
 	if (leftHeadlight)
 	{
-		int kit = leftHeadlight->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		int kit = leftHeadlight->GetKit();
 		InstallByKitNumber(Slot::RIGHT_HEADLIGHT, rideInfo, record, kit);
 		InstallByKitNumber(Slot::LEFT_HEADLIGHT_GLASS, rideInfo, record, kit);
 		InstallByKitNumber(Slot::RIGHT_HEADLIGHT_GLASS, rideInfo, record, kit);
@@ -163,7 +163,7 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 	auto leftBrakelight = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
 	if (leftBrakelight)
 	{
-		int kit = leftBrakelight->GetAppliedAttributeIParam(Hashes::KITNUMBER, 0);
+		int kit = leftBrakelight->GetKit();
 		InstallByKitNumber(Slot::RIGHT_BRAKELIGHT, rideInfo, record, kit);
 		InstallByKitNumber(Slot::LEFT_BRAKELIGHT_GLASS, rideInfo, record, kit);
 		InstallByKitNumber(Slot::RIGHT_BRAKELIGHT_GLASS, rideInfo, record, kit);
