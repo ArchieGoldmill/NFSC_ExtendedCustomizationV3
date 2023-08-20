@@ -205,32 +205,6 @@ void __declspec(naked) CarSkinManagerFinalizeCave()
 	}
 }
 
-Hash __fastcall GetGenericPrecompositeSkinNameHash(RideInfo* rideInfo)
-{
-	auto vinyl = rideInfo->GetPart(Slot::VINYL_GENERIC);
-	if (vinyl)
-	{
-		auto attr = vinyl->GetAppliedAttributeParam<unsigned int>(Hashes::TEXTURE);
-		if (attr)
-		{
-			char* table = *(char**)0x00B74CB0;
-			table += attr->Value * 4;
-			char buff[128];
-			sprintf_s(buff, "GENERIC_%s", table);
-
-			return StringHash(buff);
-		}
-
-		Hash hash = vinyl->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
-		if (hash)
-		{
-			return hash;
-		}
-	}
-
-	return 0;
-}
-
 void InitVinyls()
 {
 	InitSmoothVinyls();
@@ -259,6 +233,4 @@ void InitVinyls()
 	{
 		injector::WriteMemory(0x005779E0, 0x5E9001B0, true);
 	}
-
-	injector::MakeJMP(0x007C2B80, GetGenericPrecompositeSkinNameHash);
 }
