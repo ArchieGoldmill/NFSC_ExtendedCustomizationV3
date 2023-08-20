@@ -38,32 +38,16 @@ void SetRandomPartsV3(RideInfo* rideInfo)
 	SetRandomPart(rideInfo, Slot::LEFT_SIDE_MIRROR, false, kitw);
 	SetRandomPart(rideInfo, Slot::INTERIOR, false, kitw);
 
-	if (bRandom(2))
-	{
-		SetRandomPart(rideInfo, Slot::DECAL_FRONT_WINDOW_TEX0, false);
-		SetRandomPart(rideInfo, Slot::DECAL_REAR_WINDOW_TEX0, false);
-	}
+	SetRandomDecals(rideInfo);
 
 	SetRandomPart(rideInfo, Slot::FRONT_WHEEL, true);
-	SetRandomPart(rideInfo, Slot_Tires, false);
+	SetRandomTires(rideInfo);
 
-	if (bRandom(2))
-	{
-		auto neon = SetRandomPart(rideInfo, Slot_Neon, false);
-		rideInfo->AutoSculptRegions[ZoneNeon].Zones[0] = (float)bRandom(99) / 100.0f;
-		if (neon && neon->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) > 2)
-		{
-			rideInfo->AutoSculptRegions[ZoneNeon].Zones[2] = (float)bRandom(99) / 100.0f;
-		}
-	}
+	SetRandomVinyl(rideInfo);
+	SetRandomNeon(rideInfo);
 
 	SetRandomPart(rideInfo, Slot::STEERINGWHEEL, false);
 	SetRandomPart(rideInfo, Slot::ATTACHMENT14, false);
-
-	if (bRandom(2))
-	{
-		SetRandomPart(rideInfo, Slot::VINYL_GENERIC, false);
-	}
 
 	rideInfo->RideHeight = 1.0f;
 
@@ -79,11 +63,11 @@ void __fastcall SetRandomParts(RideInfo* rideInfo, int, int hash)
 	}
 	else if (version == 2)
 	{
-		Legacy::SetRandomParts(rideInfo, hash);
+		Legacy::SetRandomPartsV2(rideInfo, hash);
 	}
 	else
 	{
-		rideInfo->SetRandomParts(hash);
+		Legacy::SetRandomParts(rideInfo, hash);
 	}
 }
 

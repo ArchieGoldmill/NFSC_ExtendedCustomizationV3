@@ -63,9 +63,54 @@ DBCarPart* SetRandomPart(RideInfo* rideInfo, Slot slot, bool skipAutosculpt, int
 	return null;
 }
 
+void SetRandomNeon(RideInfo* rideInfo)
+{
+	if (bRandom(2))
+	{
+		auto neon = SetRandomPart(rideInfo, Slot_Neon, false);
+		rideInfo->AutoSculptRegions[ZoneNeon].Zones[0] = (float)bRandom(99) / 100.0f;
+		if (neon && neon->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) > 2)
+		{
+			rideInfo->AutoSculptRegions[ZoneNeon].Zones[2] = (float)bRandom(99) / 100.0f;
+		}
+	}
+}
+
+void SetRandomDecals(RideInfo* rideInfo)
+{
+	if (bRandom(2))
+	{
+		SetRandomPart(rideInfo, Slot::DECAL_FRONT_WINDOW_TEX0, false);
+		SetRandomPart(rideInfo, Slot::DECAL_REAR_WINDOW_TEX0, false);
+	}
+}
+
+void SetRandomVinyl(RideInfo* rideInfo)
+{
+	auto vinyl = rideInfo->GetPart(Slot::VINYL_GENERIC);
+	if (!vinyl || vinyl->IsStock())
+	{
+		if (bRandom(2))
+		{
+			SetRandomPart(rideInfo, Slot::VINYL_GENERIC, false);
+		}
+	}
+}
+
+void SetRandomTires(RideInfo* rideInfo)
+{
+	SetRandomPart(rideInfo, Slot_Tires, false);
+	if (bRandom(2))
+	{
+		float tire = (float)bRandom(10) / 100.0f;
+		rideInfo->AutoSculptRegions[ZoneStance].Zones[6] = tire;
+		rideInfo->AutoSculptRegions[ZoneStance].Zones[7] = tire;
+	}
+}
+
 namespace Legacy
 {
-	void SetRandomParts(RideInfo* rideInfo, int hash)
+	void SetRandomPartsV2(RideInfo* rideInfo, int hash)
 	{
 		auto body = SetRandomPart(rideInfo, Slot::BODY, false);
 		if (body && body->IsStock())
@@ -103,6 +148,21 @@ namespace Legacy
 
 		SetRandomPart(rideInfo, Slot::STEERINGWHEEL, false);
 
+		SetRandomVinyl(rideInfo);
+		SetRandomNeon(rideInfo);
+		SetRandomDecals(rideInfo);
+		SetRandomTires(rideInfo);
+
 		HandleSpecialCustomizationV2(NULL, rideInfo, NULL, true);
+	}
+
+	void SetRandomParts(RideInfo* rideInfo, int hash)
+	{
+		rideInfo->SetRandomParts(hash);
+
+		SetRandomVinyl(rideInfo);
+		SetRandomNeon(rideInfo);
+		SetRandomDecals(rideInfo);
+		SetRandomTires(rideInfo);
 	}
 }
