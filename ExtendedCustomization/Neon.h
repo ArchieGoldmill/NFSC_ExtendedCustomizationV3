@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <cmath>
 #include "CarRenderInfo.h"
 #include "ePoly.h"
 #include "eView.h"
@@ -77,49 +78,87 @@ public:
 		{
 			if (neonPart->IsAutosculpt())
 			{
-				float pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
-				if (pulse)
+				float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
+				float s = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
+				float br = (1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2]) * 255.0f;
+				float pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[3];
+
+				float r, g, b;
+				HSV2RGB(h, s, 1, &r, &g, &b);
+
+				if (neonPart->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) > 4)
 				{
-					this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
-					if (this->pulse.Val > 1.0f)
+					if (pulse)
 					{
-						this->pulse.Val = 1.0f;
-						this->pulse.Dir *= -1.0f;
+						this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
+						if (this->pulse.Val > 1.0f)
+						{
+							this->pulse.Val = 1.0f;
+							this->pulse.Dir *= -1.0f;
+						}
+
+						if (this->pulse.Val < 0.0f)
+						{
+							this->pulse.Val = 0.0f;
+							this->pulse.Dir *= -1.0f;
+						}
+					}
+					else
+					{
+						this->pulse.Val = 0;
 					}
 
-					if (this->pulse.Val < 0.3f)
-					{
-						this->pulse.Val = 0.3f;
-						this->pulse.Dir *= -1.0f;
-					}
+					float h2 = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[4] * 0.9999f;
+					float s2 = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[5];
+					float br2 = (1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[6]) * 255.0f;
+
+					float r2, g2, b2;
+					HSV2RGB(h2, s2, 1, &r2, &g2, &b2);
+
+					this->pulse.color.Bytes[0] = std::lerp(r * br, r2 * br2, this->pulse.Val);
+					this->pulse.color.Bytes[1] = std::lerp(g * br, g2 * br2, this->pulse.Val);
+					this->pulse.color.Bytes[2] = std::lerp(b * br, b2 * br2, this->pulse.Val);
+					this->pulse.color.Bytes[3] = 0xFF;
 				}
 				else
 				{
-					this->pulse.Val = 1;
+					if (pulse)
+					{
+						this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
+						if (this->pulse.Val > 1.0f)
+						{
+							this->pulse.Val = 1.0f;
+							this->pulse.Dir *= -1.0f;
+						}
+
+						if (this->pulse.Val < 0.3f)
+						{
+							this->pulse.Val = 0.3f;
+							this->pulse.Dir *= -1.0f;
+						}
+					}
+					else
+					{
+						this->pulse.Val = 1;
+					}
+
+					this->pulse.color.Bytes[0] = r * br * this->pulse.Val;
+					this->pulse.color.Bytes[1] = g * br * this->pulse.Val;
+					this->pulse.color.Bytes[2] = b * br * this->pulse.Val;
+					this->pulse.color.Bytes[3] = 0xFF * this->pulse.Val;
 				}
-
-				float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
-				float s = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
-
-				float r, g, b;
-				HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
-
-				this->pulse.color.Bytes[0] = r * 128.0f * this->pulse.Val;
-				this->pulse.color.Bytes[1] = g * 128.0f * this->pulse.Val;
-				this->pulse.color.Bytes[2] = b * 128.0f * this->pulse.Val;
-				this->pulse.color.Bytes[3] = 0xFF * this->pulse.Val;
 
 				pulseBackup = this->pulse;
 			}
 			else
 			{
-				float r = neonPart->GetAppliedAttributeIParam(Hashes::RED, 0) / 255.0f;
-				float g = neonPart->GetAppliedAttributeIParam(Hashes::GREEN, 0) / 255.0f;
-				float b = neonPart->GetAppliedAttributeIParam(Hashes::BLUE, 0) / 255.0f;
-				this->pulse.color.Bytes[0] = r * 128.0f;
-				this->pulse.color.Bytes[1] = g * 128.0f;
-				this->pulse.color.Bytes[2] = b * 128.0f;
-				this->pulse.color.Bytes[3] = 0xFFl;
+				BYTE r = neonPart->GetAppliedAttributeIParam(Hashes::RED, 0);
+				BYTE g = neonPart->GetAppliedAttributeIParam(Hashes::GREEN, 0);
+				BYTE b = neonPart->GetAppliedAttributeIParam(Hashes::BLUE, 0);
+				this->pulse.color.Bytes[0] = r;
+				this->pulse.color.Bytes[1] = g;
+				this->pulse.color.Bytes[2] = b;
+				this->pulse.color.Bytes[3] = 0xFF;
 			}
 		}
 	}
