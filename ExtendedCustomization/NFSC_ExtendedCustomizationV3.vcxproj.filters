@@ -408,4 +408,9 @@
       <Filter>Mod</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Mod\readme.txt">
+      <Filter>Mod</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

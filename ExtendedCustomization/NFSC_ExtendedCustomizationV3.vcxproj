@@ -283,6 +283,9 @@
     <None Include="..\Mod\ExtendedCustomization\install.end" />
     <None Include="..\Mod\ExtendedCustomization\install.nfsms" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Mod\readme.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
