@@ -40,7 +40,7 @@ void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
 	}
 }
 
-void RenderWheel(CarRenderInfo* carRenderInfo, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data, int wheel)
+void RenderWheel(CarRenderInfo* carRenderInfo, int view, eModel** model, D3DXMATRIX* marker, void* light, int data, int wheel)
 {
 	if (model && *model)
 	{
@@ -57,22 +57,22 @@ void RenderWheel(CarRenderInfo* carRenderInfo, int view, eModel** model, D3DXMAT
 	}
 }
 
-void __fastcall RenderFrontLeftWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data)
+void __fastcall RenderFrontLeftWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, void* light, int data)
 {
 	RenderWheel(carRenderInfo, view, model, marker, light, data, WHEEL_FL);
 }
 
-void __fastcall RenderFrontRightWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data)
+void __fastcall RenderFrontRightWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, void* light, int data)
 {
 	RenderWheel(carRenderInfo, view, model, marker, light, data, WHEEL_FR);
 }
 
-void __fastcall RenderRearRightWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, D3DXMATRIX* light, int data)
+void __fastcall RenderRearRightWheel(CarRenderInfo* carRenderInfo, int, int view, eModel** model, D3DXMATRIX* marker, void* light, int data)
 {
 	RenderWheel(carRenderInfo, view, model, marker, light, data, WHEEL_RR);
 }
 
-void __fastcall RenderRearLeftWheel(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, D3DXMATRIX* light, int data, int a1, int a2)
+void __fastcall RenderRearLeftWheel(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
 	RenderWheel(carRenderInfo, view, &model, marker, light, data, WHEEL_RL);
 }
@@ -104,33 +104,45 @@ void InitWheels()
 {
 	InitWheelBrands();
 
-	// Disable masking
-	injector::MakeNOP(0x007B2C90, 5);
-	injector::MakeNOP(0x007C358F, 5);
+	if (g_Config.RemoveWheelMasking)
+	{
+		// Disable masking
+		injector::MakeNOP(0x007B2C90, 5);
+		injector::MakeNOP(0x007C358F, 5);
 
-	// Remove rim texture replacememnts
-	injector::MakeNOP(0x007D9BAA, 6);
+		// Remove rim texture replacememnts
+		injector::MakeNOP(0x007D9BAA, 6);
+	}
 
-	// Make all wheels roated instead of mirrored on the other side of the car
-	char makeWheelsRotated[3] = { 0xB0, 0x00, 0x90 };
-	injector::WriteMemoryRaw(0x007E585D, makeWheelsRotated, 3);
+	if (g_Config.AllWheelsRotated)
+	{
+		// Make all wheels roated instead of mirrored on the other side of the car
+		char makeWheelsRotated[3] = { 0xB0, 0x00, 0x90 };
+		injector::WriteMemoryRaw(0x007E585D, makeWheelsRotated, 3);
+	}
 
-	// Make rear wheels installable
-	injector::WriteMemory(0x007D6C76, 5);
-	Game::CarPartSlotMap[(int)Slot::REAR_WHEEL] = 0x54;
-	injector::MakeNOP(0x004C4818, 3);
-	injector::MakeNOP(0x004C481D, 2);
+	if (g_Config.RearWheels)
+	{
+		// Make rear wheels installable
+		injector::WriteMemory(0x007D6C76, 5);
+		Game::CarPartSlotMap[(int)Slot::REAR_WHEEL] = 0x54;
+		injector::MakeNOP(0x004C4818, 3);
+		injector::MakeNOP(0x004C481D, 2);
+
+		// Change rear marker to front for rear wheels
+		injector::WriteMemory(0x007DF712, Hashes::FRONT_BRAKE);
+		injector::WriteMemory(0x007E6057, Hashes::FRONT_BRAKE);
+	}
 
 	injector::MakeCALL(0x007DFEF7, RenderFrontLeftWheel);
 	injector::MakeCALL(0x007E0098, RenderFrontRightWheel);
 	injector::MakeCALL(0x007E0295, RenderRearRightWheel);
 	injector::MakeJMP(0x007E0511, RenderRearLeftWheelCave);
 
-	// Change rear marker to front for rear wheels
-	injector::WriteMemory(0x007DF712, Hashes::FRONT_BRAKE);
-	injector::WriteMemory(0x007E6057, Hashes::FRONT_BRAKE);
-
-	injector::MakeCALL(0x007C19CA, RenderTireSkids);
+	if (g_Config.FixTireSkids)
+	{
+		injector::MakeCALL(0x007C19CA, RenderTireSkids);
+	}
 
 	if (g_Config.FixClaiperLighting)
 	{

@@ -88,6 +88,10 @@ struct GlobalConfig : public SharedConfig
 	bool FixClaiperLighting;
 	bool FixShadowClipping;
 	bool AllowStockRimsPaint;
+	bool RearWheels;
+	bool FixTireSkids;
+	bool AllWheelsRotated;
+	bool RemoveWheelMasking;
 
 	bool HK_Enabled;
 	int HK_ToggleHood;
