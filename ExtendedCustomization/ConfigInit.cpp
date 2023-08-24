@@ -165,6 +165,7 @@ void InitConfig()
 	g_Config.AllWheelsRotated = iniReader.ReadInteger("MODS", "AllWheelsRotated", 0) == 1;
 	g_Config.RemoveWheelMasking = iniReader.ReadInteger("MODS", "RemoveWheelMasking", 0) == 1;
 	g_Config.FixTireSkids = iniReader.ReadInteger("MODS", "FixTireSkids", 0) == 1;
+	g_Config.FixWheelLighting = iniReader.ReadInteger("MODS", "FixWheelLighting", 0) == 1;
 
 	g_Config.HK_Enabled = iniReader.ReadInteger("HOT_KEYS", "Enabled", 0) == 1;
 	g_Config.HK_ToggleHeadlights = iniReader.ReadInteger("HOT_KEYS", "ToggleHeadlights", 0);

@@ -40,7 +40,7 @@ void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
 	}
 }
 
-void AdjustWheelLighting(eView* view, D3DXMATRIX* transform, void* light, void* s)
+void __cdecl SetupWheelLighting(void* light, D3DXMATRIX* transform, int m, D3DXVECTOR4* camera, eView* view, void* s)
 {
 	FUNC(0x00747340, int, __cdecl, SetupLighting, void* light, D3DXMATRIX * transform, int a3, D3DXVECTOR4 * camera, eView * view, void*);
 
@@ -52,17 +52,13 @@ void AdjustWheelLighting(eView* view, D3DXMATRIX* transform, void* light, void* 
 	D3DXMatrixRotationQuaternion(&matrix, &rotation);
 	SetVector3(&matrix, 3, translation);
 
-	D3DXVECTOR4 camera = view->pCamera->CurrentKey.Position;
-	camera.w = 1;
-	SetupLighting(light, &matrix, 0x00B1F5F0, &camera, view, s);
+	SetupLighting(light, &matrix, m, camera, view, s);
 }
 
-void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags, void* s, int wheel)
+void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags, int wheel)
 {
 	if (model && *model)
 	{
-		AdjustWheelLighting(view, marker, light, s);
-
 		if (g_Config.CustomPaints)
 		{
 			wheel < 2 ? ReplaceFrontWheels(carRenderInfo, *model) : ReplaceRearWheels(carRenderInfo, *model);
@@ -76,24 +72,24 @@ void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel** model, D3DX
 	}
 }
 
-void __fastcall RenderFrontLeftWheel(CarRenderInfo* carRenderInfo, int, void* s, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
+void __fastcall RenderFrontLeftWheel(CarRenderInfo* carRenderInfo, int, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
-	RenderWheel(carRenderInfo, view, model, marker, light, flags, s, WHEEL_FL);
+	RenderWheel(carRenderInfo, view, model, marker, light, flags, WHEEL_FL);
 }
 
-void __fastcall RenderFrontRightWheel(CarRenderInfo* carRenderInfo, int, void* s, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
+void __fastcall RenderFrontRightWheel(CarRenderInfo* carRenderInfo, int, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
-	RenderWheel(carRenderInfo, view, model, marker, light, flags, s, WHEEL_FR);
+	RenderWheel(carRenderInfo, view, model, marker, light, flags, WHEEL_FR);
 }
 
-void __fastcall RenderRearRightWheel(CarRenderInfo* carRenderInfo, int, void* s, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
+void __fastcall RenderRearRightWheel(CarRenderInfo* carRenderInfo, int, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
-	RenderWheel(carRenderInfo, view, model, marker, light, flags, s, WHEEL_RR);
+	RenderWheel(carRenderInfo, view, model, marker, light, flags, WHEEL_RR);
 }
 
-void __fastcall RenderRearLeftWheel(eView* view, int, void* s, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int flags, int, int)
+void __fastcall RenderRearLeftWheel(eView* view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int flags, int, int)
 {
-	RenderWheel(carRenderInfo, view, &model, marker, light, flags, s, WHEEL_RL);
+	RenderWheel(carRenderInfo, view, &model, marker, light, flags, WHEEL_RL);
 }
 
 void __fastcall RenderTireSkids(void* _this, int, float a2, float* a3, D3DXMATRIX* wheelMatrix, D3DXMATRIX* carMatrix, float skidWidth)
@@ -107,45 +103,6 @@ void __fastcall RenderTireSkids(void* _this, int, float a2, float* a3, D3DXMATRI
 	RenderTireSkids(_this, a2, a3, &skidMatrix, carMatrix, skidWidth);
 }
 
-void __declspec(naked) RenderFrontLeftWheelCave()
-{
-	static constexpr auto cExit = 0x007DFEFC;
-
-	__asm
-	{
-		lea eax, [esp + 0x5A4];
-		push eax;
-		call RenderFrontLeftWheel;
-		jmp cExit;
-	}
-}
-
-void __declspec(naked) RenderFrontRightWheelCave()
-{
-	static constexpr auto cExit = 0x007E009D;
-
-	__asm
-	{
-		lea eax, [esp + 0x5A4];
-		push eax;
-		call RenderFrontRightWheel;
-		jmp cExit;
-	}
-}
-
-void __declspec(naked) RenderRearRightWheelCave()
-{
-	static constexpr auto cExit = 0x007E029A;
-
-	__asm
-	{
-		lea eax, [esp + 0x5A4];
-		push eax;
-		call RenderRearRightWheel;
-		jmp cExit;
-	}
-}
-
 void __declspec(naked) RenderRearLeftWheelCave()
 {
 	static constexpr auto cExit = 0x007E0516;
@@ -153,8 +110,6 @@ void __declspec(naked) RenderRearLeftWheelCave()
 	__asm
 	{
 		push esi;
-		lea eax, [esp + 0x5AC];
-		push eax;
 		call RenderRearLeftWheel;
 		jmp cExit;
 	}
@@ -194,10 +149,18 @@ void InitWheels()
 		injector::WriteMemory(0x007E6057, Hashes::FRONT_BRAKE);
 	}
 
-	injector::MakeJMP(0x007DFEF7, RenderFrontLeftWheelCave);
-	injector::MakeJMP(0x007E0098, RenderFrontRightWheelCave);
-	injector::MakeJMP(0x007E0295, RenderRearRightWheelCave);
+	injector::MakeCALL(0x007DFEF7, RenderFrontLeftWheel);
+	injector::MakeCALL(0x007E0098, RenderFrontRightWheel);
+	injector::MakeCALL(0x007E0295, RenderRearRightWheel);
 	injector::MakeJMP(0x007E0511, RenderRearLeftWheelCave);
+
+	if (g_Config.FixWheelLighting)
+	{
+		injector::MakeCALL(0x007DFEC1, SetupWheelLighting);
+		injector::MakeCALL(0x007E0066, SetupWheelLighting);
+		injector::MakeCALL(0x007E0208, SetupWheelLighting);
+		injector::MakeCALL(0x007E0464, SetupWheelLighting);
+	}
 
 	if (g_Config.FixTireSkids)
 	{

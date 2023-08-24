@@ -92,6 +92,7 @@ struct GlobalConfig : public SharedConfig
 	bool FixTireSkids;
 	bool AllWheelsRotated;
 	bool RemoveWheelMasking;
+	bool FixWheelLighting;
 
 	bool HK_Enabled;
 	int HK_ToggleHood;
