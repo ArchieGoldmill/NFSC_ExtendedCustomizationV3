@@ -73,7 +73,7 @@ struct GlobalConfig : public SharedConfig
 	bool FixAutosculptExhaustFX;
 	bool ExhaustShake;
 	bool RotorGlow;
-	bool UnhardcodeBodykitNames;
+	bool BodykitNames;
 	bool Camber;
 	bool TrackWidth;
 	bool Neon;
@@ -93,6 +93,7 @@ struct GlobalConfig : public SharedConfig
 	bool AllWheelsRotated;
 	bool RemoveWheelMasking;
 	bool FixWheelLighting;
+	bool BrakeScale;
 
 	bool HK_Enabled;
 	int HK_ToggleHood;

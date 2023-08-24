@@ -69,3 +69,10 @@ inline int ToInt(float a)
 {
 	return (int)(a + 0.5f);
 }
+
+inline float Sign(float a)
+{
+	if (a > 0) return 1.0f;
+	if (a < 0) return -1.0f;
+	return 0.0f;
+}

@@ -146,7 +146,7 @@ void InitConfig()
 	g_Config.FixAutosculptExhaustFX = iniReader.ReadInteger("MODS", "FixAutosculptExhaustFX", 0) == 1;
 	g_Config.ExhaustShake = iniReader.ReadInteger("MODS", "ExhaustShake", 0) == 1;
 	g_Config.RotorGlow = iniReader.ReadInteger("MODS", "RotorGlow", 0) == 1;
-	g_Config.UnhardcodeBodykitNames = iniReader.ReadInteger("MODS", "UnhardcodeBodykitNames", 0) == 1;
+	g_Config.BodykitNames = iniReader.ReadInteger("MODS", "BodykitNames", 0) == 1;
 	g_Config.Camber = iniReader.ReadInteger("MODS", "Camber", 0) == 1;
 	g_Config.TrackWidth = iniReader.ReadInteger("MODS", "TrackWidth", 0) == 1;
 	g_Config.BrakelightGlow = iniReader.ReadInteger("MODS", "BrakelightGlow", 0) == 1;
@@ -166,6 +166,7 @@ void InitConfig()
 	g_Config.RemoveWheelMasking = iniReader.ReadInteger("MODS", "RemoveWheelMasking", 0) == 1;
 	g_Config.FixTireSkids = iniReader.ReadInteger("MODS", "FixTireSkids", 0) == 1;
 	g_Config.FixWheelLighting = iniReader.ReadInteger("MODS", "FixWheelLighting", 0) == 1;
+	g_Config.BrakeScale = iniReader.ReadInteger("MODS", "BrakeScale", 0) == 1;
 
 	g_Config.HK_Enabled = iniReader.ReadInteger("HOT_KEYS", "Enabled", 0) == 1;
 	g_Config.HK_ToggleHeadlights = iniReader.ReadInteger("HOT_KEYS", "ToggleHeadlights", 0);
