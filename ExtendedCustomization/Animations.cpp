@@ -13,7 +13,7 @@ void CalcTrunkAnim(CarRenderInfo* carRenderInfo, D3DXMATRIX* partMarker, IPartMa
 	D3DXMatrixMultiply(marker, marker, position);
 }
 
-void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
+void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
 	if (model && *model)
 	{
@@ -67,7 +67,7 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, int view, eM
 	}
 }
 
-void __fastcall RenderSpoiler(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
+void __fastcall RenderSpoiler(eView* view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
 	auto spoiler = carRenderInfo->pRideInfo->GetPart(Slot::SPOILER);
 	if (spoiler && spoiler->GetUpgradeLevel() > 0)
@@ -82,7 +82,7 @@ void __fastcall RenderSpoiler(int view, int, CarRenderInfo* carRenderInfo, eMode
 	RenderParts(carRenderInfo, Slot::SPOILER, view, pModel, marker, light, data);
 }
 
-void __fastcall RenderRoofScoop(int view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
+void __fastcall RenderRoofScoop(eView* view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
 	if (!carRenderInfo->Markers.RoofScoop)
 	{
@@ -93,7 +93,7 @@ void __fastcall RenderRoofScoop(int view, int, CarRenderInfo* carRenderInfo, eMo
 	RenderParts(carRenderInfo, Slot::ROOFSCOOP, view, pModel, marker, light, data);
 }
 
-void __fastcall RenderLicensePlate(int view, int, CarRenderInfo* carRenderInfo, int type, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
+void __fastcall RenderLicensePlate(eView* view, int, CarRenderInfo* carRenderInfo, int type, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
 	if (type == 1)
 	{

@@ -5,6 +5,7 @@
 #include "eLightMaterial.h"
 #include "ReplacementTextureEntry.h"
 #include "Node.h"
+#include "eView.h"
 
 struct eModel : bNode<eModel>
 {
@@ -20,9 +21,9 @@ struct eModel : bNode<eModel>
 		_ctor(this);
 	}
 
-	void Render(int view, D3DXMATRIX* matrix, void* light, int flags)
+	void Render(eView* view, D3DXMATRIX* matrix, void* light, int flags)
 	{
-		FUNC(0x00729320, void, __thiscall, _Render, int, eModel*, D3DXMATRIX*, void*, int, int, int);
+		FUNC(0x00729320, void, __thiscall, _Render, eView*, eModel*, D3DXMATRIX*, void*, int, int, int);
 		_Render(view, this, matrix, light, flags, 0, 0);
 	}
 

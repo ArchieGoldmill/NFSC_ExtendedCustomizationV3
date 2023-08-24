@@ -2,7 +2,7 @@
 #include "eModel.h"
 #include "CarRenderInfoExtras.h"
 
-void __fastcall RenderRotors(int view, int param, CarRenderInfo* carRenderInfo, int reflection, eModel* model, D3DXMATRIX* marker, D3DXMATRIX* light, int flags, int a1, int a2)
+void __fastcall RenderRotors(eView* view, int param, CarRenderInfo* carRenderInfo, int reflection, eModel* model, D3DXMATRIX* marker, D3DXMATRIX* light, int flags, int a1, int a2)
 {
 	model->Render(view, marker, light, flags);
 	if (!reflection && carRenderInfo->Extras->RotorGlow)
