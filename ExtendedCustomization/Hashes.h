@@ -46,6 +46,10 @@ namespace Hashes
 	const Hash RED = 0x0000D99A;
 	const Hash GREEN = 0x02DDC8F0;
 	const Hash BLUE = 0x00136707;
+	const Hash RED2 = 0x001C0D0C;
+	const Hash GREEN2 = 0x5E96E722;
+	const Hash BLUE2 = 0x02804819;
+	const Hash PULSE = 0x03826A28;
 
 	const Hash RIDE_HEIGHT_OFFSET = 0xF11B00C1;
 	const Hash USEMARKER2 = 0x09163FA0;

@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "Neon.h"
 #include "DBCarPart.h"
+#include "Config.h"
 
 void InitNeon();
 
@@ -76,90 +77,40 @@ public:
 		auto neonPart = this->carRenderInfo->pRideInfo->GetPart(Slot_Neon);
 		if (neonPart)
 		{
+			float minPulse = 0.3f;
 			if (neonPart->IsAutosculpt())
 			{
 				float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
 				float s = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
-				float br = (1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2]) * 255.0f;
-				float pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[3];
+				float br = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
 
 				float r, g, b;
-				HSV2RGB(h, s, 1, &r, &g, &b);
+				HSV2RGB_255(h, s, br, &r, &g, &b);
 
 				if (neonPart->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0) > 4)
 				{
-					if (pulse)
-					{
-						this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
-						if (this->pulse.Val > 1.0f)
-						{
-							this->pulse.Val = 1.0f;
-							this->pulse.Dir *= -1.0f;
-						}
-
-						if (this->pulse.Val < 0.0f)
-						{
-							this->pulse.Val = 0.0f;
-							this->pulse.Dir *= -1.0f;
-						}
-					}
-					else
-					{
-						this->pulse.Val = 0;
-					}
+					minPulse = 0.0f;
 
 					float h2 = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[4] * 0.9999f;
 					float s2 = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[5];
-					float br2 = (1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[6]) * 255.0f;
+					float br2 = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[6];
 
 					float r2, g2, b2;
-					HSV2RGB(h2, s2, 1, &r2, &g2, &b2);
+					HSV2RGB_255(h2, s2, br2, &r2, &g2, &b2);
 
-					this->pulse.color.Bytes[0] = std::lerp(r * br, r2 * br2, this->pulse.Val);
-					this->pulse.color.Bytes[1] = std::lerp(g * br, g2 * br2, this->pulse.Val);
-					this->pulse.color.Bytes[2] = std::lerp(b * br, b2 * br2, this->pulse.Val);
-					this->pulse.color.Bytes[3] = 0xFF;
+					this->SetColor(r, g, b, r2, g2, b2);
 				}
 				else
 				{
-					if (pulse)
-					{
-						this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
-						if (this->pulse.Val > 1.0f)
-						{
-							this->pulse.Val = 1.0f;
-							this->pulse.Dir *= -1.0f;
-						}
-
-						if (this->pulse.Val < 0.3f)
-						{
-							this->pulse.Val = 0.3f;
-							this->pulse.Dir *= -1.0f;
-						}
-					}
-					else
-					{
-						this->pulse.Val = 1;
-					}
-
-					this->pulse.color.Bytes[0] = r * br * this->pulse.Val;
-					this->pulse.color.Bytes[1] = g * br * this->pulse.Val;
-					this->pulse.color.Bytes[2] = b * br * this->pulse.Val;
-					this->pulse.color.Bytes[3] = 0xFF * this->pulse.Val;
+					this->SetColor(r, g, b);
 				}
-
-				pulseBackup = this->pulse;
 			}
 			else
 			{
-				BYTE r = neonPart->GetAppliedAttributeIParam(Hashes::RED, 0);
-				BYTE g = neonPart->GetAppliedAttributeIParam(Hashes::GREEN, 0);
-				BYTE b = neonPart->GetAppliedAttributeIParam(Hashes::BLUE, 0);
-				this->pulse.color.Bytes[0] = r;
-				this->pulse.color.Bytes[1] = g;
-				this->pulse.color.Bytes[2] = b;
-				this->pulse.color.Bytes[3] = 0xFF;
+				this->UpdateColorFromAttribs();
 			}
+
+			this->UpdatePulse(minPulse);
 		}
 	}
 
@@ -190,7 +141,7 @@ public:
 							auto end = part->GetMarker(StringHash(buff));
 							if (end)
 							{
-								neons.push_back({ start, end });
+								this->neons.push_back({ start, end });
 							}
 						}
 						else
@@ -220,7 +171,8 @@ public:
 	{
 		if (this->NeonTexture)
 		{
-			for (auto neon : neons)
+			auto neonPart = this->carRenderInfo->pRideInfo->GetPart(Slot_Neon);
+			for (auto neon : this->neons)
 			{
 				float size = g_Config.NeonSize;
 				if (this->neonBlur && size > 0)
@@ -231,22 +183,22 @@ public:
 				size = g_Config.NeonInnerSize;
 				if (this->neonBlurInner && size > 0)
 				{
-					float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
-					float s = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
-					s += 0.5f;
-					if (s > 1.0f)
+					Color color = this->pulse.color;
+					float h, s, v;
+					RGB2HSV(color.Bytes[0], color.Bytes[1], color.Bytes[2], &h, &s, &v);
+					s -= 0.5;
+					if (s < 0)
 					{
-						s = 1.0f;
+						s = 0;
 					}
 
-					float r, g, b;
-					HSV2RGB(h, 1.0f - s, 1, &r, &g, &b);
+					v *= 0.5f;
 
-					Color color;
-					color.Bytes[0] = r * 128.0f * this->pulse.Val;
-					color.Bytes[1] = g * 128.0f * this->pulse.Val;
-					color.Bytes[2] = b * 128.0f * this->pulse.Val;
-					color.Bytes[3] = 0xFF * this->pulse.Val;
+					float r, g, b;
+					HSV2RGB_255(h, s, v, &r, &g, &b);
+					color.Bytes[0] = r;
+					color.Bytes[1] = g;
+					color.Bytes[2] = b;
 
 					RenderMarker(neon.Start, neon.End, size, color, this->neonBlurInner);
 				}
@@ -254,9 +206,12 @@ public:
 		}
 	}
 
-	// This is a direct copy of the code from UG2 decomp, not fully reversed yet.
+private:
+
 	void RenderMarker(D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix, float size, Color color, TextureInfo* texture)
 	{
+		// This is a direct copy of the code from UG2 decomp, not fully reversed yet.
+
 		ePoly poly;
 		poly.SetColor(color);
 		auto carPos = GetVector(this->carMatrix, 3);
@@ -465,5 +420,81 @@ public:
 		poly.Vertices[3].y = v97 * v35.x + poly.Vertices[3].y;
 		poly.Vertices[3].z = v273 + v269 + v43.z;
 		poly.Render(texture, &this->identity);
+	}
+
+	void UpdatePulse(float minPulse)
+	{
+		float pulse = 0;
+		auto neonPart = this->carRenderInfo->pRideInfo->GetPart(Slot_Neon);
+
+		if (neonPart->IsAutosculpt())
+		{
+			pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[3];
+		}
+		else if (neonPart->GetAppliedAttributeBParam(Hashes::PULSE, false))
+		{
+			pulse = 0.5;
+		}
+
+		if (pulse)
+		{
+			this->pulse.Val += Game::DeltaTime() * this->pulse.Dir * pulse * 3.0f;
+			if (this->pulse.Val > 1.0f)
+			{
+				this->pulse.Val = 1.0f;
+				this->pulse.Dir *= -1.0f;
+			}
+
+			if (this->pulse.Val < minPulse)
+			{
+				this->pulse.Val = minPulse;
+				this->pulse.Dir *= -1.0f;
+			}
+		}
+		else
+		{
+			this->pulse.Val = 1;
+		}
+
+		pulseBackup = this->pulse;
+	}
+
+	void UpdateColorFromAttribs()
+	{
+		auto neonPart = this->carRenderInfo->pRideInfo->GetPart(Slot_Neon);
+
+		BYTE r1 = neonPart->GetAppliedAttributeIParam(Hashes::RED, 0);
+		BYTE g1 = neonPart->GetAppliedAttributeIParam(Hashes::GREEN, 0);
+		BYTE b1 = neonPart->GetAppliedAttributeIParam(Hashes::BLUE, 0);
+
+		if (neonPart->GetAppliedAttributeParam<int>(Hashes::RED2))
+		{
+			BYTE r2 = neonPart->GetAppliedAttributeIParam(Hashes::RED2, 0);
+			BYTE g2 = neonPart->GetAppliedAttributeIParam(Hashes::GREEN2, 0);
+			BYTE b2 = neonPart->GetAppliedAttributeIParam(Hashes::BLUE2, 0);
+
+			this->SetColor(r1, g1, b1, r2, g2, b2);
+		}
+		else
+		{
+			this->SetColor(r1, g1, b1);
+		}
+	}
+
+	void SetColor(float r1, float g1, float b1, float r2, float g2, float b2)
+	{
+		float lerp = 1.0f - this->pulse.Val;
+		this->pulse.color.Bytes[0] = std::lerp(r1, r2, lerp);
+		this->pulse.color.Bytes[1] = std::lerp(g1, g2, lerp);
+		this->pulse.color.Bytes[2] = std::lerp(b1, b2, lerp);
+		this->pulse.color.Bytes[3] = 0xFF;
+	}
+
+	void SetColor(float r, float g, float b)
+	{
+		this->pulse.color.Bytes[0] = r * this->pulse.Val;
+		this->pulse.color.Bytes[1] = g * this->pulse.Val;
+		this->pulse.color.Bytes[2] = b * this->pulse.Val;
+		this->pulse.color.Bytes[3] = 0xFF * this->pulse.Val;
 	}
 };

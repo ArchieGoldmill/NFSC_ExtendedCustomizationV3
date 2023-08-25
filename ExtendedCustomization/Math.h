@@ -1,7 +1,8 @@
 #pragma once
 #include <D3dx9math.h>
 
-union Color {
+union Color 
+{
 	D3DCOLOR Color;
 	BYTE Bytes[4];
 };

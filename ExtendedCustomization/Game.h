@@ -17,6 +17,7 @@ INLINE_FUNC(0x0055CFD0, TextureInfo*, __cdecl, GetTextureInfo, Hash, bool, bool)
 INLINE_FUNC(0x006A1560, void*, __cdecl, j_malloc_0, int);
 INLINE_FUNC(0x007B0290, char*, __cdecl, GetCarTypeName, CarType);
 INLINE_FUNC(0x0046E580, void, __cdecl, HSV2RGB, float, float, float, float*, float*, float*);
+INLINE_FUNC(0x00841BD0, void, __cdecl, RGB2HSV, unsigned char, unsigned char, unsigned char, float*, float*, float*);
 INLINE_FUNC(0x0046DB30, int, __cdecl, bRandom, int);
 INLINE_FUNC(0x007B1410, char*, __cdecl, GetSlotName, Slot);
 INLINE_FUNC(0x00477BE0, void*, __cdecl, bOMalloc, int);
@@ -24,6 +25,14 @@ INLINE_FUNC(0x004A62E0, bool, __cdecl, IsPaused);
 INLINE_FUNC(0x004B65F0, bool, __thiscall, DALVehicle_GetRPM, void* DALVehicle, float* getVal, const int playerNum);
 INLINE_FUNC(0x004B6690, bool, __thiscall, DALVehicle_GetRedLine, void* DALVehicle, float* getVal, const int playerNum);
 INLINE_FUNC(0x006B5980, void, __cdecl, LoadResourceFile, const char* path, int type, int, int, int, int, int);
+
+inline void HSV2RGB_255(float h, float s, float v, float* r, float* g, float* b)
+{
+	HSV2RGB(h, s, v, r, g, b);
+	*r *= 255.0f;
+	*g *= 255.0f;
+	*b *= 255.0f;
+}
 
 inline Hash FromIndex(const char* str, int index)
 {
