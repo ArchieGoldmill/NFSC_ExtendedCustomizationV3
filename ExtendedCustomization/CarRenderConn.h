@@ -1,5 +1,7 @@
 #pragma once
+#include "Func.h"
 #include "PVehicle.h"
+#include "Effect.h"
 
 class CarRenderInfo;
 class CarRenderConn
@@ -10,6 +12,7 @@ public:
 	BYTE unk[0x140];
 	float LeftWheelRotation;
 	float RightWheelRotation;
+	bTList<Effect> ExhaustEffects;
 
 	static int GetListCount()
 	{
@@ -41,5 +44,11 @@ public:
 	PVehicle* GetPVehicle()
 	{
 		return (PVehicle*)(this->data[2][0x21]);
+	}
+
+	void UpdateEffects(int a1, int a2)
+	{
+		FUNC(0x007D5DF0, void, __thiscall, _UpdateEffects, CarRenderConn*, int, int);
+		_UpdateEffects(this, a1, a2);
 	}
 };

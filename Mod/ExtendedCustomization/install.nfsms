@@ -1,5 +1,10 @@
 update_field fecameras customization cam_delay 0.1
 
+copy_node emittergroup fxcar_draft1 car fxcar_smoke
+update_field emittergroup fxcar_smoke FarClip 200
+update_field emittergroup fxcar_smoke Emitters[0] Collection emcar_exhaust_bmw
+update_field emitterdata emcar_exhaust_bmw NumParticles 2
+
 copy_node emitterdata emcar_nos_fire default emcar_shift_fire
 copy_node emitterdata emcar_nos_fire2 emcar_shift_fire emcar_shift_fire2
 copy_node emitterdata emcar_nos_glow default emcar_shift_glow

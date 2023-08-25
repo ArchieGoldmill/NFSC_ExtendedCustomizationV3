@@ -94,6 +94,7 @@ struct GlobalConfig : public SharedConfig
 	bool RemoveWheelMasking;
 	bool FixWheelLighting;
 	bool BrakeScale;
+	bool ExhaustSmoke;
 
 	bool HK_Enabled;
 	int HK_ToggleHood;

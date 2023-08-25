@@ -167,6 +167,7 @@ void InitConfig()
 	g_Config.FixTireSkids = iniReader.ReadInteger("MODS", "FixTireSkids", 0) == 1;
 	g_Config.FixWheelLighting = iniReader.ReadInteger("MODS", "FixWheelLighting", 0) == 1;
 	g_Config.BrakeScale = iniReader.ReadInteger("MODS", "BrakeScale", 0) == 1;
+	g_Config.ExhaustSmoke = iniReader.ReadInteger("MODS", "ExhaustSmoke", 0) == 1;
 
 	g_Config.HK_Enabled = iniReader.ReadInteger("HOT_KEYS", "Enabled", 0) == 1;
 	g_Config.HK_ToggleHeadlights = iniReader.ReadInteger("HOT_KEYS", "ToggleHeadlights", 0);

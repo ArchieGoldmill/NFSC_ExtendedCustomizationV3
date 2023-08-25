@@ -6,13 +6,13 @@
 #include "eModel.h"
 #include "CarRenderInfoExtras.h"
 
-struct CarEmitterPosition : bSNode< CarEmitterPosition>
+struct CarEmitterPosition : bSNode<CarEmitterPosition>
 {
 	D3DVECTOR Position;
 	PositionMarker* Marker;
 };
 
-void CreateEmitter(PositionMarker* marker, bSlist<CarEmitterPosition>* list, int* counter)
+void CreateEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker, bSlist<CarEmitterPosition>* list, int* counter)
 {
 	(*counter)++;
 
@@ -35,6 +35,11 @@ void CreateEmitter(PositionMarker* marker, bSlist<CarEmitterPosition>* list, int
 		MessageBoxA(NULL, "Unable to allocate 'CarEmitterPosition'!", "Extended Customization", MB_ICONERROR);
 		exit(1);
 	}
+
+	if (marker->Hash == Hashes::EXHAUST_FX)
+	{
+		carRenderInfo->Extras->ExhaustFX->CreateEffect(&marker->Matrix);
+	}
 }
 
 void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSlist<CarEmitterPosition>* list, int* counter, CarRenderInfo* carRenderInfo)
@@ -48,19 +53,19 @@ void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSli
 				if (carRenderInfo->Markers.LeftExhaust)
 				{
 					auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.LeftExhaust, false);
-					CreateEmitter(marker, list, counter);
+					CreateEmitter(carRenderInfo, marker, list, counter);
 				}
 
 				if (carRenderInfo->Markers.CenterExhaust)
 				{
 					auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.CenterExhaust, false);
-					CreateEmitter(marker, list, counter);
+					CreateEmitter(carRenderInfo, marker, list, counter);
 				}
 
 				if (carRenderInfo->Markers.RightExhaust)
 				{
 					auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.RightExhaust, true);
-					CreateEmitter(marker, list, counter);
+					CreateEmitter(carRenderInfo, marker, list, counter);
 				}
 			}
 
@@ -68,7 +73,7 @@ void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSli
 		}
 	}
 
-	CreateEmitter(fxMarker, list, counter);
+	CreateEmitter(carRenderInfo, fxMarker, list, counter);
 }
 
 void __declspec(naked) GetEmitterPositionsCave()
@@ -109,6 +114,27 @@ void __declspec(naked) NosEffectCave()
 	}
 }
 
+void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, int a3)
+{
+	conn->UpdateEffects(a2, a3);
+
+	auto iconn = (int*)conn;
+	auto carRenderInfo = conn->pCarRenderInfo;
+	if (carRenderInfo->IsPlayer())
+	{
+		auto pvehicle = conn->GetPVehicle();
+		float speed = pvehicle->GetSpeed();
+		if (abs(speed) < 10)
+		{
+			for (auto effect : carRenderInfo->Extras->ExhaustFX->Effects)
+			{
+				effect->Update(iconn[0x44], 0x3D42B5F3, a3, 1.0f, iconn[0xD]);
+				effect = effect->Next;
+			}
+		}
+	}
+}
+
 void InitExhaust()
 {
 	if (g_Config.SeparateNosExhaustFX)
@@ -119,7 +145,12 @@ void InitExhaust()
 	if (g_Config.FixAutosculptExhaustFX)
 	{
 		char disableRearBumperCheck[5] = { 0xB8, 0x01, 0x00, 0x00, 0x00 };
-		injector::WriteMemoryRaw(0x007CC6BD, disableRearBumperCheck, 5, true);
-		injector::MakeJMP(0x007BEBFB, GetEmitterPositionsCave, true);
+		injector::WriteMemoryRaw(0x007CC6BD, disableRearBumperCheck, 5);
+		injector::MakeJMP(0x007BEBFB, GetEmitterPositionsCave);
+	}
+
+	if (g_Config.ExhaustSmoke)
+	{
+		injector::MakeCALL(0x007D62AC, CarRenderConn_UpdateEffects);
 	}
 }
