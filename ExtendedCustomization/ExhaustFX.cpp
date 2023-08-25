@@ -120,17 +120,15 @@ void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, in
 
 	auto iconn = (int*)conn;
 	auto carRenderInfo = conn->pCarRenderInfo;
-	if (carRenderInfo->IsPlayer())
+
+	auto pvehicle = conn->GetPVehicle();
+	float speed = pvehicle->GetSpeed();
+	if (abs(speed) < 10)
 	{
-		auto pvehicle = conn->GetPVehicle();
-		float speed = pvehicle->GetSpeed();
-		if (abs(speed) < 10)
+		for (auto effect : carRenderInfo->Extras->ExhaustFX->SmokeEffects)
 		{
-			for (auto effect : carRenderInfo->Extras->ExhaustFX->Effects)
-			{
-				effect->Update(iconn[0x44], 0x3D42B5F3, a3, 1.0f, iconn[0xD]);
-				effect = effect->Next;
-			}
+			effect->Update(iconn[0x44], 0x3D42B5F3, a3, 1.0f, iconn[0xD]);
+			effect = effect->Next;
 		}
 	}
 }

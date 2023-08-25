@@ -188,6 +188,7 @@
     <ClInclude Include="CarCustomizeManager.h" />
     <ClInclude Include="CarSkinManager.h" />
     <ClInclude Include="ColorData.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="ExhaustShake.h" />
     <ClInclude Include="eView.h" />
     <ClInclude Include="ExhaustFX.h" />

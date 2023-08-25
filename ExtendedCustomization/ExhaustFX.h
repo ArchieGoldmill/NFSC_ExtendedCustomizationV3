@@ -13,7 +13,7 @@ private:
 	std::vector<PositionMarker*> markers;
 
 public:
-	std::vector<Effect*> Effects;
+	std::vector<Effect*> SmokeEffects;
 
 	CarExhaustFX(CarRenderInfo* carRenderInfo)
 	{
@@ -48,7 +48,7 @@ public:
 	{
 		if (g_Config.ExhaustSmoke)
 		{
-			this->Effects.push_back(new Effect(matrix));
+			this->SmokeEffects.push_back(new Effect(matrix));
 		}
 	}
 
@@ -59,12 +59,12 @@ public:
 			delete marker;
 		}
 
-		for (auto& effect : this->Effects)
+		for (auto& effect : this->SmokeEffects)
 		{
 			delete effect;
 		}
 
 		this->markers.clear();
-		this->Effects.clear();
+		this->SmokeEffects.clear();
 	}
 };

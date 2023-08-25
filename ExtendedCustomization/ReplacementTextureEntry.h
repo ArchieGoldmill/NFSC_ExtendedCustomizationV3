@@ -6,9 +6,9 @@
 class ReplacementTextureEntry
 {
 public:
-	Hash OldName;
-	Hash NewName;
-	TextureInfo* Texture;
+	Hash OldName = 0;
+	Hash NewName = 0;
+	TextureInfo* Texture = 0;
 
 	void Update(Hash oldName, Hash newName)
 	{

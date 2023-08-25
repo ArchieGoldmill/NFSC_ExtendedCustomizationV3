@@ -8,9 +8,22 @@ struct bNode
 };
 
 template <typename T>
+struct bTNode
+{
+	T* Next;
+	T* Prev;
+};
+
+template <typename T>
 struct bList
 {
 	bNode<T> HeadNode;
+};
+
+template <typename T>
+struct bTList
+{
+	bTNode<T> HeadNode;
 };
 
 template <class T>
