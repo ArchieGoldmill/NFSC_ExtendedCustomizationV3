@@ -10,6 +10,11 @@ struct CarType
 	int Id;
 };
 
+#define WHEEL_FL 0
+#define WHEEL_FR 1
+#define WHEEL_RR 2
+#define WHEEL_RL 3
+
 INLINE_FUNC(0x00471080, Hash, __cdecl, StringHash1, const char*, Hash);
 INLINE_FUNC(0x00471050, Hash, __cdecl, StringHash, const char*);
 INLINE_FUNC(0x00402560, Hash, __cdecl, StringHash32, const char*);
@@ -25,6 +30,7 @@ INLINE_FUNC(0x004A62E0, bool, __cdecl, IsPaused);
 INLINE_FUNC(0x004B65F0, bool, __thiscall, DALVehicle_GetRPM, void* DALVehicle, float* getVal, const int playerNum);
 INLINE_FUNC(0x004B6690, bool, __thiscall, DALVehicle_GetRedLine, void* DALVehicle, float* getVal, const int playerNum);
 INLINE_FUNC(0x006B5980, void, __cdecl, LoadResourceFile, const char* path, int type, int, int, int, int, int);
+INLINE_FUNC(0x00402800, void*, __cdecl, eFrameMalloc, int size);
 
 inline void HSV2RGB_255(float h, float s, float v, float* r, float* g, float* b)
 {

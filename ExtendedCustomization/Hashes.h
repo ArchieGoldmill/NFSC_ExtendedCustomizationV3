@@ -35,7 +35,8 @@ namespace Hashes
 	const Hash WINDOW_DAMAGE1 = 0x0A155546;
 	const Hash DEFAULT = 0x2C420D64;
 	const Hash CAR_NAME = 0xB271B295;
-	const Hash TIRE_BRAND = 0x54922DD9;
+	const Hash TIRE_BRAND_L = 0xC1D514A4;
+	const Hash TIRE_BRAND_R = 0xC1D514AA;
 	const Hash ANIMATE = 0x5A8E4EBE;
 	const Hash ANIMATE_SPOILER = 0xC943751B;
 	const Hash ANIMATE_LICENSE_PLATE = 0xE8320295;

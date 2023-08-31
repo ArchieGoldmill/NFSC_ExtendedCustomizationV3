@@ -7,11 +7,6 @@
 #include "WheelBrands.h"
 #include "CarRenderInfoExtras.h"
 
-#define WHEEL_FL 0
-#define WHEEL_FR 1
-#define WHEEL_RR 2
-#define WHEEL_RL 3
-
 void ReplaceFrontWheels(CarRenderInfo* carRenderInfo, eModel* model)
 {
 	if (model)
@@ -55,41 +50,72 @@ void __cdecl SetupWheelLighting(void* light, D3DXMATRIX* transform, int m, D3DXV
 	SetupLighting(light, &matrix, m, camera, view, s);
 }
 
-void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags, int wheel)
+D3DXMATRIX* AdjustTireMatrix(CarRenderInfo* carRenderInfo, D3DXMATRIX* transform, int num, int& flags)
 {
-	if (model && *model)
+	if (num == WHEEL_FR || num == WHEEL_RR)
+	{
+		auto newTransform = (D3DXMATRIX*)eFrameMalloc(sizeof(D3DXMATRIX));
+
+		D3DXVECTOR3 scale, translation;
+		D3DXQUATERNION rotation;
+		D3DXMatrixDecompose(&scale, &rotation, &translation, transform);
+
+		D3DXMatrixScaling(newTransform, -scale.x, scale.y, scale.z);
+
+		D3DXMATRIX rotationMatrix;
+		D3DXMatrixRotationQuaternion(&rotationMatrix, &rotation);
+
+		D3DXMatrixMultiply(newTransform, newTransform, &rotationMatrix);
+
+		SetVector3(newTransform, 3, translation);
+
+		flags |= 0x40000;
+
+		return newTransform;
+	}
+
+	return transform;
+}
+
+void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel* model, D3DXMATRIX* transform, void* light, int flags, int num)
+{
+	if (model)
 	{
 		if (g_Config.CustomPaints)
 		{
-			wheel < 2 ? ReplaceFrontWheels(carRenderInfo, *model) : ReplaceRearWheels(carRenderInfo, *model);
+			num < 2 ? ReplaceFrontWheels(carRenderInfo, model) : ReplaceRearWheels(carRenderInfo, model);
 		}
 
-		int side = wheel < 2 ? 0 : 1;
-		carRenderInfo->Extras->WheelTextures->Tires[side].Render(view, marker, light, flags);
-		(*model)->AttachReplacementTextureTable(carRenderInfo->Extras->WheelTextures->TextureTable[side].TextureTable, 2);
+		if (carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Solid)
+		{
+			int tireFlags = flags;
+			auto tireTransform = AdjustTireMatrix(carRenderInfo, transform, num, tireFlags);
+			carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Render(view, tireTransform, light, tireFlags);
+			model->AttachReplacementTextureTable(carRenderInfo->Extras->WheelTextures->WheelTires->Wheel.TextureTable, CarWheel::Size);
+		}
 
-		(*model)->Render(view, marker, light, flags);
+		model->Render(view, transform, light, flags);
 	}
 }
 
 void __fastcall RenderFrontLeftWheel(CarRenderInfo* carRenderInfo, int, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
-	RenderWheel(carRenderInfo, view, model, marker, light, flags, WHEEL_FL);
+	RenderWheel(carRenderInfo, view, *model, marker, light, flags, WHEEL_FL);
 }
 
 void __fastcall RenderFrontRightWheel(CarRenderInfo* carRenderInfo, int, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
-	RenderWheel(carRenderInfo, view, model, marker, light, flags, WHEEL_FR);
+	RenderWheel(carRenderInfo, view, *model, marker, light, flags, WHEEL_FR);
 }
 
 void __fastcall RenderRearRightWheel(CarRenderInfo* carRenderInfo, int, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
 {
-	RenderWheel(carRenderInfo, view, model, marker, light, flags, WHEEL_RR);
+	RenderWheel(carRenderInfo, view, *model, marker, light, flags, WHEEL_RR);
 }
 
 void __fastcall RenderRearLeftWheel(eView* view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int flags, int, int)
 {
-	RenderWheel(carRenderInfo, view, &model, marker, light, flags, WHEEL_RL);
+	RenderWheel(carRenderInfo, view, model, marker, light, flags, WHEEL_RL);
 }
 
 void __fastcall RenderTireSkids(void* _this, int, float a2, float* a3, D3DXMATRIX* wheelMatrix, D3DXMATRIX* carMatrix, float skidWidth)
