@@ -307,12 +307,12 @@ copy_node fecameras hood angles steeringWheelRight
 update_field fecameras customize_0_festeeringwheelright cam_angle Collection steeringWheelRight
 
 update_field fecameras steeringWheelRight cam_orbit_vertical 130
-update_field fecameras steeringWheelRight cam_orbit_horizontal 140
+update_field fecameras steeringWheelRight cam_orbit_horizontal 40
 update_field fecameras steeringWheelRight cam_orbit_radius 3
-update_field fecameras steeringWheelRight cam_roll_angle -2
+update_field fecameras steeringWheelRight cam_roll_angle 2
 update_field fecameras steeringWheelRight cam_fov 45
 update_field fecameras steeringWheelRight cam_lookat_x 0.8
-update_field fecameras steeringWheelRight cam_lookat_y 0.3
+update_field fecameras steeringWheelRight cam_lookat_y -0.3
 update_field fecameras steeringWheelRight cam_lookat_z 0.5
 
 // Seat left
