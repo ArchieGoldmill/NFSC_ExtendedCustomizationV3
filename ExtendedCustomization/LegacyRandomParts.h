@@ -3,7 +3,7 @@
 #include "RideInfo.h"
 #include "CarPartDatabase.h"
 
-DBCarPart* SetRandomPart(RideInfo* rideInfo, Slot slot, bool skipAutosculpt, int kitw = -1)
+DBCarPart* SetRandomPart(RideInfo* rideInfo, Slot slot, int autosculpt, int kitw = -1)
 {
 	if (g_Config.GetPart(slot, rideInfo->CarId).State == State::Enabled)
 	{
@@ -28,7 +28,12 @@ DBCarPart* SetRandomPart(RideInfo* rideInfo, Slot slot, bool skipAutosculpt, int
 				break;
 			}
 
-			if (skipAutosculpt && part->IsAutosculpt())
+			if (autosculpt == 1 && part->IsAutosculpt())
+			{
+				continue;
+			}
+
+			if (autosculpt == 2 && !part->IsAutosculpt())
 			{
 				continue;
 			}
@@ -67,7 +72,7 @@ void SetRandomNeon(RideInfo* rideInfo)
 {
 	if (bRandom(2))
 	{
-		auto neon = SetRandomPart(rideInfo, Slot_Neon, false);
+		auto neon = SetRandomPart(rideInfo, Slot_Neon, 2);
 		if (neon)
 		{
 			rideInfo->AutoSculptRegions[ZoneNeon].Zones[0] = (float)bRandom(99) / 100.0f;
@@ -85,8 +90,8 @@ void SetRandomDecals(RideInfo* rideInfo)
 {
 	if (bRandom(2))
 	{
-		SetRandomPart(rideInfo, Slot::DECAL_FRONT_WINDOW_TEX0, false);
-		SetRandomPart(rideInfo, Slot::DECAL_REAR_WINDOW_TEX0, false);
+		SetRandomPart(rideInfo, Slot::DECAL_FRONT_WINDOW_TEX0, 0);
+		SetRandomPart(rideInfo, Slot::DECAL_REAR_WINDOW_TEX0, 0);
 	}
 }
 
@@ -97,14 +102,14 @@ void SetRandomVinyl(RideInfo* rideInfo)
 	{
 		if (bRandom(2))
 		{
-			SetRandomPart(rideInfo, Slot::VINYL_GENERIC, false);
+			SetRandomPart(rideInfo, Slot::VINYL_GENERIC, 0);
 		}
 	}
 }
 
 void SetRandomTires(RideInfo* rideInfo)
 {
-	SetRandomPart(rideInfo, Slot_Tires, false);
+	SetRandomPart(rideInfo, Slot_Tires, 0);
 	if (bRandom(2))
 	{
 		float tire = (float)bRandom(10) / 100.0f;
@@ -117,12 +122,12 @@ namespace Legacy
 {
 	void SetRandomPartsV2(RideInfo* rideInfo, int hash)
 	{
-		auto body = SetRandomPart(rideInfo, Slot::BODY, false);
+		auto body = SetRandomPart(rideInfo, Slot::BODY, 0);
 		if (body && body->IsStock())
 		{
-			SetRandomPart(rideInfo, Slot::FRONT_BUMPER_BADGING_SET, false);
-			SetRandomPart(rideInfo, Slot::REAR_BUMPER_BADGING_SET, false);
-			auto frontBumper = SetRandomPart(rideInfo, Slot::FRONT_BUMPER, false);
+			SetRandomPart(rideInfo, Slot::FRONT_BUMPER_BADGING_SET, 0);
+			SetRandomPart(rideInfo, Slot::REAR_BUMPER_BADGING_SET, 0);
+			auto frontBumper = SetRandomPart(rideInfo, Slot::FRONT_BUMPER, 0);
 			if (frontBumper)
 			{
 				int kit = frontBumper->GetKit();
@@ -143,15 +148,17 @@ namespace Legacy
 			}
 		}
 
-		SetRandomPart(rideInfo, Slot::SPOILER, true);
-		SetRandomPart(rideInfo, Slot::HOOD, true);
+		SetRandomPart(rideInfo, Slot::SPOILER, 1);
+		SetRandomPart(rideInfo, Slot::HOOD, 1);
 
 		for (int i = (int)Slot::ATTACHMENT0; i <= (int)Slot::ATTACHMENT15; i++)
 		{
-			SetRandomPart(rideInfo, (Slot)i, false);
+			SetRandomPart(rideInfo, (Slot)i, 0);
 		}
 
-		SetRandomPart(rideInfo, Slot::STEERINGWHEEL, false);
+		SetRandomPart(rideInfo, Slot::STEERINGWHEEL, 0);
+
+		SetRandomPart(rideInfo, Slot::FRONT_WHEEL, 1);
 
 		SetRandomVinyl(rideInfo);
 		SetRandomNeon(rideInfo);

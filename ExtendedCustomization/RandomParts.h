@@ -12,10 +12,10 @@ void SetRandomPartsV3(RideInfo* rideInfo)
 {
 	auto carId = rideInfo->CarId;
 
-	auto body = SetRandomPart(rideInfo, Slot::BODY, false);
+	auto body = SetRandomPart(rideInfo, Slot::BODY, 0);
 	int kitw = body ? body->GetKit() : -1;
 
-	auto frontBumper = SetRandomPart(rideInfo, Slot::FRONT_BUMPER, false, kitw);
+	auto frontBumper = SetRandomPart(rideInfo, Slot::FRONT_BUMPER, 0, kitw);
 	if (frontBumper)
 	{
 		int kit = frontBumper->GetKit();
@@ -23,31 +23,31 @@ void SetRandomPartsV3(RideInfo* rideInfo)
 		InstallByKitNumber(Slot::SKIRT, rideInfo, null, kit);
 	}
 
-	auto frontFender = SetRandomPart(rideInfo, Slot_FrontFender, false, kitw);
+	auto frontFender = SetRandomPart(rideInfo, Slot_FrontFender, 0, kitw);
 	if (frontFender)
 	{
 		int kit = frontFender->GetKit();
 		InstallByKitNumber(Slot_RearFender, rideInfo, null, kit);
 	}
 
-	SetRandomPart(rideInfo, Slot::EXHAUST, false, kitw);
-	SetRandomPart(rideInfo, Slot::SPOILER, true, kitw);
-	SetRandomPart(rideInfo, Slot::HOOD, true, kitw);
-	SetRandomPart(rideInfo, Slot::LEFT_HEADLIGHT, true, kitw);
-	SetRandomPart(rideInfo, Slot::LEFT_BRAKELIGHT, false, kitw);
-	SetRandomPart(rideInfo, Slot::LEFT_SIDE_MIRROR, false, kitw);
-	SetRandomPart(rideInfo, Slot::INTERIOR, false, kitw);
+	SetRandomPart(rideInfo, Slot::EXHAUST, 0, kitw);
+	SetRandomPart(rideInfo, Slot::SPOILER, 1, kitw);
+	SetRandomPart(rideInfo, Slot::HOOD, 1, kitw);
+	SetRandomPart(rideInfo, Slot::LEFT_HEADLIGHT, 0, kitw);
+	SetRandomPart(rideInfo, Slot::LEFT_BRAKELIGHT, 0, kitw);
+	SetRandomPart(rideInfo, Slot::LEFT_SIDE_MIRROR, 0, kitw);
+	SetRandomPart(rideInfo, Slot::INTERIOR, 0, kitw);
 
 	SetRandomDecals(rideInfo);
 
-	SetRandomPart(rideInfo, Slot::FRONT_WHEEL, true);
+	SetRandomPart(rideInfo, Slot::FRONT_WHEEL, 1);
 	SetRandomTires(rideInfo);
 
 	SetRandomVinyl(rideInfo);
 	SetRandomNeon(rideInfo);
 
-	SetRandomPart(rideInfo, Slot::STEERINGWHEEL, false);
-	SetRandomPart(rideInfo, Slot::ATTACHMENT14, false);
+	SetRandomPart(rideInfo, Slot::STEERINGWHEEL, 0);
+	SetRandomPart(rideInfo, Slot::ATTACHMENT14, 0);
 
 	rideInfo->RideHeight = 1.0f;
 
