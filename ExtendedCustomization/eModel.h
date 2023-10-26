@@ -12,7 +12,7 @@ struct eModel : bNode<eModel>
 	Hash NameHash;
 	eSolid* Solid;
 	ReplacementTextureEntry* ReplacementTextureTable;
-	short LodLevel;
+	short ReplacementTextureCount;
 	short Pad;
 
 	eModel()

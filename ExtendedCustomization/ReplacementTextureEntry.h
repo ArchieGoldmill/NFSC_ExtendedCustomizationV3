@@ -22,7 +22,7 @@ public:
 
 	void Set(Hash oldName, Hash newName)
 	{
-		auto textureInfo = GetTextureInfo(newName, false, false);
+		auto textureInfo = TextureInfo::Get(newName, false, false);
 		if (textureInfo)
 		{
 			this->OldName = oldName;
