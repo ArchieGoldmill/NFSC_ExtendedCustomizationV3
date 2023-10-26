@@ -14,7 +14,7 @@ public:
 	CarBrakelightGlow(CarRenderInfo* carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
-		this->Texture = GetTextureInfo(Hashes::BRAKELIGHT_GLOW, 0, 0);
+		this->Texture = TextureInfo::Get(Hashes::BRAKELIGHT_GLOW, 0, 0);
 	}
 
 	void RenderShadow(eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)

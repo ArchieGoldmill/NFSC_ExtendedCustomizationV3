@@ -44,8 +44,8 @@ public:
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->carMatrix = carMatrix;
-		this->neonBlur = GetTextureInfo(Hashes::NEONBLUR, 0, 0);
-		this->neonBlurInner = GetTextureInfo(Hashes::NEONBLUR_INNER, 0, 0);
+		this->neonBlur = TextureInfo::Get(Hashes::NEONBLUR, 0, 0);
+		this->neonBlurInner = TextureInfo::Get(Hashes::NEONBLUR_INNER, 0, 0);
 		D3DXMatrixIdentity(&this->identity);
 
 		if (Game::InFrontEnd())
@@ -67,7 +67,7 @@ public:
 			auto textureHash = neonPart->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
 			if (textureHash)
 			{
-				this->NeonTexture = GetTextureInfo(textureHash, 0, 0);
+				this->NeonTexture = TextureInfo::Get(textureHash, 0, 0);
 			}
 		}
 	}

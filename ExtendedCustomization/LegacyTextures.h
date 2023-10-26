@@ -13,7 +13,7 @@ namespace Legacy
 
 		int* rideInfo = (int*)(*(renderInfo + 0xFC));
 
-		if (GetTextureInfo(*(renderInfo + 0xC20), 0, 0))
+		if (TextureInfo::Get(*(renderInfo + 0xC20), 0, 0))
 		{
 			if (Game::InFrontEnd())
 			{

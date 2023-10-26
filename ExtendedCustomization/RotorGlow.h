@@ -19,7 +19,7 @@ public:
 	CarRotorGlow(CarRenderInfo* carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
-		this->texture = GetTextureInfo(Hashes::ROTORS_GLOW, 0, 0);
+		this->texture = TextureInfo::Get(Hashes::ROTORS_GLOW, 0, 0);
 	}
 
 	void Init()
