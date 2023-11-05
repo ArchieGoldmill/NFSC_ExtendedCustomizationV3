@@ -31,6 +31,7 @@ namespace Hashes
 	const Hash DEFAULTALPHA = 0x66994F4A;
 	const Hash WHEEL_TIRE = 0xC2999EC7;
 	const Hash WHEEL_TIRE_N = 0xCF7C7914;
+	const Hash WHEEL_INNER = 0x1509174F;
 	const Hash WINDOW_DAMAGE0 = 0x0A155545;
 	const Hash WINDOW_DAMAGE1 = 0x0A155546;
 	const Hash DEFAULT = 0x2C420D64;
@@ -51,6 +52,8 @@ namespace Hashes
 	const Hash GREEN2 = 0x5E96E722;
 	const Hash BLUE2 = 0x02804819;
 	const Hash PULSE = 0x03826A28;
+	const Hash WHEEL_MAIN = 0xC295A4F8;
+	const Hash WHEEL_BADGE = 0x14832086;
 
 	const Hash RIDE_HEIGHT_OFFSET = 0xF11B00C1;
 	const Hash USEMARKER2 = 0x09163FA0;

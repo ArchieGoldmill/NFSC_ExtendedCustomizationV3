@@ -17,9 +17,9 @@ private:
 	ColorMaterialData* SpoilerMaterialData = NULL;
 
 public:
-	eLightMaterial* FrontLipMaterial = NULL;
-	eLightMaterial* RearLipMaterial = NULL;
+	eLightMaterial* FrontRimMaterial = NULL;
 	eLightMaterial* RearRimMaterial = NULL;
+	eLightMaterial* RearWheelMaterial = NULL;
 
 public:
 	CarPaint(CarRenderInfo* carRenderInfo)
@@ -30,9 +30,9 @@ public:
 	void Init()
 	{
 		this->InitPaint(this->CaliperMaterialData, this->carRenderInfo->Materials.Calipers, 0, Hashes::CALIPER);
-		this->InitPaint(this->FrontLipMaterialData, this->FrontLipMaterial, 1, Hashes::MAGLIP);
-		this->InitPaint(this->RearLipMaterialData, this->RearLipMaterial, 2, Hashes::MAGLIP);
-		this->InitPaint(this->RearRimMaterialData, this->RearRimMaterial, 3, Hashes::MAGSILVER);
+		this->InitPaint(this->FrontLipMaterialData, this->FrontRimMaterial, 1, Hashes::MAGLIP);
+		this->InitPaint(this->RearLipMaterialData, this->RearRimMaterial, 2, Hashes::MAGLIP);
+		this->InitPaint(this->RearRimMaterialData, this->RearWheelMaterial, 3, Hashes::MAGSILVER);
 		if (!this->carRenderInfo->IsHoodCarbon)
 		{
 			this->InitPaint(this->HoodMaterialData, this->carRenderInfo->Materials.Hood, 4, 0);

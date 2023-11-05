@@ -159,7 +159,7 @@ void InitConfig()
 	g_Config.TireWidth = iniReader.ReadInteger("MODS", "TireWidth", 0) == 1;
 	g_Config.FixClaiperLighting = iniReader.ReadInteger("MODS", "FixClaiperLighting", 0) == 1;
 	g_Config.FixShadowClipping = iniReader.ReadInteger("MODS", "FixShadowClipping", 0) == 1;
-	g_Config.AllowStockRimsPaint = iniReader.ReadInteger("MODS", "AllowStockRimsPaint", 0) == 1;
+	g_Config.AllowStockWheelsPaint = iniReader.ReadInteger("MODS", "AllowStockWheelsPaint", 0) == 1;
 	g_Config.RideHeight = iniReader.ReadInteger("MODS", "RideHeight", 0) == 1;
 	g_Config.RearWheels = iniReader.ReadInteger("MODS", "RearWheels", 0) == 1;
 	g_Config.AllWheelsRotated = iniReader.ReadInteger("MODS", "AllWheelsRotated", 0) == 1;

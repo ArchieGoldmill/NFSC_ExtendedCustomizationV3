@@ -7,6 +7,7 @@
 #include "eModel.h"
 #include "CarRenderConn.h"
 #include "eView.h"
+#include "DBCarPart.h"
 
 struct PositionMarkers
 {
@@ -27,7 +28,7 @@ struct CarMaterials
 	eLightMaterial* Body;
 	eLightMaterial* Hood;
 	eLightMaterial* WindowTint;
-	eLightMaterial* FrontRims;
+	eLightMaterial* FrontWheel;
 	eLightMaterial* Calipers;
 	eLightMaterial* Spoiler;
 	eLightMaterial* RoofScoop;

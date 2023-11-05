@@ -87,7 +87,7 @@ struct GlobalConfig : public SharedConfig
 	bool RideHeight;
 	bool FixClaiperLighting;
 	bool FixShadowClipping;
-	bool AllowStockRimsPaint;
+	bool AllowStockWheelsPaint;
 	bool RearWheels;
 	bool FixTireSkids;
 	bool AllWheelsRotated;

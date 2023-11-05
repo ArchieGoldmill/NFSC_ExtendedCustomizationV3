@@ -84,12 +84,12 @@ struct DBCarPart
 
 	bool IsCarbon()
 	{
-		return this->GetAppliedAttributeIParam(Hashes::CARBONFIBRE, 0) != 0;
+		return this->GetAppliedAttributeBParam(Hashes::CARBONFIBRE, 0);
 	}
 
 	bool IsStock()
 	{
-		return this->GetAppliedAttributeIParam(Hashes::STOCK, 0);
+		return this->GetAppliedAttributeBParam(Hashes::STOCK, 0);
 	}
 
 	int GetUpgradeLevel()
