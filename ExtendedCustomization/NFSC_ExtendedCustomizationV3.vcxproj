@@ -189,6 +189,7 @@
     <ClInclude Include="CarSkinManager.h" />
     <ClInclude Include="ColorData.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="EmissiveTextures.h" />
     <ClInclude Include="ExhaustShake.h" />
     <ClInclude Include="eView.h" />
     <ClInclude Include="ExhaustFX.h" />
@@ -214,10 +215,11 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Customization.h" />
     <ClInclude Include="DBCarPart.h" />
-    <ClInclude Include="eLightContext.h" />
+    <ClInclude Include="LightingContext.h" />
     <ClInclude Include="eLightMaterial.h" />
     <ClInclude Include="eModel.h" />
     <ClInclude Include="RandomParts.h" />
+    <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="ReplacementTextureEntry.h" />
     <ClInclude Include="eSolid.h" />
     <ClInclude Include="FEButton.h" />

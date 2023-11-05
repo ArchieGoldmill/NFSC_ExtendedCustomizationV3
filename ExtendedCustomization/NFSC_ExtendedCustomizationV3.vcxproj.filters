@@ -159,7 +159,7 @@
     <ClInclude Include="Animations.h">
       <Filter>Features\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="eLightContext.h">
+    <ClInclude Include="LightingContext.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="ReplacementTextureEntry.h">
@@ -392,6 +392,12 @@
     </ClInclude>
     <ClInclude Include="WheelTextures.h">
       <Filter>Features\Wheels</Filter>
+    </ClInclude>
+    <ClInclude Include="EmissiveTextures.h">
+      <Filter>Features\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingModel.h">
+      <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

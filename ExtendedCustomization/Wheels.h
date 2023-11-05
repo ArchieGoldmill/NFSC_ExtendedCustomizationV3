@@ -11,10 +11,10 @@ void ReplaceFrontWheels(CarRenderInfo* carRenderInfo, eModel* model)
 {
 	if (model)
 	{
-		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Materials.FrontRims);
-		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Materials.FrontRims);
-		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Materials.FrontRims);
-		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->FrontLipMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Materials.FrontWheel);
+		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Materials.FrontWheel);
+		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Materials.FrontWheel);
+		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->FrontRimMaterial);
 	}
 }
 
@@ -28,10 +28,10 @@ void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
 			return;
 		}
 
-		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Extras->Paint->RearRimMaterial);
-		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Extras->Paint->RearRimMaterial);
-		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Extras->Paint->RearRimMaterial);
-		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->RearLipMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Extras->Paint->RearWheelMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Extras->Paint->RearWheelMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Extras->Paint->RearWheelMaterial);
+		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->RearRimMaterial);
 	}
 }
 

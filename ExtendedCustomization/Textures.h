@@ -2,11 +2,11 @@
 #include "Feature.h"
 #include "CarRenderInfo.h"
 #include "Game.h"
-#include "eLightContext.h"
 #include "ReplacementTextureEntry.h"
 #include "CarRenderConn.h"
 #include "DBCarPart.h"
 #include "ReplacementTextures.h"
+#include "EmissiveTextures.h"
 
 void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 {
@@ -136,6 +136,9 @@ void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 			SetTextureHash(texPtr, textureName);
 		}
 	}
+
+	// Emissive
+	SetTextureHash(texPtr, StringHash1("_INTERIOR_E", carHash));
 }
 
 void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
@@ -185,6 +188,7 @@ void __declspec(naked) HandleTextureReplacementsCave()
 void InitTextures()
 {
 	InitReplacementTextures();
+	InitEmissiveTextures();
 
 	injector::WriteMemory(0x007CECC7, ((int)Slot::LEFT_HEADLIGHT + 0x15) * 4);
 	injector::WriteMemory(0x007CECCD, ((int)Slot::LEFT_BRAKELIGHT + 0x15) * 4);
@@ -192,5 +196,5 @@ void InitTextures()
 
 	injector::MakeCALL(0x007DE789, UpdateLightStateTextures);
 
-	injector::MakeJMP(0x007D9E14, HandleTextureReplacementsCave);
+	injector::MakeJMP(0x007D9E14, HandleTextureReplacementsCave);	
 }
