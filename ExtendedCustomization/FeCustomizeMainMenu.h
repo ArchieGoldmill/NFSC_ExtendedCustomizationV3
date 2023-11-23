@@ -12,7 +12,7 @@ bool AnyAttachmentsEnabled()
 	for (auto slot : AttachSlots)
 	{
 		auto part = g_Config.GetPart(slot, carId);
-		if (part.State == State::Enabled)
+		if (part.IsEnabled())
 		{
 			return true;
 		}
@@ -32,13 +32,13 @@ void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 
 	auto carId = FrontEndRenderingCar::GetCarId();
 	auto frontWheel = g_Config.GetPart(Slot::FRONT_WHEEL, carId);
-	if (frontWheel.State == State::Enabled)
+	if (frontWheel.IsEnabled())
 	{
 		_this->AddOption(TextOption::Create(frontWheel.Header, (int)CustomizeMainMenu::FRONT_WHEELS));
 	}
 
 	auto rearWheel = g_Config.GetPart(Slot::REAR_WHEEL, carId);
-	if (rearWheel.State == State::Enabled)
+	if (rearWheel.IsEnabled())
 	{
 		_this->AddOption(TextOption::Create(rearWheel.Header, (int)CustomizeMainMenu::REAR_WHEELS));
 	}

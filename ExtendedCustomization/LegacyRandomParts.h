@@ -5,7 +5,7 @@
 
 DBCarPart* SetRandomPart(RideInfo* rideInfo, Slot slot, int autosculpt, int kitw = -1)
 {
-	if (g_Config.GetPart(slot, rideInfo->CarId).State == State::Enabled)
+	if (g_Config.GetPart(slot, rideInfo->CarId).IsEnabled())
 	{
 		auto carId = rideInfo->CarId;
 		auto carName = StringHash(GetCarTypeName(carId));

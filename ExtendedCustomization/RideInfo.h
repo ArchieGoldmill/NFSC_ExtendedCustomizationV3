@@ -39,6 +39,11 @@ struct RideInfo
 		return _GetCarTypeName(this->CarId);
 	}
 
+	Hash GetCarTypeHash()
+	{
+		return StringHash(this->GetCarTypeName());
+	}
+
 	DBCarPart* GetVinylPart(int num)
 	{
 		static auto _GetVinylPart = (DBCarPart * (__thiscall*)(RideInfo*, int))0x007B0870;

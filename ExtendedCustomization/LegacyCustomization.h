@@ -48,7 +48,7 @@ namespace Legacy
 			return;
 		}
 
-		if (g_Config.GetPart(Slot::LEFT_HEADLIGHT, rideInfo->CarId).State == State::Enabled)
+		if (g_Config.GetPart(Slot::LEFT_HEADLIGHT, rideInfo->CarId).IsEnabled())
 		{
 			SetHeadlights(_this, rideInfo, record, carName);
 			return;
@@ -134,7 +134,7 @@ namespace Legacy
 	void HandleBadging(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, const char* position, Slot slot, char* carName)
 	{
 		auto body = rideInfo->GetPart(Slot::BODY);
-		if (g_Config.GetPart(slot, rideInfo->CarId).State == State::Enabled)
+		if (g_Config.GetPart(slot, rideInfo->CarId).IsEnabled())
 		{
 			auto badgingPart = rideInfo->GetPart(slot);
 			if (!badgingPart)
@@ -158,7 +158,7 @@ namespace Legacy
 
 	void HandleDoors(FeGarageMain* _this, RideInfo* rideInfo, FECustomizationRecord* record, char* carName)
 	{
-		if (g_Config.GetPart(Slot::DOOR_LEFT, rideInfo->CarId).State == State::Enabled)
+		if (g_Config.GetPart(Slot::DOOR_LEFT, rideInfo->CarId).IsEnabled())
 		{
 			auto leftDoor = rideInfo->GetPart(Slot::DOOR_LEFT);
 			if (leftDoor)

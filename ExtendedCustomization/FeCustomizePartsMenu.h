@@ -9,10 +9,22 @@
 #include "FrontEndRenderingCar.h"
 #include "AutosculptSelectablePart.h"
 
-void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId)
+void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId, bool autosculpt = false)
 {
 	auto partConfig = g_Config.GetPart(slot, carId);
-	if (partConfig.State == State::Enabled)
+
+	auto state = partConfig.GetState(autosculpt);
+
+	if (state == State::Default && slot == Slot::ROOF && autosculpt)
+	{
+		int* racingClassPtr = (int*)Attrib_GetAttributePointer(0x00BBABB0, 0x247E0956, 0);
+		if (racingClassPtr && *racingClassPtr == 2)
+		{
+			state = State::Enabled;
+		}
+	}
+
+	if (state == State::Enabled)
 	{
 		_this->AddMenuOption(partConfig.Header, slot, _this->IsAutosculpt, slot == Slot::FRONT_WHEEL ? 17 : 0);
 	}
@@ -43,11 +55,16 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 	case CustomizeMainMenu::AFTERMARKET:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
 
+		AddMenuOption(_this, Slot::FRONT_BUMPER, carId);
+		AddMenuOption(_this, Slot::REAR_BUMPER, carId);
+		AddMenuOption(_this, Slot::SKIRT, carId);
 		AddMenuOption(_this, Slot::HOOD, carId);
 		AddMenuOption(_this, Slot::ROOFSCOOP, carId);
 		AddMenuOption(_this, Slot::SPOILER, carId);
+		AddMenuOption(_this, Slot::EXHAUST, carId);
 		AddMenuOption(_this, Slot::FRONT_BUMPER_BADGING_SET, carId);
 		AddMenuOption(_this, Slot::REAR_BUMPER_BADGING_SET, carId);
+		AddMenuOption(_this, Slot::HEADLIGHT, carId);
 		AddMenuOption(_this, Slot::LEFT_HEADLIGHT, carId);
 		AddMenuOption(_this, Slot::LEFT_BRAKELIGHT, carId);
 		AddMenuOption(_this, Slot::LEFT_SIDE_MIRROR, carId);
@@ -56,18 +73,18 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 	case CustomizeMainMenu::AUTOSCULPT:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
 
-		AddMenuOption(_this, Slot::FRONT_BUMPER, carId);
-		AddMenuOption(_this, Slot::REAR_BUMPER, carId);
-		AddMenuOption(_this, Slot::SKIRT, carId);
-		AddMenuOption(_this, Slot::HOOD, carId);
-		AddMenuOption(_this, Slot::ROOFSCOOP, carId);
-		AddMenuOption(_this, Slot::SPOILER, carId);
-		AddMenuOption(_this, Slot::ROOF, carId);
-		AddMenuOption(_this, Slot::EXHAUST, carId);
-		AddMenuOption(_this, Slot_Stance, carId);
-		AddMenuOption(_this, Slot::LICENSE_PLATE, carId);
-		AddMenuOption(_this, Slot_Neon, carId);
-		AddMenuOption(_this, Slot::FRONT_WHEEL, carId);
+		AddMenuOption(_this, Slot::FRONT_BUMPER, carId, true);
+		AddMenuOption(_this, Slot::REAR_BUMPER, carId, true);
+		AddMenuOption(_this, Slot::SKIRT, carId, true);
+		AddMenuOption(_this, Slot::HOOD, carId, true);
+		AddMenuOption(_this, Slot::ROOFSCOOP, carId, true);
+		AddMenuOption(_this, Slot::SPOILER, carId, true);
+		AddMenuOption(_this, Slot::ROOF, carId, true);
+		AddMenuOption(_this, Slot::EXHAUST, carId, true);
+		AddMenuOption(_this, Slot_Stance, carId, true);
+		AddMenuOption(_this, Slot::LICENSE_PLATE, carId, true);
+		AddMenuOption(_this, Slot_Neon, carId, true);
+		AddMenuOption(_this, Slot::FRONT_WHEEL, carId, true);
 		break;
 	case CustomizeMainMenu::FRONT_WHEELS:
 		AddWheelBrands(_this, Slot::FRONT_WHEEL);
