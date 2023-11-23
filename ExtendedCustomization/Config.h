@@ -26,11 +26,22 @@ enum class Animate
 
 struct PartConfig
 {
-	State State = State::Default;
+	State AftermarketState = State::Default;
+	State AutosculptState = State::Default;
 	Hash Header = -1;
 	Slot Slot = Slot::INVALID;
 	std::string Camera;
 	Animate Animation;
+
+	bool IsEnabled()
+	{
+		return AftermarketState == State::Enabled || AutosculptState == State::Enabled;
+	}
+
+	State GetState(bool isAutosculpt)
+	{
+		return isAutosculpt ? AutosculptState : AftermarketState;
+	}
 };
 
 struct SharedConfig

@@ -22,7 +22,8 @@ void InitPart(CIniReader& iniReader, SharedConfig* shared, Slot slot, const char
 	PartConfig partConfig;
 
 	partConfig.Slot = slot;
-	partConfig.State = InitState(iniReader, iniSection, "Enabled");
+	partConfig.AftermarketState = InitState(iniReader, iniSection, "AftermarketEnabled");
+	partConfig.AutosculptState = InitState(iniReader, iniSection, "AutosculptEnabled");
 	partConfig.Camera = iniReader.ReadString(iniSection, "Camera", "");
 	partConfig.Animation = (Animate)iniReader.ReadInteger(iniSection, "Animate", -1);
 

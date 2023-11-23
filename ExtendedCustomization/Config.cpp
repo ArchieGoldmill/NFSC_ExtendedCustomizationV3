@@ -98,9 +98,14 @@ PartConfig GlobalConfig::GetPart(Slot slot, CarType carId)
 		auto part = carConfig->GetPart(slot);
 		if (part)
 		{
-			if (part->State != State::Default)
+			if (part->AftermarketState != State::Default)
 			{
-				result.State = part->State;
+				result.AftermarketState = part->AftermarketState;
+			}
+
+			if (part->AutosculptState != State::Default)
+			{
+				result.AutosculptState = part->AutosculptState;
 			}
 
 			if (part->Camera.size())
