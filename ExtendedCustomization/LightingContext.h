@@ -16,5 +16,5 @@ struct DynamicLightingContext : public LightingContext
 	D3DXVECTOR4 envmap_pos;
 	D3DXVECTOR4 idk_vector4;
 	D3DXMATRIX envmap_rotation;
-	D3DXVECTOR4 harmonics[10];
+	D3DXVECTOR4 Harmonics[10];
 };

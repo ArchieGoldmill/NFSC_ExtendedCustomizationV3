@@ -8,65 +8,116 @@
 #include "ReplacementTextures.h"
 #include "EmissiveTextures.h"
 
+Hash InitTexture(RideInfo* rideInfo, Slot slot, const char* def)
+{
+	auto part = rideInfo->GetPart(slot);
+	if (part)
+	{
+		auto tex = part->GetTextureName();
+		if (tex)
+		{
+			return tex;
+		}
+	}
+
+	auto carHash = rideInfo->GetCarTypeHash();
+	return StringHash1(def, carHash);
+}
+
+Hash GetInteriorBaseTexture(RideInfo* rideInfo)
+{
+	return InitTexture(rideInfo, Slot::INTERIOR, "_INTERIOR");
+}
+
 void __fastcall UpdateLightStateTextures(CarRenderInfo* carRenderInfo)
 {
+	auto entries = carRenderInfo->Get<ReplacementTextureEntry>(0x6CC);
 	auto rideInfo = carRenderInfo->pRideInfo;
-	int version = g_Config.GetVersion(rideInfo->CarId);
-	if (version == 3)
+
+	Hash headlight = InitTexture(rideInfo, Slot::LEFT_HEADLIGHT, "_KIT00_HEADLIGHT");
+	Hash brakelight = InitTexture(rideInfo, Slot::LEFT_BRAKELIGHT, "_KIT00_BRAKELIGHT");
+
+	auto headlightLeft = entries++;
+	auto headlightRight = entries++;
+	auto headlightGlassLeft = entries++;
+	auto headlightGlassRight = entries++;
+
+	Hash headlightOff = StringHash1("_OFF", headlight);
+	Hash headlightGlassOff = StringHash1("_GLASS_OFF", headlight);
+	Hash headlightOn = StringHash1("_ON", headlight);
+	Hash headlightGlassOn = StringHash1("_GLASS_ON", headlight);
+	Hash headlightHash, headlighGlasstHash;
+	if (TextureInfo::Get(headlightOff, false, false))
 	{
-		auto entries = carRenderInfo->Get<ReplacementTextureEntry>(0x6CC);
-
-		auto leftHeadlightPart = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
-		if (leftHeadlightPart)
-		{
-			auto headlights = entries++;
-			auto headlightsOnOff = entries++;
-			auto headlightsGlass = entries++;
-
-			bool lightsOn = Game::InRace() && carRenderInfo->IsGlareOn();
-			auto texture = leftHeadlightPart->GetTextureName();
-
-			headlights->Update(Hashes::HEADLIGHTS, texture);
-
-			auto newName = StringHash1(lightsOn ? "_ON" : "_OFF", texture);
-			headlightsOnOff->Update(lightsOn ? Hashes::HEADLIGHTS_ON : Hashes::HEADLIGHTS_OFF, newName);
-
-			newName = StringHash1(lightsOn ? "_GLASS_ON" : "_GLASS_OFF", texture);
-			headlightsGlass->Update(Hashes::HEADLIGHTS_GLASS, newName);
-		}
-
-		auto leftBrakelightPart = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
-		if (leftBrakelightPart)
-		{
-			auto brakelights = entries++;
-			auto brakelightsOnOff = entries++;
-			auto brakelightsGlass = entries++;
-
-			auto texture = leftBrakelightPart->GetTextureName();
-
-			brakelights->Update(Hashes::BRAKELIGHTS, texture);
-
-			auto newName = StringHash1(Game::InRace() ? (carRenderInfo->IsLeftBrakelightOn() ? "_ON" : "_ONF") : "_OFF", texture);
-			brakelightsOnOff->Update(Game::InRace() ? Hashes::BRAKELIGHTS_ON : Hashes::BRAKELIGHTS_OFF, newName);
-
-			newName = StringHash1(Game::InRace() ? "_GLASS_ON" : "_GLASS_OFF", texture);
-			brakelightsGlass->Update(Hashes::BRAKELIGHTS_GLASS, newName);
-		}
-
-		Hash carHash = StringHash(rideInfo->GetCarTypeName());
-		bool isReverseOn = carRenderInfo->IsReverseOn();
-		auto newName = isReverseOn ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash);
-		auto reverse = entries++;
-		reverse->Update(isReverseOn ? Hashes::REVERSE_ON : Hashes::REVERSE_OFF, newName);
-
-		newName = Game::InRace() ? StringHash1("_INTERIOR_ON", carHash) : StringHash1("_INTERIOR_OFF", carHash);
-		auto interiorOn = entries++;
-		interiorOn->Update(Game::InRace() ? Hashes::INTERIOR_ON : Hashes::INTERIOR_OFF, newName);
+		bool lightsOn = Game::InRace() && carRenderInfo->IsGlareOn();
+		headlightHash = lightsOn ? headlightOn : headlightOff;
+		headlighGlasstHash = lightsOn ? headlightGlassOn : headlightGlassOff;
 	}
 	else
 	{
-		carRenderInfo->UpdateLightStateTextures();
+		headlightHash = headlightOn;
+		headlighGlasstHash = headlightGlassOn;
 	}
+
+	headlightLeft->Update(Hashes::HEADLIGHT_LEFT, headlightHash);
+	headlightRight->Update(Hashes::HEADLIGHT_RIGHT, headlightHash);
+	headlightGlassLeft->Update(Hashes::HEADLIGHT_GLASS_LEFT, headlighGlasstHash);
+	headlightGlassRight->Update(Hashes::HEADLIGHT_GLASS_RIGHT, headlighGlasstHash);
+
+	auto brakelightLeft = entries++;
+	auto brakelightRight = entries++;
+	auto brakelightGlassLeft = entries++;
+	auto brakelightGlassRight = entries++;
+	auto brakelightCentre = entries++;
+	auto brakelightGlassCentre = entries++;
+
+	Hash brakelightHash, brakelightGlassHash;
+	Hash brakelightOnf = StringHash1("_ONF", brakelight);
+	Hash brakelightOn = StringHash1("_ON", brakelight);
+	Hash brakelightGlassOn = StringHash1("_GLASS_ON", brakelight);
+	Hash brakelightGlassOff = StringHash1("_GLASS_OFF", brakelight);
+	Hash brakelightGlassOnf = StringHash1("_GLASS_ONF", brakelight);
+	Hash brakelightOff = StringHash1("_OFF", brakelight);
+
+	brakelightCentre->Update(Hashes::BRAKELIGHT_CENTRE, carRenderInfo->IsLeftBrakelightOn() ? brakelightOn : brakelightOff);
+	brakelightGlassCentre->Update(Hashes::BRAKELIGHT_GLASS_CENTRE, carRenderInfo->IsLeftBrakelightOn() ? brakelightGlassOn : brakelightGlassOff);
+
+	if (TextureInfo::Get(brakelightOnf, false, false) && Game::InRace())
+	{
+		brakelightOff = brakelightOnf;
+	}
+
+	if (TextureInfo::Get(brakelightGlassOnf, false, false) && Game::InRace())
+	{
+		brakelightGlassOff = brakelightGlassOnf;
+	}
+
+	brakelightLeft->Update(Hashes::BRAKELIGHT_LEFT, carRenderInfo->IsLeftBrakelightOn() ? brakelightOn : brakelightOff);
+	brakelightRight->Update(Hashes::BRAKELIGHT_RIGHT, carRenderInfo->IsRightBrakelightOn() ? brakelightOn : brakelightOff);
+
+	brakelightGlassLeft->Update(Hashes::BRAKELIGHT_GLASS_LEFT, carRenderInfo->IsLeftBrakelightOn() ? brakelightGlassOn : brakelightGlassOff);
+	brakelightGlassRight->Update(Hashes::BRAKELIGHT_GLASS_RIGHT, carRenderInfo->IsRightBrakelightOn() ? brakelightGlassOn : brakelightGlassOff);
+
+	// Reverse
+	auto reverse = entries++;
+	Hash carHash = StringHash(rideInfo->GetCarTypeName());
+	reverse->Update(Hashes::REVERSE, carRenderInfo->IsReverseOn() ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash));
+
+	// Interior
+	auto interior = entries++;
+	Hash interiorHash = GetInteriorBaseTexture(rideInfo);
+	Hash interiorOff = StringHash1("_OFF", interiorHash);
+	Hash interiorOn = StringHash1("_ON", interiorHash);
+	if (TextureInfo::Get(interiorOff, false, false))
+	{
+		interiorHash = Game::InRace() ? interiorOn : interiorOff;
+	}
+	else
+	{
+		interiorHash = interiorOn;
+	}
+
+	interior->Update(Hashes::INTERIOR_GLOW, interiorHash);
 }
 
 void SetTextureHash(Hash* texPtr, Hash hash)
@@ -76,17 +127,18 @@ void SetTextureHash(Hash* texPtr, Hash hash)
 		// We already have this texture
 		if (texPtr[i] == hash)
 		{
-			break;
+			return;
 		}
 
 		if (texPtr[i] == 0)
 		{
 			texPtr[i] = hash;
-			break;
+			texPtr[0xD0]++;
+			return;
 		}
 	}
 
-	texPtr[0xD0]++;
+	MessageBoxA(NULL, "Unable to set texture hash! Please report.", "Extended Customization", MB_ICONERROR);
 }
 
 void SetWheelTexture(Hash* texPtr, RideInfo* rideInfo, Slot slot)
@@ -104,54 +156,49 @@ void SetWheelTexture(Hash* texPtr, RideInfo* rideInfo, Slot slot)
 
 void __stdcall GetUsedCarTextureInfo(Hash* texPtr, RideInfo* rideInfo)
 {
+	Hash carHash = StringHash(rideInfo->GetCarTypeName());
+
 	SetWheelTexture(texPtr, rideInfo, Slot::FRONT_WHEEL);
 	SetWheelTexture(texPtr, rideInfo, Slot::REAR_WHEEL);
 
+	Hash brakelightOnf = StringHash1("_KIT00_BRAKELIGHT_ONF", carHash);
+	Hash brakelightGlassOnf = StringHash1("_KIT00_BRAKELIGHT_GLASS_ONF", carHash);
 	auto leftBrakelight = rideInfo->GetPart(Slot::LEFT_BRAKELIGHT);
 	if (leftBrakelight)
 	{
 		auto texture = leftBrakelight->GetTextureName();
-		SetTextureHash(texPtr, texture);
-		SetTextureHash(texPtr, StringHash1("_ONF", texture));
-	}
-
-	auto leftHeadlight = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
-	if (leftHeadlight)
-	{
-		auto texture = leftHeadlight->GetTextureName();
-		SetTextureHash(texPtr, texture);
-	}
-
-	Hash carHash = StringHash(rideInfo->GetCarTypeName());
-	SetTextureHash(texPtr, StringHash1("_REVERSE_ON", carHash));
-	SetTextureHash(texPtr, StringHash1("_REVERSE_OFF", carHash));
-	SetTextureHash(texPtr, StringHash1("_INTERIOR_ON", carHash));
-
-	auto interior = rideInfo->GetPart(Slot::INTERIOR);
-	if (interior)
-	{
-		auto textureName = interior->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
-		if (textureName)
+		if (texture)
 		{
-			SetTextureHash(texPtr, textureName);
+			brakelightOnf = StringHash1("_ONF", texture);
+			brakelightGlassOnf = StringHash1("_GLASS_ONF", texture);
 		}
 	}
 
-	// Emissive
-	SetTextureHash(texPtr, StringHash1("_INTERIOR_E", carHash));
+	SetTextureHash(texPtr, brakelightOnf);
+	SetTextureHash(texPtr, brakelightGlassOnf);
+
+	SetTextureHash(texPtr, StringHash1("_REVERSE_ON", carHash));
+	SetTextureHash(texPtr, StringHash1("_REVERSE_OFF", carHash));
+
+	Hash interiorHash = GetInteriorBaseTexture(rideInfo);
+	SetTextureHash(texPtr, StringHash1("_ON", interiorHash));
+	SetTextureHash(texPtr, StringHash1("_OFF", interiorHash));
+	SetTextureHash(texPtr, StringHash1("_N", interiorHash));
+	SetTextureHash(texPtr, interiorHash);
 }
 
 void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
 {
-	auto interior = carRenderInfo->pRideInfo->GetPart(Slot::INTERIOR);
-	if (interior)
+	Hash interiorHash = GetInteriorBaseTexture(carRenderInfo->pRideInfo);
+	if (interiorHash)
 	{
-		auto textureName = interior->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
-		if (textureName)
+		if (!TextureInfo::Get(interiorHash, false, false))
 		{
-			auto badgingEntry = carRenderInfo->Get< ReplacementTextureEntry>(0x5C4);
-			badgingEntry->Set(Hashes::INTERIOR, textureName);
+			interiorHash = StringHash1("_OFF", interiorHash);
 		}
+
+		auto badgingEntry = carRenderInfo->Get<ReplacementTextureEntry>(0x5C4);
+		badgingEntry->Set(Hashes::INTERIOR, interiorHash);
 	}
 }
 
@@ -196,5 +243,5 @@ void InitTextures()
 
 	injector::MakeCALL(0x007DE789, UpdateLightStateTextures);
 
-	injector::MakeJMP(0x007D9E14, HandleTextureReplacementsCave);	
+	injector::MakeJMP(0x007D9E14, HandleTextureReplacementsCave);
 }
