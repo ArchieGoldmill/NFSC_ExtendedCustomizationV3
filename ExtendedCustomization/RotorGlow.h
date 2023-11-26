@@ -88,7 +88,7 @@ public:
 
 	void RenderMarkers()
 	{
-		if (!this->rotorRadius)
+		if (!this->rotorRadius || !this->markerCount)
 		{
 			return;
 		}
