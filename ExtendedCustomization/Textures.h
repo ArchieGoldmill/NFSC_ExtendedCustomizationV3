@@ -200,6 +200,13 @@ void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
 		auto badgingEntry = carRenderInfo->Get<ReplacementTextureEntry>(0x5C4);
 		badgingEntry->Set(Hashes::INTERIOR, interiorHash);
 	}
+
+	auto spoilerPart = carRenderInfo->pRideInfo->GetPart(Slot::SPOILER);
+	if (spoilerPart)
+	{
+		auto driverEntry = carRenderInfo->Get<ReplacementTextureEntry>(0x60C);
+		driverEntry->Set(Hashes::SPOILER_SKIN, spoilerPart->IsCarbon() ? Hashes::CARBONFIBRE : Hashes::METAL_SWATCH);
+	}
 }
 
 void __declspec(naked) GetUsedCarTextureInfoCave()

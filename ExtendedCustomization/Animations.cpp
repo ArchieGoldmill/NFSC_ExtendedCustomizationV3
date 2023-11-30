@@ -70,13 +70,13 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, eView* view,
 void __fastcall RenderSpoiler(eView* view, int, CarRenderInfo* carRenderInfo, eModel* model, D3DXMATRIX* marker, void* light, int data, int a1, int a2)
 {
 	auto spoiler = carRenderInfo->pRideInfo->GetPart(Slot::SPOILER);
-	if (spoiler && spoiler->GetUpgradeLevel() > 0)
+	if (spoiler && spoiler->GetUpgradeLevel() > 0 && !carRenderInfo->Markers.Spoiler)
 	{
-		if (!carRenderInfo->Markers.Spoiler)
-		{
-			return;
-		}
+		return;
 	}
+
+	model->ReplaceLightMaterial(Hashes::SPOILERSKIN, spoiler->IsCarbon() ? eLightMaterial::Get(Hashes::CARBONFIBER, 0) : 
+		(carRenderInfo->Materials.Spoiler ? carRenderInfo->Materials.Spoiler : carRenderInfo->Materials.Body));
 
 	eModel** pModel = &model;
 	RenderParts(carRenderInfo, Slot::SPOILER, view, pModel, marker, light, data);
