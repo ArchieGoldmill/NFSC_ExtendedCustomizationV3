@@ -30,25 +30,44 @@ void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId, bool autos
 	}
 }
 
-void AddWheelBrands(FeCustomizeParts* _this, Slot slot)
+int AddWheelBrands(FeCustomizeParts* _this, Slot slot)
 {
 	_this->Header->SetLanguageHash(Hashes::CUST_MAINMENU_FRONT_RIMS);
+
 	int wheelSize = 17;
+	Hash currentBrand = 0;
+	int initialOption = 0;
+
 	auto part = FrontEndRenderingCar::Get()->RideInfo.GetPart(slot);
 	if (part)
 	{
 		wheelSize = part->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, wheelSize);
+		currentBrand = part->GetAppliedAttributeIParam(Hashes::BRAND_NAME, 0);
 	}
 
+	int i = 0;
 	for (auto& wheel : WheelBrands)
 	{
+		if (currentBrand)
+		{
+			if (wheel.Brand == currentBrand)
+			{
+				initialOption = i;
+			}
+
+			i++;
+		}
+
 		_this->AddMenuOption(wheel.Header, slot, _this->IsAutosculpt, wheelSize);
 	}
+
+	return initialOption;
 }
 
 void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 {
 	auto carId = FrontEndRenderingCar::GetCarId();
+	int initialOption = 0;
 
 	switch (FeCustomizeMain::SelectedItem)
 	{
@@ -59,6 +78,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::REAR_BUMPER, carId);
 		AddMenuOption(_this, Slot::SKIRT, carId);
 		AddMenuOption(_this, Slot::HOOD, carId);
+		AddMenuOption(_this, Slot::ROOF, carId);
 		AddMenuOption(_this, Slot::ROOFSCOOP, carId);
 		AddMenuOption(_this, Slot::SPOILER, carId);
 		AddMenuOption(_this, Slot::EXHAUST, carId);
@@ -87,10 +107,10 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::FRONT_WHEEL, carId, true);
 		break;
 	case CustomizeMainMenu::FRONT_WHEELS:
-		AddWheelBrands(_this, Slot::FRONT_WHEEL);
+		initialOption = AddWheelBrands(_this, Slot::FRONT_WHEEL);
 		break;
 	case CustomizeMainMenu::REAR_WHEELS:
-		AddWheelBrands(_this, Slot::REAR_WHEEL);
+		initialOption = AddWheelBrands(_this, Slot::REAR_WHEEL);
 		break;
 	case CustomizeMainMenu::ATTACHMENTS:
 		_this->Header->SetLanguageHash(Hashes::CUST_INSTALL);
@@ -114,6 +134,9 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 
 		break;
 	}
+
+	_this->FinishAddingOptions();
+	_this->SetInitialOption(initialOption);
 }
 
 Hash __fastcall StandardSelectablePart_GetCategoryHash(StandardSelectablePart* _this)
@@ -168,7 +191,7 @@ void InitFeCustomizePartsMenu()
 	injector::MakeJMP(0x00866074, PopulateAllOptionsCave);
 
 	// Start part menu from first part in list
-	injector::WriteMemory<BYTE>(0x0086623F, 0);
+	injector::MakeNOP(0x00866239, 12);
 
 	injector::WriteMemory(0x009F9D14, StandardSelectablePart_GetCategoryHash);
 	injector::WriteMemory(0x009F9F6C, AutosculptSelectablePart_GetCategoryHash);
