@@ -8,21 +8,24 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 {
 	if (GetAsyncKeyState(hk))
 	{
-		auto anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetAnimation(slot);
-		if (anim)
+		if (*Game::FePhotoModeMenuScreen_Instance)
 		{
-			anim->Toggle();
-			if (slot == Slot::LEFT_HEADLIGHT)
+			auto anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetAnimation(slot);
+			if (anim)
 			{
-				anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetAnimation(Slot::RIGHT_HEADLIGHT);
-				if (anim)
+				anim->Toggle();
+				if (slot == Slot::LEFT_HEADLIGHT)
 				{
-					anim->Toggle();
+					anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetAnimation(Slot::RIGHT_HEADLIGHT);
+					if (anim)
+					{
+						anim->Toggle();
+					}
 				}
 			}
-		}
 
-		while ((GetAsyncKeyState(hk) & 0x8000) > 0) { Sleep(0); }
+			while ((GetAsyncKeyState(hk) & 0x8000) > 0) { Sleep(0); }
+		}
 	}
 }
 
@@ -39,29 +42,28 @@ DWORD WINAPI HandleUserInput(LPVOID arg)
 {
 	while (true)
 	{
-		if (*Game::FePhotoModeMenuScreen_Instance)
+		if (Game::InFrontEnd())
 		{
-			if (Game::InFrontEnd())
-			{
-				auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-				HandleUserInput1(rideInfo->CarRenderInfo);
-			}
+			auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
+			HandleUserInput1(rideInfo->CarRenderInfo);
+		}
 
-			if (Game::InRace())
+		if (Game::InRace())
+		{
+			int count = CarRenderConn::GetListCount();
+			auto list = CarRenderConn::GetList();
+			for (int i = 0; i < count; i++)
 			{
-				int count = CarRenderConn::GetListCount();
-				auto list = CarRenderConn::GetList();
-				for (int i = 0; i < count; i++)
+				auto carRenderInfo = list[i]->pCarRenderInfo;
+				if (carRenderInfo->IsPlayer())
 				{
-					auto carRenderInfo = list[i]->pCarRenderInfo;
-					if (carRenderInfo->IsPlayer())
-					{
-						HandleUserInput1(carRenderInfo);
-						break;
-					}
+					HandleUserInput1(carRenderInfo);
+					break;
 				}
 			}
 		}
+
+		Sleep(100);
 	}
 
 	return 0;
