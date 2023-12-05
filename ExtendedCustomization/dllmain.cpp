@@ -31,6 +31,8 @@ void Init()
 	InitConfig();
 	SteerAngle = FESteerAngle();
 
+	D3DXMatrixScaling(&CenterMarker, 1, 1, 1);
+
 	InitAnimations();
 	InitCustomization();
 	InitTextures();

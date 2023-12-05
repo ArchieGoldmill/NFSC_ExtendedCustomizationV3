@@ -84,7 +84,7 @@ struct DBCarPart
 
 	bool IsCarbon()
 	{
-		return this->GetAppliedAttributeBParam(Hashes::CARBONFIBRE, 0);
+		return this->GetAppliedAttributeBParam(Hashes::CARBONFIBRE, false);
 	}
 
 	bool IsStock()
@@ -164,17 +164,24 @@ struct DBCarPart
 					if (markerPart && markerPart->HasMarker(markerName) >= 0)
 					{
 						auto marker = markerPart->GetMarker(markerName);
-						if (marker)
+						if (!marker)
 						{
-							if (scale)
-							{
-								*scale = markerPart->GetMarkerScale(markerName);
-							}
-
-							return marker;
+							marker = &CenterMarker;
 						}
+
+						if (scale)
+						{
+							*scale = markerPart->GetMarkerScale(markerName);
+						}
+
+						return marker;
 					}
 				}
+			}
+			else
+			{
+				// No need to check all indexes
+				break;
 			}
 		}
 

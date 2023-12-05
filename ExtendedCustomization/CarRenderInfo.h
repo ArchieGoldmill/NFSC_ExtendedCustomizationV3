@@ -143,7 +143,7 @@ public:
 		_UpdateWheelYRenderOffset(this);
 	}
 
-	bool HasExhaustMerker()
+	bool HasExhaustMarker()
 	{
 		return this->Markers.LeftExhaust || this->Markers.RightExhaust || this->Markers.CenterExhaust;
 	}

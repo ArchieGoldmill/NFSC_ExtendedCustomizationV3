@@ -46,7 +46,7 @@ void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSli
 {
 	if (fxMarker->Hash == Hashes::EXHAUST_FX)
 	{
-		if (carRenderInfo->HasExhaustMerker())
+		if (carRenderInfo->HasExhaustMarker())
 		{
 			if (strstr(model->Solid->Name, "EXHAUST"))
 			{

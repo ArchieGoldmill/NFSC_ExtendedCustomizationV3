@@ -22,7 +22,7 @@ namespace Legacy
 
 			if (slot == Slot::EXHAUST)
 			{
-				return !carRenderInfo->HasExhaustMerker();
+				return !carRenderInfo->HasExhaustMarker();
 			}
 		}
 
