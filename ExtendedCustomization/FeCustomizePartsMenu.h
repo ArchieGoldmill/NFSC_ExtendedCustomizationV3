@@ -186,6 +186,28 @@ int __fastcall GetPrice(StandardSelectablePart* selectablePart)
 	return selectablePart->GetPrice();
 }
 
+Hash __fastcall GetPartNameForSelected3(StandardSelectablePart* selectablePart)
+{
+	return selectablePart->Part->GetPartNameHash();
+}
+
+Hash __fastcall GetPartNameForSelected2(DBCarPart* part, int, Hash, int)
+{
+	return part->GetPartNameHash();
+}
+
+Hash __fastcall GetPartNameForSelected1(CarCustomizeManager* carCustomizeManager, int, FECustomizationRecord* record, Slot slot)
+{
+	auto carType = FECarRecord::GetCarType();
+	auto part = record->GetInstalledPart(carType, slot);
+	if (part)
+	{
+		return part->GetPartNameHash();
+	}
+
+	return Hashes::CUST_PART_MISSINGSTRING;
+}
+
 void InitFeCustomizePartsMenu()
 {
 	injector::MakeJMP(0x00866074, PopulateAllOptionsCave);
@@ -198,4 +220,12 @@ void InitFeCustomizePartsMenu()
 
 	injector::WriteMemory(0x009F9D1C, GetPrice);
 	injector::WriteMemory(0x009F9F74, GetPrice);
+
+	// Make slected part search by part name rather then languagehash
+	injector::MakeCALL(0x0085FA93, GetPartNameForSelected1);
+	injector::MakeCALL(0x0085FC1A, GetPartNameForSelected2);
+	injector::WriteMemory<unsigned short>(0x0085FA61, 0xC88B);
+	injector::MakeCALL(0x0085FA63, GetPartNameForSelected3);
+	injector::WriteMemory<unsigned short>(0x0085FC2F, 0xCE8B);
+	injector::MakeCALL(0x0085FC31, GetPartNameForSelected3);
 }
