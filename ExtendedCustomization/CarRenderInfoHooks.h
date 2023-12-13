@@ -35,7 +35,7 @@ void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
 double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, eView* a2, D3DXVECTOR4* a3, float a4, D3DXMATRIX* a5, D3DXMATRIX* a6, D3DXMATRIX* a7)
 {
 	carRenderInfo->Extras->IsVisible = true;
-	carRenderInfo->Extras->CarMatrix = *carRenderInfo->GetMatrix();
+	carRenderInfo->Extras->CarMatrix = *carRenderInfo->Matrix;
 
 	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
 	SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, a2, a3, a4, a5, a6, a7);

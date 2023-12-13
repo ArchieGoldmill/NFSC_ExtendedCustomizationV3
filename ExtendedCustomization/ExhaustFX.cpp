@@ -6,12 +6,6 @@
 #include "eModel.h"
 #include "CarRenderInfoExtras.h"
 
-struct CarEmitterPosition : bSNode<CarEmitterPosition>
-{
-	D3DVECTOR Position;
-	PositionMarker* Marker;
-};
-
 void CreateEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker, bSlist<CarEmitterPosition>* list, int* counter)
 {
 	(*counter)++;

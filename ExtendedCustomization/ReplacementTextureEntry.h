@@ -3,9 +3,8 @@
 #include "TextureInfo.h"
 #include "Game.h"
 
-class ReplacementTextureEntry
+struct ReplacementTextureEntry
 {
-public:
 	Hash OldName = 0;
 	Hash NewName = 0;
 	TextureInfo* Texture = 0;

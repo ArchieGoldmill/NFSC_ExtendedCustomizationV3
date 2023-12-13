@@ -8,6 +8,8 @@
 #include "CarRenderConn.h"
 #include "eView.h"
 #include "DBCarPart.h"
+#include "eLightFlare.h"
+#include "eDynamicLightPack.h"
 
 struct PositionMarkers
 {
@@ -45,27 +47,128 @@ struct WheelData
 	float BrakeMarkerY[2];
 };
 
-class CarRenderInfoExtras;
-class CarRenderInfo
+struct CarEmitterPosition : bSNode<CarEmitterPosition>
 {
-public:
-	char unk_1[0x370];
+	D3DVECTOR Position;
+	PositionMarker* Marker;
+};
+
+struct AutoSculptRender
+{
+	eModel Models[0x15][12];
+	int HighlightRegion;
+	int HighlightZone;
+	bool HighlightEnabled;
+	bool HighlightRenderAllEnabled;
+	bool Initialized;
+	CarRenderInfo* RenderInfo;
+	TextureInfo* HighLightTexture;
+	eView* SelectionView;
+};
+
+struct UsedCarTextureInfo
+{
+	Hash TexturesToLoadPerm[104];
+	Hash TexturesToLoadTemp[104];
+	int NumTexturesToLoadPerm;
+	int NumTexturesToLoadTemp;
+	Hash SKIN1;
+	Hash SKIN1B;
+	Hash GLOBAL_SKIN1;
+	Hash WHEEL;
+	Hash SPINNER_TEXTURE;
+	Hash BADGING;
+	Hash SPOILER_SKIN1;
+	Hash ROOF_SKIN;
+	Hash _unk1;
+	Hash HEADLIGHT_LEFT;
+	Hash HEADLIGHT_RIGHT;
+	Hash BRAKELIGHT_LEFT;
+	Hash BRAKELIGHT_RIGHT;
+	Hash BRAKELIGHT_CENTRE;
+	Hash HEADLIGHT_GLASS_LEFT;
+	Hash HEADLIGHT_GLASS_RIGHT;
+	Hash BRAKELIGHT_GLASS_LEFT;
+	Hash BRAKELIGHT_GLASS_RIGHT;
+	Hash BRAKELIGHT_GLASS_CENTRE;
+	Hash _unk2;
+	Hash TIRE;
+	Hash RIM;
+	Hash RIM_BLUR;
+	Hash LICENSE_PLATE;
+	Hash PrecompileSkin;
+	Hash _unk3;
+	Hash PrecompileSkin4;
+	Hash CompositeSkinHash;
+	Hash CompositeWheelHash;
+	Hash PrecompileSkin2;
+	Hash PrecompileSkin3;
+	Hash _unk4;
+	Hash HEADLIGHT_OFF;
+	Hash HEADLIGHT_ON;
+	Hash HEADLIGHT_DAMAGE0;
+	Hash HEADLIGHT_GLASS_OFF;
+	Hash HEADLIGHT_GLASS_ON;
+	Hash HEADLIGHT_GLASS_DAMAGE0;
+	Hash BRAKELIGHT_OFF;
+	Hash BRAKELIGHT_ON;
+	Hash BRAKELIGHT_DAMAGE0;
+	Hash BRAKELIGHT_GLASS_OFF;
+	Hash BRAKELIGHT_GLASS_ON;
+	Hash BRAKELIGHT_GLASS_DAMAGE0;
+	Hash _unk5;
+	Hash _unk6;
+	Hash _unk7;
+	Hash SHADOW;
+};
+
+class CarRenderInfoExtras;
+struct CarRenderInfo
+{
+	D3DXMATRIX ExhaustLocalWorldCopy[3];
+	D3DXMATRIX TireLocalWorldCopy[4];
+	D3DXMATRIX SpoilerLocalWorldCopy;
+	D3DXMATRIX RoofScoopLocalWorldCopy;
+	D3DXMATRIX LastFewMatrices[3];
+	D3DXVECTOR4 LastFewPositions[3];
+	short MatrixIndex;
+	short TailDrag;
+	float AnimTime;
+	int CarFrame;
+	float CarTimebaseStart;
+	D3DXVECTOR4 Velocity;
+	D3DXVECTOR4 AngularVelocity;
+	D3DXVECTOR4 Acceleration;
 	D3DXVECTOR3 BoundingBoxMin;
 	CarRenderInfoExtras* Extras;
 	D3DXVECTOR4 BoundingBoxMax;
 	char unk_2[0x5C];
-	bool IsHoodCarbon;
-	char unk_3[3];
+	int IsHoodCarbon;
 	RideInfo* pRideInfo;
 	void* CarTypeInfo;
 	TextureInfo* CarShadowTexture;
 	TextureInfo* CarShadowRampTexture;
 	CarMaterials Materials;
 	PositionMarkers Markers;
-	char unk_4[0x18];
+	int unk_4[4];
+	bTList<eLightFlare> LightFlares;
 	WheelData WheelData;
-	char unk_5[0x818];
-	eModel* PartModel[0x59][5];
+	bSlist<CarEmitterPosition> EmitterPositions[28];
+	ReplacementTextureEntry BodyReplacementTextures[74];
+	ReplacementTextureEntry HoodReplacementTextures[74];
+	ReplacementTextureEntry DecalReplacementTextures[2];
+	ReplacementTextureEntry CaliperReplacementTextures[2][2];
+	eModel* PartModel[0x5A][5];
+	int unk_5[6];
+	eDynamicLightPack DynamicLightPack;
+	eDynamicLight DynamicLightsTable[2];
+	int unk_6[5];
+	int KitNumber;
+	AutoSculptRender AutosculptRender;
+	D3DXMATRIX* Matrix;
+	UsedCarTextureInfo UsedTextureInfo;
+	int LightsState1;
+	int LightsState2;
 
 	void Ctor(RideInfo* rideInfo)
 	{
@@ -84,11 +187,6 @@ public:
 	{
 		auto ptr = (BYTE*)this;
 		return (T*)(ptr + offset);
-	}
-
-	D3DXMATRIX* GetMatrix()
-	{
-		return *this->Get<D3DXMATRIX*>(0x2CB4);
 	}
 
 	bool IsLeftBrakelightOn()
@@ -154,12 +252,8 @@ public:
 		return _SetPlayerDamage(this, damage);
 	}
 
-private:
 	bool IsBrakelightOn(int b)
 	{
-		auto a1 = this->Get<BYTE>(0x30C4);
-		auto a2 = this->Get<BYTE>(0x30C0);
-
-		return (*a1 & b) == 0 && (*a2 & b) != 0;
+		return (this->LightsState2 & b) == 0 && (this->LightsState1 & b) != 0;
 	}
 };

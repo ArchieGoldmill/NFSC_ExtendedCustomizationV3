@@ -94,7 +94,7 @@ private:
 			target = &materialData->LightMaterial;
 			if (num == 4)
 			{
-				this->carRenderInfo->IsHoodCarbon = true;
+				this->carRenderInfo->IsHoodCarbon = 1;
 			}
 		}
 		else
