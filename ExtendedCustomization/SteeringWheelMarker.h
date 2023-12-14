@@ -8,7 +8,7 @@ private:
 	float angle;
 
 public:
-	SteeringWheelMarker(Slot slot, D3DXMATRIX* marker, D3DXVECTOR3 scale, CarRenderInfo* carRenderInfo) : PartMarker(slot, marker, scale, carRenderInfo)
+	SteeringWheelMarker(Slot slot, D3DXMATRIX* marker, D3DXVECTOR3 scale, CarRenderInfo* carRenderInfo) : PartMarker(slot, Slot::INVALID, marker, scale, carRenderInfo)
 	{
 		this->angle = 0;
 	}

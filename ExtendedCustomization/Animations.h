@@ -41,12 +41,20 @@ public:
 			if (part && part->HasMarkerName())
 			{
 				D3DXVECTOR3 scale;
-				auto marker = part->GetAttachMarker(rideInfo, &scale);
-				if (marker)
+				auto result = part->GetAttachMarker(rideInfo, &scale);
+				if (result.first)
 				{
-					this->partMarkers.push_back(slot == Slot::STEERINGWHEEL ?
-						new SteeringWheelMarker(slot, marker, scale, this->carRenderInfo) :
-						new PartMarker(slot, marker, scale, this->carRenderInfo));
+					PartMarker* partMarker;
+					if (slot == Slot::STEERINGWHEEL)
+					{
+						partMarker = new SteeringWheelMarker(slot, result.first, scale, this->carRenderInfo);
+					}
+					else
+					{
+						partMarker = new PartMarker(slot, result.second, result.first, scale, this->carRenderInfo);
+					}
+
+					this->partMarkers.push_back(partMarker);
 				}
 			}
 		}
@@ -75,7 +83,7 @@ public:
 		}
 	}
 
-	IPartMarker* GetAnimation(Slot slot)
+	IPartAnimation* GetPartAnimation(Slot slot)
 	{
 		for (auto anim : this->partAnimations)
 		{
@@ -83,6 +91,17 @@ public:
 			{
 				return anim;
 			}
+		}
+
+		return null;
+	}
+
+	IPartMarker* GetAnimation(Slot slot)
+	{
+		auto result = this->GetPartAnimation(slot);
+		if (result)
+		{
+			return result;
 		}
 
 		for (auto m : this->partMarkers)
@@ -93,7 +112,7 @@ public:
 			}
 		}
 
-		return NULL;
+		return null;
 	}
 
 	bool SlotNeedsMarker(Slot slot)

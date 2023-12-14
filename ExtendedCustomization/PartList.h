@@ -77,9 +77,9 @@ bool CheckMarker(Slot slot, DBCarPart* part)
 			if (attachSlot == slot)
 			{
 				auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-				auto marker = part->GetAttachMarker(rideInfo);
+				auto result = part->GetAttachMarker(rideInfo);
 
-				return marker == NULL;
+				return result.first == NULL;
 			}
 		}
 	}

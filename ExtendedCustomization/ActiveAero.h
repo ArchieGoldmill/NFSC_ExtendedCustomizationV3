@@ -67,4 +67,15 @@ public:
 	{
 		// do nothing
 	}
+
+	void AddSubSlot(Slot)
+	{
+		// do nothing
+	}
+
+	D3DXMATRIX Calculate()
+	{
+		MessageBoxA(NULL, "Not expected to call calculate for ActiveAero!", "Extended Customization", MB_ICONERROR);
+		exit(1);
+	}
 };

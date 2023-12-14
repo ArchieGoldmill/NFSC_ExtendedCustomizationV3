@@ -1,6 +1,7 @@
 #pragma once
 #include "Math.h"
 #include "Slots.h"
+#include "CarRenderInfo.h"
 
 class IPartMarker
 {
@@ -24,4 +25,6 @@ public:
 	virtual void Update() = 0;
 	virtual bool IsSlot(Slot slot) = 0;
 	virtual void SetTarget(float target) = 0;
+	virtual void AddSubSlot(Slot slot) = 0;
+	virtual D3DXMATRIX Calculate() = 0;
 };

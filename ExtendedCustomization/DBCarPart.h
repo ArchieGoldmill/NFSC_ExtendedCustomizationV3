@@ -4,6 +4,7 @@
 #include "eSolid.h"
 #include "RideInfo.h"
 #include <stdio.h>
+#include <utility>
 
 struct UpgradeGroup
 {
@@ -150,7 +151,7 @@ struct DBCarPart
 		return NULL;
 	}
 
-	D3DXMATRIX* GetAttachMarker(RideInfo* rideInfo, D3DXVECTOR3* scale = NULL)
+	std::pair<D3DXMATRIX*, Slot> GetAttachMarker(RideInfo* rideInfo, D3DXVECTOR3* scale = NULL)
 	{
 		for (int i = 0; i < 99; i++)
 		{
@@ -174,7 +175,7 @@ struct DBCarPart
 							*scale = markerPart->GetMarkerScale(markerName);
 						}
 
-						return marker;
+						return std::pair<D3DXMATRIX*, Slot>(marker, markerSlot);
 					}
 				}
 			}
@@ -185,7 +186,7 @@ struct DBCarPart
 			}
 		}
 
-		return NULL;
+		return std::pair<D3DXMATRIX*, Slot>(null, Slot::INVALID);
 	}
 
 	int HasMarker(Hash marker)
