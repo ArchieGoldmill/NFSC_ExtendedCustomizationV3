@@ -10,6 +10,7 @@
 #include "DBCarPart.h"
 #include "eLightFlare.h"
 #include "eDynamicLightPack.h"
+#include "CarDamage.h"
 
 struct PositionMarkers
 {
@@ -64,6 +65,20 @@ struct AutoSculptRender
 	CarRenderInfo* RenderInfo;
 	TextureInfo* HighLightTexture;
 	eView* SelectionView;
+};
+
+struct CarPartInfo
+{
+	D3DXVECTOR4 Position;
+	int NumCulledNotVisible;
+	int NumCulledVisible;
+	bool IsVisible;
+	char pad[7];
+};
+
+struct CarPartCuller
+{
+	CarPartInfo CarPartInfoTable[11];
 };
 
 struct UsedCarTextureInfo
@@ -175,6 +190,15 @@ struct CarRenderInfo
 	UsedCarTextureInfo UsedTextureInfo;
 	int LightsState1;
 	int LightsState2;
+	int MinLodLevel;
+	int MaxLodLevel;
+	int MinReflectionLodLevel;
+	float DeltaTime;
+	float Radius;
+	int unk_7;
+	CarPartCuller PartCuller;
+	int unk_8;
+	CarDamage Damage;
 
 	void Ctor(RideInfo* rideInfo)
 	{
@@ -274,5 +298,11 @@ struct CarRenderInfo
 		}
 
 		return this->Materials.Body;
+	}
+
+	void SetCarDamageState(bool state, Slot fromSlot, Slot toSlot)
+	{
+		FUNC(0x007ADA60, void, __thiscall, _SetCarDamageState, CarRenderInfo*, bool, Slot, Slot);
+		_SetCarDamageState(this, state, fromSlot, toSlot);
 	}
 };
