@@ -28,6 +28,36 @@ const int ZoneStance = 13;
 const int ZoneNeon = 14;
 const int ZoneLicenseplate = 15;
 
+enum class ReplacementTextureIndex : int
+{
+	CarSkin,
+	GlobalSkin,
+
+	Interior,
+	InteriorGlow,
+
+	WindowFront,
+	WindowFrontLeft,
+	WindowFrontRight,
+	WindowRear,
+	RearDefroster,
+	WindowRearLeft,
+	WindowRearRight,
+
+	HeadlightLeft,
+	HeadlightRight,
+	HeadlightGlassLeft,
+	HeadlightGlassRight,
+	BrakelightLeft,
+	BrakelightRight,
+	BrakelightCenter,
+	BrakelightGlassLeft,
+	BrakelightGlassRight,
+	BrakelightGlassCenter,
+
+	Reverse
+};
+
 inline Slot AttachSlots[] = {
 	Slot::ATTACHMENT0, Slot::ATTACHMENT1, Slot::ATTACHMENT2, Slot::ATTACHMENT3, Slot::ATTACHMENT4, Slot::ATTACHMENT5, Slot::ATTACHMENT6, Slot::ATTACHMENT7,
 	Slot::ATTACHMENT8, Slot::ATTACHMENT9, Slot::ATTACHMENT10, Slot::ATTACHMENT11, Slot::ATTACHMENT12, Slot::ATTACHMENT13, Slot::ATTACHMENT14,Slot::ATTACHMENT15,
@@ -36,11 +66,11 @@ inline Slot AttachSlots[] = {
 
 inline Slot KitwSlots[] = {
 	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::HEADLIGHT, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT,
-	Slot::LEFT_SIDE_MIRROR, Slot::DOOR_LEFT, Slot::EXHAUST, Slot::SPOILER, Slot::FRONT_WINDOW, Slot::REAR_WINDOW, Slot::REAR_LEFT_WINDOW, Slot::REAR_RIGHT_WINDOW, 
+	Slot::LEFT_SIDE_MIRROR, Slot::DOOR_LEFT, Slot::EXHAUST, Slot::SPOILER, Slot::FRONT_WINDOW, Slot::REAR_WINDOW, Slot::REAR_LEFT_WINDOW, Slot::REAR_RIGHT_WINDOW,
 	Slot::INTERIOR, Slot::ROOF, Slot::FRONT_LEFT_WINDOW, Slot::FRONT_RIGHT_WINDOW
 };
 
-inline Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR, Slot::SKIRT, Slot::BODY, Slot::ROOF, Slot_Trunk };
+inline Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR, Slot::SKIRT, Slot::BODY, Slot::ROOF, Slot_Trunk, Slot::HOOD };
 
 inline Slot NeonSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot::INTERIOR };
 

@@ -46,5 +46,6 @@ void InitReplacementTextures()
 		injector::MakeJMP(0x007D5743, AttachReplacementTextureTableCave, true);
 	}
 
+	// Make hood use generic AttachReplacementTextureTable 
 	injector::WriteMemory<BYTE>(0x007D5694, 0xFF);
 }

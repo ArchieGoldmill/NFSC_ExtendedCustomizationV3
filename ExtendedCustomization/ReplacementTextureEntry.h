@@ -32,7 +32,14 @@ struct ReplacementTextureEntry
 		{
 			this->OldName = 0;
 			this->NewName = 0;
-			this->Texture = 0;
+			this->Texture = TextureInfo::Invalid;
 		}
+	}
+
+	void Clear()
+	{
+		this->OldName = 0;
+		this->NewName = 0;
+		this->Texture = TextureInfo::Invalid;
 	}
 };

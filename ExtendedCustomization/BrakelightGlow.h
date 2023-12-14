@@ -19,7 +19,8 @@ public:
 
 	void RenderShadow(eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 	{
-		if (this->Texture && Game::InRace())
+		bool isDamaged = this->carRenderInfo->Damage.IsBrakelightLeftDamaged() || this->carRenderInfo->Damage.IsBrakelightRightDamaged();
+		if (this->Texture && Game::InRace() && !isDamaged)
 		{
 			// Backup
 			auto backup = this->carRenderInfo->CarShadowTexture;

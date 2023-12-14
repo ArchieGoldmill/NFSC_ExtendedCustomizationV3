@@ -227,24 +227,28 @@ struct CarRenderInfo
 		return this->IsBrakelightOn(0x20);
 	}
 
+	PVehicle* GetPVehicle()
+	{
+		if (Game::InRace())
+		{
+			auto carRenderConn = CarRenderConn::Get(this);
+			if (carRenderConn)
+			{
+				return carRenderConn->GetPVehicle();
+			}
+		}
+
+		return null;
+	}
+
 	bool IsReverseOn()
 	{
 		return this->IsBrakelightOn(0xC0);
 	}
 
-	bool IsGlareOn()
+	bool IsGlareOn(VehicleFX vehicleFX)
 	{
-		auto carRenderConn = CarRenderConn::Get(this);
-		if (carRenderConn)
-		{
-			auto pVehicle = carRenderConn->GetPVehicle();
-			if (pVehicle)
-			{
-				return pVehicle->IsGlareOn(7);
-			}
-		}
-
-		return false;
+		return (this->LightsState1 & (int)vehicleFX) != 0;
 	}
 
 	bool IsPlayer()
@@ -305,4 +309,11 @@ struct CarRenderInfo
 		FUNC(0x007ADA60, void, __thiscall, _SetCarDamageState, CarRenderInfo*, bool, Slot, Slot);
 		_SetCarDamageState(this, state, fromSlot, toSlot);
 	}
+
+	void CopyCarbonReplacementTable()
+	{
+		memcpy(this->CarbonReplacementTextures + 2, this->GeneralReplacementTextures + 2, 72 * 12);
+	}
+
+	void SetWindowDamage(ReplacementTextureIndex index, DamageZone damageZone, Hash from, Hash to);
 };

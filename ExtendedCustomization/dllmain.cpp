@@ -23,6 +23,7 @@
 #include "LegacyCustomization.h"
 #include "SteerAngle.h"
 #include "Version.h"
+#include "Damage.h"
 
 void Init()
 {
@@ -48,6 +49,7 @@ void Init()
 	InitPaints();
 	InitRotorGlow();
 	InitWheels();
+	InitDamage();
 
 	Legacy::InitCustomization();
 	Legacy::InitTextures();

@@ -97,6 +97,9 @@
       <Filter>Features\Paints</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="PartMarker.cpp">
+      <Filter>Features\Animations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Feature.h">
@@ -397,6 +400,18 @@
       <Filter>Features\Textures</Filter>
     </ClInclude>
     <ClInclude Include="RenderingModel.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="eLightFlare.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="eDynamicLightPack.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Damage.h">
+      <Filter>Features\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="CarDamage.h">
       <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>
