@@ -17,6 +17,7 @@ void SetWindowDamage(CarRenderInfo* carRenderInfo, ReplacementTextureIndex index
 	}
 
 	carRenderInfo->GeneralReplacementTextures[(int)index].Update(from, newHash);
+	carRenderInfo->CarbonReplacementTextures[(int)index].Update(from, newHash);
 }
 
 void __fastcall SetPlayerDamage(CarRenderInfo* carRenderInfo, int, CarDamage* pDamage)
