@@ -120,6 +120,12 @@ struct UsedCarTextureInfo
 	Hash _unk6;
 	Hash _unk7;
 	Hash SHADOW;
+
+	void AddToPerm(Hash hash)
+	{
+		FUNC(0x007B1120, int, __cdecl, _AddToPerm, Hash*, int, int, Hash);
+		this->NumTexturesToLoadPerm += _AddToPerm(this->TexturesToLoadPerm, this->NumTexturesToLoadPerm, 104, hash);
+	}
 };
 
 class CarRenderInfoExtras;
@@ -154,8 +160,8 @@ struct CarRenderInfo
 	bTList<eLightFlare> LightFlares;
 	WheelData WheelData;
 	bSlist<CarEmitterPosition> EmitterPositions[28];
-	ReplacementTextureEntry BodyReplacementTextures[74];
-	ReplacementTextureEntry HoodReplacementTextures[74];
+	ReplacementTextureEntry GeneralReplacementTextures[74];
+	ReplacementTextureEntry CarbonReplacementTextures[74];
 	ReplacementTextureEntry DecalReplacementTextures[2];
 	ReplacementTextureEntry CaliperReplacementTextures[2][2];
 	eModel* PartModel[0x5A][5];
@@ -180,13 +186,6 @@ struct CarRenderInfo
 	{
 		FUNC(0x007ADC90, void, __thiscall, _UpdateLightStateTextures, CarRenderInfo*);
 		_UpdateLightStateTextures(this);
-	}
-
-	template <typename T>
-	T* Get(int offset)
-	{
-		auto ptr = (BYTE*)this;
-		return (T*)(ptr + offset);
 	}
 
 	bool IsLeftBrakelightOn()
@@ -255,5 +254,25 @@ struct CarRenderInfo
 	bool IsBrakelightOn(int b)
 	{
 		return (this->LightsState2 & b) == 0 && (this->LightsState1 & b) != 0;
+	}
+
+	eLightMaterial* ResolveMaterial(Slot slot)
+	{
+		if (slot == Slot::SPOILER && this->Materials.Spoiler)
+		{
+			return this->Materials.Spoiler;
+		}
+
+		if (slot == Slot::ROOFSCOOP && this->Materials.RoofScoop)
+		{
+			return this->Materials.RoofScoop;
+		}
+
+		if (slot == Slot::HOOD && this->Materials.Hood)
+		{
+			return this->Materials.Hood;
+		}
+
+		return this->Materials.Body;
 	}
 };

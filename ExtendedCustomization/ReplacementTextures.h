@@ -5,15 +5,23 @@
 #include "ReplacementTextureEntry.h"
 #include "CarRenderInfoExtras.h"
 
-void __fastcall AttachReplacementTextureTable(eModel* model, int, CarRenderInfo* carRenderInfo, ReplacementTextureEntry* nodes, int count, int)
+void __fastcall AttachReplacementTextureTable(eModel* model, int, CarRenderInfo* carRenderInfo, Slot slot, ReplacementTextureEntry* nodes, int count, int)
 {
-	if (carRenderInfo->Extras->LicensePlateText && strstr(model->Solid->Name, "LICENSE_PLATE"))
+	if (carRenderInfo->Extras->LicensePlateText && slot == Slot::LICENSE_PLATE)
 	{
 		model->AttachReplacementTextureTable(carRenderInfo->Extras->LicensePlateText->TextureTable, 11);
 	}
 	else
 	{
-		model->AttachReplacementTextureTable(nodes, count);
+		auto part = carRenderInfo->pRideInfo->GetPart(slot);
+		if (part && part->IsCarbon())
+		{
+			model->AttachReplacementTextureTable(carRenderInfo->CarbonReplacementTextures, count);
+		}
+		else
+		{
+			model->AttachReplacementTextureTable(nodes, count);
+		}
 	}
 }
 
@@ -23,6 +31,7 @@ void __declspec(naked) AttachReplacementTextureTableCave()
 
 	__asm
 	{
+		push[esp + 0x20];
 		push ebx;
 		call AttachReplacementTextureTable;
 
@@ -36,4 +45,6 @@ void InitReplacementTextures()
 	{
 		injector::MakeJMP(0x007D5743, AttachReplacementTextureTableCave, true);
 	}
+
+	injector::WriteMemory<BYTE>(0x007D5694, 0xFF);
 }

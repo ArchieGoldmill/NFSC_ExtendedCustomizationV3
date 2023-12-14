@@ -9,14 +9,26 @@ void CalcTrunkAnim(CarRenderInfo* carRenderInfo, D3DXMATRIX* partMarker, IPartMa
 	auto animMarker = ((PartAnimation*)markerData)->Calculate();
 	D3DXMatrixMultiply(marker, partMarker, &animMarker);
 
-	auto position = carRenderInfo->GetMatrix();
-	D3DXMatrixMultiply(marker, marker, position);
+	D3DXMatrixMultiply(marker, marker, carRenderInfo->Matrix);
 }
 
-void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, eView* view, eModel** model, D3DXMATRIX* marker, void* light, int flags)
+void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, eView* view, eModel** pModel, D3DXMATRIX* marker, void* light, int flags)
 {
-	if (model && *model)
+	if (pModel && *pModel)
 	{
+		auto model = *pModel;
+
+		auto part = carRenderInfo->pRideInfo->GetPart(slot);
+		if (part && part->IsCarbon())
+		{
+			model->ReplaceLightMaterial(Hashes::GLOBAL_SKIN, eLightMaterial::Get(Hashes::CARBONFIBER, 0));
+			model->ReplaceLightMaterial(Hashes::CARSKIN, eLightMaterial::Get(Hashes::CARBONFIBER, 0));
+		}
+		else
+		{
+			model->ReplaceLightMaterial(Hashes::GLOBAL_SKIN, carRenderInfo->ResolveMaterial(slot));
+		}
+
 		if (slot == Slot::UNIVERSAL_SPOILER_BASE)
 		{
 			auto spoiler = carRenderInfo->pRideInfo->GetPart(Slot::SPOILER);
@@ -63,7 +75,7 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, eView* view,
 			}
 		}
 
-		(*model)->Render(view, marker, light, flags);
+		model->Render(view, marker, light, flags);
 	}
 }
 
@@ -74,9 +86,6 @@ void __fastcall RenderSpoiler(eView* view, int, CarRenderInfo* carRenderInfo, eM
 	{
 		return;
 	}
-
-	model->ReplaceLightMaterial(Hashes::SPOILERSKIN, spoiler->IsCarbon() ? eLightMaterial::Get(Hashes::CARBONFIBER, 0) : 
-		(carRenderInfo->Materials.Spoiler ? carRenderInfo->Materials.Spoiler : carRenderInfo->Materials.Body));
 
 	eModel** pModel = &model;
 	RenderParts(carRenderInfo, Slot::SPOILER, view, pModel, marker, light, data);

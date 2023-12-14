@@ -33,10 +33,7 @@ public:
 		this->InitPaint(this->FrontLipMaterialData, this->FrontRimMaterial, 1, Hashes::MAGLIP);
 		this->InitPaint(this->RearLipMaterialData, this->RearRimMaterial, 2, Hashes::MAGLIP);
 		this->InitPaint(this->RearRimMaterialData, this->RearWheelMaterial, 3, Hashes::MAGSILVER);
-		if (!this->carRenderInfo->IsHoodCarbon)
-		{
-			this->InitPaint(this->HoodMaterialData, this->carRenderInfo->Materials.Hood, 4, 0);
-		}
+		this->InitPaint(this->HoodMaterialData, this->carRenderInfo->Materials.Hood, 4, 0);
 		this->InitPaint(this->SpoilerMaterialData, this->carRenderInfo->Materials.Spoiler, 5, 0);
 	}
 

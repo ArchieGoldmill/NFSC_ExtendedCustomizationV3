@@ -221,7 +221,7 @@ void InitFeCustomizePartsMenu()
 	injector::WriteMemory(0x009F9D1C, GetPrice);
 	injector::WriteMemory(0x009F9F74, GetPrice);
 
-	// Make slected part search by part name rather then languagehash
+	// Make selected part search by part name rather then languagehash
 	injector::MakeCALL(0x0085FA93, GetPartNameForSelected1);
 	injector::MakeCALL(0x0085FC1A, GetPartNameForSelected2);
 	injector::WriteMemory<unsigned short>(0x0085FA61, 0xC88B);
