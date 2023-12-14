@@ -84,8 +84,9 @@ void __declspec(naked) RideHeightCave1()
 	}
 }
 
-bool __stdcall RideHeightLimit(CarRenderConn* conn, unsigned int eax)
+float __stdcall RideHeightLimit(CarRenderConn* conn, float* original)
 {
+	float result = *original;
 	auto carRenderInfo = conn->pCarRenderInfo;
 	if (carRenderInfo)
 	{
@@ -98,35 +99,29 @@ bool __stdcall RideHeightLimit(CarRenderConn* conn, unsigned int eax)
 				auto attr = body->GetAppliedAttributeParam<float>(Hashes::RIDE_HEIGHT_OFFSET);
 				if (attr)
 				{
-					return true;
+					result -= attr->Value;
 				}
 			}
 		}
 	}
 
-	unsigned char ah = (eax & 0xFF00) >> 8;
-	return ah & 0x41;
+	auto mult = (float*)0x009C87F0;
+	return result * *mult;
 }
 
 void __declspec(naked) RideHeightLimitCave()
 {
-	static constexpr auto cExit1 = 0x007C1FAB;
-	static constexpr auto cExit2 = 0x007C20E4;
+	static constexpr auto cExit = 0x007C1F15;
 
 	_asm
 	{
-		SAVE_REGS_EAX;
+		pushad;
 		push eax;
 		push esi;
 		call RideHeightLimit;
-		RESTORE_REGS_EAX;
+		popad;
 
-		test al, al;
-		jne SkipLimit;
-		jmp cExit1;
-
-	SkipLimit:
-		jmp cExit2;
+		jmp cExit;
 	}
 }
 
@@ -135,7 +130,7 @@ void InitRideHeight()
 	if (g_Config.RideHeight)
 	{
 		// Remove ride height reset if goes to low
-		injector::MakeJMP(0x007C1FA2, RideHeightLimitCave);
+		injector::MakeJMP(0x007C1F0D, RideHeightLimitCave);
 
 		injector::MakeJMP(0x007AD7C9, RideHeightCave1);
 		injector::MakeJMP(0x007E0FFD, RideHeightCave2);
