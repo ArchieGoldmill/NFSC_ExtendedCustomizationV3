@@ -55,6 +55,7 @@ void __fastcall OnTaskFX(int* a, int, float b)
 	if (damage.IsHeadlightRightDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_RHEAD);
 	if (damage.IsBrakelightLeftDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_LBRAKE);
 	if (damage.IsBrakelightRightDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_RBRAKE);
+	if (damage.IsBrakelightCentreDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_CBRAKE);
 }
 
 void InitDamage()

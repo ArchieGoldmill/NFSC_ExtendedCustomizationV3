@@ -46,6 +46,6 @@ public:
 
 	Color GetColor()
 	{
-		return Color(carRenderInfo->IsLeftBrakelightOn() ? 0x80808080 : 0x69696969);
+		return Color(carRenderInfo->IsGlareOn(VehicleFX::LIGHT_BRAKELIGHTS) ? 0x80808080 : 0x69696969);
 	}
 };

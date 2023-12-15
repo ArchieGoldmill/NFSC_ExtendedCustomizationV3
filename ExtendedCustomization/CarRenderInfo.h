@@ -131,8 +131,8 @@ struct UsedCarTextureInfo
 	Hash BRAKELIGHT_GLASS_OFF;
 	Hash BRAKELIGHT_GLASS_ON;
 	Hash BRAKELIGHT_GLASS_DAMAGE0;
-	Hash _unk5;
-	Hash _unk6;
+	Hash BRAKELIGHT_ONF;
+	Hash BRAKELIGHT_GLASS_ONF;
 	Hash _unk7;
 	Hash SHADOW;
 
@@ -212,21 +212,6 @@ struct CarRenderInfo
 		_UpdateLightStateTextures(this);
 	}
 
-	bool IsLeftBrakelightOn()
-	{
-		return this->IsBrakelightOn(8);
-	}
-
-	bool IsRightBrakelightOn()
-	{
-		return this->IsBrakelightOn(0x10);
-	}
-
-	bool IsCentreBrakelightOn()
-	{
-		return this->IsBrakelightOn(0x20);
-	}
-
 	PVehicle* GetPVehicle()
 	{
 		if (Game::InRace())
@@ -239,11 +224,6 @@ struct CarRenderInfo
 		}
 
 		return null;
-	}
-
-	bool IsReverseOn()
-	{
-		return this->IsBrakelightOn(0xC0);
 	}
 
 	bool IsGlareOn(VehicleFX vehicleFX)

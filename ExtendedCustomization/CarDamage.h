@@ -16,7 +16,8 @@ enum DamageType
 	DamageType_Undamaged = 0,
 	DamageType_Light = 1,
 	DamageType_Medium = 2,
-	DamageType_Heavy = 4
+	DamageType_Heavy = 4,
+	DamageType_MediumOrHeavy = 6
 };
 
 struct CarDamage
@@ -62,21 +63,46 @@ struct CarDamage
 
 	bool IsHeadlightLeftDamaged()
 	{
-		return this->IsDamaged(DamageZone_Front) && this->IsDamaged(DamageZone_FrontLeft, DamageType_Medium | DamageType_Heavy);
+		return this->IsDamaged(DamageZone_Front, DamageType_MediumOrHeavy) && this->IsDamaged(DamageZone_FrontLeft, DamageType_MediumOrHeavy);
 	}
 
 	bool IsHeadlightRightDamaged()
 	{
-		return this->IsDamaged(DamageZone_Front) && this->IsDamaged(DamageZone_FrontRight, DamageType_Medium | DamageType_Heavy);
+		return this->IsDamaged(DamageZone_Front, DamageType_MediumOrHeavy) && this->IsDamaged(DamageZone_FrontRight, DamageType_MediumOrHeavy);
+	}
+
+	bool IsHeadlightGlassLeftDamaged()
+	{
+		return this->IsDamaged(DamageZone_Front, DamageType_MediumOrHeavy) || this->IsDamaged(DamageZone_FrontLeft);
+	}
+
+	bool IsHeadlightGlassRightDamaged()
+	{
+		return this->IsDamaged(DamageZone_Front, DamageType_MediumOrHeavy) || this->IsDamaged(DamageZone_FrontRight);
 	}
 
 	bool IsBrakelightLeftDamaged()
 	{
-		return this->IsDamaged(DamageZone_Rear) && this->IsDamaged(DamageZone_RearLeft, DamageType_Medium | DamageType_Heavy);
+		return this->IsDamaged(DamageZone_Rear) && this->IsDamaged(DamageZone_RearLeft, DamageType_MediumOrHeavy);
 	}
 	
 	bool IsBrakelightRightDamaged()
 	{
-		return this->IsDamaged(DamageZone_Rear) && this->IsDamaged(DamageZone_RearRight, DamageType_Medium | DamageType_Heavy);
+		return this->IsDamaged(DamageZone_Rear) && this->IsDamaged(DamageZone_RearRight, DamageType_MediumOrHeavy);
+	}
+
+	bool IsBrakelightCentreDamaged()
+	{
+		return this->IsBrakelightLeftDamaged() && this->IsBrakelightRightDamaged();
+	}
+
+	bool IsBrakelightGlassLeftDamaged()
+	{
+		return this->IsDamaged(DamageZone_Rear, DamageType_MediumOrHeavy) || this->IsDamaged(DamageZone_RearLeft);
+	}
+
+	bool IsBrakelightGlassRightDamaged()
+	{
+		return this->IsDamaged(DamageZone_Rear, DamageType_MediumOrHeavy) || this->IsDamaged(DamageZone_RearRight);
 	}
 };
