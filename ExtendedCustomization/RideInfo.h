@@ -6,20 +6,31 @@
 #include "Constants.h"
 #include "Math.h"
 #include "AutoSculpt.h"
+#include "VinylManager.h"
 
-struct DBCarPart;
-
-class CarRenderInfo;
+struct CarRenderInfo;
 struct RideInfo
 {
 	CarType CarId;
-	int unk1[285];
+	int unk1[17];
+	Hash SkinHash;
+	Hash WheelHash;
+	Hash SpinnerHash;
+	DBCarPart* Parts[(int)Slot::COUNT];
+	bool PartsEnabled[(int)Slot::COUNT];
+	unsigned short unk2[5];
+	ColorMaterialData BodyMaterial;
+	ColorMaterialData WheelMaterial;
+	int unk3[2];
 	int RenderUsage;
-	int unk2;
+	int unk4;
 	float RideHeight;
-	int unk3[223];
-	AutoSculptRegion AutoSculptRegions[0x15];
-	CarRenderInfo* CarRenderInfo;
+	RIVinyl Vinyls[20];
+	int VinylMirror;
+	BYTE VinylNum;
+	BYTE unk5[3];
+	AutoSculpt Autosculpt;
+	CarRenderInfo* pCarRenderInfo;
 
 	DBCarPart* GetPart(Slot slot)
 	{
@@ -54,17 +65,17 @@ struct RideInfo
 	{
 		if (num == 0 || num == 1)
 		{
-			auto as = (ASColorData*)&this->AutoSculptRegions[ZoneColor1];
+			auto as = (ASColorData*)&this->Autosculpt.Regions[ZoneColor1];
 			return as + num;
 		}
 		if (num == 2 || num == 3)
 		{
-			auto as = (ASColorData*)&this->AutoSculptRegions[ZoneColor2];
+			auto as = (ASColorData*)&this->Autosculpt.Regions[ZoneColor2];
 			return as + (num - 2);
 		}
 		if (num == 4 || num == 5)
 		{
-			auto as = (ASColorData*)&this->AutoSculptRegions[ZoneColor3];
+			auto as = (ASColorData*)&this->Autosculpt.Regions[ZoneColor3];
 			return as + (num - 4);
 		}
 

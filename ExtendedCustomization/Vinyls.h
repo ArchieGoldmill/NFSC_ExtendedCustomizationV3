@@ -8,16 +8,6 @@
 #include "DBCarPart.h"
 #include "Config.h"
 
-struct VinylPacked
-{
-	short TranslationX;
-	short TranslationY;
-	char Rotation;
-	char Shear;
-	char ScaleX;
-	char ScaleY;
-};
-
 struct VinylUnpcacked
 {
 	Matrix2 Matrix;

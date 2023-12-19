@@ -6,7 +6,7 @@ float __stdcall GetTireWidth(CarRenderInfo* carRenderInfo, float original, int w
 {
 	auto rideInfo = carRenderInfo->pRideInfo;
 	float mult = 1.0f;
-	mult += rideInfo->AutoSculptRegions[ZoneStance].Zones[wheel > 1 ? 5 : 4] / 2.0f;
+	mult += rideInfo->Autosculpt.Regions[ZoneStance].Zones[wheel > 1 ? 5 : 4] / 2.0f;
 
 	return original * mult;
 }

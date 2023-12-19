@@ -80,9 +80,9 @@ public:
 			float minPulse = 0.3f;
 			if (neonPart->IsAutosculpt())
 			{
-				float h = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[0] * 0.9999f;
-				float s = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[1];
-				float br = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[2];
+				float h = this->carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneNeon].Zones[0] * 0.9999f;
+				float s = 1.0f - this->carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneNeon].Zones[1];
+				float br = 1.0f - this->carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneNeon].Zones[2];
 
 				float r, g, b;
 				HSV2RGB_255(h, s, br, &r, &g, &b);
@@ -91,9 +91,9 @@ public:
 				{
 					minPulse = 0.0f;
 
-					float h2 = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[4] * 0.9999f;
-					float s2 = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[5];
-					float br2 = 1.0f - this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[6];
+					float h2 = this->carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneNeon].Zones[4] * 0.9999f;
+					float s2 = 1.0f - this->carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneNeon].Zones[5];
+					float br2 = 1.0f - this->carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneNeon].Zones[6];
 
 					float r2, g2, b2;
 					HSV2RGB_255(h2, s2, br2, &r2, &g2, &b2);
@@ -167,7 +167,7 @@ public:
 		}
 	}
 
-	void RenderMarkers()
+	void RenderMarkers(eView* view)
 	{
 		if (this->NeonTexture)
 		{
@@ -177,7 +177,7 @@ public:
 				float size = g_Config.NeonSize;
 				if (this->neonBlur && size > 0)
 				{
-					RenderMarker(neon.Start, neon.End, size, this->pulse.color, this->neonBlur);
+					RenderMarker(view, neon.Start, neon.End, size, this->pulse.color, this->neonBlur);
 				}
 
 				size = g_Config.NeonInnerSize;
@@ -200,7 +200,7 @@ public:
 					color.Bytes[1] = g;
 					color.Bytes[2] = b;
 
-					RenderMarker(neon.Start, neon.End, size, color, this->neonBlurInner);
+					RenderMarker(view, neon.Start, neon.End, size, color, this->neonBlurInner);
 				}
 			}
 		}
@@ -208,7 +208,7 @@ public:
 
 private:
 
-	void RenderMarker(D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix, float size, Color color, TextureInfo* texture)
+	void RenderMarker(eView* view, D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix, float size, Color color, TextureInfo* texture)
 	{
 		// This is a direct copy of the code from UG2 decomp, not fully reversed yet.
 
@@ -218,7 +218,6 @@ private:
 		auto carMatrix = *this->carMatrix;
 		SetVector(&carMatrix, 3, { 0,0,0,0 });
 
-		auto view = eView::GetPlayer1();
 		auto camera = view->pCamera;
 
 		D3DXVECTOR2 v35;
@@ -429,7 +428,7 @@ private:
 
 		if (neonPart->IsAutosculpt())
 		{
-			pulse = this->carRenderInfo->pRideInfo->AutoSculptRegions[ZoneNeon].Zones[3];
+			pulse = this->carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneNeon].Zones[3];
 		}
 		else if (neonPart->GetAppliedAttributeBParam(Hashes::PULSE, false))
 		{

@@ -125,7 +125,7 @@ void ToggleAnimation(Slot slot)
 
 	FEPartAnimation::LastSlot = slot;
 
-	auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.CarRenderInfo;
+	auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
 	if (carRenderInfo->Extras->Animations)
 	{
 		carRenderInfo->Extras->Animations->ResetAllAnimations();
@@ -169,7 +169,7 @@ void __fastcall sub_850BC0(FeCustomizeParts* _this, int, bool a)
 {
 	static auto _sub_850BC0 = (void(__thiscall*)(FeCustomizeParts*, bool))0x00850BC0;
 
-	auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.CarRenderInfo;
+	auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
 	if (carRenderInfo->Extras->Animations)
 	{
 		carRenderInfo->Extras->Animations->ResetAllAnimations();

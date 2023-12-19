@@ -11,7 +11,7 @@ namespace Legacy
 		auto rideInfo = &FrontEndRenderingCar::Get()->RideInfo;
 		if (g_Config.GetVersion(rideInfo->CarId) < 3)
 		{
-			auto carRenderInfo = rideInfo->CarRenderInfo;
+			auto carRenderInfo = rideInfo->pCarRenderInfo;
 
 			if (slot == Slot::FRONT_BUMPER_BADGING_SET || slot == Slot::REAR_BUMPER_BADGING_SET ||
 				slot == Slot::FRONT_BUMPER || slot == Slot::REAR_BUMPER || slot == Slot::SKIRT)

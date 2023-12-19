@@ -49,7 +49,6 @@ struct eLightMaterial
 	float VinylLuminanceMinLevel;
 	float VinylLuminanceMaxLevel;
 	int data1;
-	int data2;
 
 	static eLightMaterial* Get(Hash hash, int a)
 	{

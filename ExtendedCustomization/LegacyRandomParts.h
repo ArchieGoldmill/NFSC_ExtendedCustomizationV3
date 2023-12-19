@@ -75,12 +75,12 @@ void SetRandomNeon(RideInfo* rideInfo)
 		auto neon = SetRandomPart(rideInfo, Slot_Neon, 2);
 		if (neon)
 		{
-			rideInfo->AutoSculptRegions[ZoneNeon].Zones[0] = (float)bRandom(99) / 100.0f;
-			rideInfo->AutoSculptRegions[ZoneNeon].Zones[2] = 0.5f;
+			rideInfo->Autosculpt.Regions[ZoneNeon].Zones[0] = (float)bRandom(99) / 100.0f;
+			rideInfo->Autosculpt.Regions[ZoneNeon].Zones[2] = 0.5f;
 			auto num = neon->GetAppliedAttributeIParam(Hashes::MORPHTARGET_NUM, 0);
 			if (num == 4)
 			{
-				rideInfo->AutoSculptRegions[ZoneNeon].Zones[2] = (float)bRandom(99) / 100.0f;
+				rideInfo->Autosculpt.Regions[ZoneNeon].Zones[2] = (float)bRandom(99) / 100.0f;
 			}
 		}
 	}
@@ -113,8 +113,8 @@ void SetRandomTires(RideInfo* rideInfo)
 	if (bRandom(2))
 	{
 		float tire = (float)bRandom(10) / 100.0f;
-		rideInfo->AutoSculptRegions[ZoneStance].Zones[6] = tire;
-		rideInfo->AutoSculptRegions[ZoneStance].Zones[7] = tire;
+		rideInfo->Autosculpt.Regions[ZoneStance].Zones[6] = tire;
+		rideInfo->Autosculpt.Regions[ZoneStance].Zones[7] = tire;
 	}
 }
 

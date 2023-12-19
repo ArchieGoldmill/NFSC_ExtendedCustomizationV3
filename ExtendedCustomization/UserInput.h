@@ -45,7 +45,7 @@ DWORD WINAPI HandleUserInput(LPVOID arg)
 		if (Game::InFrontEnd())
 		{
 			auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-			HandleUserInput1(rideInfo->CarRenderInfo);
+			HandleUserInput1(rideInfo->pCarRenderInfo);
 		}
 
 		if (Game::InRace())

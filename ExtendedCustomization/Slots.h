@@ -214,6 +214,8 @@ enum class Slot
 
 	MISC = 0x69,
 
+	COUNT = 0x6A,
+
 	// Fake parts
 	CALIPER_PAINT = 0x80,
 	REAR_WHEEL_PAINT = 0x81,

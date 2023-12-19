@@ -3,6 +3,30 @@
 #include "Hashes.h"
 #include "Math.h"
 
+struct VinylPacked
+{
+	short TranslationX;
+	short TranslationY;
+	char Rotation;
+	char Shear;
+	char ScaleX;
+	char ScaleY;
+};
+
+struct RIVinylColor
+{
+	DBCarPart* Hue;
+	BYTE Saturation;
+	BYTE Value;
+};
+
+struct RIVinyl
+{
+	DBCarPart* VinylPart;
+	RIVinylColor Colors[4];
+	VinylPacked Data;
+};
+
 struct Vinyl : bNode<Vinyl>
 {
 	int NumPathSets;

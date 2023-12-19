@@ -181,7 +181,7 @@ int __fastcall AutosculptSlider_Act(AutosculptSlider* slider, int, int a2, Hash 
 	if (currentSelectablePart)
 	{
 		auto slot = currentSelectablePart->SlotId;
-		auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.CarRenderInfo;
+		auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
 
 		if (slot == Slot_Stance)
 		{

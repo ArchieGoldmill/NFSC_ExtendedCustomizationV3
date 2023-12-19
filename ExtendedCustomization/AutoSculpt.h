@@ -18,7 +18,7 @@ struct AutoSculptRegion
 struct AutoSculpt
 {
 	int IsInitialized;
-	AutoSculptRegion Regions[0x28];
+	AutoSculptRegion Regions[0x15];
 
 	static int GetActiveZoneNum(int a1)
 	{

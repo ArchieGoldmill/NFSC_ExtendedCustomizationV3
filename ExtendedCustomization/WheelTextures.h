@@ -111,11 +111,11 @@ public:
 	{
 		auto rideInfo = this->carRenderInfo->pRideInfo;
 
-		int tireBrand = rideInfo->AutoSculptRegions[ZoneStance].GetInt(6);
+		int tireBrand = rideInfo->Autosculpt.Regions[ZoneStance].GetInt(6);
 		this->WheelTires[WHEEL_FL].Tire.UpdateBrand(tireBrand, false);
 		this->WheelTires[WHEEL_FR].Tire.UpdateBrand(tireBrand, true);
 
-		tireBrand = rideInfo->AutoSculptRegions[ZoneStance].GetInt(7);
+		tireBrand = rideInfo->Autosculpt.Regions[ZoneStance].GetInt(7);
 		this->WheelTires[WHEEL_RL].Tire.UpdateBrand(tireBrand, false);
 		this->WheelTires[WHEEL_RR].Tire.UpdateBrand(tireBrand, true);
 	}
