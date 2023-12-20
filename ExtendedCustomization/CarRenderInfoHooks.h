@@ -11,7 +11,7 @@ void __fastcall CarRenderInfoCt(CarRenderInfo* carRenderInfo, int, RideInfo* rid
 	carRenderInfo->pRideInfo = rideInfo;
 	carRenderInfo->Extras = new CarRenderInfoExtras(carRenderInfo);
 
-	carRenderInfo->Ctor( rideInfo);
+	carRenderInfo->Ctor(rideInfo);
 }
 
 void __stdcall CarRenderInfoCtEnd(CarRenderInfo* carRenderInfo)
@@ -32,14 +32,23 @@ void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
 	}
 }
 
-double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int param, eView* a2, D3DXVECTOR4* a3, float a4, D3DXMATRIX* a5, D3DXMATRIX* a6, D3DXMATRIX* a7)
+double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int, bool reflection, eView* view, D3DXVECTOR4* a3, float a4, D3DXMATRIX* a5, D3DXMATRIX* a6, D3DXMATRIX* a7)
 {
 	carRenderInfo->Extras->IsVisible = true;
-	carRenderInfo->Extras->CarMatrix = *carRenderInfo->Matrix;
 
-	auto result = carRenderInfo->DrawAmbientShadow(a2, a3, a4, a5, a6, a7);
-	SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, a2, a3, a4, a5, a6, a7);
-	SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, a2, a3, a4, a5, a6, a7);
+	double result = 0;
+	if (reflection)
+	{
+		carRenderInfo->Extras->CarMatrixReflection = *carRenderInfo->Matrix;
+	}
+	else
+	{
+		carRenderInfo->Extras->CarMatrix = *carRenderInfo->Matrix;
+
+		result = carRenderInfo->DrawAmbientShadow(view, a3, a4, a5, a6, a7);
+		SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, view, a3, a4, a5, a6, a7);
+		SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, view, a3, a4, a5, a6, a7);
+	}
 
 	return result;
 }
@@ -60,33 +69,34 @@ void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 	}
 }
 
-void OnAfterCarRender(CarRenderInfo* carRenderInfo)
+void OnAfterCarRender(CarRenderInfo* carRenderInfo, bool reflection)
 {
 	if (carRenderInfo)
 	{
-		SAFE_CALL(carRenderInfo->Extras->Animations, Update);
-		SAFE_CALL(carRenderInfo->Extras->Neon, Update);
-		SAFE_CALL(carRenderInfo->Extras->ExhaustShake, Update);
-		SAFE_CALL(carRenderInfo->Extras->RotorGlow, Update);
-
 		if (carRenderInfo->Extras->IsVisible)
 		{
-			SAFE_CALL(carRenderInfo->Extras->Neon, RenderMarkers);
-			SAFE_CALL(carRenderInfo->Extras->RotorGlow, RenderMarkers);
+			SAFE_CALL(carRenderInfo->Extras->Neon, RenderMarkers, reflection);
+			SAFE_CALL(carRenderInfo->Extras->RotorGlow, RenderMarkers, reflection);
 		}
 
-		carRenderInfo->Extras->IsVisible = false;
+		if (!reflection)
+		{
+			SAFE_CALL(carRenderInfo->Extras->Animations, Update);
+			SAFE_CALL(carRenderInfo->Extras->Neon, Update);
+			SAFE_CALL(carRenderInfo->Extras->ExhaustShake, Update);
+			SAFE_CALL(carRenderInfo->Extras->RotorGlow, Update);
+
+			carRenderInfo->Extras->IsVisible = false;
+		}
 	}
 }
 
-void __stdcall PostCarRender()
+void PostCarRenderMain(bool reflection)
 {
-	__asm pushad;
-
 	if (Game::InFrontEnd())
 	{
 		auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-		OnAfterCarRender(rideInfo->CarRenderInfo);
+		OnAfterCarRender(rideInfo->pCarRenderInfo, reflection);
 		SteerAngle.Update();
 	}
 
@@ -97,9 +107,25 @@ void __stdcall PostCarRender()
 		for (int i = 0; i < count; i++)
 		{
 			auto carRenderInfo = list[i]->pCarRenderInfo;
-			OnAfterCarRender(carRenderInfo);
+			OnAfterCarRender(carRenderInfo, reflection);
 		}
 	}
+}
+
+void __stdcall PostCarRender()
+{
+	__asm pushad;
+
+	PostCarRenderMain(false);
+
+	__asm popad;
+}
+
+void __stdcall PostCarRenderReflection()
+{
+	__asm pushad;
+
+	PostCarRenderMain(true);
 
 	__asm popad;
 }
@@ -149,6 +175,19 @@ void __declspec(naked) CarRenderInfoDtCave()
 	}
 }
 
+void __declspec(naked) OnShadowRenderCave()
+{
+	static constexpr auto cExit = 0x007DECD2;
+
+	__asm
+	{
+		push[ebp + 0x28];
+		call OnShadowRender;
+
+		jmp cExit;
+	}
+}
+
 void InitCarRenderInfoHooks()
 {
 	injector::MakeCALL(0x007E64AE, CarRenderInfoCt);
@@ -157,9 +196,11 @@ void InitCarRenderInfoHooks()
 
 	injector::MakeJMP(0x007D5282, CarRenderInfoDtCave);
 
-	injector::MakeCALL(0x007DECCD, OnShadowRender);
+	injector::MakeNOP(0x007DECA7, 2);
+	injector::MakeJMP(0x007DECCD, OnShadowRenderCave);
 
 	injector::MakeJMP(0x007DA2E5, UpdateCarPartsCave);
 
 	injector::MakeCALL(0x0072E97E, PostCarRender);
+	injector::MakeCALL(0x0072E1D6, PostCarRenderReflection);
 }

@@ -18,6 +18,7 @@ private:
 public:
 	bool IsVisible;
 	D3DXMATRIX CarMatrix;
+	D3DXMATRIX CarMatrixReflection;
 
 	CarAnimations* Animations = NULL;
 	CarNeon* Neon = NULL;
@@ -46,7 +47,7 @@ public:
 
 		if (g_Config.Neon)
 		{
-			this->Neon = new CarNeon(carRenderInfo, &this->CarMatrix);
+			this->Neon = new CarNeon(carRenderInfo, &this->CarMatrix, &this->CarMatrixReflection);
 		}
 
 		if (g_Config.BrakelightGlow)

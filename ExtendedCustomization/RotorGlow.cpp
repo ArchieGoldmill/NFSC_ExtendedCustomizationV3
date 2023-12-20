@@ -64,10 +64,8 @@ void __fastcall RenderCalipers(eView* view, int, CarRenderInfo* carRenderInfo, i
 {
 	AdjustBrakeScale(carRenderInfo, marker, wheel);
 	model->Render(view, marker, light, flags);
-	if (!reflection && carRenderInfo->Extras->RotorGlow)
-	{
-		carRenderInfo->Extras->RotorGlow->SetMarker(marker);
-	}
+
+	SAFE_CALL(carRenderInfo->Extras->RotorGlow, SetMarker, marker, reflection);
 }
 
 void __fastcall RenderRotors(eView* view, int, CarRenderInfo* carRenderInfo, int reflection, int wheel, eModel* model, D3DXMATRIX* marker, void* light, int flags, int, int)

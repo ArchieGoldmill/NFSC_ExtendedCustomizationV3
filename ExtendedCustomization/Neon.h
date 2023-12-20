@@ -29,6 +29,7 @@ class CarNeon
 private:
 	CarRenderInfo* carRenderInfo;
 	D3DXMATRIX* carMatrix;
+	D3DXMATRIX* carMatrixReflection;
 	std::vector<Neon> neons;
 	D3DXMATRIX identity;
 	TextureInfo* neonBlur = NULL;
@@ -40,10 +41,11 @@ private:
 public:
 	TextureInfo* NeonTexture = NULL;
 
-	CarNeon(CarRenderInfo* carRenderInfo, D3DXMATRIX* carMatrix)
+	CarNeon(CarRenderInfo* carRenderInfo, D3DXMATRIX* carMatrix, D3DXMATRIX* carMatrixReflection)
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->carMatrix = carMatrix;
+		this->carMatrixReflection = carMatrixReflection;
 		this->neonBlur = TextureInfo::Get(Hashes::NEONBLUR, 0, 0);
 		this->neonBlurInner = TextureInfo::Get(Hashes::NEONBLUR_INNER, 0, 0);
 		D3DXMatrixIdentity(&this->identity);
@@ -167,7 +169,7 @@ public:
 		}
 	}
 
-	void RenderMarkers(eView* view)
+	void RenderMarkers(bool reflection)
 	{
 		if (this->NeonTexture)
 		{
@@ -177,7 +179,7 @@ public:
 				float size = g_Config.NeonSize;
 				if (this->neonBlur && size > 0)
 				{
-					RenderMarker(view, neon.Start, neon.End, size, this->pulse.color, this->neonBlur);
+					RenderMarker(neon.Start, neon.End, size, this->pulse.color, this->neonBlur, reflection);
 				}
 
 				size = g_Config.NeonInnerSize;
@@ -200,7 +202,7 @@ public:
 					color.Bytes[1] = g;
 					color.Bytes[2] = b;
 
-					RenderMarker(view, neon.Start, neon.End, size, color, this->neonBlurInner);
+					RenderMarker(neon.Start, neon.End, size, color, this->neonBlurInner, reflection);
 				}
 			}
 		}
@@ -208,16 +210,18 @@ public:
 
 private:
 
-	void RenderMarker(eView* view, D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix, float size, Color color, TextureInfo* texture)
+	void RenderMarker(D3DXMATRIX* startMatrix, D3DXMATRIX* endMatrix, float size, Color color, TextureInfo* texture, bool reflection)
 	{
 		// This is a direct copy of the code from UG2 decomp, not fully reversed yet.
 
 		ePoly poly;
 		poly.SetColor(color);
-		auto carPos = GetVector(this->carMatrix, 3);
-		auto carMatrix = *this->carMatrix;
+		auto carMatrix = reflection ? *this->carMatrixReflection : *this->carMatrix;
+		auto carPos = GetVector(&carMatrix, 3);
+
 		SetVector(&carMatrix, 3, { 0,0,0,0 });
 
+		auto view = eView::GetPlayer1();
 		auto camera = view->pCamera;
 
 		D3DXVECTOR2 v35;

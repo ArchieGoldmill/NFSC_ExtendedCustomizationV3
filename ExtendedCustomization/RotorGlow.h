@@ -4,16 +4,89 @@
 
 void InitRotorGlow();
 
+struct RotorMarkerStorage
+{
+	D3DXMATRIX Markers[4];
+	int Count = 0;
+
+	void SetMarker(D3DXMATRIX* marker)
+	{
+		if (this->Count > 3)
+		{
+			return;
+		}
+
+		this->Markers[this->Count++] = *marker;
+	}
+
+	void RenderMarkers(float rotorRadius, float rotorOffset, float temp, TextureInfo* texture)
+	{
+		if (!rotorRadius || !this->Count)
+		{
+			return;
+		}
+
+		float alpha = temp > 1.0f ? 1.0f : temp;
+		if (alpha < 0)
+		{
+			alpha = 0;
+		}
+
+		if (g_Config.DebugRotorGlow)
+		{
+			alpha = 1.0f;
+		}
+
+		if (alpha > 0)
+		{
+			for (auto& marker : this->Markers)
+			{
+				ePoly poly;
+				poly.Vertices[0].x = rotorRadius;
+				poly.Vertices[0].y = rotorOffset;
+				poly.Vertices[0].z = rotorRadius;
+
+				poly.Vertices[1].x = rotorRadius;
+				poly.Vertices[1].y = rotorOffset;
+				poly.Vertices[1].z = -rotorRadius;
+
+				poly.Vertices[2].x = -rotorRadius;
+				poly.Vertices[2].y = rotorOffset;
+				poly.Vertices[2].z = -rotorRadius;
+
+				poly.Vertices[3].x = -rotorRadius;
+				poly.Vertices[3].y = rotorOffset;
+				poly.Vertices[3].z = rotorRadius;
+
+				Color color;
+				color.Bytes[0] = 0xFF;
+				color.Bytes[1] = 0xFF;
+				color.Bytes[2] = 0xFF;
+				color.Bytes[3] = 0xFF * alpha;
+				poly.SetColor(color);
+				poly.Render(texture, &marker);
+			}
+		}
+
+		this->Clear();
+	}
+
+	void Clear()
+	{
+		this->Count = 0;
+	}
+};
+
 class CarRotorGlow
 {
 private:
 	CarRenderInfo* carRenderInfo;
-	D3DXMATRIX markers[4];
-	int markerCount;
 	float rotorRadius;
 	float rotorOffset;
 	float temp;
 	TextureInfo* texture;
+	RotorMarkerStorage MarkerStorage;
+	RotorMarkerStorage MarkerReflectionStorage;
 
 public:
 	CarRotorGlow(CarRenderInfo* carRenderInfo)
@@ -43,14 +116,16 @@ public:
 		this->temp = 0;
 	}
 
-	void SetMarker(D3DXMATRIX* marker)
+	void SetMarker(D3DXMATRIX* marker, bool reflection)
 	{
-		if (this->markerCount > 3)
+		if (reflection)
 		{
-			return;
+			this->MarkerReflectionStorage.SetMarker(marker);
 		}
-
-		this->markers[this->markerCount++] = *marker;
+		else
+		{
+			this->MarkerStorage.SetMarker(marker);
+		}
 	}
 
 	void Update()
@@ -86,60 +161,9 @@ public:
 		}
 	}
 
-	void RenderMarkers()
+	void RenderMarkers(bool reflection)
 	{
-		if (!this->rotorRadius || !this->markerCount)
-		{
-			return;
-		}
-
-		float alpha = temp > 1.0f ? 1.0f : temp;
-		if (alpha < 0)
-		{
-			alpha = 0;
-		}
-
-		if (g_Config.DebugRotorGlow)
-		{
-			alpha = 1.0f;
-		}
-
-		if (alpha > 0)
-		{
-			for (auto& marker : this->markers)
-			{
-				ePoly poly;
-				poly.Vertices[0].x = this->rotorRadius;
-				poly.Vertices[0].y = this->rotorOffset;
-				poly.Vertices[0].z = this->rotorRadius;
-
-				poly.Vertices[1].x = this->rotorRadius;
-				poly.Vertices[1].y = this->rotorOffset;
-				poly.Vertices[1].z = -this->rotorRadius;
-
-				poly.Vertices[2].x = -this->rotorRadius;
-				poly.Vertices[2].y = this->rotorOffset;
-				poly.Vertices[2].z = -this->rotorRadius;
-
-				poly.Vertices[3].x = -this->rotorRadius;
-				poly.Vertices[3].y = this->rotorOffset;
-				poly.Vertices[3].z = this->rotorRadius;
-
-				Color color;
-				color.Bytes[0] = 0xFF;
-				color.Bytes[1] = 0xFF;
-				color.Bytes[2] = 0xFF;
-				color.Bytes[3] = 0xFF * alpha;
-				poly.SetColor(color);
-				poly.Render(this->texture, &marker);
-			}
-		}
-
-		this->Clear();
-	}
-
-	void Clear()
-	{
-		this->markerCount = 0;
+		RotorMarkerStorage* storage = reflection ? &this->MarkerReflectionStorage : &this->MarkerStorage;
+		storage->RenderMarkers(this->rotorRadius, this->rotorOffset, this->temp, this->texture);
 	}
 };
