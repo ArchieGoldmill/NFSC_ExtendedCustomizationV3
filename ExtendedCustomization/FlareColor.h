@@ -43,7 +43,7 @@ D3DCOLOR __stdcall GetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flar
 
 void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 {
-	if (Game::InFrontEnd() && carRenderInfo->LightsState1)
+	if (carRenderInfo->IsFeEngineOn())
 	{
 		// Backup
 		auto backup = carRenderInfo->CarShadowTexture;
@@ -69,7 +69,7 @@ void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR
 
 void RenderFrontEndFlares(CarRenderInfo* carRenderInfo, bool reflection)
 {
-	if (Game::InFrontEnd() && carRenderInfo->LightsState1)
+	if (carRenderInfo->IsFeEngineOn())
 	{
 		if (!reflection)
 		{

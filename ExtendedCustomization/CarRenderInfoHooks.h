@@ -51,7 +51,7 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int, bool reflect
 		SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, view, a3, a4, a5, a6, a7);
 		RenderTextureHeadlights(carRenderInfo, view, a3, a4, a5, a6, a7);
 
-		if (Game::InFrontEnd() && carRenderInfo->LightsState1)
+		if (carRenderInfo->IsFeEngineOn())
 		{
 			D3DXVECTOR3 velocity = { 0.0f, 0.0f, 0.3f };
 			carRenderInfo->Extras->ExhaustFX->UpdateSmoke(carRenderInfo->Matrix, 0.005f, &velocity);

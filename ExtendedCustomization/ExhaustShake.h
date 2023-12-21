@@ -123,29 +123,22 @@ public:
 
 	void Update()
 	{
-		if (IsPaused())
+		if ((Game::InRace() || this->carRenderInfo->IsFeEngineOn()) && !IsPaused())
 		{
-			return;
-		}
+			if (this->LeftShaker)
+			{
+				this->LeftShaker->Update();
+			}
 
-		if (Game::InFrontEnd() && !this->carRenderInfo->LightsState1)
-		{
-			return;
-		}
+			if (this->RightShaker)
+			{
+				this->RightShaker->Update();
+			}
 
-		if (this->LeftShaker)
-		{
-			this->LeftShaker->Update();
-		}
-
-		if (this->RightShaker)
-		{
-			this->RightShaker->Update();
-		}
-
-		if (this->CenterShaker)
-		{
-			this->CenterShaker->Update();
+			if (this->CenterShaker)
+			{
+				this->CenterShaker->Update();
+			}
 		}
 	}
 
