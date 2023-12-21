@@ -22,7 +22,6 @@ public:
 
 	static int GetListCount()
 	{
-		//sizeof(CarRenderConn)
 		static int* ListCount = (int*)0x00B77DBC;
 		return *ListCount;
 	}

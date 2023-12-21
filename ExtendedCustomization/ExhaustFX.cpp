@@ -32,7 +32,7 @@ void CreateEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker, bSlist<
 
 	if (marker->Hash == Hashes::EXHAUST_FX)
 	{
-		carRenderInfo->Extras->ExhaustFX->CreateEffect(&marker->Matrix);
+		carRenderInfo->Extras->ExhaustFX->CreateSmokeEffect(&marker->Matrix);
 	}
 }
 
@@ -117,11 +117,7 @@ void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, fl
 	if (abs(speed) < 10)
 	{
 		auto carRenderInfo = conn->pCarRenderInfo;
-		for (auto effect : carRenderInfo->Extras->ExhaustFX->SmokeEffects)
-		{
-			effect->Update(conn->Matrix, 0x3D42B5F3, a3, 1.0f, conn->VelocityVector);
-			effect = effect->Next;
-		}
+		carRenderInfo->Extras->ExhaustFX->UpdateSmoke(conn->Matrix, a3, conn->VelocityVector);
 	}
 }
 
