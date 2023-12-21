@@ -188,7 +188,7 @@ struct CarRenderInfo
 	AutoSculptRender AutosculptRender;
 	D3DXMATRIX* Matrix;
 	UsedCarTextureInfo UsedTextureInfo;
-	int LightsState1;
+	VehicleFX LightsState1;
 	int LightsState2;
 	int MinLodLevel;
 	int MaxLodLevel;
@@ -259,11 +259,6 @@ struct CarRenderInfo
 		return _SetPlayerDamage(this, damage);
 	}
 
-	bool IsBrakelightOn(int b)
-	{
-		return (this->LightsState2 & b) == 0 && (this->LightsState1 & b) != 0;
-	}
-
 	eLightMaterial* ResolveMaterial(Slot slot)
 	{
 		if (slot == Slot::SPOILER && this->Materials.Spoiler)
@@ -293,6 +288,12 @@ struct CarRenderInfo
 	void CopyCarbonReplacementTable()
 	{
 		memcpy(this->CarbonReplacementTextures + 2, this->GeneralReplacementTextures + 2, 72 * 12);
+	}
+
+	void RenderFlaresOnCar(eView* view, float* position, D3DXMATRIX* matrix, VehicleFX forceLightState, bool reflection, int renderFlareFlags, bool nonPlayer)
+	{
+		FUNC(0x007CBC40, void, __thiscall, _RenderFlaresOnCar, CarRenderInfo*, eView*, float*, D3DXMATRIX*, VehicleFX, bool, int, bool);
+		_RenderFlaresOnCar(this, view, position, matrix, forceLightState, reflection, renderFlareFlags, nonPlayer);
 	}
 
 	void SetWindowDamage(ReplacementTextureIndex index, DamageZone damageZone, Hash from, Hash to);

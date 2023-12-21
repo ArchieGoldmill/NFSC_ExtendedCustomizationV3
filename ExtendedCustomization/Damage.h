@@ -51,11 +51,11 @@ void __fastcall OnTaskFX(int* a, int, float b)
 	auto pVehicle = (PVehicle*)(a + 0x2E);
 
 	auto damage = pVehicle->GetDamage();
-	if (damage.IsHeadlightLeftDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_LHEAD);
-	if (damage.IsHeadlightRightDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_RHEAD);
-	if (damage.IsBrakelightLeftDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_LBRAKE);
-	if (damage.IsBrakelightRightDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_RBRAKE);
-	if (damage.IsBrakelightCentreDamaged()) pVehicle->GlareOff(VehicleFX::LIGHT_CBRAKE);
+	if (damage.IsHeadlightLeftDamaged()) pVehicle->GlareOff(VehicleFX_LHEAD);
+	if (damage.IsHeadlightRightDamaged()) pVehicle->GlareOff(VehicleFX_RHEAD);
+	if (damage.IsBrakelightLeftDamaged()) pVehicle->GlareOff(VehicleFX_LBRAKE);
+	if (damage.IsBrakelightRightDamaged()) pVehicle->GlareOff(VehicleFX_RBRAKE);
+	if (damage.IsBrakelightCentreDamaged()) pVehicle->GlareOff(VehicleFX_CBRAKE);
 }
 
 void InitDamage()

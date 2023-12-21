@@ -20,7 +20,7 @@ public:
 	void RenderShadow(eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 	{
 		bool isDamaged = this->carRenderInfo->Damage.IsBrakelightLeftDamaged() || this->carRenderInfo->Damage.IsBrakelightRightDamaged();
-		if (this->Texture && Game::InRace() && !isDamaged)
+		if (this->Texture && !isDamaged)
 		{
 			// Backup
 			auto backup = this->carRenderInfo->CarShadowTexture;
@@ -46,6 +46,6 @@ public:
 
 	Color GetColor()
 	{
-		return Color(carRenderInfo->IsGlareOn(VehicleFX::LIGHT_BRAKELIGHTS) ? 0x80808080 : 0x69696969);
+		return Color(carRenderInfo->IsGlareOn(VehicleFX_BRAKELIGHTS) ? 0x80808080 : (Game::InRace() ? 0x69696969 : 0));
 	}
 };

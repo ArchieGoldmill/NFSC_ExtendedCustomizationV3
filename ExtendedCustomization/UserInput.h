@@ -36,6 +36,23 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 	ToggleAnimation(carRenderInfo, Slot::DOOR_LEFT, g_Config.HK_ToggleLeftDoor);
 	ToggleAnimation(carRenderInfo, Slot::DOOR_RIGHT, g_Config.HK_ToggleRightDoor);
 	ToggleAnimation(carRenderInfo, Slot_Trunk, g_Config.HK_ToggleTrunk);
+
+	if (GetAsyncKeyState(g_Config.HK_ToggleLights))
+	{
+		if (Game::InFrontEnd())
+		{
+			if (carRenderInfo->LightsState1)
+			{
+				carRenderInfo->LightsState1 = VehicleFX_NONE;
+			}
+			else
+			{
+				carRenderInfo->LightsState1 = VehicleFX_LIGHTS;
+			}
+		}
+
+		while ((GetAsyncKeyState(g_Config.HK_ToggleLights) & 0x8000) > 0) { Sleep(0); }
+	}
 }
 
 DWORD WINAPI HandleUserInput(LPVOID arg)

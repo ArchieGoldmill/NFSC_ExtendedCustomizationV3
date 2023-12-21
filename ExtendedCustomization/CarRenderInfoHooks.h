@@ -5,6 +5,7 @@
 #include "FrontEndRenderingCar.h"
 #include "CarRenderConn.h"
 #include "SteerAngle.h"
+#include "FlareColor.h"
 
 void __fastcall CarRenderInfoCt(CarRenderInfo* carRenderInfo, int, RideInfo* rideInfo)
 {
@@ -48,6 +49,7 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int, bool reflect
 		result = carRenderInfo->DrawAmbientShadow(view, a3, a4, a5, a6, a7);
 		SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, view, a3, a4, a5, a6, a7);
 		SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, view, a3, a4, a5, a6, a7);
+		RenderTextureHeadlights(carRenderInfo, view, a3, a4, a5, a6, a7);
 	}
 
 	return result;
@@ -77,6 +79,7 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo, bool reflection)
 		{
 			SAFE_CALL(carRenderInfo->Extras->Neon, RenderMarkers, reflection);
 			SAFE_CALL(carRenderInfo->Extras->RotorGlow, RenderMarkers, reflection);
+			RenderFrontEndFlares(carRenderInfo, reflection);
 		}
 
 		if (!reflection)
@@ -110,6 +113,18 @@ void PostCarRenderMain(bool reflection)
 			OnAfterCarRender(carRenderInfo, reflection);
 		}
 	}
+}
+
+void __stdcall RenderFrontEndReflections()
+{
+	__asm pushad;
+
+	auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
+	OnAfterCarRender(rideInfo->pCarRenderInfo, true);
+
+	*((int*)0x00A6523C) = 2;
+
+	__asm popad;
 }
 
 void __stdcall PostCarRender()
@@ -203,4 +218,7 @@ void InitCarRenderInfoHooks()
 
 	injector::MakeCALL(0x0072E97E, PostCarRender);
 	injector::MakeCALL(0x0072E1D6, PostCarRenderReflection);
+
+	injector::MakeNOP(0x0072E61F, 10);
+	injector::MakeCALL(0x0072E61F, RenderFrontEndReflections);
 }

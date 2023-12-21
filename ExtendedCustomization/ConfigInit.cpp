@@ -177,6 +177,7 @@ void InitConfig()
 	g_Config.HK_ToggleLeftDoor = iniReader.ReadInteger("HOT_KEYS", "ToggleLeftDoor", 0);
 	g_Config.HK_ToggleRightDoor = iniReader.ReadInteger("HOT_KEYS", "ToggleRightDoor", 0);
 	g_Config.HK_ToggleTrunk = iniReader.ReadInteger("HOT_KEYS", "ToggleTrunk", 0);
+	g_Config.HK_ToggleLights = iniReader.ReadInteger("HOT_KEYS", "ToggleLights", 0);
 
 	InitCars();
 

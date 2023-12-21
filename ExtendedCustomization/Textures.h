@@ -40,12 +40,12 @@ void UpdateHeadlightTextures(CarRenderInfo* carRenderInfo)
 		headlightRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_OFF;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_LHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_LHEAD))
 	{
 		headlightLeft = carRenderInfo->UsedTextureInfo.HEADLIGHT_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_RHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_RHEAD))
 	{
 		headlightRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_ON;
 	}
@@ -78,12 +78,12 @@ void UpdateHeadlightGlassTextures(CarRenderInfo* carRenderInfo)
 		headlightGlassRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_GLASS_OFF;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_LHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_LHEAD))
 	{
 		headlightGlassLeft = carRenderInfo->UsedTextureInfo.HEADLIGHT_GLASS_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_RHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_RHEAD))
 	{
 		headlightGlassRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_GLASS_ON;
 	}
@@ -117,17 +117,17 @@ void UpdateBrakelightTextures(CarRenderInfo* carRenderInfo)
 		brakelightRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_LBRAKE))
+	if (carRenderInfo->IsGlareOn(VehicleFX_LBRAKE))
 	{
 		brakelightLeft = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_RBRAKE))
+	if (carRenderInfo->IsGlareOn(VehicleFX_RBRAKE))
 	{
 		brakelightRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_CBRAKE))
+	if (carRenderInfo->IsGlareOn(VehicleFX_CBRAKE))
 	{
 		brakelightCentre = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ON;
 	}
@@ -167,17 +167,17 @@ void UpdateBrakelightGlassTextures(CarRenderInfo* carRenderInfo)
 		brakelightGlassRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_GLASS_ONF;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_LBRAKE))
+	if (carRenderInfo->IsGlareOn(VehicleFX_LBRAKE))
 	{
 		brakelightGlassLeft = carRenderInfo->UsedTextureInfo.BRAKELIGHT_GLASS_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_RBRAKE))
+	if (carRenderInfo->IsGlareOn(VehicleFX_RBRAKE))
 	{
 		brakelightGlassRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_GLASS_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX::LIGHT_CBRAKE))
+	if (carRenderInfo->IsGlareOn(VehicleFX_CBRAKE))
 	{
 		brakelightGlassCentre = carRenderInfo->UsedTextureInfo.BRAKELIGHT_GLASS_ON;
 	}
@@ -209,7 +209,7 @@ void UpdateReverseTexture(CarRenderInfo* carRenderInfo)
 {
 	Hash carHash = StringHash(carRenderInfo->pRideInfo->GetCarTypeName());
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::Reverse].Update(Hashes::REVERSE, 
-		carRenderInfo->IsGlareOn(VehicleFX::LIGHT_REVERSE) ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash));
+		carRenderInfo->IsGlareOn(VehicleFX_REVERSE) ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash));
 }
 
 void UpdateInteriorGlowTexture(CarRenderInfo* carRenderInfo)

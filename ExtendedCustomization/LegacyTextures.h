@@ -23,7 +23,7 @@ namespace Legacy
 			if (Game::InRace())
 			{
 				auto info = (CarRenderInfo*)renderInfo;
-				return !info->IsGlareOn(VehicleFX::LIGHT_HEADLIGHTS);
+				return !info->IsGlareOn(VehicleFX_HEADLIGHTS);
 			}
 		}
 

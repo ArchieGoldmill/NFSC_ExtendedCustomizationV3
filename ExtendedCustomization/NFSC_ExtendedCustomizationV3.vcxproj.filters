@@ -261,9 +261,6 @@
     <ClInclude Include="CarCustomizeManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="BrakelightGlow.h">
-      <Filter>Features</Filter>
-    </ClInclude>
     <ClInclude Include="VinylManager.h">
       <Filter>SDK</Filter>
     </ClInclude>
@@ -413,6 +410,12 @@
     </ClInclude>
     <ClInclude Include="CarDamage.h">
       <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="FlareColor.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="BrakelightGlow.h">
+      <Filter>Features\Shadow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

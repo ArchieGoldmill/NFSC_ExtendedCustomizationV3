@@ -24,6 +24,7 @@
 #include "SteerAngle.h"
 #include "Version.h"
 #include "Damage.h"
+#include "FlareColor.h"
 
 void Init()
 {
@@ -50,6 +51,7 @@ void Init()
 	InitRotorGlow();
 	InitWheels();
 	InitDamage();
+	InitFlareColor();
 
 	Legacy::InitCustomization();
 	Legacy::InitTextures();

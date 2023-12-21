@@ -56,6 +56,7 @@ namespace Hashes
 	const Hash WHEEL_MAIN = 0xC295A4F8;
 	const Hash WHEEL_BADGE = 0x14832086;
 	const Hash METAL_SWATCH = 0xBF30889B;
+	const Hash FE_HEADLIGHTS = 0xD6077DC6;
 
 	const Hash WINDOW_FRONT = 0x7B220DDF;
 	const Hash WINDOW_LEFT_FRONT = 0xE7E4EF49;
@@ -64,6 +65,9 @@ namespace Hashes
 	const Hash WINDOW_RIGHT_REAR = 0x0AB88F5D;
 	const Hash WINDOW_REAR = 0x1B0763A0;
 	const Hash REAR_DEFROSTER = 0xD195BE56;
+
+	const Hash LEFT_HEADLIGHT = 0x9DB90133;
+	const Hash RIGHT_HEADLIGHT = 0xD09091C6;
 
 	const Hash HEADLIGHT_LEFT = 0xA7E6EA53;
 	const Hash HEADLIGHT_RIGHT = 0xA532FC46;
