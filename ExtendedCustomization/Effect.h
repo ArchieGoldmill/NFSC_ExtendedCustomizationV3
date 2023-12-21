@@ -15,10 +15,10 @@ struct Effect : bTNode<Effect>
 		this->Key = 0;
 	}
 
-	void Update(int a1, Hash emitter, int a3, float a4, int a5)
+	void Update(D3DXMATRIX* matrix, Hash emitter, float a3, float intensity, D3DXVECTOR3* velocity)
 	{
 		sizeof(Effect);
-		FUNC(0x007BF2A0, void, __thiscall, _Update, Effect*, int, int, int, float, int);
-		_Update(this, a1, emitter, a3, a4, a5);
+		FUNC(0x007BF2A0, void, __thiscall, _Update, Effect*, D3DXMATRIX*, Hash, float, float, D3DXVECTOR3*);
+		_Update(this, matrix, emitter, a3, intensity, velocity);
 	}
 };

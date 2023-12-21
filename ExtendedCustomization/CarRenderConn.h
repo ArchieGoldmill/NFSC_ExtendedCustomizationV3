@@ -7,15 +7,22 @@ class CarRenderInfo;
 class CarRenderConn
 {
 public:
-	int** data[0x10];
+	int unk1[2];
+	int* Vehicle;
+	int unk2[0xA];
+	D3DXVECTOR3* VelocityVector;
+	int unk3[2];
 	CarRenderInfo* pCarRenderInfo;
-	BYTE unk[0x140];
+	int unk4[0x33];
+	D3DXMATRIX* Matrix;
+	int unk5[0x1C];
 	float LeftWheelRotation;
 	float RightWheelRotation;
 	bTList<Effect> ExhaustEffects;
 
 	static int GetListCount()
 	{
+		//sizeof(CarRenderConn)
 		static int* ListCount = (int*)0x00B77DBC;
 		return *ListCount;
 	}
@@ -43,12 +50,12 @@ public:
 
 	PVehicle* GetPVehicle()
 	{
-		return (PVehicle*)(this->data[2][0x21]);
+		return (PVehicle*)(this->Vehicle[0x21]);
 	}
 
-	void UpdateEffects(int a1, int a2)
+	void UpdateEffects(int a1, float a2)
 	{
-		FUNC(0x007D5DF0, void, __thiscall, _UpdateEffects, CarRenderConn*, int, int);
+		FUNC(0x007D5DF0, void, __thiscall, _UpdateEffects, CarRenderConn*, int, float);
 		_UpdateEffects(this, a1, a2);
 	}
 };

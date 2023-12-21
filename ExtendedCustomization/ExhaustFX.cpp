@@ -108,20 +108,18 @@ void __declspec(naked) NosEffectCave()
 	}
 }
 
-void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, int a3)
+void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, float a3)
 {
 	conn->UpdateEffects(a2, a3);
-
-	auto iconn = (int*)conn;
-	auto carRenderInfo = conn->pCarRenderInfo;
 
 	auto pvehicle = conn->GetPVehicle();
 	float speed = pvehicle->GetSpeed();
 	if (abs(speed) < 10)
 	{
+		auto carRenderInfo = conn->pCarRenderInfo;
 		for (auto effect : carRenderInfo->Extras->ExhaustFX->SmokeEffects)
 		{
-			effect->Update(iconn[0x44], 0x3D42B5F3, a3, 1.0f, iconn[0xD]);
+			effect->Update(conn->Matrix, 0x3D42B5F3, a3, 1.0f, conn->VelocityVector);
 			effect = effect->Next;
 		}
 	}
