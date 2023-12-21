@@ -49,17 +49,23 @@ public:
 private:
 	void UpdateTarget()
 	{
-		float redline = 0.0f;
-		DALVehicle_GetRedLine(NULL, &redline, 0);
+		float magnitude = 0.4;
+		if (Game::InRace())
+		{
+			float redline = 0.0f;
+			DALVehicle_GetRedLine(NULL, &redline, 0);
 
-		float rpm = 0.0f;
-		DALVehicle_GetRPM(NULL, &rpm, 0);
+			float rpm = 0.0f;
+			DALVehicle_GetRPM(NULL, &rpm, 0);
 
-		float magnitude = rpm / redline;
+			magnitude = rpm / redline;
+		}
+
 		if (magnitude < 0.4)
 		{
 			magnitude = 0.4;
 		}
+
 
 		this->target.x = this->original->Matrix._41;// +this->GetRandom(magnitude / 2);
 		this->target.y = this->original->Matrix._42;// +this->GetRandom(magnitude / 2);
@@ -91,7 +97,7 @@ public:
 
 	void Init()
 	{
-		if (!this->carRenderInfo->pRideInfo->IsPlayer() || Game::InFrontEnd())
+		if (!this->carRenderInfo->pRideInfo->IsPlayer())
 		{
 			return;
 		}
@@ -117,22 +123,29 @@ public:
 
 	void Update()
 	{
-		if (Game::InRace() && !IsPaused())
+		if (IsPaused())
 		{
-			if (this->LeftShaker)
-			{
-				this->LeftShaker->Update();
-			}
+			return;
+		}
 
-			if (this->RightShaker)
-			{
-				this->RightShaker->Update();
-			}
+		if (Game::InFrontEnd() && !this->carRenderInfo->LightsState1)
+		{
+			return;
+		}
 
-			if (this->CenterShaker)
-			{
-				this->CenterShaker->Update();
-			}
+		if (this->LeftShaker)
+		{
+			this->LeftShaker->Update();
+		}
+
+		if (this->RightShaker)
+		{
+			this->RightShaker->Update();
+		}
+
+		if (this->CenterShaker)
+		{
+			this->CenterShaker->Update();
 		}
 	}
 

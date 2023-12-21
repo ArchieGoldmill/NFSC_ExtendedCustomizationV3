@@ -26,7 +26,7 @@ void CreateEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker, bSlist<
 	}
 	else
 	{
-		MessageBoxA(NULL, "Unable to allocate 'CarEmitterPosition'!", "Extended Customization", MB_ICONERROR);
+		MessageBoxA(NULL, "Unable to allocate CarEmitterPosition!", "Extended Customization", MB_ICONERROR);
 		exit(1);
 	}
 
