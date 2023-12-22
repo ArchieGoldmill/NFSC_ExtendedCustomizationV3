@@ -4,41 +4,30 @@
 #include "eLightFlare.h"
 #include "eView.h"
 
-D3DCOLOR GetSlotFlareColor(CarRenderInfo* carRenderInfo, Slot slot)
+std::pair<eLightFlareParams, bool> LightFlareParamsBackup = { eLightFlareParams(), false };
+void __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
 {
-	auto part = carRenderInfo->pRideInfo->GetPart(slot);
-	if (part)
+	Hash flareName = flare->NameHash;
+	if (flareName == Hashes::RIGHT_HEADLIGHT || flareName == Hashes::LEFT_HEADLIGHT)
 	{
-		int r = part->GetAppliedAttributeIParam(Hashes::RED, 0);
-		int g = part->GetAppliedAttributeIParam(Hashes::GREEN, 0);
-		int b = part->GetAppliedAttributeIParam(Hashes::BLUE, 0);
+		auto params = eLightFlareParams::List[0];
+		if (LightFlareParamsBackup.second)
+		{
+			*params = LightFlareParamsBackup.first;
+		}
 
-		int color = (r + (g << 8) + (b << 16));
+		auto color = carRenderInfo->GetHeadlightsColor();
 		if (color)
 		{
-			return color | 0xFF000000;
+			LightFlareParamsBackup.first = *params;
+			LightFlareParamsBackup.second = true;
+
+			Color c(color);
+			params->MaxColour[0] = c.Bytes[0];
+			params->MaxColour[1] = c.Bytes[1];
+			params->MaxColour[2] = c.Bytes[2];
 		}
 	}
-
-	return 0;
-}
-
-D3DCOLOR __stdcall GetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
-{
-	D3DCOLOR finalColor = 0;
-
-	Hash flareName = flare->NameHash;
-	if (flareName == Hashes::RIGHT_HEADLIGHT)
-	{
-		finalColor = GetSlotFlareColor(carRenderInfo, Slot::RIGHT_HEADLIGHT);
-	}
-
-	if (flareName == Hashes::LEFT_HEADLIGHT)
-	{
-		finalColor = GetSlotFlareColor(carRenderInfo, Slot::LEFT_HEADLIGHT);
-	}
-
-	return finalColor;
 }
 
 void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
@@ -83,24 +72,25 @@ void RenderFrontEndFlares(CarRenderInfo* carRenderInfo, bool reflection)
 	}
 }
 
-void __declspec(naked) FlareColorCave()
+void __declspec(naked) FlareColorCave1()
 {
-	static constexpr auto cExit = 0x007CC603;
+	static constexpr auto cExit = 0x007CC601;
 
 	__asm
 	{
 		push 0x3F800000;
-		SAVE_REGS_EAX;
+
+		pushad;
 		push esi;
-		push[esp + 0x5C];
-		call GetFlareColor;
-		RESTORE_REGS_EAX;
-		push eax;
+		push[esp + 0x68];
+		call SetFlareColor;
+		popad;
+
 		jmp cExit;
 	}
 }
 
 void InitFlareColor()
 {
-	//injector::MakeJMP(0x007CC5FC, FlareColorCave);
+	injector::MakeJMP(0x007CC5FC, FlareColorCave1);
 }
