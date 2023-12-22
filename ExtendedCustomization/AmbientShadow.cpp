@@ -19,7 +19,8 @@ D3DCOLOR __stdcall GetShadowColor(CarRenderInfo* carRenderInfo, float brightness
 
 	if (carRenderInfo->CarShadowTexture->key == Hashes::FE_HEADLIGHTS)
 	{
-		color = Color(0x18FFFFFF);
+		auto c = carRenderInfo->GetHeadlightsColor();
+		color = Color(c ? c | 0x15000000 : 0x18FFFFFF);
 	}
 
 	color.Bytes[3] *= brightness;

@@ -302,4 +302,23 @@ struct CarRenderInfo
 	}
 
 	void SetWindowDamage(ReplacementTextureIndex index, DamageZone damageZone, Hash from, Hash to);
+
+	D3DCOLOR GetHeadlightsColor()
+	{
+		auto part = this->pRideInfo->GetPart(Slot::LEFT_HEADLIGHT);
+		if (part)
+		{
+			int r = part->GetAppliedAttributeIParam(Hashes::RED, 0);
+			int g = part->GetAppliedAttributeIParam(Hashes::GREEN, 0);
+			int b = part->GetAppliedAttributeIParam(Hashes::BLUE, 0);
+
+			int color = (r + (g << 8) + (b << 16));
+			if (color)
+			{
+				return color;
+			}
+		}
+
+		return 0;
+	}
 };
