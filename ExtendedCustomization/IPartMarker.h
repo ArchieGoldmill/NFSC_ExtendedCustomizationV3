@@ -27,4 +27,9 @@ public:
 	virtual void SetTarget(float target) = 0;
 	virtual void AddSubSlot(Slot slot) = 0;
 	virtual D3DXMATRIX Calculate() = 0;
+
+	bool IsEnded()
+	{
+		return this->amount == 1.0f;
+	}
 };

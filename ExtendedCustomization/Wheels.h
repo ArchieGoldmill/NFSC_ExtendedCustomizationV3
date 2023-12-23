@@ -89,8 +89,8 @@ void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel* model, D3DXM
 		if (carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Solid)
 		{
 			int tireFlags = flags;
-			auto tireTransform = AdjustTireMatrix(carRenderInfo, transform, num, tireFlags);
-			carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Render(view, tireTransform, light, tireFlags);
+			//auto tireTransform = AdjustTireMatrix(carRenderInfo, transform, num, tireFlags);
+			carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Render(view, transform, light, tireFlags);
 			model->AttachReplacementTextureTable(carRenderInfo->Extras->WheelTextures->WheelTires->Wheel.TextureTable, CarWheel::Size);
 		}
 

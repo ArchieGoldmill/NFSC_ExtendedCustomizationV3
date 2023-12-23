@@ -71,6 +71,7 @@ struct GlobalConfig : public SharedConfig
 
 	bool DebugRotorGlow;
 	unsigned int DebugAICar;
+	bool DebugDamage;
 
 	int PartPreviewDelay;
 

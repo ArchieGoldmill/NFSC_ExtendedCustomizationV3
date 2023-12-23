@@ -5,9 +5,20 @@
 #include "eView.h"
 
 std::pair<eLightFlareParams, bool> LightFlareParamsBackup = { eLightFlareParams(), false };
-void __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
+int __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
 {
 	Hash flareName = flare->NameHash;
+
+	if (!carRenderInfo->Extras->Animations->IsLeftHeadlightOpen() && flareName == Hashes::LEFT_HEADLIGHT)
+	{
+		return 0;
+	}
+
+	if (!carRenderInfo->Extras->Animations->IsRightHeadlightOpen() && flareName == Hashes::RIGHT_HEADLIGHT)
+	{
+		return 0;
+	}
+
 	if (flareName == Hashes::RIGHT_HEADLIGHT || flareName == Hashes::LEFT_HEADLIGHT)
 	{
 		auto params = eLightFlareParams::List[0];
@@ -28,10 +39,22 @@ void __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
 			params->MaxColour[2] = c.Bytes[2];
 		}
 	}
+
+	return 1;
 }
 
 void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 {
+	if (!(carRenderInfo->Extras->Animations->IsLeftHeadlightOpen() || carRenderInfo->Extras->Animations->IsRightHeadlightOpen()))
+	{
+		return;
+	}
+
+	if (g_Config.GetPopUpHeadLights(carRenderInfo->pRideInfo->CarId) == State::Enabled)
+	{
+		return;
+	}
+
 	if (carRenderInfo->IsFeEngineOn())
 	{
 		// Backup
@@ -58,6 +81,11 @@ void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR
 
 void RenderFrontEndFlares(CarRenderInfo* carRenderInfo, bool reflection)
 {
+	if (g_Config.GetPopUpHeadLights(carRenderInfo->pRideInfo->CarId) == State::Enabled)
+	{
+		return;
+	}
+
 	if (carRenderInfo->IsFeEngineOn())
 	{
 		if (!reflection)
@@ -75,17 +103,24 @@ void RenderFrontEndFlares(CarRenderInfo* carRenderInfo, bool reflection)
 void __declspec(naked) FlareColorCave1()
 {
 	static constexpr auto cExit = 0x007CC601;
+	static constexpr auto cExit1 = 0x007CC649;
 
 	__asm
 	{
-		push 0x3F800000;
-
-		pushad;
+		SAVE_REGS_EAX;
 		push esi;
-		push[esp + 0x68];
+		push[esp + 0x58];
 		call SetFlareColor;
-		popad;
+		RESTORE_REGS_EAX;
 
+		test eax, eax;
+		jne CreateFlare;
+		jmp cExit1;
+
+	CreateFlare:
+		mov eax, [ebp + 0x18];
+		test eax, eax; // restore compare state
+		push 0x3F800000;
 		jmp cExit;
 	}
 }

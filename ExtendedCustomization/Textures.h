@@ -40,12 +40,12 @@ void UpdateHeadlightTextures(CarRenderInfo* carRenderInfo)
 		headlightRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_OFF;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX_LHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_LHEAD) && carRenderInfo->Extras->Animations->IsLeftHeadlightOpen())
 	{
 		headlightLeft = carRenderInfo->UsedTextureInfo.HEADLIGHT_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX_RHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_RHEAD) && carRenderInfo->Extras->Animations->IsRightHeadlightOpen())
 	{
 		headlightRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_ON;
 	}
@@ -78,12 +78,12 @@ void UpdateHeadlightGlassTextures(CarRenderInfo* carRenderInfo)
 		headlightGlassRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_GLASS_OFF;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX_LHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_LHEAD) && carRenderInfo->Extras->Animations->IsLeftHeadlightOpen())
 	{
 		headlightGlassLeft = carRenderInfo->UsedTextureInfo.HEADLIGHT_GLASS_ON;
 	}
 
-	if (carRenderInfo->IsGlareOn(VehicleFX_RHEAD))
+	if (carRenderInfo->IsGlareOn(VehicleFX_RHEAD) && carRenderInfo->Extras->Animations->IsRightHeadlightOpen())
 	{
 		headlightGlassRight = carRenderInfo->UsedTextureInfo.HEADLIGHT_GLASS_ON;
 	}

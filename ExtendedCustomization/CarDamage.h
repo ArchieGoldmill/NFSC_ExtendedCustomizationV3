@@ -1,4 +1,5 @@
 #pragma once
+#include "Config.h"
 
 enum DamageZone : unsigned int
 {
@@ -8,7 +9,8 @@ enum DamageZone : unsigned int
 	DamageZone_FrontLeft = 0x7000,		// 0000 0000 0111 0000 0000 0000
 	DamageZone_FrontRight = 0x38000,	// 0000 0011 1000 0000 0000 0000
 	DamageZone_RearLeft = 0x1C0000,		// 0001 1100 0000 0000 0000 0000
-	DamageZone_RearRight = 0xE00000		// 1110 0000 0000 0000 0000 0000
+	DamageZone_RearRight = 0xE00000,	// 1110 0000 0000 0000 0000 0000
+	DamageZone_All = DamageZone_Front | DamageZone_Rear | DamageZone_FrontLeft | DamageZone_FrontRight | DamageZone_RearLeft | DamageZone_RearRight
 };
 
 enum DamageType
@@ -26,16 +28,21 @@ struct CarDamage
 
 	bool IsDamaged(DamageZone zone)
 	{
-		return ((unsigned int)this->Damage & (unsigned int)zone) != 0;
-	}
+		if (g_Config.DebugDamage)
+		{
+			return true;
+		}
 
-	bool IsDamaged(DamageZone zone, int type)
-	{
-		return this->IsDamaged(zone, (DamageType)type);
+		return ((unsigned int)this->Damage & (unsigned int)zone) != 0;
 	}
 
 	bool IsDamaged(DamageZone zone, DamageType type)
 	{
+		if (g_Config.DebugDamage)
+		{
+			return true;
+		}
+
 		unsigned int damage = (unsigned int)this->Damage;
 		if (zone == DamageZone_Rear)
 		{

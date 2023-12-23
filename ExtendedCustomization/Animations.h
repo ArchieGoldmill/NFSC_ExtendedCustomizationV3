@@ -142,6 +142,16 @@ public:
 		FEPartAnimation::ResetAll();
 	}
 
+	bool IsRightHeadlightOpen()
+	{
+		return this->IsHeadlightOpen(Slot::RIGHT_HEADLIGHT);
+	}
+
+	bool IsLeftHeadlightOpen()
+	{
+		return this->IsHeadlightOpen(Slot::LEFT_HEADLIGHT);
+	}
+
 private:
 	IPartAnimation* FindAnimMarkers(Slot slot)
 	{
@@ -239,5 +249,19 @@ private:
 
 		this->partAnimations.clear();
 		this->partMarkers.clear();
+	}
+
+	bool IsHeadlightOpen(Slot slot)
+	{
+		auto headlightAnim = this->GetPartAnimation(slot);
+		if (headlightAnim)
+		{
+			if (!headlightAnim->IsEnded())
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 };

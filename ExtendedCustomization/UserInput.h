@@ -10,13 +10,13 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 	{
 		if (*Game::FePhotoModeMenuScreen_Instance)
 		{
-			auto anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetAnimation(slot);
+			auto anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetPartAnimation(slot);
 			if (anim)
 			{
 				anim->Toggle();
 				if (slot == Slot::LEFT_HEADLIGHT)
 				{
-					anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetAnimation(Slot::RIGHT_HEADLIGHT);
+					anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetPartAnimation(Slot::RIGHT_HEADLIGHT);
 					if (anim)
 					{
 						anim->Toggle();
@@ -48,6 +48,19 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 			else
 			{
 				carRenderInfo->LightsState1 = VehicleFX_LIGHTS;
+			}
+
+			auto anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetPartAnimation(Slot::LEFT_HEADLIGHT);
+			if (anim)
+			{
+				float target = carRenderInfo->LightsState1 ? 1.0f : 0.0f;
+				anim->SetTarget(target);
+
+				anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetPartAnimation(Slot::RIGHT_HEADLIGHT);
+				if (anim)
+				{
+					anim->SetTarget(target);
+				}
 			}
 		}
 
