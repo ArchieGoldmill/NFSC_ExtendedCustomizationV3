@@ -271,7 +271,7 @@ struct CarRenderInfo
 			return this->Materials.RoofScoop;
 		}
 
-		if (slot == Slot::HOOD && this->Materials.Hood)
+		if (slot == Slot::HOOD && this->Materials.Hood && this->IsHoodCarbon)
 		{
 			return this->Materials.Hood;
 		}

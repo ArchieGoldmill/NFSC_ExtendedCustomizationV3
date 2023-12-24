@@ -31,7 +31,7 @@ const int ZoneLicenseplate = 15;
 enum class ReplacementTextureIndex : int
 {
 	CarSkin,
-	GlobalSkin,
+	SpolierSkin1,
 
 	Interior,
 	InteriorGlow,

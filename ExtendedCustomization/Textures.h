@@ -300,7 +300,7 @@ void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
 	// General
 	memset(carRenderInfo->GeneralReplacementTextures + 2, 0, 72 * 12);
 
-	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::GlobalSkin].Update(Hashes::GLOBAL_SKIN, Hashes::METAL_SWATCH);
+	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::SpolierSkin1].Update(Hashes::SPOILER_SKIN1, Hashes::METAL_SWATCH);
 
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::WindowFront].Update(Hashes::WINDOW_FRONT, Hashes::WINDOW_FRONT);
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::WindowFrontLeft].Update(Hashes::WINDOW_LEFT_FRONT, Hashes::WINDOW_FRONT);
@@ -324,7 +324,7 @@ void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
 	// Carbon
 	carRenderInfo->CopyCarbonReplacementTable();
 	carRenderInfo->CarbonReplacementTextures[(int)ReplacementTextureIndex::CarSkin].Update(carRenderInfo->UsedTextureInfo.SKIN1, Hashes::CARBONFIBRE);
-	carRenderInfo->CarbonReplacementTextures[(int)ReplacementTextureIndex::GlobalSkin].Update(Hashes::GLOBAL_SKIN, Hashes::CARBONFIBRE);
+	carRenderInfo->CarbonReplacementTextures[(int)ReplacementTextureIndex::SpolierSkin1].Update(Hashes::SPOILER_SKIN1, Hashes::CARBONFIBRE);
 }
 
 void __declspec(naked) GetUsedCarTextureInfoCave()

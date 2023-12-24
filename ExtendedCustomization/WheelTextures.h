@@ -18,9 +18,9 @@ struct CarTire
 		this->Model.AttachReplacementTextureTable(this->TextureTable, Size);
 	}
 
-	void UpdateBrand(int tireBrand, bool isRight)
+	void UpdateBrand(int tireBrand)
 	{
-		this->TextureTable[2].Set(isRight ? Hashes::TIRE_BRAND_R : Hashes::TIRE_BRAND_L, FromIndex("TIRE_BRAND_%02d", tireBrand));
+		this->TextureTable[2].Set(Hashes::TIRE_BRAND, FromIndex("TIRE_BRAND_%02d", tireBrand));
 	}
 };
 
@@ -112,12 +112,12 @@ public:
 		auto rideInfo = this->carRenderInfo->pRideInfo;
 
 		int tireBrand = rideInfo->Autosculpt.Regions[ZoneStance].GetInt(6);
-		this->WheelTires[WHEEL_FL].Tire.UpdateBrand(tireBrand, false);
-		this->WheelTires[WHEEL_FR].Tire.UpdateBrand(tireBrand, true);
+		this->WheelTires[WHEEL_FL].Tire.UpdateBrand(tireBrand);
+		this->WheelTires[WHEEL_FR].Tire.UpdateBrand(tireBrand);
 
 		tireBrand = rideInfo->Autosculpt.Regions[ZoneStance].GetInt(7);
-		this->WheelTires[WHEEL_RL].Tire.UpdateBrand(tireBrand, false);
-		this->WheelTires[WHEEL_RR].Tire.UpdateBrand(tireBrand, true);
+		this->WheelTires[WHEEL_RL].Tire.UpdateBrand(tireBrand);
+		this->WheelTires[WHEEL_RR].Tire.UpdateBrand(tireBrand);
 	}
 
 	~CarWheelTextures()

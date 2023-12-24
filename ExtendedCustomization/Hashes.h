@@ -37,8 +37,7 @@ namespace Hashes
 	const Hash WINDOW_DAMAGE1 = 0x0A155546;
 	const Hash DEFAULT = 0x2C420D64;
 	const Hash CAR_NAME = 0xB271B295;
-	const Hash TIRE_BRAND_L = 0xC1D514A4;
-	const Hash TIRE_BRAND_R = 0xC1D514AA;
+	const Hash TIRE_BRAND = 0x54922DD9;
 	const Hash ANIMATE = 0x5A8E4EBE;
 	const Hash ANIMATE_SPOILER = 0xC943751B;
 	const Hash ANIMATE_LICENSE_PLATE = 0xE8320295;
@@ -57,6 +56,7 @@ namespace Hashes
 	const Hash WHEEL_BADGE = 0x14832086;
 	const Hash METAL_SWATCH = 0xBF30889B;
 	const Hash FE_HEADLIGHTS = 0xD6077DC6;
+	const Hash SPOILER_SKIN1 = 0xE9B62482;
 
 	const Hash WINDOW_FRONT = 0x7B220DDF;
 	const Hash WINDOW_LEFT_FRONT = 0xE7E4EF49;
@@ -121,7 +121,6 @@ namespace Hashes
 	const Hash INTERIOR_GLOW = 0x60458523;
 
 	const Hash CARSKIN = 0xD6D6080A;
-	const Hash GLOBAL_SKIN = 0x1DFD1FA4;
 
 	const Hash CUST_PART_MISSINGSTRING = 0x6F1C7FA4;
 	const Hash CUST_INSTALL = 0xAC258B54;
