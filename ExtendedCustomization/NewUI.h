@@ -91,7 +91,8 @@ void UpdateUnlimiterConfig()
 			char section[64];
 			sprintf(section, "FNG%d", i);
 			auto fngName = fngFixes.ReadString(section, "FNGName", "");
-			if (fngName == "FeCustomizeParts.fng")
+			auto objectPrefix = fngFixes.ReadString(section, "ObjectPrefix", "");
+			if (fngName == "FeCustomizeParts.fng" && objectPrefix == "OPTION_")
 			{
 				fngFixes.WriteString(section, "Child1", "OPTION_IMAGE_");
 				break;
