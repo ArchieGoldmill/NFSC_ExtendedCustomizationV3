@@ -46,10 +46,10 @@ public:
 	int pTitleNameShadow;
 	FEString* pTitleDesc;
 
-	void AddOption(TextOption* textOption)
+	void* AddOption(TextOption* textOption)
 	{
-		FUNC(0x005B2320, void, __thiscall, _AddOption, VectorScrollerMenu*, TextOption*);
-		_AddOption(this, textOption);
+		FUNC(0x005B2320, void*, __thiscall, _AddOption, VectorScrollerMenu*, TextOption*);
+		return _AddOption(this, textOption);
 	}
 
 	void RefreshHeader()

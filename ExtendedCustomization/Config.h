@@ -108,6 +108,7 @@ struct GlobalConfig : public SharedConfig
 	bool BrakeScale;
 	bool ExhaustSmoke;
 	bool WindowDamageStages;
+	bool NewUI;
 
 	bool HK_Enabled;
 	int HK_ToggleHood;

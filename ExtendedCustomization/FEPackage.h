@@ -14,9 +14,8 @@ struct FEObjectMouseState
 	int Flags;
 };
 
-class FEPackage
+struct FEPackage
 {
-public:
 	void* Vtable;
 	FEObject* Next;
 	FEObject* Prev;
@@ -27,4 +26,10 @@ public:
 	int _data1[22];
 	FEObjectMouseState* MouseObjectStates;
 	int NumMouseObjects;
+
+	FEObject* FindObjectByHash(Hash hash)
+	{
+		static auto _FindObjectByHash = (FEObject * (__thiscall*)(FEPackage*, Hash))0x005F3760;
+		return _FindObjectByHash(this, hash);
+	}
 };

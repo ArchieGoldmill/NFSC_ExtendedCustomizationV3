@@ -8,9 +8,8 @@ struct FEWideString
 	int mulBufferLength;
 };
 
-class FEString : public FEObject
+struct FEString :  FEObject
 {
-public:
 	int pLabelName;
 	Hash LabelHash;
 	FEWideString WideString;
@@ -22,5 +21,11 @@ public:
 	{
 		FUNC(0x00571080, void, __cdecl, _SetLanguageHash, FEString*, Hash);
 		_SetLanguageHash(this, hash);
+	}
+
+	FEString* Clone()
+	{
+		static auto _Clone = (FEString * (__thiscall*)(FEString*, int))0x005FF6D0;
+		return _Clone(this, 0);
 	}
 };

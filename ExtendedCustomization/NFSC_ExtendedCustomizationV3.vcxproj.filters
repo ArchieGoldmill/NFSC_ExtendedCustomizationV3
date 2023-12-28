@@ -417,6 +417,12 @@
     <ClInclude Include="BrakelightGlow.h">
       <Filter>Features\Shadow</Filter>
     </ClInclude>
+    <ClInclude Include="NewUI.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="FEGroup.h">
+      <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

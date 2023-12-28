@@ -199,6 +199,7 @@
     <ClInclude Include="eView.h" />
     <ClInclude Include="ExhaustFX.h" />
     <ClInclude Include="ActiveAero.h" />
+    <ClInclude Include="FEGroup.h" />
     <ClInclude Include="FlareColor.h" />
     <ClInclude Include="InitializeEverythingHooks.h" />
     <ClInclude Include="LegacyMenu.h" />
@@ -224,6 +225,7 @@
     <ClInclude Include="LightingContext.h" />
     <ClInclude Include="eLightMaterial.h" />
     <ClInclude Include="eModel.h" />
+    <ClInclude Include="NewUI.h" />
     <ClInclude Include="RandomParts.h" />
     <ClInclude Include="RenderingModel.h" />
     <ClInclude Include="ReplacementTextureEntry.h" />

@@ -25,6 +25,7 @@
 #include "Version.h"
 #include "Damage.h"
 #include "FlareColor.h"
+#include "NewUI.h"
 
 void Init()
 {
@@ -52,6 +53,7 @@ void Init()
 	InitWheels();
 	InitDamage();
 	InitFlareColor();
+	InitNewUI();
 
 	Legacy::InitCustomization();
 	Legacy::InitTextures();
