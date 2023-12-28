@@ -3,18 +3,14 @@
 #include "CarRenderInfo.h"
 #include "CarRenderConn.h"
 
-class ActiveAero : public IPartAnimation
+class ActiveAero : public PartAnimation
 {
 private:
-	CarRenderInfo* carRenderInfo;
 	float activateSpeed;
 
 public:
-	ActiveAero(D3DXMATRIX* start, D3DXMATRIX* end, CarRenderInfo* carRenderInfo, float activateSpeed)
+	ActiveAero(D3DXMATRIX* start, D3DXMATRIX* end, CarRenderInfo* carRenderInfo, float activateSpeed) : PartAnimation(slot, start, end, carRenderInfo)
 	{
-		this->start = start;
-		this->end = end;
-		this->carRenderInfo = carRenderInfo;
 		this->activateSpeed = activateSpeed;
 		this->slot = Slot::SPOILER;
 	}
@@ -29,7 +25,7 @@ public:
 				auto pVehicle = carRenderConn->GetPVehicle();
 				if (pVehicle)
 				{
-					float speed = pVehicle->GetSpeed();
+					float speed = pVehicle->GetSpeed() / 3.5999999f;
 					float moveSpeed = Game::DeltaTime();
 					if (speed > this->activateSpeed)
 					{
@@ -42,20 +38,6 @@ public:
 				}
 			}
 		}
-	}
-
-	D3DXMATRIX* Get(D3DXMATRIX* matrix)
-	{
-		if (!this->amount)
-		{
-			return matrix;
-		}
-
-		this->state = *matrix;
-		auto pos = (GetVector3(this->end, 3) - GetVector3(this->start, 3)) * this->amount;
-		SetVector3(&this->state, 3, GetVector3(&this->state, 3) + pos);
-
-		return &this->state;
 	}
 
 	bool IsSlot(Slot slot)
@@ -71,11 +53,5 @@ public:
 	void AddSubSlot(Slot)
 	{
 		// do nothing
-	}
-
-	D3DXMATRIX Calculate()
-	{
-		MessageBoxA(NULL, "Not expected to call calculate for ActiveAero!", "Extended Customization", MB_ICONERROR);
-		exit(1);
 	}
 };
