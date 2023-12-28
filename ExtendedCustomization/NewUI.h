@@ -2,6 +2,7 @@
 #include "Feature.h"
 #include "VectorScrollerMenu.h"
 #include "FEGroup.h"
+#include "../ThirdParty/IniReader/IniReader.h"
 
 void* __fastcall VectorScrollerMenu_AddOption(VectorScrollerMenu* _this, int, TextOption* textOption)
 {
@@ -79,10 +80,32 @@ void __fastcall VectorScrollerMenu_RefreshHeader(VectorScrollerMenu* menu)
 	}
 }
 
+void UpdateUnlimiterConfig()
+{
+	CIniReader fngFixes("UnlimiterData\\_FNGFixes.ini");
+	int count = fngFixes.ReadInteger("FNGFixes", "NumberOfFNGFixes", 0);
+	if (count)
+	{
+		for (int i = 1; i <= count; i++)
+		{
+			char section[64];
+			sprintf(section, "FNG%d", i);
+			auto fngName = fngFixes.ReadString(section, "FNGName", "");
+			if (fngName == "FeCustomizeParts.fng")
+			{
+				fngFixes.WriteString(section, "Child1", "OPTION_IMAGE_");
+				break;
+			}
+		}
+	}
+}
+
 void InitNewUI()
 {
-	//if (g_Config.NewUI)
+	if (g_Config.NewUI)
 	{
+		UpdateUnlimiterConfig();
+
 		injector::MakeNOP(0x005A2C17, 6, true); // Always show new part icon
 
 		injector::MakeCALL(0x0085FE9E, VectorScrollerMenu_AddOption, true); // Parts
