@@ -138,8 +138,17 @@ struct UsedCarTextureInfo
 
 	void AddToPerm(Hash hash)
 	{
-		FUNC(0x007B1120, int, __cdecl, _AddToPerm, Hash*, int, int, Hash);
-		this->NumTexturesToLoadPerm += _AddToPerm(this->TexturesToLoadPerm, this->NumTexturesToLoadPerm, 104, hash);
+		if (hash)
+		{
+			if (this->NumTexturesToLoadPerm > 104)
+			{
+				MessageBoxA(NULL, ("Unable to add texture to TexturesToLoadPerm! Hash: " + std::to_string(hash)).c_str(), "Extended Customization", MB_ICONERROR);
+				exit(0);
+			}
+
+			FUNC(0x007B1120, int, __cdecl, _AddToPerm, Hash*, int, int, Hash);
+			this->NumTexturesToLoadPerm += _AddToPerm(this->TexturesToLoadPerm, this->NumTexturesToLoadPerm, 104, hash);
+		}
 	}
 };
 
