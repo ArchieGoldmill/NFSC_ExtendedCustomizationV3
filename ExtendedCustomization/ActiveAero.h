@@ -25,7 +25,7 @@ public:
 				auto pVehicle = carRenderConn->GetPVehicle();
 				if (pVehicle)
 				{
-					float speed = pVehicle->GetSpeed() / 3.5999999f;
+					float speed = pVehicle->GetSpeed() * 3.5999999f;
 					float moveSpeed = Game::DeltaTime();
 					if (speed > this->activateSpeed)
 					{
