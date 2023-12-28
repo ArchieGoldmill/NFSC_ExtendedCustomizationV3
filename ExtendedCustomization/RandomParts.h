@@ -11,8 +11,16 @@ void InstallByKitNumber(Slot slot, RideInfo* rideInfo, FECustomizationRecord* re
 void SetRandomPartsV3(RideInfo* rideInfo)
 {
 	auto carId = rideInfo->CarId;
+	DBCarPart* body;
+	if (bRandom(2))
+	{
+		body = SetRandomPart(rideInfo, Slot::BODY, 0);
+	}
+	else
+	{
+		body = rideInfo->GetPart(Slot::BODY);
+	}
 
-	auto body = SetRandomPart(rideInfo, Slot::BODY, 0);
 	int kitw = body ? body->GetKit() : -1;
 
 	auto frontBumper = SetRandomPart(rideInfo, Slot::FRONT_BUMPER, 0, kitw);
@@ -54,6 +62,27 @@ void SetRandomPartsV3(RideInfo* rideInfo)
 	HandleSpecialCustomizationV3(null, rideInfo, null);
 }
 
+void SetRandomRearWheels(RideInfo* rideInfo)
+{
+	auto carId = rideInfo->CarId;
+	DBCarPart* part = null;
+	while (true)
+	{
+		part = CarPartDatabase::Instance->GetCarPart(Slot::REAR_WHEEL, carId, part);
+		if (!part)
+		{
+			break;
+		}
+
+		if (part->GetAppliedAttributeBParam(Hashes::DEFAULT, false))
+		{
+			rideInfo->SetPart(Slot::REAR_WHEEL, part, false);
+
+			break;
+		}
+	}
+}
+
 void __fastcall SetRandomParts(RideInfo* rideInfo, int, int hash)
 {
 	int version = g_Config.GetVersion(rideInfo->CarId);
@@ -69,6 +98,8 @@ void __fastcall SetRandomParts(RideInfo* rideInfo, int, int hash)
 	{
 		Legacy::SetRandomParts(rideInfo, hash);
 	}
+
+	SetRandomRearWheels(rideInfo);
 }
 
 int __fastcall CreateVehicle(int a1, int, int vltHash, int a3, int a4)
