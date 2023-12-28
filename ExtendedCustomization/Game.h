@@ -71,6 +71,7 @@ namespace Game
 	static auto ForceHeadlightsOff = (bool*)0x00B74C18;
 	static auto FeFastRep = (int*)0x005FDF66;
 	static auto FePhotoModeMenuScreen_Instance = (int*)0x00A97B10;
+	static auto InFocus = (bool*)0x00AB0B3C;
 
 	enum class State
 	{

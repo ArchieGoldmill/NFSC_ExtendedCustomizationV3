@@ -8,7 +8,7 @@ void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 {
 	if (GetAsyncKeyState(hk))
 	{
-		if (*Game::FePhotoModeMenuScreen_Instance)
+		if (*Game::FePhotoModeMenuScreen_Instance && !*Game::InFocus)
 		{
 			auto anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetPartAnimation(slot);
 			if (anim)
@@ -39,7 +39,7 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 
 	if (GetAsyncKeyState(g_Config.HK_ToggleLights))
 	{
-		if (Game::InFrontEnd())
+		if (Game::InFrontEnd() && !*Game::InFocus)
 		{
 			if (carRenderInfo->LightsState1)
 			{
