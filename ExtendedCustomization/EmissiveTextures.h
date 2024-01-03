@@ -93,13 +93,16 @@ void __cdecl CreateRenderingModel(void* meshEntry, eSolid* solid, int flags, voi
 	CreateGenericRenderingModel(meshEntry, solid, flags, effect, textures, trs, context, material, blend_trs, pca);
 	auto model = RenderingModel::GetLast();
 
-	auto key = model->diffuse_texture_info->key;
-	key = StringHash1("_E", key);
-	auto emissive = TextureInfo::Get(key, false, false);
-	if (emissive)
+	if (model && model->diffuse_texture_info)
 	{
-		textures[0] = emissive;
-		CreateEmissiveRenderingModel(meshEntry, solid, flags, effect, textures, trs, context, material, blend_trs, pca);
+		auto key = model->diffuse_texture_info->key;
+		key = StringHash1("_E", key);
+		auto emissive = TextureInfo::Get(key, false, false);
+		if (emissive)
+		{
+			textures[0] = emissive;
+			CreateEmissiveRenderingModel(meshEntry, solid, flags, effect, textures, trs, context, material, blend_trs, pca);
+		}
 	}
 }
 
