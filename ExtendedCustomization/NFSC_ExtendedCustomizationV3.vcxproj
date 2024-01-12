@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.asi</TargetExt>
-    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_game\scripts\</OutDir>
+    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_ecv31\scripts\</OutDir>
     <TargetName>ExtendedCustomization</TargetName>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
@@ -186,6 +186,7 @@
     <ClInclude Include="BrakelightGlow.h" />
     <ClInclude Include="Camber.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CarbonSlot.h" />
     <ClInclude Include="CarCustomizeManager.h" />
     <ClInclude Include="CarDamage.h" />
     <ClInclude Include="CarSkinManager.h" />
@@ -284,7 +285,6 @@
     <ClInclude Include="Vinyls.h" />
     <ClInclude Include="VinylManager.h" />
     <ClInclude Include="WheelBrands.h" />
-    <ClInclude Include="WheelBrandsHelpBar.h" />
     <ClInclude Include="WheelTextures.h" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ struct FEWideString
 	int mulBufferLength;
 };
 
-struct FEString :  FEObject
+struct FEString : FEObject
 {
 	int pLabelName;
 	Hash LabelHash;
@@ -21,6 +21,12 @@ struct FEString :  FEObject
 	{
 		FUNC(0x00571080, void, __cdecl, _SetLanguageHash, FEString*, Hash);
 		_SetLanguageHash(this, hash);
+	}
+
+	static void SetLanguageHash(char* package, Hash feString, Hash hash)
+	{
+		FUNC(0x005A0830, void, __cdecl, _SetLanguageHash, char*, Hash, Hash);
+		_SetLanguageHash(package, feString, hash);
 	}
 
 	FEString* Clone()

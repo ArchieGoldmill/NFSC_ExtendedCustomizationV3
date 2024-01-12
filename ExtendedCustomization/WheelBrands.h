@@ -3,7 +3,6 @@
 #include "Feature.h"
 #include "Hashes.h"
 #include "CarPartDatabase.h"
-#include "WheelBrandsHelpBar.h"
 
 struct WheelBrand
 {
@@ -101,7 +100,5 @@ void __declspec(naked) PartListBrandCave()
 
 void InitWheelBrands()
 {
-	InitWheelBrandsHelpBar();
-
 	injector::MakeJMP(0x0085FA13, PartListBrandCave);
 }

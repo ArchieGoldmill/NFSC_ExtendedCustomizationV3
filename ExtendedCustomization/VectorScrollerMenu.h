@@ -3,16 +3,18 @@
 #include "FEString.h"
 #include "FEPackage.h"
 
-class VectorScroller
+struct VectorScroller
 {
-private:
 	int vTable;
-public:
-	ScrollOption* Next;
-	ScrollOption* Prev;
+	bTList<ScrollOption> OptionsList;
 	ScrollOption* Current;
-private:
 	int unk1[0x46];
+
+	void RemoveAll()
+	{
+		FUNC(0x00592230, void, __thiscall, _RemoveAll, VectorScroller*);
+		_RemoveAll(this);
+	}
 };
 
 struct ScreenConstructorData
@@ -22,28 +24,24 @@ struct ScreenConstructorData
 	int Arg;
 };
 
-class MenuScreen
+struct MenuScreen
 {
-private:
 	int vTable;
-public:
-	int mPlaySound;
-	int mDirectionForNextSound;
+	int PlaySound;
+	int DirectionForNextSound;
 	char* PackageFilename;
 	ScreenConstructorData ConstructData;
 	int IsGarageScreen;
-private:
 	int data[2];
 };
 
-class VectorScrollerMenu : public MenuScreen
+struct VectorScrollerMenu : MenuScreen
 {
-public:
 	VectorScroller Options;
-	int bWasLeftMouseDown;
-	int pLastSelection;
-	int pTitleName;
-	int pTitleNameShadow;
+	int WasLeftMouseDown;
+	int LastSelection;
+	int TitleName;
+	int TitleNameShadow;
 	FEString* pTitleDesc;
 
 	void* AddOption(TextOption* textOption)

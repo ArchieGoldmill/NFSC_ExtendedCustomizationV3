@@ -58,9 +58,9 @@ State GlobalConfig::GetPopUpHeadLights(CarType carId)
 	return g_Config.PopUpHeadLights;
 }
 
-State GlobalConfig::GetForceLodA(Hash carName)
+State GlobalConfig::GetForceLodA(Hash carId)
 {
-	auto carConfig = this->GetCarConfig(carName);
+	auto carConfig = this->GetCarConfig(carId);
 	if (carConfig)
 	{
 		if (carConfig->ForceLodA != State::Default)
@@ -106,6 +106,11 @@ PartConfig GlobalConfig::GetPart(Slot slot, CarType carId)
 			if (part->AutosculptState != State::Default)
 			{
 				result.AutosculptState = part->AutosculptState;
+			}
+
+			if (part->Carbon != State::Default)
+			{
+				result.Carbon = part->Carbon;
 			}
 
 			if (part->Camera.size())

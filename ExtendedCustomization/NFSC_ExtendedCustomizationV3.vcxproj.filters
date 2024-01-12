@@ -339,9 +339,6 @@
     <ClInclude Include="WheelBrands.h">
       <Filter>Features\Wheels</Filter>
     </ClInclude>
-    <ClInclude Include="WheelBrandsHelpBar.h">
-      <Filter>Features\Wheels</Filter>
-    </ClInclude>
     <ClInclude Include="Wheels.h">
       <Filter>Features\Wheels</Filter>
     </ClInclude>
@@ -422,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="FEGroup.h">
       <Filter>SDK\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CarbonSlot.h">
+      <Filter>Features\Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

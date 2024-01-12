@@ -4,7 +4,7 @@
 class FECarRecord
 {
 public:
-	static FECarRecord* Get()
+	static FECarRecord* Instance()
 	{
 		FECarRecord** gFECarRecord = (FECarRecord**)0x00BBABAC;
 		return *gFECarRecord;
@@ -12,7 +12,7 @@ public:
 
 	static CarType GetCarType()
 	{
-		auto record = Get();
+		auto record = Instance();
 		return record ? record->GetType() : CarType(-1);
 	}
 

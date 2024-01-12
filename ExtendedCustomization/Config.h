@@ -28,6 +28,7 @@ struct PartConfig
 {
 	State AftermarketState = State::Default;
 	State AutosculptState = State::Default;
+	State Carbon = State::Default;
 	Hash Header = -1;
 	Slot Slot = Slot::INVALID;
 	std::string Camera;
@@ -53,14 +54,14 @@ struct SharedConfig
 	PartConfig* GetPart(Slot slot);
 };
 
-struct CarConfig : public SharedConfig
+struct CarConfig : SharedConfig
 {
 	std::string Name;
 	Hash NameHash;
 	int Version = 0;
 };
 
-struct GlobalConfig : public SharedConfig
+struct GlobalConfig : SharedConfig
 {
 	std::vector<CarConfig*> Cars;
 

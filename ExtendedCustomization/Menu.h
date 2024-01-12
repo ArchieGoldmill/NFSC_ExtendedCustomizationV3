@@ -4,7 +4,7 @@
 #include "PartList.h"
 #include "FeCustomizeVisualsMenu.h"
 #include "MenuCameras.h"
-
+#include "CarbonSlot.h"
 
 void InitMenu()
 {
@@ -13,6 +13,7 @@ void InitMenu()
 	InitFeCustomizeVisualsMenu();
 	InitPartList();
 	InitMenuCameras();
+	InitCarbonSlot();
 
 	if (g_Config.BodykitNames)
 	{

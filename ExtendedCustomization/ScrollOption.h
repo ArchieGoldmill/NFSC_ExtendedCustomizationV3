@@ -1,11 +1,9 @@
 #pragma once
 #include "FEObject.h"
 
-class ScrollOption
+struct ScrollOption
 {
-private:
 	int vTable;
-public:
 	ScrollOption* Prev;
 	ScrollOption* Next;
 	Hash ObjHash;
@@ -28,11 +26,13 @@ public:
 	int m_SubType;
 };
 
-class TextOption : public ScrollOption
+struct TextOption : ScrollOption
 {
-public:
 	FEObject* String;
 	FEObject* Image;
+	int Sytle;
+	char Text[64];
+	bool ShowImage;
 
 	static TextOption* Create(Hash text, int num)
 	{
@@ -42,4 +42,9 @@ public:
 		_TextOption(textOption, text, num, &a, &b);
 		return textOption;
 	}
+};
+
+struct CarPartTextOption : TextOption
+{
+	StandardSelectablePart* SelectablePart;
 };

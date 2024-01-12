@@ -19,21 +19,25 @@ State InitState(CIniReader& iniReader, const char* section, const char* key)
 
 void InitPart(CIniReader& iniReader, SharedConfig* shared, Slot slot, const char* iniSection)
 {
-	PartConfig partConfig;
-
-	partConfig.Slot = slot;
-	partConfig.AftermarketState = InitState(iniReader, iniSection, "AftermarketEnabled");
-	partConfig.AutosculptState = InitState(iniReader, iniSection, "AutosculptEnabled");
-	partConfig.Camera = iniReader.ReadString(iniSection, "Camera", "");
-	partConfig.Animation = (Animate)iniReader.ReadInteger(iniSection, "Animate", -1);
-
-	auto header = iniReader.ReadString(iniSection, "Header", "");
-	if (header.size())
+	if (iniReader.HasSection(iniSection))
 	{
-		partConfig.Header = StringHash(header.c_str());
-	}
+		PartConfig partConfig;
 
-	shared->Parts.push_back(partConfig);
+		partConfig.Slot = slot;
+		partConfig.AftermarketState = InitState(iniReader, iniSection, "AftermarketEnabled");
+		partConfig.AutosculptState = InitState(iniReader, iniSection, "AutosculptEnabled");
+		partConfig.Carbon = InitState(iniReader, iniSection, "Carbon");
+		partConfig.Camera = iniReader.ReadString(iniSection, "Camera", "");
+		partConfig.Animation = (Animate)iniReader.ReadInteger(iniSection, "Animate", -1);
+
+		auto header = iniReader.ReadString(iniSection, "Header", "");
+		if (header.size())
+		{
+			partConfig.Header = StringHash(header.c_str());
+		}
+
+		shared->Parts.push_back(partConfig);
+	}
 }
 
 void InitParts(CIniReader& iniReader, SharedConfig* shared)

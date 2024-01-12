@@ -31,6 +31,7 @@ INLINE_FUNC(0x004B6690, bool, __thiscall, DALVehicle_GetRedLine, void* DALVehicl
 INLINE_FUNC(0x006B5980, void, __cdecl, LoadResourceFile, const char* path, int type, int, int, int, int, int);
 INLINE_FUNC(0x00402800, void*, __cdecl, eFrameMalloc, int size);
 INLINE_FUNC(0x00463A80, int*, __thiscall, Attrib_GetAttributePointer, int, int, int);
+INLINE_FUNC(0x005A0910, void, __cdecl, FE_String_Printf, char*, Hash, const char*, ...);
 
 inline void HSV2RGB_255(float h, float s, float v, float* r, float* g, float* b)
 {
