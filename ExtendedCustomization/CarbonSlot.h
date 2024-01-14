@@ -1,17 +1,20 @@
 #pragma once
 #include "Feature.h"
 
-bool __stdcall IsCarbonSlot(FeCustomizeParts* feCustomizeParts)
+bool __stdcall IsCarbonSlot(FeCustomizeParts* feCustomizeParts, Hash header)
 {
-	auto textOption = (TextOption*)feCustomizeParts->Options.Current;
-
-	if (textOption)
+	if (header != Hashes::CUST_PARTS_HOODS && header != Hashes::CUST_PARTS_SPOILERS)
 	{
-		auto slot = (Slot)textOption->DescHash;
-		auto carId = FECarRecord::GetCarType();
-		auto configPart = g_Config.GetPart(slot, carId);
+		auto textOption = (TextOption*)feCustomizeParts->Options.Current;
 
-		return configPart.Carbon == State::Enabled;
+		if (textOption)
+		{
+			auto slot = (Slot)textOption->DescHash;
+			auto carId = FECarRecord::GetCarType();
+			auto configPart = g_Config.GetPart(slot, carId);
+
+			return configPart.Carbon == State::Enabled;
+		}
 	}
 
 	return false;
@@ -24,6 +27,7 @@ void __declspec(naked) CarbonSlotCave1()
 	__asm
 	{
 		pushad;
+		push edi;
 		push esi;
 		call IsCarbonSlot;
 		cmp al, 1;
@@ -40,6 +44,7 @@ void __declspec(naked) CarbonSlotCave2()
 	__asm
 	{
 		pushad;
+		push edi;
 		push esi;
 		call IsCarbonSlot;
 		cmp al, 1;
@@ -130,6 +135,7 @@ void __fastcall ShowProperHelpBar(FeCustomizeParts* feCustomizeParts)
 	cFEng::Instance()->QueuePackageMessage(message, feCustomizeParts->PackageFilename, 0);
 }
 
+Slot SetPromptText_LastSlot = Slot::INVALID;
 void __fastcall SetPromptText(FeCustomizeParts* feCustomizeParts)
 {
 	auto textOption = (TextOption*)feCustomizeParts->Options.Current;
@@ -147,6 +153,12 @@ void __fastcall SetPromptText(FeCustomizeParts* feCustomizeParts)
 		}
 		else if (configPart.Carbon == State::Enabled)
 		{
+			if (SetPromptText_LastSlot != slot)
+			{
+				feCustomizeParts->RoofScoopCarbonFilter = CarCustomizeManager::Instance()->IsInstalledPartCarbon(slot);
+			}
+			SetPromptText_LastSlot = slot;
+
 			bool isCarbon = feCustomizeParts->RoofScoopCarbonFilter;
 			if (slot == Slot::HOOD)
 			{
@@ -225,8 +237,10 @@ void InitCarbonSlot()
 	injector::MakeJMP(0x008401F0, ShowProperHelpBar);
 	injector::MakeJMP(0x00840340, SetPromptText);
 	injector::MakeCALL(0x00866579, IncrementCurrentOption);
+
 	injector::MakeJMP(0x00866422, CarbonSlotCave1);
 	injector::MakeJMP(0x00866556, CarbonSlotCave2);
+
 	injector::MakeJMP(0x008663EC, WheelSizeCave1);
 	injector::MakeJMP(0x0086653C, WheelSizeCave2);
 }

@@ -87,6 +87,11 @@ struct DBCarPart
 	{
 		return this->GetAppliedAttributeBParam(Hashes::CARBONFIBRE, false);
 	}
+	
+	bool IsCarbonSkin()
+	{
+		return this->GetAppliedAttributeBParam(Hashes::CARBON_SKIN, true) && this->IsCarbon();
+	}
 
 	bool IsStock()
 	{

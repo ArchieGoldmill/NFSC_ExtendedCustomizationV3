@@ -14,7 +14,7 @@ void __fastcall AttachReplacementTextureTable(eModel* model, int, CarRenderInfo*
 	else
 	{
 		auto part = carRenderInfo->pRideInfo->GetPart(slot);
-		if (part && part->IsCarbon())
+		if (part && part->IsCarbonSkin())
 		{
 			model->AttachReplacementTextureTable(carRenderInfo->CarbonReplacementTextures, count);
 		}

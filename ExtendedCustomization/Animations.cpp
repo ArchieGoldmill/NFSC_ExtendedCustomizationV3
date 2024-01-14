@@ -19,7 +19,7 @@ void __stdcall RenderParts(CarRenderInfo* carRenderInfo, Slot slot, eView* view,
 		auto model = *pModel;
 
 		auto part = carRenderInfo->pRideInfo->GetPart(slot);
-		if (part && part->IsCarbon())
+		if (part && part->IsCarbonSkin())
 		{
 			model->ReplaceLightMaterial(Hashes::CARSKIN, eLightMaterial::Get(Hashes::CARBONFIBER, 0));
 		}

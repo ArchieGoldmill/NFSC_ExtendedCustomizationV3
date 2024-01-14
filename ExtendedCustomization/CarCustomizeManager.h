@@ -3,9 +3,8 @@
 #include "Slots.h"
 #include "Func.h"
 
-class CarCustomizeManager
+struct CarCustomizeManager
 {
-public:
 	DBCarPart* GetInstalledPart(Slot slot)
 	{
 		FUNC(0x0083F850, DBCarPart*, __thiscall, _GetInstalledPart, CarCustomizeManager*, Slot);
@@ -36,7 +35,13 @@ public:
 		_HandleCart(this, carType, selectablePart);
 	}
 
-	static CarCustomizeManager* Get()
+	bool IsInstalledPartCarbon(Slot slot)
+	{
+		FUNC(0x0083F650, bool, __thiscall, _IsInstalledPartCarbon, CarCustomizeManager*, Slot);
+		return _IsInstalledPartCarbon(this, slot);
+	}
+
+	static CarCustomizeManager* Instance()
 	{
 		return (CarCustomizeManager*)0x00BBABA8;
 	}
