@@ -219,7 +219,7 @@ void UpdateInteriorGlowTexture(CarRenderInfo* carRenderInfo)
 	Hash interiorOn = StringHash1("_ON", interiorHash);
 	if (TextureInfo::Get(interiorOff, false, false))
 	{
-		interiorHash = Game::InRace() ? interiorOn : interiorOff;
+		interiorHash = (Game::InRace() || (carRenderInfo->IsFeEngineOn())) ? interiorOn : interiorOff;
 	}
 	else
 	{
@@ -293,12 +293,21 @@ void __stdcall GetUsedCarTextureInfo(UsedCarTextureInfo* usedCarTextureInfo, Rid
 	usedCarTextureInfo->AddToPerm(StringHash1("_OFF", interiorHash));
 	usedCarTextureInfo->AddToPerm(StringHash1("_N", interiorHash));
 	usedCarTextureInfo->AddToPerm(interiorHash);
+
+	auto carConfig = g_Config.GetCarConfig(rideInfo->CarId);
+	if (carConfig)
+	{
+		for (auto customTex : carConfig->Textures)
+		{
+			usedCarTextureInfo->AddToPerm(customTex);
+		}
+	}
 }
 
 void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
 {
 	// General
-	memset(carRenderInfo->GeneralReplacementTextures + 2, 0, 72 * 12);
+	memset(carRenderInfo->GeneralReplacementTextures + 1, 0, 73 * sizeof(ReplacementTextureEntry));
 
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::SpolierSkin1].Update(Hashes::SPOILER_SKIN1, Hashes::METAL_SWATCH);
 
@@ -309,6 +318,26 @@ void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::WindowRearRight].Update(Hashes::WINDOW_RIGHT_REAR, Hashes::WINDOW_FRONT);
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::WindowRear].Update(Hashes::WINDOW_REAR, Hashes::WINDOW_FRONT);
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::RearDefroster].Update(Hashes::REAR_DEFROSTER, Hashes::REAR_DEFROSTER);
+
+	auto frontDecal = carRenderInfo->pRideInfo->GetPart(Slot::DECAL_FRONT_WINDOW_TEX0);
+	if (frontDecal)
+	{
+		auto texture = frontDecal->GetTextureName();
+		if (texture)
+		{
+			carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::FrontDecal].Update(Hashes::FRONT_DECAL, texture);
+		}
+	}
+
+	auto rearDecal = carRenderInfo->pRideInfo->GetPart(Slot::DECAL_REAR_WINDOW_TEX0);
+	if (rearDecal)
+	{
+		auto texture = rearDecal->GetTextureName();
+		if (texture)
+		{
+			carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::RearDecal].Update(Hashes::REAR_DECAL, texture);
+		}
+	}
 
 	Hash interiorHash = GetInteriorBaseTexture(carRenderInfo->pRideInfo);
 	if (interiorHash)

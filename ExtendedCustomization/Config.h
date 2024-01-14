@@ -59,6 +59,7 @@ struct CarConfig : SharedConfig
 	std::string Name;
 	Hash NameHash;
 	int Version = 0;
+	std::vector<Hash> Textures;
 };
 
 struct GlobalConfig : SharedConfig

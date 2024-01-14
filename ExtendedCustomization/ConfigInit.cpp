@@ -63,6 +63,27 @@ void InitShared(CIniReader& iniReader, SharedConfig* shared)
 	shared->ForceLodA = InitState(iniReader, "GENERAL", "ForceLodA");
 }
 
+void InitTextures(CIniReader& iniReader, CarConfig* carConfig)
+{
+	int i = 0;
+	while (true)
+	{
+		char buffer[32];
+		sprintf(buffer, "Texture_%02d", i);
+		auto hash = StringHash(iniReader.ReadString("CUSTOM_TEXTURES", buffer, "").c_str());
+		if (hash && hash != -1)
+		{
+			carConfig->Textures.push_back(hash);
+		}
+		else
+		{
+			break;
+		}
+
+		i++;
+	}
+}
+
 void InitCars()
 {
 	std::string path = "ExtendedCustomizationCars";
@@ -85,6 +106,7 @@ void InitCars()
 		carConfig->Name = path.filename().string();
 		carConfig->NameHash = StringHash(carConfig->Name.c_str());
 		carConfig->Version = iniReader.ReadInteger("GENERAL", "Version", 2);
+		InitTextures(iniReader, carConfig);
 		InitShared(iniReader, carConfig);
 
 		g_Config.Cars.push_back(carConfig);
