@@ -91,7 +91,7 @@ void HandleCart(AutosculptSelectablePart* selectPart, Slot slot)
 {
 	float* zones = 0;
 
-	auto cart = CarCustomizeManager::Get()->IsPartTypeInCart(slot);
+	auto cart = CarCustomizeManager::Instance()->IsPartTypeInCart(slot);
 	if (cart)
 	{
 		auto cartSelectPart = (AutosculptSelectablePart*)cart[3];
@@ -115,15 +115,43 @@ void HandleCart(AutosculptSelectablePart* selectPart, Slot slot)
 	}
 	else
 	{
-		auto part = CarCustomizeManager::Get()->GetInstalledPart(slot);
+		auto part = CarCustomizeManager::Instance()->GetInstalledPart(slot);
 		if (part && !part->IsStock() && part == selectPart->Part)
 		{
 			static auto sub_49C860 = (float* (__thiscall*)(FECustomizationRecord*, int))0x0049C860;
-			zones = sub_49C860(FECustomizationRecord::Get(), selectPart->Region);
+			zones = sub_49C860(FECustomizationRecord::Instance(), selectPart->Region);
 		}
 	}
 
 	selectPart->Zones = zones;
+}
+
+bool CheckSpoilerMarker(Slot slot, DBCarPart* part)
+{
+	if (slot == Slot::SPOILER)
+	{
+		auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
+		if (carRenderInfo)
+		{
+			if (!carRenderInfo->Markers.Spoiler)
+			{
+				if (part->GetAppliedAttributeBParam(Hashes::USEMARKER1, false))
+				{
+					return true;
+				}
+			}
+
+			if (!carRenderInfo->Markers.Spoiler2)
+			{
+				if (part->GetAppliedAttributeBParam(Hashes::USEMARKER2, false))
+				{
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
 }
 
 template<typename SelectablePart>
@@ -158,6 +186,11 @@ void GetPartsListV3(Slot slot, bNode<SelectablePart*>* listHead, bool isCarbon, 
 		}
 
 		if (CheckMarker(slot, part))
+		{
+			continue;
+		}
+
+		if (CheckSpoilerMarker(slot, part))
 		{
 			continue;
 		}

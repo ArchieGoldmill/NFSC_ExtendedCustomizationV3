@@ -77,13 +77,13 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::FRONT_BUMPER, carId);
 		AddMenuOption(_this, Slot::REAR_BUMPER, carId);
 		AddMenuOption(_this, Slot::SKIRT, carId);
+		AddMenuOption(_this, Slot::FRONT_BUMPER_BADGING_SET, carId);
+		AddMenuOption(_this, Slot::REAR_BUMPER_BADGING_SET, carId);
 		AddMenuOption(_this, Slot::HOOD, carId);
 		AddMenuOption(_this, Slot::ROOF, carId);
 		AddMenuOption(_this, Slot::ROOFSCOOP, carId);
 		AddMenuOption(_this, Slot::SPOILER, carId);
 		AddMenuOption(_this, Slot::EXHAUST, carId);
-		AddMenuOption(_this, Slot::FRONT_BUMPER_BADGING_SET, carId);
-		AddMenuOption(_this, Slot::REAR_BUMPER_BADGING_SET, carId);
 		AddMenuOption(_this, Slot::HEADLIGHT, carId);
 		AddMenuOption(_this, Slot::LEFT_HEADLIGHT, carId);
 		AddMenuOption(_this, Slot::LEFT_BRAKELIGHT, carId);

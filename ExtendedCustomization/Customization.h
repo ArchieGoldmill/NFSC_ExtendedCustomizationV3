@@ -87,7 +87,7 @@ void HandleBrakes(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizatio
 		}
 		else
 		{
-			auto currentPart = CarCustomizeManager::Get()->GetCurrentPart(Slot::FRONT_ROTOR);
+			auto currentPart = CarCustomizeManager::Instance()->GetCurrentPart(Slot::FRONT_ROTOR);
 			if (currentPart && currentPart->GetKit())
 			{
 				InstallPart(rideInfo, record, Slot::FRONT_ROTOR, currentPart);
@@ -107,7 +107,7 @@ void HandleBrakes(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizatio
 		}
 		else
 		{
-			auto currentPart = CarCustomizeManager::Get()->GetCurrentPart(Slot::FRONT_BRAKE);
+			auto currentPart = CarCustomizeManager::Instance()->GetCurrentPart(Slot::FRONT_BRAKE);
 			if (currentPart && currentPart->GetKit())
 			{
 				InstallPart(rideInfo, record, Slot::FRONT_BRAKE, currentPart);
@@ -169,6 +169,9 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 		InstallByKitNumber(Slot::RIGHT_BRAKELIGHT_GLASS, rideInfo, record, kit);
 	}
 
+	InstallByKitNumber(Slot::ROOF, Slot::FRONT_WINDOW, rideInfo, record);
+	InstallByKitNumber(Slot::ROOF, Slot::REAR_WINDOW, rideInfo, record);
+
 	InstallByKitNumber(Slot::FRONT_WINDOW, Slot::DECAL_FRONT_WINDOW, rideInfo, record);
 
 	InstallByKitNumber(Slot::REAR_WINDOW, Slot::DECAL_REAR_WINDOW, rideInfo, record);
@@ -200,7 +203,7 @@ bool __fastcall StandardSelectablePart_Install(StandardSelectablePart* selectabl
 {
 	if (!record)
 	{
-		record = FECustomizationRecord::Get();
+		record = FECustomizationRecord::Instance();
 	}
 
 	auto carId = FECarRecord::GetCarType();

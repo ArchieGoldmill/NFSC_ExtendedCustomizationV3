@@ -26,6 +26,10 @@ void FixRearDecals()
 				}
 			}
 		}
+		else
+		{
+			break;
+		}
 	}
 
 	Game::CarPartSlotMap[(int)Slot::DECAL_REAR_WINDOW_TEX0] = 0x68;

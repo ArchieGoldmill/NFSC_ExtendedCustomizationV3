@@ -55,7 +55,10 @@ enum class ReplacementTextureIndex : int
 	BrakelightGlassRight,
 	BrakelightGlassCenter,
 
-	Reverse
+	Reverse,
+
+	FrontDecal,
+	RearDecal
 };
 
 inline Slot AttachSlots[] = {
@@ -72,6 +75,8 @@ inline Slot KitwSlots[] = {
 
 inline Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR, Slot::SKIRT, Slot::BODY, Slot::ROOF, Slot_Trunk, Slot::HOOD };
 
-inline Slot NeonSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot::INTERIOR };
+inline Slot NeonSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot::INTERIOR, Slot::ATTACHMENT0, Slot::ATTACHMENT1, Slot::ATTACHMENT2, 
+	Slot::ATTACHMENT3, Slot::ATTACHMENT4, Slot::ATTACHMENT5, Slot::ATTACHMENT6, Slot::ATTACHMENT7, Slot::ATTACHMENT8, Slot::ATTACHMENT9, Slot::ATTACHMENT10, 
+	Slot::ATTACHMENT11, Slot::ATTACHMENT12, Slot::ATTACHMENT13, Slot::ATTACHMENT14,Slot::ATTACHMENT15 };
 
 inline D3DXMATRIX CenterMarker;

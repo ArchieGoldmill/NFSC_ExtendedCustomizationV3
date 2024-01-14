@@ -6,7 +6,7 @@
 class FECustomizationRecord
 {
 public:
-	static FECustomizationRecord* Get()
+	static FECustomizationRecord* Instance()
 	{
 		return (FECustomizationRecord*)0x00BBABC0;
 	}
