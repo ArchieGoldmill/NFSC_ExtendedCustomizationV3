@@ -169,8 +169,16 @@ void __fastcall SetPromptText(FeCustomizeParts* feCustomizeParts)
 				isCarbon = feCustomizeParts->SpoilerCarbonFilter;
 			}
 
-			FEString::SetLanguageHash(feCustomizeParts->PackageFilename, 0xEFB07160, isCarbon ? Hashes::CUST_PARTS_CARBON : Hashes::CUST_PARTS_NORMAL);
-			FEString::SetLanguageHash(feCustomizeParts->PackageFilename, 0x25379D08, Hashes::CUST_MATERIAL);
+			if (slot == Slot::DECAL_FRONT_WINDOW_TEX0 || slot == Slot::DECAL_REAR_WINDOW_TEX0)
+			{
+				FEString::SetLanguageHash(feCustomizeParts->PackageFilename, 0xEFB07160, isCarbon ? Hashes::CUST_PARTS_BLACK : Hashes::CUST_PARTS_WHITE);
+				FEString::SetLanguageHash(feCustomizeParts->PackageFilename, 0x25379D08, Hashes::CUST_COLOR);
+			}
+			else
+			{
+				FEString::SetLanguageHash(feCustomizeParts->PackageFilename, 0xEFB07160, isCarbon ? Hashes::CUST_PARTS_CARBON : Hashes::CUST_PARTS_NORMAL);
+				FEString::SetLanguageHash(feCustomizeParts->PackageFilename, 0x25379D08, Hashes::CUST_MATERIAL);
+			}
 		}
 	}
 }
