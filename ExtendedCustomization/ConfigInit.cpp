@@ -36,6 +36,35 @@ void InitPart(CIniReader& iniReader, SharedConfig* shared, Slot slot, const char
 			partConfig.Header = StringHash(header.c_str());
 		}
 
+		auto legacyEnabled = InitState(iniReader, iniSection, "Enabled");
+		if (legacyEnabled == State::Enabled || legacyEnabled == State::Disabled)
+		{
+			if (slot == Slot::SPOILER || slot == Slot::ROOFSCOOP || slot == Slot::HOOD || slot == Slot::FRONT_WHEEL || slot == Slot::REAR_WHEEL)
+			{
+				partConfig.AftermarketState = legacyEnabled;
+				partConfig.AutosculptState = legacyEnabled;
+			}
+
+			if (slot == Slot::FRONT_BUMPER || slot == Slot::REAR_BUMPER || slot == Slot::SKIRT || slot == Slot::EXHAUST || slot == Slot::LICENSE_PLATE
+				|| slot == Slot::CV || slot == Slot::MISC || slot == Slot::CUSTOM_HUD)
+			{
+				partConfig.AutosculptState = legacyEnabled;
+			}
+
+			if (slot == Slot::FRONT_BUMPER_BADGING_SET || slot == Slot::REAR_BUMPER_BADGING_SET || slot == Slot::BODY || slot == Slot::DOOR_LEFT
+				|| slot == Slot::LEFT_SIDE_MIRROR || slot == Slot::BRAKELIGHT || slot == Slot::STEERINGWHEEL || slot == Slot::FRONT_BRAKE || slot == Slot::FRONT_ROTOR
+				|| slot == Slot::DECAL_FRONT_WINDOW_TEX0 || slot == Slot::DECAL_REAR_WINDOW_TEX0 || slot == Slot::LEFT_HEADLIGHT || slot == Slot::LEFT_BRAKELIGHT
+				|| slot == Slot::INTERIOR || slot == Slot::VINYL_GENERIC)
+			{
+				partConfig.AftermarketState = legacyEnabled;
+			}
+
+			if (slot >= Slot::ATTACHMENT0 && slot <= Slot::ATTACHMENT15)
+			{
+				partConfig.AftermarketState = legacyEnabled;
+			}
+		}
+
 		shared->Parts.push_back(partConfig);
 	}
 }
