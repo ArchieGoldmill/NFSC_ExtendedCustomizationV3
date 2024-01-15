@@ -7,21 +7,14 @@
 
 void __fastcall AttachReplacementTextureTable(eModel* model, int, CarRenderInfo* carRenderInfo, Slot slot, ReplacementTextureEntry* nodes, int count, int)
 {
-	if (carRenderInfo->Extras->LicensePlateText && slot == Slot::LICENSE_PLATE)
+	auto part = carRenderInfo->pRideInfo->GetPart(slot);
+	if (part && part->IsCarbonSkin())
 	{
-		model->AttachReplacementTextureTable(carRenderInfo->Extras->LicensePlateText->TextureTable, 11);
+		model->AttachReplacementTextureTable(carRenderInfo->CarbonReplacementTextures, count);
 	}
 	else
 	{
-		auto part = carRenderInfo->pRideInfo->GetPart(slot);
-		if (part && part->IsCarbonSkin())
-		{
-			model->AttachReplacementTextureTable(carRenderInfo->CarbonReplacementTextures, count);
-		}
-		else
-		{
-			model->AttachReplacementTextureTable(nodes, count);
-		}
+		model->AttachReplacementTextureTable(nodes, count);
 	}
 }
 
@@ -41,10 +34,7 @@ void __declspec(naked) AttachReplacementTextureTableCave()
 
 void InitReplacementTextures()
 {
-	if (g_Config.LicensePlateText)
-	{
-		injector::MakeJMP(0x007D5743, AttachReplacementTextureTableCave, true);
-	}
+	injector::MakeJMP(0x007D5743, AttachReplacementTextureTableCave, true);
 
 	// Make hood use generic AttachReplacementTextureTable 
 	injector::WriteMemory<BYTE>(0x007D5694, 0xFF);

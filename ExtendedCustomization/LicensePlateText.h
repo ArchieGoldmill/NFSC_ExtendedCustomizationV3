@@ -9,8 +9,6 @@ private:
 	CarRenderInfo* carRenderInfo;
 
 public:
-	ReplacementTextureEntry TextureTable[11];
-
 	CarLicensePlateText(CarRenderInfo* carRenderInfo)
 	{
 		this->carRenderInfo = carRenderInfo;
@@ -31,11 +29,11 @@ public:
 				Hash plateh = plate->GetAppliedAttributeIParam(Hashes::TEXTURE_NAME, 0);
 				int plateIndex = carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneLicenseplate].GetInt(0);
 				Hash plateHash = StringHash1(std::to_string(plateIndex).c_str(), plateh);
-				this->TextureTable[0].Set(Hashes::LICENSEPLATE, plateHash);
+				this->carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::LicensePlate].Set(Hashes::LICENSEPLATE, plateHash);
 
 				int frameIndex = carRenderInfo->pRideInfo->Autosculpt.Regions[ZoneLicenseplate].GetInt(1);
 				Hash frameHash = FromIndex("LICENSEPLATE_FRAME%d", frameIndex);
-				this->TextureTable[1].Set(Hashes::LICENSEPLATE_FRAME, frameHash);
+				this->carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::LicensePlateFrame].Set(Hashes::LICENSEPLATE_FRAME, frameHash);
 
 				for (int i = 0; i < 9; i++)
 				{
@@ -43,8 +41,7 @@ public:
 
 					Hash zoneHash = FromIndex("LICENSEPLATE_TEXT_ZONE%d", i);
 					Hash zoneValue = FromIndex("LICENSEPLATE_TEXT%d", textIndex);
-
-					this->TextureTable[i + 2].Set(zoneHash, zoneValue);
+					this->carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::LicensePlate0 + i].Set(zoneHash, zoneValue);
 				}
 			}
 		}

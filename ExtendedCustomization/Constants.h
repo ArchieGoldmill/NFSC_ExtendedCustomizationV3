@@ -58,7 +58,19 @@ enum class ReplacementTextureIndex : int
 	Reverse,
 
 	FrontDecal,
-	RearDecal
+	RearDecal,
+
+	LicensePlate,
+	LicensePlateFrame,
+	LicensePlate0,
+	LicensePlate1,
+	LicensePlate2,
+	LicensePlate3,
+	LicensePlate4,
+	LicensePlate5,
+	LicensePlate6,
+	LicensePlate7,
+	LicensePlate8
 };
 
 inline Slot AttachSlots[] = {

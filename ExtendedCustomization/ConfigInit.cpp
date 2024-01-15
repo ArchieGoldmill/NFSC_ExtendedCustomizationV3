@@ -198,6 +198,7 @@ void InitConfig()
 	g_Config.ExhaustSmoke = iniReader.ReadInteger("MODS", "ExhaustSmoke", 0) == 1;
 	g_Config.WindowDamageStages = iniReader.ReadInteger("MODS", "WindowDamageStages", 0) == 1;
 	g_Config.NewUI = iniReader.ReadInteger("MODS", "NewUI", 0) == 1;
+	g_Config.ReplacementTextureTableFixes = iniReader.ReadInteger("MODS", "ReplacementTextureTableFixes", 0) == 1;
 
 	g_Config.HK_Enabled = iniReader.ReadInteger("HOT_KEYS", "Enabled", 0) == 1;
 	g_Config.HK_ToggleHeadlights = iniReader.ReadInteger("HOT_KEYS", "ToggleHeadlights", 0);

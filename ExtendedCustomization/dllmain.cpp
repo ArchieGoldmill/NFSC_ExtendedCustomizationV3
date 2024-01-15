@@ -26,6 +26,7 @@
 #include "Damage.h"
 #include "FlareColor.h"
 #include "NewUI.h"
+#include "ReplacementTextureTableFixes.h"
 
 void Init()
 {
@@ -54,6 +55,7 @@ void Init()
 	InitDamage();
 	InitFlareColor();
 	InitNewUI();
+	InitReplacementTextureTableFixes();
 
 	Legacy::InitCustomization();
 	Legacy::InitTextures();

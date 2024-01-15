@@ -423,6 +423,9 @@
     <ClInclude Include="CarbonSlot.h">
       <Filter>Features\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="ReplacementTextureTableFixes.h">
+      <Filter>Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

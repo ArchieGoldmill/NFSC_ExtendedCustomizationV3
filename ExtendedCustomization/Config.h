@@ -111,6 +111,7 @@ struct GlobalConfig : SharedConfig
 	bool ExhaustSmoke;
 	bool WindowDamageStages;
 	bool NewUI;
+	bool ReplacementTextureTableFixes;
 
 	bool HK_Enabled;
 	int HK_ToggleHood;
