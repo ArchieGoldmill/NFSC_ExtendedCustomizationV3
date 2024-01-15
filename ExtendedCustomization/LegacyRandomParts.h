@@ -97,10 +97,10 @@ void SetRandomDecals(RideInfo* rideInfo)
 
 void SetRandomVinyl(RideInfo* rideInfo)
 {
-	auto vinyl = rideInfo->GetPart(Slot::VINYL_GENERIC);
-	if (!vinyl || vinyl->IsStock())
+	if (!bRandom(10))
 	{
-		if (bRandom(2))
+		auto vinyl = rideInfo->GetPart(Slot::VINYL_GENERIC);
+		if (!vinyl || vinyl->IsStock())
 		{
 			SetRandomPart(rideInfo, Slot::VINYL_GENERIC, 0);
 		}
