@@ -50,47 +50,18 @@ void __cdecl SetupWheelLighting(void* light, D3DXMATRIX* transform, int m, D3DXV
 	SetupLighting(light, &matrix, m, camera, view, s);
 }
 
-D3DXMATRIX* AdjustTireMatrix(CarRenderInfo* carRenderInfo, D3DXMATRIX* transform, int num, int& flags)
-{
-	if (num == WHEEL_FR || num == WHEEL_RR)
-	{
-		auto newTransform = (D3DXMATRIX*)eFrameMalloc(sizeof(D3DXMATRIX));
-
-		D3DXVECTOR3 scale, translation;
-		D3DXQUATERNION rotation;
-		D3DXMatrixDecompose(&scale, &rotation, &translation, transform);
-
-		D3DXMatrixScaling(newTransform, -scale.x, scale.y, scale.z);
-
-		D3DXMATRIX rotationMatrix;
-		D3DXMatrixRotationQuaternion(&rotationMatrix, &rotation);
-
-		D3DXMatrixMultiply(newTransform, newTransform, &rotationMatrix);
-
-		SetVector3(newTransform, 3, translation);
-
-		flags |= 0x40000;
-
-		return newTransform;
-	}
-
-	return transform;
-}
-
 void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel* model, D3DXMATRIX* transform, void* light, int flags, int num)
 {
 	if (model)
 	{
 		if (g_Config.CustomPaints)
 		{
-			num < 2 ? ReplaceFrontWheels(carRenderInfo, model) : ReplaceRearWheels(carRenderInfo, model);
+			IsFrontWheel(num) ? ReplaceFrontWheels(carRenderInfo, model) : ReplaceRearWheels(carRenderInfo, model);
 		}
 
 		if (carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Solid)
 		{
-			int tireFlags = flags;
-			//auto tireTransform = AdjustTireMatrix(carRenderInfo, transform, num, tireFlags);
-			carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Render(view, transform, light, tireFlags);
+			carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Render(view, transform, light, flags);
 			model->AttachReplacementTextureTable(carRenderInfo->Extras->WheelTextures->WheelTires->Wheel.TextureTable, CarWheel::Size);
 		}
 

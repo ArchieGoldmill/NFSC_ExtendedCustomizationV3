@@ -15,6 +15,16 @@ struct CarType
 #define WHEEL_RR 2
 #define WHEEL_RL 3
 
+inline bool IsFrontWheel(int wheel)
+{
+	return wheel == WHEEL_FL || wheel == WHEEL_FR;
+}
+
+inline bool IsRearWheel(int wheel)
+{
+	return wheel == WHEEL_RL || wheel == WHEEL_RR;
+}
+
 INLINE_FUNC(0x00471080, Hash, __cdecl, StringHash1, const char*, Hash);
 INLINE_FUNC(0x00471050, Hash, __cdecl, StringHash, const char*);
 INLINE_FUNC(0x00402560, Hash, __cdecl, StringHash32, const char*);
