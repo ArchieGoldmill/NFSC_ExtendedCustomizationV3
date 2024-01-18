@@ -214,7 +214,7 @@ void InitConfig()
 	g_Config.IgnoreSpoilerBoundingBox = iniReader.ReadInteger("MODS", "IgnoreSpoilerBoundingBox", 0) == 1;
 	g_Config.LicensePlateText = iniReader.ReadInteger("MODS", "LicensePlateText", 0) == 1;
 	g_Config.TireWidth = iniReader.ReadInteger("MODS", "TireWidth", 0) == 1;
-	g_Config.FixClaiperLighting = iniReader.ReadInteger("MODS", "FixClaiperLighting", 0) == 1;
+	g_Config.FixCaliperLighting = iniReader.ReadInteger("MODS", "FixCaliperLighting", 0) == 1;
 	g_Config.FixShadowClipping = iniReader.ReadInteger("MODS", "FixShadowClipping", 0) == 1;
 	g_Config.AllowStockWheelsPaint = iniReader.ReadInteger("MODS", "AllowStockWheelsPaint", 0) == 1;
 	g_Config.RideHeight = iniReader.ReadInteger("MODS", "RideHeight", 0) == 1;

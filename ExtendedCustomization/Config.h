@@ -99,7 +99,7 @@ struct GlobalConfig : SharedConfig
 	bool LicensePlateText;
 	bool TireWidth;
 	bool RideHeight;
-	bool FixClaiperLighting;
+	bool FixCaliperLighting;
 	bool FixShadowClipping;
 	bool AllowStockWheelsPaint;
 	bool RearWheels;
