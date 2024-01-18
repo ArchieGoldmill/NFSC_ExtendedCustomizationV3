@@ -7,14 +7,29 @@
 #include "WheelBrands.h"
 #include "CarRenderInfoExtras.h"
 
+void RepalceWheelMaterials(eModel* model, eLightMaterial* wheel, eLightMaterial* rim)
+{
+	if (wheel == eLightMaterial::Get(Hashes::MAGSILVER, 0))
+	{
+		model->ReplaceLightMaterial(Hashes::MAGSILVER, wheel);
+		model->ReplaceLightMaterial(Hashes::MAGCHROME, eLightMaterial::Get(Hashes::MAGCHROME, 0));
+		model->ReplaceLightMaterial(Hashes::MAGMATTE, eLightMaterial::Get(Hashes::MAGMATTE, 0));
+	}
+	else
+	{
+		model->ReplaceLightMaterial(Hashes::MAGSILVER, wheel);
+		model->ReplaceLightMaterial(Hashes::MAGCHROME, wheel);
+		model->ReplaceLightMaterial(Hashes::MAGMATTE, wheel);
+	}
+
+	model->ReplaceLightMaterial(Hashes::MAGLIP, rim);
+}
+
 void ReplaceFrontWheels(CarRenderInfo* carRenderInfo, eModel* model)
 {
 	if (model)
 	{
-		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Materials.FrontWheel);
-		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Materials.FrontWheel);
-		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Materials.FrontWheel);
-		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->FrontRimMaterial);
+		RepalceWheelMaterials(model, carRenderInfo->Materials.FrontWheel, carRenderInfo->Extras->Paint->FrontRimMaterial);
 	}
 }
 
@@ -28,10 +43,7 @@ void ReplaceRearWheels(CarRenderInfo* carRenderInfo, eModel* model)
 			return;
 		}
 
-		model->ReplaceLightMaterial(Hashes::MAGSILVER, carRenderInfo->Extras->Paint->RearWheelMaterial);
-		model->ReplaceLightMaterial(Hashes::MAGCHROME, carRenderInfo->Extras->Paint->RearWheelMaterial);
-		model->ReplaceLightMaterial(Hashes::MAGMATTE, carRenderInfo->Extras->Paint->RearWheelMaterial);
-		model->ReplaceLightMaterial(Hashes::MAGLIP, carRenderInfo->Extras->Paint->RearRimMaterial);
+		RepalceWheelMaterials(model, carRenderInfo->Extras->Paint->RearWheelMaterial, carRenderInfo->Extras->Paint->RearRimMaterial);
 	}
 }
 
@@ -164,7 +176,7 @@ void InitWheels()
 		injector::MakeCALL(0x007C19CA, RenderTireSkids);
 	}
 
-	if (g_Config.FixClaiperLighting)
+	if (g_Config.FixCaliperLighting)
 	{
 		injector::WriteMemory<BYTE>(0x007E0C0B, 0xF);
 		injector::WriteMemory<BYTE>(0x007E0D23, 0x24);
