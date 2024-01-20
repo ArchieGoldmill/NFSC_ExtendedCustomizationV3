@@ -12,8 +12,8 @@ void RepalceWheelMaterials(eModel* model, eLightMaterial* wheel, eLightMaterial*
 	if (wheel == eLightMaterial::Get(Hashes::MAGSILVER, 0))
 	{
 		model->ReplaceLightMaterial(Hashes::MAGSILVER, wheel);
-		model->ReplaceLightMaterial(Hashes::MAGCHROME, eLightMaterial::Get(Hashes::MAGCHROME, 0));
-		model->ReplaceLightMaterial(Hashes::MAGMATTE, eLightMaterial::Get(Hashes::MAGMATTE, 0));
+		model->ReplaceLightMaterial(Hashes::MAGCHROME);
+		model->ReplaceLightMaterial(Hashes::MAGMATTE);
 	}
 	else
 	{
@@ -71,10 +71,10 @@ void RenderWheel(CarRenderInfo* carRenderInfo, eView* view, eModel* model, D3DXM
 			IsFrontWheel(num) ? ReplaceFrontWheels(carRenderInfo, model) : ReplaceRearWheels(carRenderInfo, model);
 		}
 
-		if (carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Solid)
+		if (carRenderInfo->Extras->WheelTextures->Tires[num].Model.Solid)
 		{
-			carRenderInfo->Extras->WheelTextures->WheelTires[num].Tire.Model.Render(view, transform, light, flags);
-			model->AttachReplacementTextureTable(carRenderInfo->Extras->WheelTextures->WheelTires->Wheel.TextureTable, CarWheel::Size);
+			carRenderInfo->Extras->WheelTextures->Tires[num].Model.Render(view, transform, light, flags);
+			model->AttachReplacementTextureTable(carRenderInfo->Extras->WheelTextures->Tires[num].TextureTable, TireReplacementTable::Size);
 		}
 
 		model->Render(view, transform, light, flags);

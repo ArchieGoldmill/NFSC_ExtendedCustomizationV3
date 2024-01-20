@@ -95,6 +95,7 @@ update_texture GLOBAL\GLOBALB.LZC TPKBlocks GLOBALTEXTURESPC DEFAULT_SKIN Flags 
 // Materials
 import override GLOBAL\GLOBALB.LZC Materials Materials\MIRROR.bin
 import override GLOBAL\GLOBALB.LZC Materials Materials\EMISSIVE.bin
+import override GLOBAL\GLOBALB.LZC Materials Materials\TIRE.bin
 
 // FNGs
 new negate FRONTEND\FRONTB2.BUN

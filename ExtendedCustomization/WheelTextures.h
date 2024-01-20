@@ -3,19 +3,17 @@
 #include "Hashes.h"
 #include "CarPartDatabase.h"
 
-struct CarTire
+struct TireReplacementTable
 {
-	static const int Size = 3;
-
-	eModel Model;
+	static const int Size = 5;
 	ReplacementTextureEntry TextureTable[Size];
 
-	void Init(Hash model, Hash tire)
+	void Init(Hash tire)
 	{
 		this->TextureTable[0].Set(Hashes::WHEEL_TIRE, tire);
 		this->TextureTable[1].Set(Hashes::WHEEL_TIRE_N, StringHash1("_N", tire));
-		this->Model.Init(model);
-		this->Model.AttachReplacementTextureTable(this->TextureTable, Size);
+		this->TextureTable[3].Set(Hashes::TIRE_STYLE01, Hashes::DEFAULTALPHA);
+		this->TextureTable[4].Set(Hashes::TIRE_STYLE02, Hashes::DEFAULTALPHA);
 	}
 
 	void UpdateBrand(int tireBrand)
@@ -24,33 +22,27 @@ struct CarTire
 	}
 };
 
-struct CarWheel
+struct CarTire
 {
-	static const int Size = 2;
+	ReplacementTextureEntry* TextureTable;
+	eModel Model;
 
-	ReplacementTextureEntry TextureTable[Size];
-
-	void Init()
+	void Init(Hash model, ReplacementTextureEntry* table)
 	{
-		// Remove vanilla tires
-		this->TextureTable[0].Set(Hashes::TIRE_STYLE01, Hashes::DEFAULTALPHA);
-		this->TextureTable[1].Set(Hashes::TIRE_STYLE02, Hashes::DEFAULTALPHA);
+		this->TextureTable = table;
+		this->Model.Init(model);
+		this->Model.AttachReplacementTextureTable(this->TextureTable, TireReplacementTable::Size);
 	}
-};
-
-struct CarWheelTire
-{
-	CarTire Tire;
-	CarWheel Wheel;
 };
 
 class CarWheelTextures
 {
-private:
+private:	
 	CarRenderInfo* carRenderInfo;
+	TireReplacementTable tireReplacementTables[2];
 
 public:
-	CarWheelTire WheelTires[4];
+	CarTire Tires[4];
 
 	CarWheelTextures(CarRenderInfo* carRenderInfo)
 	{
@@ -81,8 +73,9 @@ public:
 				if (frontWheel && ((!frontWheel->IsStock() && !frontWheel->IsAutosculpt()) || frontTire))
 				{
 					radius = frontWheel->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, 0);
-					this->InitTire(WHEEL_FL, radius, model, texture);
-					this->InitTire(WHEEL_FR, radius, model, texture);
+					this->tireReplacementTables[0].Init(texture);
+					this->InitTire(WHEEL_FL, radius, model);
+					this->InitTire(WHEEL_FR, radius, model);
 				}
 
 				if (rearWheel && ((!rearWheel->IsStock() && !rearWheel->IsAutosculpt()) || rearWheel->GetAppliedAttributeBParam(Hashes::DEFAULT, false) || rearTire))
@@ -92,8 +85,9 @@ public:
 
 				if (radius)
 				{
-					this->InitTire(WHEEL_RL, radius, model, texture);
-					this->InitTire(WHEEL_RR, radius, model, texture);
+					this->tireReplacementTables[1].Init(texture);
+					this->InitTire(WHEEL_RL, radius, model);
+					this->InitTire(WHEEL_RR, radius, model);
 				}
 			}
 		}
@@ -112,36 +106,36 @@ public:
 		auto rideInfo = this->carRenderInfo->pRideInfo;
 
 		int tireBrand = rideInfo->Autosculpt.Regions[ZoneStance].GetInt(6);
-		this->WheelTires[WHEEL_FL].Tire.UpdateBrand(tireBrand);
-		this->WheelTires[WHEEL_FR].Tire.UpdateBrand(tireBrand);
+		this->tireReplacementTables[0].UpdateBrand(tireBrand);
 
 		tireBrand = rideInfo->Autosculpt.Regions[ZoneStance].GetInt(7);
-		this->WheelTires[WHEEL_RL].Tire.UpdateBrand(tireBrand);
-		this->WheelTires[WHEEL_RR].Tire.UpdateBrand(tireBrand);
+		this->tireReplacementTables[1].UpdateBrand(tireBrand);
 	}
 
 	~CarWheelTextures()
 	{
-		for (auto& wt : this->WheelTires)
+		for (auto& wt : this->Tires)
 		{
-			wt.Tire.Model.UnInit();
+			wt.Model.UnInit();
 		}
 	}
 
 private:
 
-	void InitTire(int num, int radius, Hash model, Hash texture)
+	void InitTire(int num, int radius, Hash model)
 	{
-		this->WheelTires[num].Tire.Init(FromIndex("_%d_A", radius, model), texture);
-		this->WheelTires[num].Wheel.Init();
+		char buff[128];
+		sprintf(buff, "_%s_%d_A", IsLeftWheel(num) ? "LEFT" : "RIGHT", radius);
+
+		this->Tires[num].Init(StringHash1(buff, model), this->tireReplacementTables[IsFrontWheel(num)].TextureTable);
 	}
 
 	void AdjustWheelData(int num)
 	{
-		if (this->WheelTires[num].Tire.Model.Solid)
+		if (this->Tires[num].Model.Solid)
 		{
 			D3DXVECTOR3 a, b;
-			this->WheelTires[num].Tire.Model.GetBoundingBox(&a, &b);
+			this->Tires[num].Model.GetBoundingBox(&a, &b);
 
 			float width = abs(a.y - b.y);
 			float radius = abs(a.x - b.x) / 2.0f;
