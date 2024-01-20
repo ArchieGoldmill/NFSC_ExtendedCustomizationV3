@@ -33,6 +33,11 @@ struct eModel : bNode<eModel>
 		_GetBoundingBox(this, a, b);
 	}
 
+	void ReplaceLightMaterial(Hash materialName)
+	{
+		this->ReplaceLightMaterial(materialName, eLightMaterial::Get(materialName, 0));
+	}
+
 	void ReplaceLightMaterial(Hash materialName, eLightMaterial* newMaterial)
 	{
 		FUNC(0x0055C0B0, void, __thiscall, _ReplaceLightMaterial, eModel*, Hash, eLightMaterial*);

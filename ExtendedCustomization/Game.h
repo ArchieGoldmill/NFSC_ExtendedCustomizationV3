@@ -20,6 +20,11 @@ inline bool IsFrontWheel(int wheel)
 	return wheel == WHEEL_FL || wheel == WHEEL_FR;
 }
 
+inline bool IsLeftWheel(int wheel)
+{
+	return wheel == WHEEL_FL || wheel == WHEEL_RL;
+}
+
 inline bool IsRearWheel(int wheel)
 {
 	return wheel == WHEEL_RL || wheel == WHEEL_RR;
