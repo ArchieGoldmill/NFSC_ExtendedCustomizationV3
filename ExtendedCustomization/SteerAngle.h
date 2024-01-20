@@ -16,7 +16,7 @@ public:
 
 	void Update()
 	{
-		MoveTowards(*Game::FrontSteerAngle, this->target, Game::DeltaTime() * 90);
+		MoveTowards(*Game::FrontSteerAngle, this->target, Game::DeltaTime() * 45);
 	}
 
 	void SetTarget(float target)
