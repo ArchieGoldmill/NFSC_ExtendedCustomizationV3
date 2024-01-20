@@ -4,7 +4,7 @@
 #include "FEButton.h"
 #include "FECarRecord.h"
 #include "SteerAngle.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 
 bool AnyAttachmentsEnabled()
 {
@@ -30,7 +30,7 @@ void __fastcall FeCustomizeMain_Setup(FeCustomizeMain* _this)
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_PARTS, (int)CustomizeMainMenu::AFTERMARKET));
 	_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_AUTOSCULPT, (int)CustomizeMainMenu::AUTOSCULPT));
 
-	auto carId = FrontEndRenderingCar::GetCarId();
+	auto carId = FERenderingCar::GetCarId();
 	auto frontWheel = g_Config.GetPart(Slot::FRONT_WHEEL, carId);
 	if (frontWheel.IsEnabled())
 	{

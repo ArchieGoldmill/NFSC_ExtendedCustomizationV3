@@ -242,7 +242,7 @@
     <ClInclude Include="Feature.h" />
     <ClInclude Include="FEObject.h" />
     <ClInclude Include="FEPackage.h" />
-    <ClInclude Include="FrontEndRenderingCar.h" />
+    <ClInclude Include="FERenderingCar.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Hashes.h" />

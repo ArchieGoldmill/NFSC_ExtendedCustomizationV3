@@ -4,6 +4,7 @@
 #include "FeCustomizeMain.h"
 #include "Hashes.h"
 #include "FEButton.h"
+#include "FERenderingCar.h"
 
 void __fastcall FeCustomizeVisuals_Setup(FeCustomizeVisuals* _this)
 {
@@ -23,7 +24,12 @@ void __fastcall FeCustomizeVisuals_Setup(FeCustomizeVisuals* _this)
 
 	if (FeCustomizeMain::SelectedItem == CustomizeMainMenu::VISUALS)
 	{
-		_this->AddOption(TextOption::Create(Hashes::PART_VINYLS, (int)VisualsMenu::VINYLS));
+		auto genericVinyl = FERenderingCar::GetRideInfo()->GetPart(Slot::VINYL_GENERIC);
+		if (!genericVinyl)
+		{
+			_this->AddOption(TextOption::Create(Hashes::PART_VINYLS, (int)VisualsMenu::VINYLS));
+		}
+
 		_this->AddOption(TextOption::Create(Hashes::PART_WINDOW_TINT, (int)VisualsMenu::WINDOW_TINT));
 		_this->AddOption(TextOption::Create(Hashes::CUST_MAINMENU_RIDE_HEIGHT, (int)VisualsMenu::RIDE_HEIGHT));
 	}

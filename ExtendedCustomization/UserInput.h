@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include "CarRenderInfo.h"
 #include "CarRenderInfoExtras.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 
 void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 {
@@ -74,8 +74,7 @@ DWORD WINAPI HandleUserInput(LPVOID arg)
 	{
 		if (Game::InFrontEnd())
 		{
-			auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-			HandleUserInput1(rideInfo->pCarRenderInfo);
+			HandleUserInput1(FERenderingCar::GetRideInfo()->pCarRenderInfo);
 		}
 
 		if (Game::InRace())

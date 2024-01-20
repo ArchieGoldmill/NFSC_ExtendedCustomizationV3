@@ -3,10 +3,9 @@
 #include "FeCustomizeParts.h"
 #include "Constants.h"
 #include "FeCustomizeMain.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 #include "Config.h"
 #include "WheelBrands.h"
-#include "FrontEndRenderingCar.h"
 #include "AutosculptSelectablePart.h"
 
 void AddMenuOption(FeCustomizeParts* _this, Slot slot, CarType carId, bool autosculpt = false)
@@ -38,7 +37,7 @@ int AddWheelBrands(FeCustomizeParts* _this, Slot slot)
 	Hash currentBrand = 0;
 	int initialOption = 0;
 
-	auto part = FrontEndRenderingCar::Get()->RideInfo.GetPart(slot);
+	auto part = FERenderingCar::GetRideInfo()->GetPart(slot);
 	if (part)
 	{
 		wheelSize = part->GetAppliedAttributeIParam(Hashes::INNER_RADIUS, wheelSize);
@@ -66,7 +65,7 @@ int AddWheelBrands(FeCustomizeParts* _this, Slot slot)
 
 void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 {
-	auto carId = FrontEndRenderingCar::GetCarId();
+	auto carId = FERenderingCar::GetCarId();
 	int initialOption = 0;
 
 	switch (FeCustomizeMain::SelectedItem)
@@ -142,7 +141,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 
 Hash __fastcall StandardSelectablePart_GetCategoryHash(StandardSelectablePart* _this)
 {
-	auto header = g_Config.GetPart(_this->SlotId, FrontEndRenderingCar::GetCarId()).Header;
+	auto header = g_Config.GetPart(_this->SlotId, FERenderingCar::GetCarId()).Header;
 	if (header != -1)
 	{
 		return header;
@@ -153,7 +152,7 @@ Hash __fastcall StandardSelectablePart_GetCategoryHash(StandardSelectablePart* _
 
 Hash __fastcall AutosculptSelectablePart_GetCategoryHash(AutosculptSelectablePart* _this)
 {
-	auto header = g_Config.GetPart(_this->SlotId, FrontEndRenderingCar::GetCarId()).Header;
+	auto header = g_Config.GetPart(_this->SlotId, FERenderingCar::GetCarId()).Header;
 	if (header != -1)
 	{
 		return header;

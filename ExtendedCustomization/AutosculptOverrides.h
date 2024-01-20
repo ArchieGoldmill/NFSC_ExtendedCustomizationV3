@@ -6,7 +6,7 @@
 #include "AutosculptSelectablePart.h"
 #include "AutoSculpt.h"
 #include "AutosculptSlider.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 #include "CarRenderInfo.h"
 #include "CarRenderInfoExtras.h"
 #include "AutosculptFixLods.h"
@@ -181,7 +181,7 @@ int __fastcall AutosculptSlider_Act(AutosculptSlider* slider, int, int a2, Hash 
 	if (currentSelectablePart)
 	{
 		auto slot = currentSelectablePart->SlotId;
-		auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
+		auto carRenderInfo = FERenderingCar::GetRideInfo()->pCarRenderInfo;
 
 		if (slot == Slot_Stance)
 		{
@@ -242,7 +242,7 @@ void* __fastcall SetTitle(VectorScrollerMenu* _this, int param, int a)
 		auto slot = currentPart->SlotId;
 		if (slot == Slot_Stance || slot == Slot_Neon || slot == Slot::LICENSE_PLATE)
 		{
-			auto header = g_Config.GetPart(slot, FrontEndRenderingCar::GetCarId()).Header;
+			auto header = g_Config.GetPart(slot, FERenderingCar::GetCarId()).Header;
 			_this->SetTitleName(StringHash1("_TITLE", header));
 		}
 	}

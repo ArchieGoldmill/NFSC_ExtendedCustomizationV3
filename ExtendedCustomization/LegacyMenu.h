@@ -1,6 +1,6 @@
 #pragma once
 #include "Feature.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 #include "DBCarPart.h"
 #include "CarRenderInfo.h"
 
@@ -8,7 +8,7 @@ namespace Legacy
 {
 	bool ShowWarning(Slot slot)
 	{
-		auto rideInfo = &FrontEndRenderingCar::Get()->RideInfo;
+		auto rideInfo = FERenderingCar::GetRideInfo();
 		if (g_Config.GetVersion(rideInfo->CarId) < 3)
 		{
 			auto carRenderInfo = rideInfo->pCarRenderInfo;

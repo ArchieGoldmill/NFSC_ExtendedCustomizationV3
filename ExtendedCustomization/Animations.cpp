@@ -1,7 +1,7 @@
 #include "Animations.h"
 #include "CarRenderInfoExtras.h"
 #include "AutosculptSelectablePart.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 #include "FeCustomizeParts.h"
 
 void CalcTrunkAnim(CarRenderInfo* carRenderInfo, D3DXMATRIX* partMarker, IPartMarker* markerData, D3DXMATRIX* marker)
@@ -124,11 +124,11 @@ void ToggleAnimation(Slot slot)
 
 	FEPartAnimation::LastSlot = slot;
 
-	auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
+	auto carRenderInfo = FERenderingCar::GetRideInfo()->pCarRenderInfo;
 	if (carRenderInfo->Extras->Animations)
 	{
 		carRenderInfo->Extras->Animations->ResetAllAnimations();
-		auto animate = g_Config.GetPart(slot, FrontEndRenderingCar::GetCarId()).Animation;
+		auto animate = g_Config.GetPart(slot, FERenderingCar::GetCarId()).Animation;
 		if (animate == Animate::Headlights)
 		{
 			FEPartAnimation::Create(Slot::LEFT_HEADLIGHT);
@@ -168,7 +168,7 @@ void __fastcall sub_850BC0(FeCustomizeParts* _this, int, bool a)
 {
 	static auto _sub_850BC0 = (void(__thiscall*)(FeCustomizeParts*, bool))0x00850BC0;
 
-	auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
+	auto carRenderInfo = FERenderingCar::GetRideInfo()->pCarRenderInfo;
 	if (carRenderInfo->Extras->Animations)
 	{
 		carRenderInfo->Extras->Animations->ResetAllAnimations();

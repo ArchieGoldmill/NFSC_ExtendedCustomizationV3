@@ -7,7 +7,7 @@
 #include "Config.h"
 #include "CarPartDatabase.h"
 #include "Game.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 #include "AutosculptSelectablePart.h"
 #include "CarCustomizeManager.h"
 #include "FECustomizationRecord.h"
@@ -50,7 +50,7 @@ bool CheckKitwPart(Slot slot, DBCarPart* part)
 {
 	if (Contains(KitwSlots, slot, sizeof(KitwSlots)))
 	{
-		auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
+		auto rideInfo = FERenderingCar::GetRideInfo();
 		auto bodyPart = rideInfo->GetPart(Slot::BODY);
 		if (bodyPart)
 		{
@@ -76,8 +76,7 @@ bool CheckMarker(Slot slot, DBCarPart* part)
 		{
 			if (attachSlot == slot)
 			{
-				auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-				auto result = part->GetAttachMarker(rideInfo);
+				auto result = part->GetAttachMarker(FERenderingCar::GetRideInfo());
 
 				return result.first == NULL;
 			}
@@ -130,23 +129,21 @@ bool CheckSpoilerMarker(Slot slot, DBCarPart* part)
 {
 	if (slot == Slot::SPOILER)
 	{
-		auto carRenderInfo = FrontEndRenderingCar::Get()->RideInfo.pCarRenderInfo;
-		if (carRenderInfo)
-		{
-			if (!carRenderInfo->Markers.Spoiler)
-			{
-				if (part->GetAppliedAttributeBParam(Hashes::USEMARKER1, false))
-				{
-					return true;
-				}
-			}
+		auto carRenderInfo = FERenderingCar::GetRideInfo()->pCarRenderInfo;
 
-			if (!carRenderInfo->Markers.Spoiler2)
+		if (!carRenderInfo->Markers.Spoiler)
+		{
+			if (part->GetAppliedAttributeBParam(Hashes::USEMARKER1, false))
 			{
-				if (part->GetAppliedAttributeBParam(Hashes::USEMARKER2, false))
-				{
-					return true;
-				}
+				return true;
+			}
+		}
+
+		if (!carRenderInfo->Markers.Spoiler2)
+		{
+			if (part->GetAppliedAttributeBParam(Hashes::USEMARKER2, false))
+			{
+				return true;
 			}
 		}
 	}

@@ -3,10 +3,9 @@
 #include "FeCustomizeParts.h"
 #include "Slots.h"
 #include "Config.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 #include "SteerAngle.h"
 #include "AutosculptSelectablePart.h"
-#include "FrontEndRenderingCar.h"
 
 void __stdcall GetCameraScreenName(Slot slot, int maxChars, char* screenName)
 {
@@ -23,7 +22,7 @@ void __stdcall GetCameraScreenName(Slot slot, int maxChars, char* screenName)
 		SteerAngle.Reset();
 	}
 
-	auto carId = FrontEndRenderingCar::GetCarId();
+	auto carId = FERenderingCar::GetCarId();
 	auto part = g_Config.GetPart(slot, carId);
 	strcpy_s(screenName, maxChars, part.Camera.c_str());
 }
@@ -37,7 +36,7 @@ void __cdecl GetCameraScreenNameAS(char* dest, const char* camera, int count)
 		auto part = AutosculptSelectablePart::GetCurrent();
 		if (part)
 		{
-			auto partConfig = g_Config.GetPart(part->SlotId, FrontEndRenderingCar::GetCarId());
+			auto partConfig = g_Config.GetPart(part->SlotId, FERenderingCar::GetCarId());
 			if (partConfig.Camera.size())
 			{
 				strcpy_s(dest, count, partConfig.Camera.c_str());

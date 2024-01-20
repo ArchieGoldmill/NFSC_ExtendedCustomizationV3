@@ -2,7 +2,7 @@
 #include "Feature.h"
 #include "CarRenderInfo.h"
 #include "CarRenderInfoExtras.h"
-#include "FrontEndRenderingCar.h"
+#include "FERenderingCar.h"
 #include "CarRenderConn.h"
 #include "SteerAngle.h"
 #include "FlareColor.h"
@@ -104,8 +104,7 @@ void PostCarRenderMain(bool reflection)
 {
 	if (Game::InFrontEnd())
 	{
-		auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-		OnAfterCarRender(rideInfo->pCarRenderInfo, reflection);
+		OnAfterCarRender(FERenderingCar::GetRideInfo()->pCarRenderInfo, reflection);
 		SteerAngle.Update();
 	}
 
@@ -125,8 +124,7 @@ void __stdcall RenderFrontEndReflections()
 {
 	__asm pushad;
 
-	auto rideInfo = &(FrontEndRenderingCar::Get()->RideInfo);
-	OnAfterCarRender(rideInfo->pCarRenderInfo, true);
+	OnAfterCarRender(FERenderingCar::GetRideInfo()->pCarRenderInfo, true);
 
 	*((int*)0x00A6523C) = 2;
 
