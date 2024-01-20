@@ -5,11 +5,6 @@
 
 void __stdcall AfterInitializeEverything()
 {
-	if (g_Config.FixDecals)
-	{
-		FixRearDecals();
-	}
-
 	GetWheelBrands();
 
 	LoadResourceFile("CARS\\TIRES\\GEOMETRY.BIN", 6, 0, 0, 0, 0, 0);
