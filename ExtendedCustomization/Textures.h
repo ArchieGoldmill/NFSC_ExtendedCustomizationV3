@@ -302,6 +302,19 @@ void __stdcall GetUsedCarTextureInfo(UsedCarTextureInfo* usedCarTextureInfo, Rid
 			usedCarTextureInfo->AddToPerm(customTex);
 		}
 	}
+
+	for (auto slot : CustomTextureSlots)
+	{
+		auto part = rideInfo->GetPart(slot);
+		if (part)
+		{
+			auto texture = part->GetTextureName();
+			if (texture)
+			{
+				usedCarTextureInfo->AddToPerm(texture);
+			}
+		}
+	}
 }
 
 void __stdcall HandleTextureReplacements(CarRenderInfo* carRenderInfo)
