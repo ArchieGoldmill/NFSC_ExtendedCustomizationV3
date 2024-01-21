@@ -89,6 +89,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::LEFT_SIDE_MIRROR, carId);
 		AddMenuOption(_this, Slot::DOOR_LEFT, carId);
 		AddMenuOption(_this, Slot_Trunk, carId);
+		AddMenuOption(_this, Slot::INTERIOR, carId);
 		break;
 	case CustomizeMainMenu::AUTOSCULPT:
 		_this->Header->SetLanguageHash(Hashes::CUST_AUTOSCULPT);
@@ -105,6 +106,7 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::LICENSE_PLATE, carId, true);
 		AddMenuOption(_this, Slot_Neon, carId, true);
 		AddMenuOption(_this, Slot::FRONT_WHEEL, carId, true);
+		AddMenuOption(_this, Slot::INTERIOR, carId);
 		break;
 	case CustomizeMainMenu::FRONT_WHEELS:
 		initialOption = AddWheelBrands(_this, Slot::FRONT_WHEEL);
@@ -127,7 +129,6 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::FRONT_BRAKE, carId);
 		AddMenuOption(_this, Slot::FRONT_ROTOR, carId);
 		AddMenuOption(_this, Slot_Tires, carId);
-		AddMenuOption(_this, Slot::INTERIOR, carId);
 		AddMenuOption(_this, Slot::DECAL_FRONT_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::DECAL_REAR_WINDOW_TEX0, carId);
 		AddMenuOption(_this, Slot::VINYL_GENERIC, carId);
