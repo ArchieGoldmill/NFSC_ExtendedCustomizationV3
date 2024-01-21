@@ -127,7 +127,7 @@ private:
 		char buff[128];
 		sprintf(buff, "_%s_%d_A", IsLeftWheel(num) ? "LEFT" : "RIGHT", radius);
 
-		this->Tires[num].Init(StringHash1(buff, model), this->tireReplacementTables[IsFrontWheel(num)].TextureTable);
+		this->Tires[num].Init(StringHash1(buff, model), this->tireReplacementTables[IsRearWheel(num)].TextureTable);
 	}
 
 	void AdjustWheelData(int num)
