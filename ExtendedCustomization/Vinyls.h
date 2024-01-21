@@ -28,7 +28,7 @@ void __fastcall GetVinylTransformUnpacked(VinylPacked* packed, int, VinylUnpcack
 		VinylPacked mirrored;
 		mirrored = *packed;
 
-		mirrored.Rotation = 127 - mirrored.Rotation;
+		mirrored.Rotation = 128 - mirrored.Rotation;
 		unpacked->TranslationX = (1.0f - Center.x) * 2 - 1.0f - unpacked->TranslationX;
 
 		packed = &mirrored;
