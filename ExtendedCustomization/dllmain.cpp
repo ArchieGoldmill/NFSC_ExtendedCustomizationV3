@@ -31,9 +31,8 @@
 void Init()
 {
 #ifdef _DEBUG
-	injector::WriteMemory(0x00726CEA, 0);
-	injector::WriteMemory(0x00A732A8, 0);
-	injector::WriteMemory(0x00A63FC0, 0);
+	injector::WriteMemory(0x00A732A8, 0); // Nos flare count
+	injector::WriteMemory(0x00A63FC0, 0); // In game bloom
 #endif
 
 	InitVersion();

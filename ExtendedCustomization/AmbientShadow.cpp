@@ -86,6 +86,8 @@ void InitNeon()
 		injector::WriteMemory<float*>(0x007BE5AB, &RearShadowSize);
 		injector::WriteMemory<float*>(0x007BE59B, &SideShadowSize);
 		injector::WriteMemory<float*>(0x007BE58B, &SideShadowSize);
+
+		injector::WriteMemory(0x00726CEA, 0); // Disable frontend bloom
 	}
 
 	if (g_Config.Neon || g_Config.BrakelightGlow)
