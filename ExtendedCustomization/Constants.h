@@ -82,7 +82,7 @@ inline Slot AttachSlots[] = {
 inline Slot KitwSlots[] = {
 	Slot::HOOD, Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::SKIRT, Slot_FrontFender, Slot_RearFender, Slot_Trunk, Slot::HEADLIGHT, Slot::LEFT_HEADLIGHT, Slot::LEFT_BRAKELIGHT,
 	Slot::LEFT_SIDE_MIRROR, Slot::DOOR_LEFT, Slot::EXHAUST, Slot::SPOILER, Slot::FRONT_WINDOW, Slot::REAR_WINDOW, Slot::REAR_LEFT_WINDOW, Slot::REAR_RIGHT_WINDOW,
-	Slot::INTERIOR, Slot::ROOF, Slot::FRONT_LEFT_WINDOW, Slot::FRONT_RIGHT_WINDOW
+	Slot::INTERIOR, Slot::ROOF, Slot::FRONT_LEFT_WINDOW, Slot::FRONT_RIGHT_WINDOW, Slot::DOORLINE
 };
 
 inline Slot MarkerSlots[] = { Slot::FRONT_BUMPER, Slot::REAR_BUMPER, Slot::INTERIOR, Slot::SKIRT, Slot::BODY, Slot::ROOF, Slot_Trunk, Slot::HOOD };
