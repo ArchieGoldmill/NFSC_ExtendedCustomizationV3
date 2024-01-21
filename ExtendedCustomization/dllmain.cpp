@@ -30,6 +30,12 @@
 
 void Init()
 {
+#ifdef _DEBUG
+	injector::WriteMemory(0x00726CEA, 0);
+	injector::WriteMemory(0x00A732A8, 0);
+	injector::WriteMemory(0x00A63FC0, 0);
+#endif
+
 	InitVersion();
 
 	InitConfig();

@@ -70,13 +70,18 @@ inline Hash FromIndex(const char* str, int index, Hash hash)
 	return StringHash1(buff, hash);
 }
 
+struct SimInternalSystem
+{
+	float unk[9];
+
+	static SimInternalSystem* Instance()
+	{
+		return *(SimInternalSystem**)0x00B4CFE0;
+	}
+};
+
 namespace Game
 {
-	inline float DeltaTime()
-	{
-		return *(float*)0x00A99A5C;
-	}
-
 	static auto CarPartSlotMap = (int*)0x00A73398;
 	static auto ScreenSizeX = (int*)0x00A63F80;
 	static auto ScreenSizeY = (int*)0x00A63F84;
@@ -116,5 +121,16 @@ namespace Game
 	inline bool InRace()
 	{
 		return InState(Game::State::RACING);
+	}
+
+	inline float DeltaTime()
+	{
+		auto sim = SimInternalSystem::Instance();
+		if (Game::InRace() && sim)
+		{
+			return sim->unk[5];
+		}
+
+		return *(float*)0x00A99A5C;
 	}
 }
