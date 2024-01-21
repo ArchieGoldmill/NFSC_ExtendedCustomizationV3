@@ -103,7 +103,7 @@ public:
 		{
 			rotorWidth = frontRotor->GetAppliedAttributeFParam(Hashes::WIDTH, rotorWidth);
 			auto rotorModel = this->carRenderInfo->PartModel[(int)Slot::FRONT_ROTOR][0];
-			if (rotorModel)
+			if (rotorModel && rotorWidth)
 			{
 				D3DXVECTOR3 a, b;
 				rotorModel->GetBoundingBox(&a, &b);
