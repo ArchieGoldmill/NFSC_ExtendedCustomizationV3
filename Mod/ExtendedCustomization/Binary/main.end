@@ -102,6 +102,9 @@ new negate FRONTEND\FRONTB2.BUN
 import override FRONTEND\FRONTB2.BUN FNGroups FNG\FEAUTOSCULPTFRONTBUMPER.bin
 delete FRONTEND\FRONTB2.BUN
 
+// PresetRides
+update_collection GLOBAL\GLOBALB.LZC PresetRides BMWM3GTRE46_CROSSCHASE LicensePlate LICENSE_PLATE_MW
+
 // Localization
 append Localization\English.end
 append Localization\Danish.end
