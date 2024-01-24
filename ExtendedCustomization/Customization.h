@@ -31,13 +31,24 @@ void InstallByKitNumber(Slot slot, RideInfo* rideInfo, FECustomizationRecord* re
 	}
 }
 
-void InstallByKitNumber(Slot from, Slot slot, RideInfo* rideInfo, FECustomizationRecord* record)
+void InstallByKitNumber(Slot from, Slot slot, RideInfo* rideInfo, FECustomizationRecord* record, bool requireKit)
 {
 	auto fromPart = rideInfo->GetPart(from);
 	if (fromPart)
 	{
-		int kit = fromPart->GetKit();
-		InstallByKitNumber(slot, rideInfo, record, kit);
+		if (requireKit)
+		{
+			auto kitAttrib = fromPart->GetAppliedAttributeParam<int>(Hashes::KITNUMBER);
+			if (kitAttrib)
+			{
+				InstallByKitNumber(slot, rideInfo, record, kitAttrib->Value);
+			}
+		}
+		else
+		{
+			int kit = fromPart->GetKit();
+			InstallByKitNumber(slot, rideInfo, record, kit);
+		}
 	}
 }
 
@@ -119,8 +130,8 @@ void HandleBrakes(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizatio
 		}
 	}
 
-	InstallByKitNumber(Slot::FRONT_BRAKE, Slot::REAR_BRAKE, rideInfo, record);
-	InstallByKitNumber(Slot::FRONT_ROTOR, Slot::REAR_ROTOR, rideInfo, record);
+	InstallByKitNumber(Slot::FRONT_BRAKE, Slot::REAR_BRAKE, rideInfo, record, false);
+	InstallByKitNumber(Slot::FRONT_ROTOR, Slot::REAR_ROTOR, rideInfo, record, false);
 }
 
 void HandleGenericVinyls(RideInfo* rideInfo, FECustomizationRecord* record)
@@ -149,7 +160,7 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 		}
 	}
 
-	InstallByKitNumber(Slot::LEFT_SIDE_MIRROR, Slot::RIGHT_SIDE_MIRROR, rideInfo, record);
+	InstallByKitNumber(Slot::LEFT_SIDE_MIRROR, Slot::RIGHT_SIDE_MIRROR, rideInfo, record, false);
 
 	auto leftHeadlight = rideInfo->GetPart(Slot::LEFT_HEADLIGHT);
 	if (leftHeadlight)
@@ -169,14 +180,14 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 		InstallByKitNumber(Slot::RIGHT_BRAKELIGHT_GLASS, rideInfo, record, kit);
 	}
 
-	InstallByKitNumber(Slot::ROOF, Slot::FRONT_WINDOW, rideInfo, record);
-	InstallByKitNumber(Slot::ROOF, Slot::REAR_WINDOW, rideInfo, record);
+	InstallByKitNumber(Slot::ROOF, Slot::FRONT_WINDOW, rideInfo, record, true);
+	InstallByKitNumber(Slot::ROOF, Slot::REAR_WINDOW, rideInfo, record, true);
 
-	InstallByKitNumber(Slot::FRONT_WINDOW, Slot::DECAL_FRONT_WINDOW, rideInfo, record);
+	InstallByKitNumber(Slot::FRONT_WINDOW, Slot::DECAL_FRONT_WINDOW, rideInfo, record, true);
 
-	InstallByKitNumber(Slot::REAR_WINDOW, Slot::DECAL_REAR_WINDOW, rideInfo, record);
+	InstallByKitNumber(Slot::REAR_WINDOW, Slot::DECAL_REAR_WINDOW, rideInfo, record, true);
 
-	InstallByKitNumber(Slot::DOOR_LEFT, Slot::DOOR_RIGHT, rideInfo, record);
+	InstallByKitNumber(Slot::DOOR_LEFT, Slot::DOOR_RIGHT, rideInfo, record, false);
 }
 
 void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMain, int, RideInfo* rideInfo, FECustomizationRecord* record)

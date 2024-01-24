@@ -106,7 +106,6 @@ void __stdcall PopulateAllOptions(FeCustomizeParts* _this)
 		AddMenuOption(_this, Slot::LICENSE_PLATE, carId, true);
 		AddMenuOption(_this, Slot_Neon, carId, true);
 		AddMenuOption(_this, Slot::FRONT_WHEEL, carId, true);
-		AddMenuOption(_this, Slot::INTERIOR, carId);
 		break;
 	case CustomizeMainMenu::FRONT_WHEELS:
 		initialOption = AddWheelBrands(_this, Slot::FRONT_WHEEL);
