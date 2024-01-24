@@ -1,4 +1,4 @@
-NFS Carbon - Extended Customization v3.2.0
+NFS Carbon - Extended Customization v3.3.1
 
 Installation:
 1. Install NFSC Unlimiter (https://nfsmods.xyz/mod/846)
