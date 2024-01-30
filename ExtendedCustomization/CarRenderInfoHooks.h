@@ -69,10 +69,18 @@ void __fastcall UpdateCarParts(CarRenderInfo* carRenderInfo)
 
 	if (!carRenderInfo->Markers.RearLicensePlate)
 	{
-		auto rearBumper = carRenderInfo->pRideInfo->GetPart(Slot::REAR_BUMPER);
-		if (rearBumper)
+		for (auto slot : LicensePlateSlots)
 		{
-			carRenderInfo->Markers.RearLicensePlate = rearBumper->GetPositionMarker(Hashes::REAR_LICENSE_PLATE);
+			auto part = carRenderInfo->pRideInfo->GetPart(slot);
+			if (part)
+			{
+				auto marker = part->GetPositionMarker(Hashes::REAR_LICENSE_PLATE);
+				if (marker)
+				{
+					carRenderInfo->Markers.RearLicensePlate = marker;
+					break;
+				}
+			}
 		}
 	}
 }
