@@ -40,27 +40,24 @@ void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSli
 {
 	if (fxMarker->Hash == Hashes::EXHAUST_FX)
 	{
-		if (carRenderInfo->HasExhaustMarker())
+		if (strstr(model->Solid->Name, "EXHAUST"))
 		{
-			if (strstr(model->Solid->Name, "EXHAUST"))
+			if (carRenderInfo->Markers.LeftExhaust)
 			{
-				if (carRenderInfo->Markers.LeftExhaust)
-				{
-					auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.LeftExhaust, false);
-					CreateEmitter(carRenderInfo, marker, list, counter);
-				}
+				auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.LeftExhaust, false);
+				CreateEmitter(carRenderInfo, marker, list, counter);
+			}
 
-				if (carRenderInfo->Markers.CenterExhaust)
-				{
-					auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.CenterExhaust, false);
-					CreateEmitter(carRenderInfo, marker, list, counter);
-				}
+			if (carRenderInfo->Markers.CenterExhaust)
+			{
+				auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.CenterExhaust, false);
+				CreateEmitter(carRenderInfo, marker, list, counter);
+			}
 
-				if (carRenderInfo->Markers.RightExhaust)
-				{
-					auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.RightExhaust, true);
-					CreateEmitter(carRenderInfo, marker, list, counter);
-				}
+			if (carRenderInfo->Markers.RightExhaust)
+			{
+				auto marker = carRenderInfo->Extras->ExhaustFX->GetAdjustedMarker(fxMarker, carRenderInfo->Markers.RightExhaust, true);
+				CreateEmitter(carRenderInfo, marker, list, counter);
 			}
 
 			return;
