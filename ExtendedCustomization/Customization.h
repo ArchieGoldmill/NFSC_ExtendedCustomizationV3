@@ -143,6 +143,29 @@ void HandleGenericVinyls(RideInfo* rideInfo, FECustomizationRecord* record)
 	}
 }
 
+void HandleAttachments(RideInfo* rideInfo, FECustomizationRecord* record)
+{
+	if (record)
+	{
+		for (auto attachSlot : AttachSlots)
+		{
+			auto attachPart = record->GetInstalledPart(rideInfo->CarId, attachSlot);
+			if (attachPart && attachPart->HasMarkerName())
+			{
+				auto result = attachPart->GetAttachMarker(rideInfo);
+				if (!result.first)
+				{
+					auto validPart = CarPartDatabase::Instance->GetValidAttachment(attachSlot, rideInfo);
+					if (validPart)
+					{
+						InstallPart(rideInfo, record, attachSlot, validPart);
+					}
+				}
+			}
+		}
+	}
+}
+
 void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo, FECustomizationRecord* record)
 {
 	if (!rideInfo)
@@ -188,6 +211,10 @@ void HandleSpecialCustomizationV3(FeGarageMain* feGarageMain, RideInfo* rideInfo
 	InstallByKitNumber(Slot::REAR_WINDOW, Slot::DECAL_REAR_WINDOW, rideInfo, record, true);
 
 	InstallByKitNumber(Slot::DOOR_LEFT, Slot::DOOR_RIGHT, rideInfo, record, false);
+
+	InstallByKitNumber(Slot::FRONT_LEFT_WINDOW, Slot::FRONT_RIGHT_WINDOW, rideInfo, record, true);
+
+	HandleAttachments(rideInfo, record);
 }
 
 void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMain, int, RideInfo* rideInfo, FECustomizationRecord* record)

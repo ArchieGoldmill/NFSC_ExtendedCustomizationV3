@@ -83,6 +83,35 @@ struct CarPartDatabase
 		return part;
 	}
 
+	DBCarPart* GetValidAttachment(Slot slot, RideInfo* rideInfo)
+	{
+		DBCarPart* part = NULL;
+		while (true)
+		{
+			part = this->GetCarPart(slot, rideInfo->CarId, part);
+			if (!part)
+			{
+				break;
+			}
+
+			if (part->HasMarkerName())
+			{
+				auto result = part->GetAttachMarker(rideInfo);
+				if (result.first)
+				{
+					break;
+				}
+			}
+			else
+			{
+				// if attachment does not have marker then it fits everything
+				break;
+			}
+		}
+
+		return part;
+	}
+
 	int GetNumCarParts(CarType carId, Slot slot)
 	{
 		FUNC(0x007D6660, int, __thiscall, _GetNumCarParts, CarPartDatabase*, CarType, Slot, Hash, int);
