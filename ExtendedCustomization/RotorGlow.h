@@ -97,11 +97,10 @@ public:
 
 	void Init()
 	{
-		float rotorWidth = 0.04f;
 		auto frontRotor = this->carRenderInfo->pRideInfo->GetPart(Slot::FRONT_ROTOR);
 		if (frontRotor)
 		{
-			rotorWidth = frontRotor->GetAppliedAttributeFParam(Hashes::WIDTH, rotorWidth);
+			float rotorWidth = frontRotor->GetAppliedAttributeFParam(Hashes::WIDTH, 0.0f);
 			auto rotorModel = this->carRenderInfo->PartModel[(int)Slot::FRONT_ROTOR][0];
 			if (rotorModel && rotorWidth)
 			{
