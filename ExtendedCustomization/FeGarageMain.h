@@ -2,8 +2,14 @@
 #include "RideInfo.h"
 #include "FECustomizationRecord.h"
 
+struct FERenderingCar;
 struct FeGarageMain
 {
+	inline static FeGarageMain*& Instance = *(FeGarageMain**)0x00BBAA8C;
+
+	BYTE _offset[0x3C];
+	FERenderingCar* MainRenderingCar;
+
 	void HandleSpecialCustomization(RideInfo* rideInfo, FECustomizationRecord* record)
 	{
 		static auto _HandleSpecialCustomization = (int(__thiscall*)(FeGarageMain*, RideInfo*, FECustomizationRecord*))0x008597F0;
