@@ -62,6 +62,10 @@ void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSli
 
 			return;
 		}
+		else if (carRenderInfo->HasExhaustMarker())
+		{
+			return;
+		}
 	}
 
 	CreateEmitter(carRenderInfo, fxMarker, list, counter);
