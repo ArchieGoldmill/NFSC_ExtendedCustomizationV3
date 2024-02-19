@@ -51,14 +51,7 @@ public:
 		}
 	}
 
-	void UpdateSmoke(D3DXMATRIX* matrix, float a3, D3DXVECTOR3* velocity)
-	{
-		for (auto effect : this->SmokeEffects)
-		{
-			effect->Update(matrix, 0x3D42B5F3, a3, 1.0f, velocity);
-			effect = effect->Next;
-		}
-	}
+	void UpdateSmoke(D3DXMATRIX* matrix, float a3, D3DXVECTOR3* velocity);
 
 	~CarExhaustFX()
 	{

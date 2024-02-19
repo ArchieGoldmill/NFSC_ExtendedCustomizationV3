@@ -14,9 +14,11 @@ class CarRenderInfoExtras
 {
 private:
 	CarRenderInfo* carRenderInfo;
+	bool initialStart;
 
 public:
 	bool IsVisible;
+	bool IsEngineOn;
 	D3DXMATRIX CarMatrix;
 	D3DXMATRIX CarMatrixReflection;
 
@@ -34,6 +36,8 @@ public:
 	{
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
+		this->IsEngineOn = false;
+		this->initialStart = true;
 
 		if (g_Config.LicensePlateText)
 		{
@@ -78,6 +82,30 @@ public:
 		this->WheelTextures = new CarWheelTextures(carRenderInfo);
 	}
 
+	void CheckEngine()
+	{
+		if (Game::InRace() && !this->IsEngineOn && this->initialStart)
+		{
+			if (this->Animations)
+			{
+				auto leftHeadlight = (PartAnimation*)this->Animations->GetAnimation(Slot::LEFT_HEADLIGHT);
+				if (leftHeadlight)
+				{
+					leftHeadlight->SetTarget(1.0f);
+				}
+
+				auto rightHeadlight = (PartAnimation*)this->Animations->GetAnimation(Slot::RIGHT_HEADLIGHT);
+				if (rightHeadlight)
+				{
+					rightHeadlight->SetTarget(1.0f);
+				}
+			}
+
+			this->IsEngineOn = true;
+			this->initialStart = false;
+		}
+	}
+
 	~CarRenderInfoExtras()
 	{
 		if (this->LicensePlateText)
@@ -119,7 +147,7 @@ public:
 		{
 			delete this->Animations;
 		}
-		
+
 		if (this->WheelTextures)
 		{
 			delete this->WheelTextures;

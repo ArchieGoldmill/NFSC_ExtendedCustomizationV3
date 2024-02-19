@@ -111,7 +111,7 @@ void UpdateBrakelightTextures(CarRenderInfo* carRenderInfo)
 	Hash brakelightRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_OFF;
 	Hash brakelightCentre = carRenderInfo->UsedTextureInfo.BRAKELIGHT_OFF;
 
-	if (Game::InRace() && TextureInfo::Get(carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF, false, false))
+	if (carRenderInfo->Extras->IsEngineOn && TextureInfo::Get(carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF, false, false))
 	{
 		brakelightLeft = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF;
 		brakelightRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF;
@@ -132,22 +132,21 @@ void UpdateBrakelightTextures(CarRenderInfo* carRenderInfo)
 		brakelightCentre = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ON;
 	}
 
-	if (TextureInfo::Get(carRenderInfo->UsedTextureInfo.BRAKELIGHT_DAMAGE0, false, false))
+	bool hasDamageTexture = TextureInfo::Get(carRenderInfo->UsedTextureInfo.BRAKELIGHT_DAMAGE0, false, false);
+	auto damageTexture = hasDamageTexture ? carRenderInfo->UsedTextureInfo.BRAKELIGHT_DAMAGE0 : carRenderInfo->UsedTextureInfo.BRAKELIGHT_OFF;
+	if (carRenderInfo->Damage.IsBrakelightLeftDamaged())
 	{
-		if (carRenderInfo->Damage.IsBrakelightLeftDamaged())
-		{
-			brakelightLeft = carRenderInfo->UsedTextureInfo.BRAKELIGHT_DAMAGE0;
-		}
+		brakelightLeft = damageTexture;
+	}
 
-		if (carRenderInfo->Damage.IsBrakelightRightDamaged())
-		{
-			brakelightRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_DAMAGE0;
-		}
+	if (carRenderInfo->Damage.IsBrakelightRightDamaged())
+	{
+		brakelightRight = damageTexture;
+	}
 
-		if (carRenderInfo->Damage.IsBrakelightCentreDamaged())
-		{
-			brakelightCentre = carRenderInfo->UsedTextureInfo.BRAKELIGHT_DAMAGE0;
-		}
+	if (carRenderInfo->Damage.IsBrakelightCentreDamaged())
+	{
+		brakelightCentre = damageTexture;
 	}
 
 	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::BrakelightLeft].Update(Hashes::BRAKELIGHT_LEFT, brakelightLeft);
@@ -208,7 +207,7 @@ void UpdateBrakelightGlassTextures(CarRenderInfo* carRenderInfo)
 void UpdateReverseTexture(CarRenderInfo* carRenderInfo)
 {
 	Hash carHash = StringHash(carRenderInfo->pRideInfo->GetCarTypeName());
-	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::Reverse].Update(Hashes::REVERSE, 
+	carRenderInfo->GeneralReplacementTextures[(int)ReplacementTextureIndex::Reverse].Update(Hashes::REVERSE,
 		carRenderInfo->IsGlareOn(VehicleFX_REVERSE) ? StringHash1("_REVERSE_ON", carHash) : StringHash1("_REVERSE_OFF", carHash));
 }
 
@@ -219,7 +218,7 @@ void UpdateInteriorGlowTexture(CarRenderInfo* carRenderInfo)
 	Hash interiorOn = StringHash1("_ON", interiorHash);
 	if (TextureInfo::Get(interiorOff, false, false))
 	{
-		interiorHash = (Game::InRace() || (carRenderInfo->IsFeEngineOn())) ? interiorOn : interiorOff;
+		interiorHash = (carRenderInfo->Extras->IsEngineOn) ? interiorOn : interiorOff;
 	}
 	else
 	{

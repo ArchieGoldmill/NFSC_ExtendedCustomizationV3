@@ -46,6 +46,6 @@ public:
 
 	Color GetColor()
 	{
-		return Color(carRenderInfo->IsGlareOn(VehicleFX_BRAKELIGHTS) ? 0x80808080 : (Game::InRace() ? 0x69696969 : 0));
+		return Color(carRenderInfo->IsGlareOn(VehicleFX_BRAKELIGHTS) ? 0x80808080 : 0x69696969);
 	}
 };

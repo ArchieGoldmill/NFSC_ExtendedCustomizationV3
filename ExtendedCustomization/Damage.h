@@ -56,6 +56,17 @@ void __fastcall OnTaskFX(int* a, int, float b)
 	if (damage.IsBrakelightLeftDamaged()) pVehicle->GlareOff(VehicleFX_LBRAKE);
 	if (damage.IsBrakelightRightDamaged()) pVehicle->GlareOff(VehicleFX_RBRAKE);
 	if (damage.IsBrakelightCentreDamaged()) pVehicle->GlareOff(VehicleFX_CBRAKE);
+
+	int count = CarRenderConn::GetListCount();
+	auto list = CarRenderConn::GetList();
+	for (int i = 0; i < count; i++)
+	{
+		if (list[i]->GetPVehicle() == pVehicle && list[i]->pCarRenderInfo && !list[i]->pCarRenderInfo->Extras->IsEngineOn)
+		{
+			pVehicle->GlareOff(VehicleFX_LIGHTS);
+			pVehicle->GlareOff(VehicleFX_REVERSE);
+		}
+	}
 }
 
 void InitDamage()

@@ -6,6 +6,39 @@
 #include "eModel.h"
 #include "CarRenderInfoExtras.h"
 
+void CarExhaustFX::UpdateSmoke(D3DXMATRIX* matrix, float a3, D3DXVECTOR3* velocity)
+{
+	if (this->carRenderInfo->Extras->IsEngineOn)
+	{
+		for (auto effect : this->SmokeEffects)
+		{
+			effect->Update(matrix, 0x3D42B5F3, a3, 1.0f, velocity);
+			effect = effect->Next;
+		}
+	}
+}
+
+void CarExhaustShake::Update()
+{
+	if (this->carRenderInfo->Extras->IsEngineOn && !IsPaused())
+	{
+		if (this->LeftShaker)
+		{
+			this->LeftShaker->Update();
+		}
+
+		if (this->RightShaker)
+		{
+			this->RightShaker->Update();
+		}
+
+		if (this->CenterShaker)
+		{
+			this->CenterShaker->Update();
+		}
+	}
+}
+
 void CreateEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker, bSlist<CarEmitterPosition>* list, int* counter)
 {
 	(*counter)++;

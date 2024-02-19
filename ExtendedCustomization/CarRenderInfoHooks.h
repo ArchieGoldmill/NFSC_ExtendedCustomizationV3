@@ -36,6 +36,7 @@ void __stdcall CarRenderInfoDt(CarRenderInfo* carRenderInfo)
 double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int, bool reflection, eView* view, D3DXVECTOR4* a3, float a4, D3DXMATRIX* a5, D3DXMATRIX* a6, D3DXMATRIX* a7)
 {
 	carRenderInfo->Extras->IsVisible = true;
+	carRenderInfo->Extras->CheckEngine();
 
 	double result = 0;
 	if (reflection)
@@ -47,14 +48,13 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int, bool reflect
 		carRenderInfo->Extras->CarMatrix = *carRenderInfo->Matrix;
 
 		result = carRenderInfo->DrawAmbientShadow(view, a3, a4, a5, a6, a7);
-		SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, view, a3, a4, a5, a6, a7);
-		SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, view, a3, a4, a5, a6, a7);
-		RenderTextureHeadlights(carRenderInfo, view, a3, a4, a5, a6, a7);
 
-		if (carRenderInfo->IsFeEngineOn())
+		SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, view, a3, a4, a5, a6, a7);
+
+		if (carRenderInfo->Extras->IsEngineOn)
 		{
-			D3DXVECTOR3 velocity = { 0.0f, 0.0f, 0.3f };
-			carRenderInfo->Extras->ExhaustFX->UpdateSmoke(carRenderInfo->Matrix, 0.005f, &velocity);
+			SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, view, a3, a4, a5, a6, a7);
+			RenderTextureHeadlights(carRenderInfo, view, a3, a4, a5, a6, a7);
 		}
 	}
 
@@ -102,6 +102,12 @@ void OnAfterCarRender(CarRenderInfo* carRenderInfo, bool reflection)
 			SAFE_CALL(carRenderInfo->Extras->Neon, Update);
 			SAFE_CALL(carRenderInfo->Extras->ExhaustShake, Update);
 			SAFE_CALL(carRenderInfo->Extras->RotorGlow, Update);
+
+			if (Game::InFrontEnd())
+			{
+				D3DXVECTOR3 velocity = { 0.0f, 0.0f, 0.3f };
+				SAFE_CALL(carRenderInfo->Extras->ExhaustFX, UpdateSmoke, carRenderInfo->Matrix, 0.005f, &velocity);
+			}
 
 			carRenderInfo->Extras->IsVisible = false;
 		}

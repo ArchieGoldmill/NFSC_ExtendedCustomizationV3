@@ -62,21 +62,6 @@ public:
 
 	void Update()
 	{
-		if (Game::InRace())
-		{
-			auto leftHeadlight = (PartAnimation*)this->GetAnimation(Slot::LEFT_HEADLIGHT);
-			if (leftHeadlight)
-			{
-				leftHeadlight->SetTarget(1.0f);
-			}
-
-			auto rightHeadlight = (PartAnimation*)this->GetAnimation(Slot::RIGHT_HEADLIGHT);
-			if (rightHeadlight)
-			{
-				rightHeadlight->SetTarget(1.0f);
-			}
-		}
-
 		for (auto anim : this->partAnimations)
 		{
 			anim->Update();

@@ -9,6 +9,11 @@ int __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
 {
 	Hash flareName = flare->NameHash;
 
+	if (!carRenderInfo->Extras->IsEngineOn)
+	{
+		return 0;
+	}
+
 	if (!carRenderInfo->Extras->Animations->IsLeftHeadlightOpen() && flareName == Hashes::LEFT_HEADLIGHT)
 	{
 		return 0;
@@ -45,6 +50,11 @@ int __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
 
 void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 {
+	if (!Game::InFrontEnd())
+	{
+		return;
+	}
+
 	if (!(carRenderInfo->Extras->Animations->IsLeftHeadlightOpen() || carRenderInfo->Extras->Animations->IsRightHeadlightOpen()))
 	{
 		return;
@@ -55,38 +65,40 @@ void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR
 		return;
 	}
 
-	if (carRenderInfo->IsFeEngineOn())
-	{
-		// Backup
-		auto backup = carRenderInfo->CarShadowTexture;
-		auto min = carRenderInfo->BoundingBoxMin;
-		auto max = carRenderInfo->BoundingBoxMax;
+	// Backup
+	auto backup = carRenderInfo->CarShadowTexture;
+	auto min = carRenderInfo->BoundingBoxMin;
+	auto max = carRenderInfo->BoundingBoxMax;
 
-		// Draw
-		carRenderInfo->BoundingBoxMax.x -= 0.3f;
-		carRenderInfo->BoundingBoxMin.x = carRenderInfo->BoundingBoxMax.x + 7.0f;
+	// Draw
+	carRenderInfo->BoundingBoxMax.x -= 0.3f;
+	carRenderInfo->BoundingBoxMin.x = carRenderInfo->BoundingBoxMax.x + 7.0f;
 
-		carRenderInfo->BoundingBoxMax.y *= 3;
-		carRenderInfo->BoundingBoxMin.y *= 3;
+	carRenderInfo->BoundingBoxMax.y *= 3;
+	carRenderInfo->BoundingBoxMin.y *= 3;
 
-		carRenderInfo->CarShadowTexture = TextureInfo::Get(Hashes::FE_HEADLIGHTS, false, false);
-		carRenderInfo->DrawAmbientShadow(a1, a2, a3, a4, a5, a6);
+	carRenderInfo->CarShadowTexture = TextureInfo::Get(Hashes::FE_HEADLIGHTS, false, false);
+	carRenderInfo->DrawAmbientShadow(a1, a2, a3, a4, a5, a6);
 
-		// Restore
-		carRenderInfo->CarShadowTexture = backup;
-		carRenderInfo->BoundingBoxMin = min;
-		carRenderInfo->BoundingBoxMax = max;
-	}
+	// Restore
+	carRenderInfo->CarShadowTexture = backup;
+	carRenderInfo->BoundingBoxMin = min;
+	carRenderInfo->BoundingBoxMax = max;
 }
 
 void RenderFrontEndFlares(CarRenderInfo* carRenderInfo, bool reflection)
 {
+	if (!Game::InFrontEnd())
+	{
+		return;
+	}
+
 	if (g_Config.GetPopUpHeadLights(carRenderInfo->pRideInfo->CarId) == State::Enabled)
 	{
 		return;
 	}
 
-	if (carRenderInfo->IsFeEngineOn())
+	if (carRenderInfo->Extras->IsEngineOn)
 	{
 		if (!reflection)
 		{

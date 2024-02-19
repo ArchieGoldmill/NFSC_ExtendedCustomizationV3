@@ -305,11 +305,6 @@ struct CarRenderInfo
 		_RenderFlaresOnCar(this, view, position, matrix, forceLightState, reflection, renderFlareFlags, nonPlayer);
 	}
 
-	bool IsFeEngineOn()
-	{
-		return Game::InFrontEnd() && this->LightsState1;
-	}
-
 	void SetWindowDamage(ReplacementTextureIndex index, DamageZone damageZone, Hash from, Hash to);
 
 	D3DCOLOR GetHeadlightsColor()

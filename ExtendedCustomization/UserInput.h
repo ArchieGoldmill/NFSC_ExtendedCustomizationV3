@@ -3,6 +3,7 @@
 #include "CarRenderInfo.h"
 #include "CarRenderInfoExtras.h"
 #include "FERenderingCar.h"
+#include "../ThirdParty/IniReader/IniReader.h"
 
 void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 {
@@ -39,15 +40,19 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 
 	if (GetAsyncKeyState(g_Config.HK_ToggleLights))
 	{
-		if (Game::InFrontEnd() && !*Game::NotInFocus)
+		if (!*Game::NotInFocus)
 		{
-			if (carRenderInfo->LightsState1)
+			carRenderInfo->Extras->IsEngineOn = !carRenderInfo->Extras->IsEngineOn;
+			if (Game::InFrontEnd())
 			{
-				carRenderInfo->LightsState1 = VehicleFX_NONE;
-			}
-			else
-			{
-				carRenderInfo->LightsState1 = VehicleFX_LIGHTS;
+				if (carRenderInfo->Extras->IsEngineOn)
+				{
+					carRenderInfo->LightsState1 = VehicleFX_LIGHTS;
+				}
+				else
+				{
+					carRenderInfo->LightsState1 = VehicleFX_NONE;
+				}
 			}
 
 			auto anim = (PartAnimation*)carRenderInfo->Extras->Animations->GetPartAnimation(Slot::LEFT_HEADLIGHT);
@@ -103,5 +108,11 @@ void InitUserInput()
 	if (g_Config.HK_Enabled)
 	{
 		CreateThread(NULL, NULL, HandleUserInput, NULL, NULL, NULL);
+
+		CIniReader extraOptions("NFSCExtraOptionsSettings.ini");
+		if (extraOptions.ReadInteger("Hotkeys", "Headlights", 0))
+		{
+			extraOptions.WriteInteger("Hotkeys", "Headlights", 0);
+		}
 	}
 }
