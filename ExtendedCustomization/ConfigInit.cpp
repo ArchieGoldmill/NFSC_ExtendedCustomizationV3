@@ -46,7 +46,7 @@ void InitPart(CIniReader& iniReader, SharedConfig* shared, Slot slot, const char
 			}
 
 			if (slot == Slot::FRONT_BUMPER || slot == Slot::REAR_BUMPER || slot == Slot::SKIRT || slot == Slot::EXHAUST || slot == Slot::LICENSE_PLATE
-				|| slot == Slot::CV || slot == Slot::MISC || slot == Slot::CUSTOM_HUD)
+				|| slot == Slot::CV || slot == Slot::MISC || slot == Slot::CUSTOM_HUD || slot == Slot::ROOF)
 			{
 				partConfig.AutosculptState = legacyEnabled;
 			}
