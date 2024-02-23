@@ -111,4 +111,9 @@ void InitNeon()
 		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::REAR_BUMPER, 0);
 		injector::WriteMemory<BYTE>(0x007D592C + (int)Slot::SKIRT, 0);
 	}
+
+	if (g_Config.ShadowShiftMult)
+	{
+		injector::WriteMemory<float*>(0x007BE600, &g_Config.ShadowShiftMult);
+	}
 }

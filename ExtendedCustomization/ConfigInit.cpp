@@ -188,6 +188,7 @@ void InitConfig()
 	g_Config.PartPreviewDelay = iniReader.ReadInteger("GENERAL", "PartPreviewDelay", 2400);
 	g_Config.NeonSize = iniReader.ReadFloat("GENERAL", "NeonSize", 0);
 	g_Config.NeonInnerSize = iniReader.ReadFloat("GENERAL", "NeonInnerSize", 0);
+	g_Config.ShadowShiftMult = iniReader.ReadFloat("GENERAL", "ShadowShiftMult", 0);
 
 	g_Config.DebugRotorGlow = iniReader.ReadInteger("DEBUG", "RotorGlow", 0) == 1;
 	g_Config.DebugDamage = iniReader.ReadInteger("DEBUG", "Damage", 0) == 1;

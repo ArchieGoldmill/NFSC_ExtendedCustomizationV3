@@ -26,6 +26,7 @@ public:
 			auto backup = this->carRenderInfo->CarShadowTexture;
 			auto min = this->carRenderInfo->BoundingBoxMin;
 			auto max = this->carRenderInfo->BoundingBoxMax;
+			auto shadowShift = g_Config.ShadowShiftMult;
 
 			// Draw
 			this->carRenderInfo->BoundingBoxMin.x -= 1.3f;
@@ -35,12 +36,14 @@ public:
 			this->carRenderInfo->BoundingBoxMin.y *= 1.8f;
 
 			this->carRenderInfo->CarShadowTexture = this->Texture;
+			g_Config.ShadowShiftMult = 0;
 			this->carRenderInfo->DrawAmbientShadow(a1, a2, a3, a4, a5, a6);
 
 			// Restore
 			this->carRenderInfo->CarShadowTexture = backup;
 			this->carRenderInfo->BoundingBoxMin = min;
 			this->carRenderInfo->BoundingBoxMax = max;
+			g_Config.ShadowShiftMult = shadowShift;
 		}
 	}
 

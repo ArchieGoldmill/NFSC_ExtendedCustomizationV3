@@ -161,11 +161,14 @@ public:
 		if (this->NeonTexture)
 		{
 			auto backup = this->carRenderInfo->CarShadowTexture;
+			auto shadowShift = g_Config.ShadowShiftMult;
 
 			this->carRenderInfo->CarShadowTexture = this->NeonTexture;
+			g_Config.ShadowShiftMult = 0;
 			this->carRenderInfo->DrawAmbientShadow(a1, a2, a3, a4, a5, a6);
 
 			this->carRenderInfo->CarShadowTexture = backup;
+			g_Config.ShadowShiftMult = shadowShift;
 		}
 	}
 
