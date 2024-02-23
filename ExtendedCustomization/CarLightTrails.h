@@ -27,7 +27,7 @@ public:
 	{
 		for (auto effect : this->effects)
 		{
-			effect->Update(matrix, Hashes::fxcar_lighttrail, a3, 1.0f, velocity);
+			effect->Update(matrix, VltHashes::fxcar_lighttrail, a3, 1.0f, velocity);
 			effect = effect->Next;
 		}
 	}

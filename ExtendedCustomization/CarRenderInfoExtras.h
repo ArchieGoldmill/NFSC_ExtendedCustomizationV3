@@ -20,6 +20,7 @@ private:
 public:
 	bool IsVisible;
 	bool IsEngineOn;
+	bool IsLightOn;
 	D3DXMATRIX CarMatrix;
 	D3DXMATRIX CarMatrixReflection;
 
@@ -39,6 +40,7 @@ public:
 		this->carRenderInfo = carRenderInfo;
 		this->IsVisible = false;
 		this->IsEngineOn = false;
+		this->IsLightOn = false;
 		this->initialStart = true;
 
 		if (g_Config.LicensePlateText)
@@ -89,7 +91,7 @@ public:
 
 	void CheckEngine()
 	{
-		if (Game::InRace() && !this->IsEngineOn && this->initialStart)
+		if (Game::InRace() && this->initialStart)
 		{
 			if (this->Animations)
 			{
@@ -107,6 +109,7 @@ public:
 			}
 
 			this->IsEngineOn = true;
+			this->IsLightOn = true;
 			this->initialStart = false;
 		}
 	}

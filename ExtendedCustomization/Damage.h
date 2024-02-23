@@ -2,20 +2,20 @@
 #include "Feature.h"
 #include "CarRenderInfo.h"
 
-void CarRenderInfo::SetWindowDamage(ReplacementTextureIndex index, DamageZone damageZone, Hash from, Hash to = Hashes::WINDOW_FRONT)
+void SetWindowDamage(CarRenderInfo* carRenderInfo, ReplacementTextureIndex index, DamageZone damageZone, Hash from, Hash to = Hashes::WINDOW_FRONT)
 {
-	if (this->Damage.IsDamaged(damageZone, DamageType_Medium))
+	if (carRenderInfo->Damage.IsDamaged(damageZone, DamageType_Medium))
 	{
 		to = Hashes::WINDOW_DAMAGE0;
 	}
 
-	if (this->Damage.IsDamaged(damageZone, DamageType_Heavy))
+	if (carRenderInfo->Damage.IsDamaged(damageZone, DamageType_Heavy))
 	{
 		to = Hashes::WINDOW_DAMAGE1;
 	}
 
-	this->GeneralReplacementTextures[(int)index].Update(from, to);
-	this->CarbonReplacementTextures[(int)index].Update(from, to);
+	carRenderInfo->GeneralReplacementTextures[(int)index].Update(from, to);
+	carRenderInfo->CarbonReplacementTextures[(int)index].Update(from, to);
 }
 
 void __fastcall SetPlayerDamage(CarRenderInfo* carRenderInfo, int, CarDamage* pDamage)
@@ -34,13 +34,13 @@ void __fastcall SetPlayerDamage(CarRenderInfo* carRenderInfo, int, CarDamage* pD
 	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_RearLeft), Slot::DAMAGE_REAR_LEFT, Slot::DAMAGE_REAR_LEFT);
 	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_RearRight), Slot::DAMAGE_REAR_RIGHT, Slot::DAMAGE_REAR_RIGHT);
 
-	carRenderInfo->SetWindowDamage(ReplacementTextureIndex::WindowFront, DamageZone_Front, Hashes::WINDOW_FRONT);
-	carRenderInfo->SetWindowDamage(ReplacementTextureIndex::WindowFrontLeft, DamageZone_FrontLeft, Hashes::WINDOW_LEFT_FRONT);
-	carRenderInfo->SetWindowDamage(ReplacementTextureIndex::WindowFrontRight, DamageZone_FrontRight, Hashes::WINDOW_RIGHT_FRONT);
-	carRenderInfo->SetWindowDamage(ReplacementTextureIndex::WindowRearLeft, DamageZone_RearLeft, Hashes::WINDOW_LEFT_REAR);
-	carRenderInfo->SetWindowDamage(ReplacementTextureIndex::WindowRearRight, DamageZone_RearRight, Hashes::WINDOW_RIGHT_REAR);
-	carRenderInfo->SetWindowDamage(ReplacementTextureIndex::RearDefroster, DamageZone_Rear, Hashes::REAR_DEFROSTER, Hashes::REAR_DEFROSTER);
-	carRenderInfo->SetWindowDamage(ReplacementTextureIndex::WindowRear, DamageZone_Rear, Hashes::WINDOW_REAR);
+	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowFront, DamageZone_Front, Hashes::WINDOW_FRONT);
+	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowFrontLeft, DamageZone_FrontLeft, Hashes::WINDOW_LEFT_FRONT);
+	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowFrontRight, DamageZone_FrontRight, Hashes::WINDOW_RIGHT_FRONT);
+	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowRearLeft, DamageZone_RearLeft, Hashes::WINDOW_LEFT_REAR);
+	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowRearRight, DamageZone_RearRight, Hashes::WINDOW_RIGHT_REAR);
+	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::RearDefroster, DamageZone_Rear, Hashes::REAR_DEFROSTER, Hashes::REAR_DEFROSTER);
+	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowRear, DamageZone_Rear, Hashes::WINDOW_REAR);
 }
 
 void __fastcall OnTaskFX(int* a, int, float b)

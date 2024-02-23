@@ -42,10 +42,10 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 	{
 		if (!*Game::NotInFocus)
 		{
-			carRenderInfo->Extras->IsEngineOn = !carRenderInfo->Extras->IsEngineOn;
+			carRenderInfo->Extras->IsLightOn = !carRenderInfo->Extras->IsLightOn;
 			if (Game::InFrontEnd())
 			{
-				if (carRenderInfo->Extras->IsEngineOn)
+				if (carRenderInfo->Extras->IsLightOn)
 				{
 					carRenderInfo->LightsState1 = VehicleFX_LIGHTS;
 				}

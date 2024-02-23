@@ -1,5 +1,6 @@
 #pragma once
 typedef unsigned int Hash;
+typedef unsigned int VltHash;
 
 namespace Hashes
 {
@@ -173,5 +174,9 @@ namespace Hashes
 
 	const Hash LEFT_BRAKELIGHT = 0x31A66786;
 	const Hash RIGHT_BRAKELIGHT = 0xBF700A79;
-	const Hash fxcar_lighttrail = 0x3d8d9cbd;
+}
+
+namespace VltHashes
+{
+	const VltHash fxcar_lighttrail = 0x3d8d9cbd;
 }

@@ -305,8 +305,6 @@ struct CarRenderInfo
 		_RenderFlaresOnCar(this, view, position, matrix, forceLightState, reflection, renderFlareFlags, nonPlayer);
 	}
 
-	void SetWindowDamage(ReplacementTextureIndex index, DamageZone damageZone, Hash from, Hash to);
-
 	D3DCOLOR GetHeadlightsColor()
 	{
 		auto part = this->pRideInfo->GetPart(Slot::LEFT_HEADLIGHT);
