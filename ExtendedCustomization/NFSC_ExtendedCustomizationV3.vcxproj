@@ -189,6 +189,7 @@
     <ClInclude Include="CarbonSlot.h" />
     <ClInclude Include="CarCustomizeManager.h" />
     <ClInclude Include="CarDamage.h" />
+    <ClInclude Include="CarLightTrails.h" />
     <ClInclude Include="CarSkinManager.h" />
     <ClInclude Include="ColorData.h" />
     <ClInclude Include="Damage.h" />

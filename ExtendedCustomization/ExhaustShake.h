@@ -121,7 +121,26 @@ public:
 		}
 	}
 
-	void Update();
+	void Update()
+	{
+		if (!IsPaused())
+		{
+			if (this->LeftShaker)
+			{
+				this->LeftShaker->Update();
+			}
+
+			if (this->RightShaker)
+			{
+				this->RightShaker->Update();
+			}
+
+			if (this->CenterShaker)
+			{
+				this->CenterShaker->Update();
+			}
+		}
+	}
 
 	~CarExhaustShake()
 	{

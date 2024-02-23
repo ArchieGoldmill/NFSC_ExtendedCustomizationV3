@@ -426,6 +426,9 @@
     <ClInclude Include="ReplacementTextureTableFixes.h">
       <Filter>Features</Filter>
     </ClInclude>
+    <ClInclude Include="CarLightTrails.h">
+      <Filter>Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Mod\ExtendedCustomization\Binary\main.end">

@@ -170,4 +170,8 @@ namespace Hashes
 
 	const Hash PART_VINYLS = 0xB6F7A53A;
 	const Hash PART_WINDOW_TINT = 0x2EF1F9AB;
+
+	const Hash LEFT_BRAKELIGHT = 0x31A66786;
+	const Hash RIGHT_BRAKELIGHT = 0xBF700A79;
+	const Hash fxcar_lighttrail = 0x3d8d9cbd;
 }

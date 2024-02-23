@@ -78,6 +78,8 @@ struct GlobalConfig : SharedConfig
 
 	int PartPreviewDelay;
 
+	float LightTrailSpeed;
+
 	bool AllVinylsTransformable;
 	bool AllVinylsMirrorable;
 	bool SmoothVinylTransform;

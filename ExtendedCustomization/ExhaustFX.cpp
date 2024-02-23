@@ -6,39 +6,6 @@
 #include "eModel.h"
 #include "CarRenderInfoExtras.h"
 
-void CarExhaustFX::UpdateSmoke(D3DXMATRIX* matrix, float a3, D3DXVECTOR3* velocity)
-{
-	if (this->carRenderInfo->Extras->IsEngineOn)
-	{
-		for (auto effect : this->SmokeEffects)
-		{
-			effect->Update(matrix, 0x3D42B5F3, a3, 1.0f, velocity);
-			effect = effect->Next;
-		}
-	}
-}
-
-void CarExhaustShake::Update()
-{
-	if (this->carRenderInfo->Extras->IsEngineOn && !IsPaused())
-	{
-		if (this->LeftShaker)
-		{
-			this->LeftShaker->Update();
-		}
-
-		if (this->RightShaker)
-		{
-			this->RightShaker->Update();
-		}
-
-		if (this->CenterShaker)
-		{
-			this->CenterShaker->Update();
-		}
-	}
-}
-
 void CreateEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker, bSlist<CarEmitterPosition>* list, int* counter)
 {
 	(*counter)++;
@@ -104,6 +71,17 @@ void CreateEmitter(eModel* model, PositionMarker* fxMarker, bSlist<CarEmitterPos
 	CreateEmitter(carRenderInfo, fxMarker, list, counter);
 }
 
+void CreateBrakelightEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker)
+{
+	if (carRenderInfo->Extras->LightTrails)
+	{
+		if (marker->Hash == Hashes::LEFT_BRAKELIGHT || marker->Hash == Hashes::RIGHT_BRAKELIGHT)
+		{
+			carRenderInfo->Extras->LightTrails->CreateEffect(&marker->Matrix);
+		}
+	}
+}
+
 int __fastcall GetEmitterPositions(CarRenderInfo* carRenderInfo, int, bSlist<CarEmitterPosition>* list, Hash* hashes, int hashCount)
 {
 	int count = 0;
@@ -120,6 +98,8 @@ int __fastcall GetEmitterPositions(CarRenderInfo* carRenderInfo, int, bSlist<Car
 					marker = model->GetNextMarker(marker);
 					if (marker)
 					{
+						CreateBrakelightEmitter(carRenderInfo, marker);
+
 						for (int j = 0; j < hashCount; j++)
 						{
 							if (marker->Hash == hashes[j])
@@ -163,10 +143,16 @@ void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, fl
 
 	auto pvehicle = conn->GetPVehicle();
 	float speed = pvehicle->GetSpeed();
+	auto carRenderInfo = conn->pCarRenderInfo;
+
 	if (abs(speed) < 10)
-	{
-		auto carRenderInfo = conn->pCarRenderInfo;
+	{		
 		carRenderInfo->Extras->ExhaustFX->UpdateSmoke(conn->Matrix, a3, conn->VelocityVector);
+	}
+
+	if (speed > g_Config.LightTrailSpeed)
+	{
+		carRenderInfo->Extras->LightTrails->Update(conn->Matrix, a3, conn->VelocityVector);
 	}
 }
 

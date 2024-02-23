@@ -9,6 +9,7 @@
 #include "ExhaustFX.h"
 #include "ExhaustShake.h"
 #include "WheelTextures.h"
+#include "CarLightTrails.h"
 
 class CarRenderInfoExtras
 {
@@ -31,6 +32,7 @@ public:
 	CarLicensePlateText* LicensePlateText = NULL;
 	CarRotorGlow* RotorGlow = NULL;
 	CarWheelTextures* WheelTextures = NULL;
+	CarLightTrails* LightTrails = NULL;
 
 	CarRenderInfoExtras(CarRenderInfo* carRenderInfo)
 	{
@@ -79,7 +81,10 @@ public:
 			this->Animations = new CarAnimations(carRenderInfo);
 		}
 
-		this->WheelTextures = new CarWheelTextures(carRenderInfo);
+		if (g_Config.LightTrailSpeed)
+		{
+			this->LightTrails = new CarLightTrails(carRenderInfo);
+		}
 	}
 
 	void CheckEngine()
@@ -151,6 +156,11 @@ public:
 		if (this->WheelTextures)
 		{
 			delete this->WheelTextures;
+		}
+		
+		if (this->LightTrails)
+		{
+			delete this->LightTrails;
 		}
 	}
 };
