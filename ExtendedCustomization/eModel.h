@@ -61,4 +61,10 @@ struct eModel : bNode<eModel>
 		FUNC(0x0055BF70, void, __thiscall, _Init, eModel*);
 		_Init(this);
 	}
+
+	PositionMarker* GetNextMarker(PositionMarker* prevMarker)
+	{
+		FUNC(0x0055C0F0, PositionMarker*, __thiscall, _GetNextMarker, eModel*, PositionMarker*);
+		return _GetNextMarker(this, prevMarker);
+	}
 };

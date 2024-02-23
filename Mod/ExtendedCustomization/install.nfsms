@@ -13,86 +13,18 @@ update_field emittergroup fxcar_shift Emitters[0] Collection emcar_shift_fire
 update_field emittergroup fxcar_shift Emitters[1] Collection emcar_shift_glow
 update_field emittergroup fxcar_shift Emitters[2] Collection emcar_shift_fire2
 
-update_field emitterdata emcar_nos_fire Color1 4294967295
-update_field emitterdata emcar_nos_fire Color2 14811135
-update_field emitterdata emcar_nos_fire Color3 2555903
-update_field emitterdata emcar_nos_fire Color4 0
-update_field emitterdata emcar_nos_fire2 Color1 16724991
-update_field emitterdata emcar_nos_fire2 Color2 13696895
-update_field emitterdata emcar_nos_fire2 Color3 24703
-update_field emitterdata emcar_nos_fire2 Color4 0
-update_field emitterdata emcar_nos_glow Color1 4294967295
-update_field emitterdata emcar_nos_glow Color2 14811135
-update_field emitterdata emcar_nos_glow Color3 14811135
-update_field emitterdata emcar_nos_glow Color4 2555903
-update_field emitterdata emcar_nos_fire FarClip 100
-update_field emitterdata emcar_nos_fire Gravity -1
-update_field emitterdata emcar_nos_fire Life 0.1
-update_field emitterdata emcar_nos_fire LifeVariance 0
-update_field emitterdata emcar_nos_fire NumParticles 25
-update_field emitterdata emcar_nos_fire NumParticlesVariance 0
-update_field emitterdata emcar_nos_fire Size X 0
-update_field emitterdata emcar_nos_fire Size Y 0.05
-update_field emitterdata emcar_nos_fire Size Z 0.2
-update_field emitterdata emcar_nos_fire Size W 0
-update_field emitterdata emcar_nos_fire Speed 9
-update_field emitterdata emcar_nos_fire2 FarClip 100
-update_field emitterdata emcar_nos_fire2 Gravity -1
-update_field emitterdata emcar_nos_fire2 Life 0.1
-update_field emitterdata emcar_nos_fire2 LifeVariance 0
-update_field emitterdata emcar_nos_fire2 NumParticles 25
-update_field emitterdata emcar_nos_fire2 NumParticlesVariance 0
-update_field emitterdata emcar_nos_fire2 Size X 0.1
-update_field emitterdata emcar_nos_fire2 Size Y 0.1
-update_field emitterdata emcar_nos_fire2 Size Z 0.65
-update_field emitterdata emcar_nos_fire2 Size W 0
-update_field emitterdata emcar_nos_fire2 Speed 9
-update_field emitterdata emcar_nos_glow FarClip 100
-update_field emitterdata emcar_nos_glow Gravity -1
-update_field emitterdata emcar_nos_glow Life 0.1
-update_field emitterdata emcar_nos_glow LifeVariance 0
-update_field emitterdata emcar_nos_glow NumParticles 50
-update_field emitterdata emcar_nos_glow NumParticlesVariance 0
-update_field emitterdata emcar_nos_glow Size X 0
-update_field emitterdata emcar_nos_glow Size Y 0.5
-update_field emitterdata emcar_nos_glow Size Z 0.1
-update_field emitterdata emcar_nos_glow Size W 0.5
-update_field emitterdata emcar_nos_glow Speed 0
-
 update_field emitterdata emcar_shift_fire Color1 4294967295
-update_field emitterdata emcar_shift_fire Color2 4284703743
-update_field emitterdata emcar_shift_fire Color3 1665410815
+update_field emitterdata emcar_shift_fire Color2 14811135
+update_field emitterdata emcar_shift_fire Color3 2555903
 update_field emitterdata emcar_shift_fire Color4 0
-update_field emitterdata emcar_shift_fire2 Color1 403243007
-update_field emitterdata emcar_shift_fire2 Color2 4292152703
-update_field emitterdata emcar_shift_fire2 Color3 1661796735
+update_field emitterdata emcar_shift_fire2 Color1 16724991
+update_field emitterdata emcar_shift_fire2 Color2 13696895
+update_field emitterdata emcar_shift_fire2 Color3 24703
 update_field emitterdata emcar_shift_fire2 Color4 0
 update_field emitterdata emcar_shift_glow Color1 4294967295
-update_field emitterdata emcar_shift_glow Color2 4284703743
-update_field emitterdata emcar_shift_glow Color3 4284703743
-update_field emitterdata emcar_shift_glow Color4 1665410815
-update_field emitterdata emcar_shift_glow FarClip 100
-update_field emitterdata emcar_shift_glow Gravity -1
-update_field emitterdata emcar_shift_glow Life 0.1
-update_field emitterdata emcar_shift_glow LifeVariance 0
-update_field emitterdata emcar_shift_glow NumParticles 50
-update_field emitterdata emcar_shift_glow NumParticlesVariance 0
-update_field emitterdata emcar_shift_glow Size X 0
-update_field emitterdata emcar_shift_glow Size Y 0.5
-update_field emitterdata emcar_shift_glow Size Z 0.1
-update_field emitterdata emcar_shift_glow Size W 0.5
-update_field emitterdata emcar_shift_glow Speed 0
-update_field emitterdata emcar_shift_fire2 FarClip 100
-update_field emitterdata emcar_shift_fire2 Gravity -1
-update_field emitterdata emcar_shift_fire2 Life 0.1
-update_field emitterdata emcar_shift_fire2 LifeVariance 0
-update_field emitterdata emcar_shift_fire2 NumParticles 25
-update_field emitterdata emcar_shift_fire2 NumParticlesVariance 0
-update_field emitterdata emcar_shift_fire2 Size X 0.1
-update_field emitterdata emcar_shift_fire2 Size Y 0.1
-update_field emitterdata emcar_shift_fire2 Size Z 0.65
-update_field emitterdata emcar_shift_fire2 Size W 0
-update_field emitterdata emcar_shift_fire2 Speed 9
+update_field emitterdata emcar_shift_glow Color2 14811135
+update_field emitterdata emcar_shift_glow Color3 14811135
+update_field emitterdata emcar_shift_glow Color4 2555903
 update_field emitterdata emcar_shift_fire FarClip 100
 update_field emitterdata emcar_shift_fire Gravity -1
 update_field emitterdata emcar_shift_fire Life 0.1
@@ -104,6 +36,74 @@ update_field emitterdata emcar_shift_fire Size Y 0.05
 update_field emitterdata emcar_shift_fire Size Z 0.2
 update_field emitterdata emcar_shift_fire Size W 0
 update_field emitterdata emcar_shift_fire Speed 9
+update_field emitterdata emcar_shift_fire2 FarClip 100
+update_field emitterdata emcar_shift_fire2 Gravity -1
+update_field emitterdata emcar_shift_fire2 Life 0.1
+update_field emitterdata emcar_shift_fire2 LifeVariance 0
+update_field emitterdata emcar_shift_fire2 NumParticles 25
+update_field emitterdata emcar_shift_fire2 NumParticlesVariance 0
+update_field emitterdata emcar_shift_fire2 Size X 0.1
+update_field emitterdata emcar_shift_fire2 Size Y 0.1
+update_field emitterdata emcar_shift_fire2 Size Z 0.65
+update_field emitterdata emcar_shift_fire2 Size W 0
+update_field emitterdata emcar_shift_fire2 Speed 9
+update_field emitterdata emcar_shift_glow FarClip 100
+update_field emitterdata emcar_shift_glow Gravity -1
+update_field emitterdata emcar_shift_glow Life 0.1
+update_field emitterdata emcar_shift_glow LifeVariance 0
+update_field emitterdata emcar_shift_glow NumParticles 50
+update_field emitterdata emcar_shift_glow NumParticlesVariance 0
+update_field emitterdata emcar_shift_glow Size X 0
+update_field emitterdata emcar_shift_glow Size Y 0.5
+update_field emitterdata emcar_shift_glow Size Z 0.1
+update_field emitterdata emcar_shift_glow Size W 0.5
+update_field emitterdata emcar_shift_glow Speed 0
+
+update_field emitterdata emcar_nos_fire Color1 4294967295
+update_field emitterdata emcar_nos_fire Color2 4284703743
+update_field emitterdata emcar_nos_fire Color3 1665410815
+update_field emitterdata emcar_nos_fire Color4 0
+update_field emitterdata emcar_nos_fire2 Color1 403243007
+update_field emitterdata emcar_nos_fire2 Color2 4292152703
+update_field emitterdata emcar_nos_fire2 Color3 1661796735
+update_field emitterdata emcar_nos_fire2 Color4 0
+update_field emitterdata emcar_nos_glow Color1 4294967295
+update_field emitterdata emcar_nos_glow Color2 4284703743
+update_field emitterdata emcar_nos_glow Color3 4284703743
+update_field emitterdata emcar_nos_glow Color4 1665410815
+update_field emitterdata emcar_nos_glow FarClip 100
+update_field emitterdata emcar_nos_glow Gravity -1
+update_field emitterdata emcar_nos_glow Life 0.1
+update_field emitterdata emcar_nos_glow LifeVariance 0
+update_field emitterdata emcar_nos_glow NumParticles 50
+update_field emitterdata emcar_nos_glow NumParticlesVariance 0
+update_field emitterdata emcar_nos_glow Size X 0
+update_field emitterdata emcar_nos_glow Size Y 0.5
+update_field emitterdata emcar_nos_glow Size Z 0.1
+update_field emitterdata emcar_nos_glow Size W 0.5
+update_field emitterdata emcar_nos_glow Speed 0
+update_field emitterdata emcar_nos_fire2 FarClip 100
+update_field emitterdata emcar_nos_fire2 Gravity -1
+update_field emitterdata emcar_nos_fire2 Life 0.1
+update_field emitterdata emcar_nos_fire2 LifeVariance 0
+update_field emitterdata emcar_nos_fire2 NumParticles 25
+update_field emitterdata emcar_nos_fire2 NumParticlesVariance 0
+update_field emitterdata emcar_nos_fire2 Size X 0.1
+update_field emitterdata emcar_nos_fire2 Size Y 0.1
+update_field emitterdata emcar_nos_fire2 Size Z 0.65
+update_field emitterdata emcar_nos_fire2 Size W 0
+update_field emitterdata emcar_nos_fire2 Speed 9
+update_field emitterdata emcar_nos_fire FarClip 100
+update_field emitterdata emcar_nos_fire Gravity -1
+update_field emitterdata emcar_nos_fire Life 0.1
+update_field emitterdata emcar_nos_fire LifeVariance 0
+update_field emitterdata emcar_nos_fire NumParticles 25
+update_field emitterdata emcar_nos_fire NumParticlesVariance 0
+update_field emitterdata emcar_nos_fire Size X 0
+update_field emitterdata emcar_nos_fire Size Y 0.05
+update_field emitterdata emcar_nos_fire Size Z 0.2
+update_field emitterdata emcar_nos_fire Size W 0
+update_field emitterdata emcar_nos_fire Speed 9
 
 // Front fenders
 copy_node fecameras customize_0_feautosculptfrontbumper customization customize_0_fefrontfenders

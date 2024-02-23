@@ -69,7 +69,7 @@ void CreateEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marker, bSlist<
 	}
 }
 
-void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSlist<CarEmitterPosition>* list, int* counter, CarRenderInfo* carRenderInfo)
+void CreateEmitter(eModel* model, PositionMarker* fxMarker, bSlist<CarEmitterPosition>* list, int* counter, CarRenderInfo* carRenderInfo)
 {
 	if (fxMarker->Hash == Hashes::EXHAUST_FX)
 	{
@@ -104,25 +104,40 @@ void __stdcall GetEmitterPositions(eModel* model, PositionMarker* fxMarker, bSli
 	CreateEmitter(carRenderInfo, fxMarker, list, counter);
 }
 
-void __declspec(naked) GetEmitterPositionsCave()
+int __fastcall GetEmitterPositions(CarRenderInfo* carRenderInfo, int, bSlist<CarEmitterPosition>* list, Hash* hashes, int hashCount)
 {
-	static constexpr auto cExit = 0x007BEC35;
-	__asm
+	int count = 0;
+	if (carRenderInfo->CarTypeInfo)
 	{
-		pushad;
-
-		push[esp + 0x38];
-		mov eax, esp;
-		add eax, 0x34;
-		push eax; //counter ptr
-		push ebx;
-		push esi; //mount point
-		push ebp; //model
-		call GetEmitterPositions;
-
-		popad;
-		jmp cExit;
+		for (int i = 0; i < 0x5A; i++)
+		{
+			auto model = (eModel*)((unsigned int)(carRenderInfo->PartModel[i][carRenderInfo->MinLodLevel]) & 0xFFFFFFFC);
+			if (model)
+			{
+				PositionMarker* marker = null;
+				while (true)
+				{
+					marker = model->GetNextMarker(marker);
+					if (marker)
+					{
+						for (int j = 0; j < hashCount; j++)
+						{
+							if (marker->Hash == hashes[j])
+							{
+								CreateEmitter(model, marker, list, &count, carRenderInfo);
+							}
+						}
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+		}
 	}
+
+	return 0;
 }
 
 void __declspec(naked) NosEffectCave()
@@ -132,10 +147,10 @@ void __declspec(naked) NosEffectCave()
 	__asm
 	{
 		mov al, [ecx + 0xB5];
-		mov ebp, 0xE3031005; // fxcar_shift
+		mov ebp, 0x6B7916BD; // fxcar_nos
 		test al, al;
 		je NosEffectCave_Exit;
-		mov ebp, 0x6B7916BD; // fxcar_nos
+		mov ebp, 0xE3031005; // fxcar_shift
 
 	NosEffectCave_Exit:
 		jmp cExit;
@@ -166,7 +181,7 @@ void InitExhaust()
 	{
 		char disableRearBumperCheck[5] = { 0xB8, 0x01, 0x00, 0x00, 0x00 };
 		injector::WriteMemoryRaw(0x007CC6BD, disableRearBumperCheck, 5);
-		injector::MakeJMP(0x007BEBFB, GetEmitterPositionsCave);
+		injector::MakeCALL(0x007CC6FC, GetEmitterPositions);
 	}
 
 	if (g_Config.ExhaustSmoke)
