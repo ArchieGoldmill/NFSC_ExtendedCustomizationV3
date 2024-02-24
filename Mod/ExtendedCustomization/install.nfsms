@@ -1,3 +1,11 @@
+ui_text ExtendedCustomization v3.3.3
+
+ui_image Binary\Images\1.jpg
+ui_image Binary\Images\2.jpg
+ui_image Binary\Images\3.jpg
+ui_image Binary\Images\4.jpg
+ui_image Binary\Images\5.jpg
+
 update_field fecameras customization cam_delay 0.1
 
 copy_node emittergroup fxcar_draft1 car fxcar_smoke

@@ -146,8 +146,8 @@ void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, fl
 	auto carRenderInfo = conn->pCarRenderInfo;
 
 	if (abs(speed) < 10)
-	{		
-		carRenderInfo->Extras->ExhaustFX->UpdateSmoke(conn->Matrix, a3, conn->VelocityVector);
+	{
+		SAFE_CALL(carRenderInfo->Extras->ExhaustFX, UpdateSmoke, conn->Matrix, a3, conn->VelocityVector);
 	}
 
 	if (speed > g_Config.LightTrailSpeed)
