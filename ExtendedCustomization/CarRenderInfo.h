@@ -323,4 +323,8 @@ struct CarRenderInfo
 
 		return 0;
 	}
+
+	bool IsLightOn();
+
+	bool IsEngineOn();
 };

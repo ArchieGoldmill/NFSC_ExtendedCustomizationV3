@@ -87,29 +87,35 @@ public:
 		{
 			this->LightTrails = new CarLightTrails(carRenderInfo);
 		}
+
+		this->WheelTextures = new CarWheelTextures(carRenderInfo);
 	}
 
 	void CheckEngine()
 	{
-		if (Game::InRace() && this->initialStart)
+		if (this->initialStart)
 		{
-			if (this->Animations)
+			if (Game::InRace())
 			{
-				auto leftHeadlight = (PartAnimation*)this->Animations->GetAnimation(Slot::LEFT_HEADLIGHT);
-				if (leftHeadlight)
+				if (this->Animations)
 				{
-					leftHeadlight->SetTarget(1.0f);
+					auto leftHeadlight = (PartAnimation*)this->Animations->GetAnimation(Slot::LEFT_HEADLIGHT);
+					if (leftHeadlight)
+					{
+						leftHeadlight->SetTarget(1.0f);
+					}
+
+					auto rightHeadlight = (PartAnimation*)this->Animations->GetAnimation(Slot::RIGHT_HEADLIGHT);
+					if (rightHeadlight)
+					{
+						rightHeadlight->SetTarget(1.0f);
+					}
 				}
 
-				auto rightHeadlight = (PartAnimation*)this->Animations->GetAnimation(Slot::RIGHT_HEADLIGHT);
-				if (rightHeadlight)
-				{
-					rightHeadlight->SetTarget(1.0f);
-				}
+				this->IsEngineOn = true;
+				this->IsLightOn = true;
 			}
 
-			this->IsEngineOn = true;
-			this->IsLightOn = true;
 			this->initialStart = false;
 		}
 	}

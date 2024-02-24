@@ -9,11 +9,6 @@ int __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
 {
 	Hash flareName = flare->NameHash;
 
-	if (!carRenderInfo->Extras->IsEngineOn)
-	{
-		return 0;
-	}
-
 	if (!carRenderInfo->Extras->Animations->IsLeftHeadlightOpen() && flareName == Hashes::LEFT_HEADLIGHT)
 	{
 		return 0;
@@ -50,7 +45,7 @@ int __stdcall SetFlareColor(CarRenderInfo* carRenderInfo, eLightFlare* flare)
 
 void RenderTextureHeadlights(CarRenderInfo* carRenderInfo, eView* a1, D3DXVECTOR4* a2, float a3, D3DXMATRIX* a4, D3DXMATRIX* a5, D3DXMATRIX* a6)
 {
-	if (!Game::InFrontEnd())
+	if (!Game::InFrontEnd() || !carRenderInfo->IsLightOn())
 	{
 		return;
 	}
@@ -98,7 +93,7 @@ void RenderFrontEndFlares(CarRenderInfo* carRenderInfo, bool reflection)
 		return;
 	}
 
-	if (carRenderInfo->Extras->IsEngineOn)
+	if (carRenderInfo->IsLightOn())
 	{
 		if (!reflection)
 		{

@@ -111,7 +111,7 @@ void UpdateBrakelightTextures(CarRenderInfo* carRenderInfo)
 	Hash brakelightRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_OFF;
 	Hash brakelightCentre = carRenderInfo->UsedTextureInfo.BRAKELIGHT_OFF;
 
-	if (carRenderInfo->Extras->IsEngineOn && TextureInfo::Get(carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF, false, false))
+	if (carRenderInfo->IsLightOn() && TextureInfo::Get(carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF, false, false))
 	{
 		brakelightLeft = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF;
 		brakelightRight = carRenderInfo->UsedTextureInfo.BRAKELIGHT_ONF;
@@ -218,7 +218,7 @@ void UpdateInteriorGlowTexture(CarRenderInfo* carRenderInfo)
 	Hash interiorOn = StringHash1("_ON", interiorHash);
 	if (TextureInfo::Get(interiorOff, false, false))
 	{
-		interiorHash = (carRenderInfo->Extras->IsEngineOn) ? interiorOn : interiorOff;
+		interiorHash = (carRenderInfo->IsLightOn()) ? interiorOn : interiorOff;
 	}
 	else
 	{

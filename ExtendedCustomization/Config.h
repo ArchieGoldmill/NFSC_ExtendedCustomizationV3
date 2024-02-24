@@ -123,6 +123,7 @@ struct GlobalConfig : SharedConfig
 	int HK_ToggleTrunk;
 	int HK_ToggleHeadlights;
 	int HK_ToggleLights;
+	int HK_ToggleEngine;
 
 	PartConfig GetPart(Slot slot, CarType carId);
 	Slot GetSlotByHeader(Hash header);

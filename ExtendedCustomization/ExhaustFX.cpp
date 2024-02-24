@@ -152,7 +152,7 @@ void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, fl
 
 	if (speed > g_Config.LightTrailSpeed)
 	{
-		carRenderInfo->Extras->LightTrails->Update(conn->Matrix, a3, conn->VelocityVector);
+		SAFE_CALL(carRenderInfo->Extras->LightTrails, Update, conn->Matrix, a3, conn->VelocityVector);
 	}
 }
 

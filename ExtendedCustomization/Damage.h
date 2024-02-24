@@ -61,10 +61,10 @@ void __fastcall OnTaskFX(int* a, int, float b)
 	auto list = CarRenderConn::GetList();
 	for (int i = 0; i < count; i++)
 	{
-		if (list[i]->GetPVehicle() == pVehicle && list[i]->pCarRenderInfo && !list[i]->pCarRenderInfo->Extras->IsEngineOn)
+		if (list[i]->GetPVehicle() == pVehicle && list[i]->pCarRenderInfo && !list[i]->pCarRenderInfo->IsLightOn())
 		{
-			pVehicle->GlareOff(VehicleFX_LIGHTS);
-			pVehicle->GlareOff(VehicleFX_REVERSE);
+			pVehicle->GlareOff(VehicleFX_HEADLIGHTS);
+			break;
 		}
 	}
 }

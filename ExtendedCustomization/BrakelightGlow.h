@@ -49,6 +49,6 @@ public:
 
 	Color GetColor()
 	{
-		return Color(carRenderInfo->IsGlareOn(VehicleFX_BRAKELIGHTS) ? 0x80808080 : 0x69696969);
+		return Color(carRenderInfo->IsGlareOn(VehicleFX_BRAKELIGHTS) ? 0x80808080 : (this->carRenderInfo->IsLightOn() ? 0x69696969 : 0));
 	}
 };

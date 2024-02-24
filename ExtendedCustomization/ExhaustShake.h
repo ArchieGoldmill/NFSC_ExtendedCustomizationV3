@@ -123,7 +123,7 @@ public:
 
 	void Update()
 	{
-		if (!IsPaused())
+		if (!IsPaused() && this->carRenderInfo->IsEngineOn())
 		{
 			if (this->LeftShaker)
 			{

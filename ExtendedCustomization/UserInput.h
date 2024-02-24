@@ -5,6 +5,16 @@
 #include "FERenderingCar.h"
 #include "../ThirdParty/IniReader/IniReader.h"
 
+bool CarRenderInfo::IsLightOn()
+{
+	return this->Extras->IsLightOn;
+}
+
+bool CarRenderInfo::IsEngineOn()
+{
+	return this->Extras->IsEngineOn;
+}
+
 void ToggleAnimation(CarRenderInfo* carRenderInfo, Slot slot, int hk)
 {
 	if (GetAsyncKeyState(hk))
@@ -67,6 +77,16 @@ void HandleUserInput1(CarRenderInfo* carRenderInfo)
 					anim->SetTarget(target);
 				}
 			}
+		}
+
+		while ((GetAsyncKeyState(g_Config.HK_ToggleLights) & 0x8000) > 0) { Sleep(0); }
+	}
+
+	if (GetAsyncKeyState(g_Config.HK_ToggleEngine))
+	{
+		if (!*Game::NotInFocus)
+		{
+			carRenderInfo->Extras->IsEngineOn = !carRenderInfo->Extras->IsEngineOn;
 		}
 
 		while ((GetAsyncKeyState(g_Config.HK_ToggleLights) & 0x8000) > 0) { Sleep(0); }
