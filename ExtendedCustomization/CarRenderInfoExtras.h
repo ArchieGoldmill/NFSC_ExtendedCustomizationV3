@@ -83,7 +83,8 @@ public:
 			this->Animations = new CarAnimations(carRenderInfo);
 		}
 
-		if (g_Config.LightTrailSpeed)
+		auto renderUsage = this->carRenderInfo->pRideInfo->RenderUsage;
+		if (g_Config.LightTrailSpeed && (renderUsage == CarRenderUsage::Player || renderUsage == CarRenderUsage::RemotePlayer || renderUsage == CarRenderUsage::AIRacer))
 		{
 			this->LightTrails = new CarLightTrails(carRenderInfo);
 		}
@@ -166,7 +167,7 @@ public:
 		{
 			delete this->WheelTextures;
 		}
-		
+
 		if (this->LightTrails)
 		{
 			delete this->LightTrails;

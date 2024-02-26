@@ -142,7 +142,7 @@ void __fastcall CarRenderConn_UpdateEffects(CarRenderConn* conn, int, int a2, fl
 	conn->UpdateEffects(a2, a3);
 
 	auto pvehicle = conn->GetPVehicle();
-	float speed = pvehicle->GetSpeed();
+	float speed = pvehicle->GetSpeedKmh();
 	auto carRenderInfo = conn->pCarRenderInfo;
 
 	if (abs(speed) < 10)

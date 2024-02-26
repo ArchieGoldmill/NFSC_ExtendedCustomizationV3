@@ -17,10 +17,7 @@ public:
 
 	void CreateEffect(D3DXMATRIX* matrix)
 	{
-		if (g_Config.ExhaustSmoke)
-		{
-			this->effects.push_back(new Effect(matrix));
-		}
+		this->effects.push_back(new Effect(matrix));
 	}
 
 	void Update(D3DXMATRIX* matrix, float a3, D3DXVECTOR3* velocity)

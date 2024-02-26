@@ -77,6 +77,11 @@ public:
 		return _GetSpeed(this);
 	}
 
+	float GetSpeedKmh()
+	{
+		return this->GetSpeed() * 3.5999999f;
+	}
+
 	float GetBraking()
 	{
 		auto aiVehicle = this->GetAIVehicle();

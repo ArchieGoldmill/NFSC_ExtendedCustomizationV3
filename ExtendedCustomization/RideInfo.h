@@ -8,6 +8,19 @@
 #include "AutoSculpt.h"
 #include "VinylManager.h"
 
+enum CarRenderUsage
+{
+	Player = 0,
+	RemotePlayer = 1,
+	AIRacer = 2,
+	AICop = 3,
+	AITraffic = 4,
+	AIHeli = 5,
+	NISCar = 6,
+	Ghost = 7,
+	Invalid = 8
+};
+
 struct CarRenderInfo;
 struct RideInfo
 {
