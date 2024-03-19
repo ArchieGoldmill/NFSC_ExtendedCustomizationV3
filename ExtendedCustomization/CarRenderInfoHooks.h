@@ -47,17 +47,12 @@ double __fastcall OnShadowRender(CarRenderInfo* carRenderInfo, int, bool reflect
 	{
 		carRenderInfo->Extras->CarMatrix = *carRenderInfo->Matrix;
 
-		auto shadowShift = g_Config.ShadowShiftMult;
-		if (Game::InFrontEnd())
-		{
-			g_Config.ShadowShiftMult = 0;
-		}
 		result = carRenderInfo->DrawAmbientShadow(view, a3, a4, a5, a6, a7);
-		g_Config.ShadowShiftMult = shadowShift;
 
 		SAFE_CALL(carRenderInfo->Extras->Neon, RenderShadow, view, a3, a4, a5, a6, a7);
 
 		SAFE_CALL(carRenderInfo->Extras->BrakelightGlow, RenderShadow, view, a3, a4, a5, a6, a7);
+
 		RenderTextureHeadlights(carRenderInfo, view, a3, a4, a5, a6, a7);
 	}
 

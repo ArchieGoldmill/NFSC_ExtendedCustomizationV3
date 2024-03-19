@@ -70,7 +70,6 @@ struct GlobalConfig : SharedConfig
 
 	float NeonSize;
 	float NeonInnerSize;
-	float ShadowShiftMult;
 
 	bool DebugRotorGlow;
 	unsigned int DebugAICar;
