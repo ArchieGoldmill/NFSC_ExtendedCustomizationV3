@@ -3,10 +3,9 @@
 #include "PVehicle.h"
 #include "Effect.h"
 
-class CarRenderInfo;
-class CarRenderConn
+struct CarRenderInfo;
+struct CarRenderConn
 {
-public:
 	int unk1[2];
 	int* Vehicle;
 	int unk2[0xA];

@@ -230,6 +230,14 @@ void __fastcall FeGarageMain_HandleSpecialCustomization(FeGarageMain* feGarageMa
 	}
 	else
 	{
+		if (version == 1)
+		{
+			char* carName = GetCarTypeName(rideInfo->CarId);
+			Legacy::HandleSideMirrors(feGarageMain, rideInfo, record, carName);
+			Legacy::HandleBrakelights(feGarageMain, rideInfo, record, carName);
+			Legacy::HandleHeadlights(feGarageMain, rideInfo, record, carName);
+		}
+
 		feGarageMain->HandleSpecialCustomization(rideInfo, record);
 	}
 

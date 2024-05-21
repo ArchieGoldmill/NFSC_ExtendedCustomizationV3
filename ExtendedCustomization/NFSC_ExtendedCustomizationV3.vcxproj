@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.asi</TargetExt>
-    <OutDir>..\..\..\..\Games\Need for Speed Carbon\_back\scripts\</OutDir>
+    <OutDir>D:\Games\Need for Speed Carbon\_game\scripts\</OutDir>
     <TargetName>ExtendedCustomization</TargetName>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>

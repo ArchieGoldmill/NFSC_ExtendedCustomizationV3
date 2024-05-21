@@ -152,7 +152,7 @@ struct UsedCarTextureInfo
 	}
 };
 
-class CarRenderInfoExtras;
+struct CarRenderInfoExtras;
 struct CarRenderInfo
 {
 	D3DXMATRIX ExhaustLocalWorldCopy[3];
