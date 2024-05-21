@@ -114,6 +114,7 @@ struct GlobalConfig : SharedConfig
 	bool WindowDamageStages;
 	bool NewUI;
 	bool ReplacementTextureTableFixes;
+	bool ExtraDamage;
 
 	bool HK_Enabled;
 	int HK_ToggleHood;

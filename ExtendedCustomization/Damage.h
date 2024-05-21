@@ -27,12 +27,15 @@ void __fastcall SetPlayerDamage(CarRenderInfo* carRenderInfo, int, CarDamage* pD
 	}
 
 	carRenderInfo->Damage = damage;
-	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_Front), Slot::DAMAGE_FRONT, Slot::DAMAGE_FRONT);
-	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_Rear), Slot::DAMAGE_REAR, Slot::DAMAGE_REAR);
-	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_FrontLeft), Slot::DAMAGE_FRONT_LEFT, Slot::DAMAGE_FRONT_LEFT);
-	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_FrontRight), Slot::DAMAGE_FRONT_RIGHT, Slot::DAMAGE_FRONT_RIGHT);
-	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_RearLeft), Slot::DAMAGE_REAR_LEFT, Slot::DAMAGE_REAR_LEFT);
-	carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_RearRight), Slot::DAMAGE_REAR_RIGHT, Slot::DAMAGE_REAR_RIGHT);
+	if (g_Config.ExtraDamage)
+	{
+		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_Front), Slot::DAMAGE_FRONT, Slot::DAMAGE_FRONT);
+		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_Rear), Slot::DAMAGE_REAR, Slot::DAMAGE_REAR);
+		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_FrontLeft), Slot::DAMAGE_FRONT_LEFT, Slot::DAMAGE_FRONT_LEFT);
+		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_FrontRight), Slot::DAMAGE_FRONT_RIGHT, Slot::DAMAGE_FRONT_RIGHT);
+		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_RearLeft), Slot::DAMAGE_REAR_LEFT, Slot::DAMAGE_REAR_LEFT);
+		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_RearRight), Slot::DAMAGE_REAR_RIGHT, Slot::DAMAGE_REAR_RIGHT);
+	}
 
 	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowFront, DamageZone_Front, Hashes::WINDOW_FRONT);
 	SetWindowDamage(carRenderInfo, ReplacementTextureIndex::WindowFrontLeft, DamageZone_FrontLeft, Hashes::WINDOW_LEFT_FRONT);
