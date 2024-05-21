@@ -84,9 +84,13 @@ public:
 		}
 
 		auto renderUsage = this->carRenderInfo->pRideInfo->RenderUsage;
-		if (g_Config.LightTrailSpeed && (renderUsage == CarRenderUsage::Player || renderUsage == CarRenderUsage::RemotePlayer || renderUsage == CarRenderUsage::AIRacer))
+		if (g_Config.LightTrailSpeed)
 		{
-			this->LightTrails = new CarLightTrails(carRenderInfo);
+			if ((g_Config.LightTrail == 1 && renderUsage == CarRenderUsage::Player) ||
+				(g_Config.LightTrail == 2 && (renderUsage == CarRenderUsage::Player || renderUsage == CarRenderUsage::AIRacer)))
+			{
+				this->LightTrails = new CarLightTrails(carRenderInfo);
+			}
 		}
 
 		this->WheelTextures = new CarWheelTextures(carRenderInfo);

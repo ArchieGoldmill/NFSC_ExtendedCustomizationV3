@@ -230,6 +230,7 @@ void InitConfig()
 	g_Config.NewUI = iniReader.ReadInteger("MODS", "NewUI", 0) == 1;
 	g_Config.ReplacementTextureTableFixes = iniReader.ReadInteger("MODS", "ReplacementTextureTableFixes", 0) == 1;
 	g_Config.ExtraDamage = iniReader.ReadInteger("MODS", "ExtraDamage", 0) == 1;
+	g_Config.LightTrail = iniReader.ReadInteger("MODS", "LightTrail", 0);
 
 	g_Config.HK_Enabled = iniReader.ReadInteger("HOT_KEYS", "Enabled", 0) == 1;
 	g_Config.HK_ToggleHeadlights = iniReader.ReadInteger("HOT_KEYS", "ToggleHeadlights", 0);
