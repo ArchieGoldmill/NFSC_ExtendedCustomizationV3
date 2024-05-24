@@ -82,7 +82,7 @@ void CreateBrakelightEmitter(CarRenderInfo* carRenderInfo, PositionMarker* marke
 	}
 }
 
-int __fastcall GetEmitterPositions(CarRenderInfo* carRenderInfo, int, bSlist<CarEmitterPosition>* list, Hash* hashes, int hashCount)
+int __fastcall GetEmitterPositions(CarRenderInfo* carRenderInfo, int, bSlist<CarEmitterPosition>* list, Hash* emitterHashes, int hashCount)
 {
 	int count = 0;
 	if (carRenderInfo->CarTypeInfo)
@@ -102,7 +102,7 @@ int __fastcall GetEmitterPositions(CarRenderInfo* carRenderInfo, int, bSlist<Car
 
 						for (int j = 0; j < hashCount; j++)
 						{
-							if (marker->Hash == hashes[j])
+							if (marker->Hash == emitterHashes[j])
 							{
 								CreateEmitter(model, marker, list, &count, carRenderInfo);
 							}

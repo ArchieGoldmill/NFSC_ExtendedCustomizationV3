@@ -38,11 +38,6 @@ struct CarDamage
 
 	bool IsDamaged(DamageZone zone, DamageType type)
 	{
-		if (!g_Config.ExtraDamage)
-		{
-			return false;
-		}
-
 		if (g_Config.DebugDamage)
 		{
 			return true;

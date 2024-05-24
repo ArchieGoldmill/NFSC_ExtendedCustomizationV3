@@ -33,5 +33,6 @@ std::pair<Slot, const char*> ConfigParts[] = {
 	{ Slot::BRAKELIGHT, "PART_BRAKELIGHT"},
 	{ Slot::HEADLIGHT, "PART_HEADLIGHT"},
 	{ Slot::FRONT_LEFT_WINDOW, "PART_FRONT_LEFT_WINDOW"},
+	{ Slot::FRONT_RIGHT_WINDOW, "PART_FRONT_RIGHT_WINDOW"},
 	{ Slot::DRIVER, "PART_DRIVER"},
 };

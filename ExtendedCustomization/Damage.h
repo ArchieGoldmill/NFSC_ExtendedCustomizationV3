@@ -27,7 +27,7 @@ void __fastcall SetPlayerDamage(CarRenderInfo* carRenderInfo, int, CarDamage* pD
 	}
 
 	carRenderInfo->Damage = damage;
-	if (g_Config.ExtraDamage)
+	if (g_Config.GetExtraDamage(carRenderInfo->pRideInfo->CarId) == State::Enabled)
 	{
 		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_Front), Slot::DAMAGE_FRONT, Slot::DAMAGE_FRONT);
 		carRenderInfo->SetCarDamageState(damage.IsDamaged(DamageZone_Rear), Slot::DAMAGE_REAR, Slot::DAMAGE_REAR);

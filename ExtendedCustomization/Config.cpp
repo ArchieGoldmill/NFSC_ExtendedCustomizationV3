@@ -72,6 +72,20 @@ State GlobalConfig::GetForceLodA(Hash carId)
 	return g_Config.ForceLodA;
 }
 
+State GlobalConfig::GetExtraDamage(CarType carId)
+{
+	auto carConfig = this->GetCarConfig(carId);
+	if (carConfig)
+	{
+		if (carConfig->ExtraDamage != State::Default)
+		{
+			return carConfig->ExtraDamage;
+		}
+	}
+
+	return g_Config.ExtraDamage;
+}
+
 int GlobalConfig::GetVersion(CarType carId)
 {
 	auto carConfig = this->GetCarConfig(carId);
