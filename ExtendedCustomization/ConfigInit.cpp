@@ -90,7 +90,6 @@ void InitShared(CIniReader& iniReader, SharedConfig* shared)
 
 	shared->PopUpHeadLights = InitState(iniReader, "GENERAL", "PopUpHeadLights");
 	shared->ForceLodA = InitState(iniReader, "GENERAL", "ForceLodA");
-	shared->ExtraDamage = InitState(iniReader, "GENERAL", "ExtraDamage");
 }
 
 void InitTextures(CIniReader& iniReader, CarConfig* carConfig)

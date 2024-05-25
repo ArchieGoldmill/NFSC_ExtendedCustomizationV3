@@ -52,22 +52,9 @@ void __fastcall OnTaskFX(int* a, int, float b)
 	auto carRenderConn = CarRenderConn::Get(pVehicle);
 	auto carRenderInfo = carRenderConn->pCarRenderInfo;
 
-	if (carRenderInfo)
+	if (carRenderInfo && !carRenderInfo->IsLightOn())
 	{
-		if (g_Config.GetExtraDamage(carRenderInfo->pRideInfo->CarId) == State::Enabled)
-		{
-			auto damage = pVehicle->GetDamage();
-			if (damage.IsHeadlightLeftDamaged()) pVehicle->GlareOff(VehicleFX_LHEAD);
-			if (damage.IsHeadlightRightDamaged()) pVehicle->GlareOff(VehicleFX_RHEAD);
-			if (damage.IsBrakelightLeftDamaged()) pVehicle->GlareOff(VehicleFX_LBRAKE);
-			if (damage.IsBrakelightRightDamaged()) pVehicle->GlareOff(VehicleFX_RBRAKE);
-			if (damage.IsBrakelightCentreDamaged()) pVehicle->GlareOff(VehicleFX_CBRAKE);
-		}
-
-		if (!carRenderInfo->IsLightOn())
-		{
-			pVehicle->GlareOff(VehicleFX_HEADLIGHTS);
-		}
+		pVehicle->GlareOff(VehicleFX_HEADLIGHTS);
 	}
 }
 

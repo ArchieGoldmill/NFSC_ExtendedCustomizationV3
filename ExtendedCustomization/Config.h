@@ -50,7 +50,6 @@ struct SharedConfig
 	std::vector<PartConfig> Parts;
 	State PopUpHeadLights = State::Default;
 	State ForceLodA = State::Default;
-	State ExtraDamage = State::Default;
 
 	PartConfig* GetPart(Slot slot);
 };
@@ -132,7 +131,6 @@ struct GlobalConfig : SharedConfig
 	CarConfig* GetCarConfig(Hash carName);
 	State GetPopUpHeadLights(CarType carId);
 	State GetForceLodA(Hash carName);
-	State GetExtraDamage(CarType carId);
 	int GetVersion(CarType carId);
 };
 
