@@ -31,6 +31,21 @@ struct CarRenderConn
 		return *List;
 	}
 
+	static CarRenderConn* Get(PVehicle* pVehicle)
+	{
+		int count = CarRenderConn::GetListCount();
+		auto list = CarRenderConn::GetList();
+		for (int i = 0; i < count; i++)
+		{
+			if (list[i]->GetPVehicle() == pVehicle)
+			{
+				return list[i];
+			}
+		}
+
+		return nullptr;
+	}
+
 	static CarRenderConn* Get(CarRenderInfo* carRenderInfo)
 	{
 		int count = CarRenderConn::GetListCount();

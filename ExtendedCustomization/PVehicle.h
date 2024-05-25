@@ -28,9 +28,8 @@ enum VehicleFX
 	VehicleFX_COPS = 0x7000
 };
 
-class AIVehicle
+struct AIVehicle
 {
-public:
 	float GetAccelerating()
 	{
 		auto f_this = (float*)this;
@@ -44,9 +43,8 @@ public:
 	}
 };
 
-class PVehicle
+struct PVehicle
 {
-public:
 	AIVehicle* GetAIVehicle()
 	{
 		static auto _GetAIVehicle = (AIVehicle * (__thiscall*)(PVehicle*))0x006D8110;
