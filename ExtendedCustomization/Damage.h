@@ -50,11 +50,14 @@ void __fastcall OnTaskFX(int* a, int, float b)
 
 	auto pVehicle = (PVehicle*)(a + 0x2E);
 	auto carRenderConn = CarRenderConn::Get(pVehicle);
-	auto carRenderInfo = carRenderConn->pCarRenderInfo;
-
-	if (carRenderInfo && !carRenderInfo->IsLightOn())
+	if (carRenderConn)
 	{
-		pVehicle->GlareOff(VehicleFX_HEADLIGHTS);
+		auto carRenderInfo = carRenderConn->pCarRenderInfo;
+
+		if (carRenderInfo && !carRenderInfo->IsLightOn())
+		{
+			pVehicle->GlareOff(VehicleFX_HEADLIGHTS);
+		}
 	}
 }
 
